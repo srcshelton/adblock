@@ -1013,6 +1013,10 @@
     "message":"Vertaling door",
     "description":"Will be followed by a list of translator names (separate string)"
   },
+  "translator_names":{
+    "message":"Jérémy Keusters",
+    "example":"The translator's names go here. Example: Michael G, Drew R"
+  },
   "tabsupport":{
     "message":"Ondersteuning",
     "description":"A tab on the options page"
@@ -1231,10 +1235,6 @@
     "message":"The broncode is <a>gratis beschikbaar<\/a>!",
     "description":"Link to the source code of AdBlock on the Support tab of the options"
   },
-  "contributors":{
-    "message":"We hebben ook een <a>pagina<\/a> die je helpt met het uitzoeken wie er allemaal achter AdBlock zit!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
   "debuginfo":{
     "message":"Heeft ons team gevraagd om debug info? Klik daarvoor <a href='#' id='debug'>hier<\/a>!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
@@ -1246,9 +1246,5 @@
   "supportsite":{
     "message":"Laat het ons weten op onze <a>ondersteuning website<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
-  },
-  "ad_report_please":{
-    "message":"Als je een advertentie ziet, maak dan geen bug rapport, maar maak een <a>advertentie rapport<\/a>!",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   }
 }

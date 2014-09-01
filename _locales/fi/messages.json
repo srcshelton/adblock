@@ -1013,6 +1013,10 @@
     "message":"Kiitokset käännöksestä seuraaville:",
     "description":"Will be followed by a list of translator names (separate string)"
   },
+  "translator_names":{
+    "message":"Jesse Järvi sekä ollinpos",
+    "example":"The translator's names go here. Example: Michael G, Drew R"
+  },
   "tabsupport":{
     "message":"Tuki",
     "description":"A tab on the options page"
@@ -1246,9 +1250,5 @@
   "supportsite":{
     "message":"Kerro meille <a>tukisivustolla<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
-  },
-  "ad_report_please":{
-    "message":"Jos näet mainoksen, ethän tee virheilmoitusta, vaan tee <a>ilmoitus mainoksesta<\/a>!",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   }
 }

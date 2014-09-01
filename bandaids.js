@@ -64,38 +64,20 @@ var run_bandaids = function() {
       BGcall('set_first_run_to_false', null);
     },
     youtube_safari_only: function() {
-        
-        function blockYoutubeAds(videoplayer) {
+
+      function blockYoutubeAds(videoplayer) {
         var flashVars = videoplayer.getAttribute('flashvars');
         var inParam = false;
-        if (!flashVars) {
+        if(!flashVars) {
             flashVars = videoplayer.querySelector('param[name="flashvars"]');
-            // HTML5 video player, remove ads also there
-            if (!flashVars) {
-                // Remove ad container & ad progress, so user won't notice removal of ads
-                var adcontainer = document.querySelector(".video-ads");
-                adcontainer.parentNode.removeChild(adcontainer);
-                var adprogress = document.querySelector(".html5-ad-progress-list");
-                adprogress.parentNode.removeChild(adprogress);
-
-                // Disable some attributes in ytplayer object to disable ads in HTML5 video player
-                var elemScript = document.createElement("script");
-                elemScript.textContent = 
-                    "var ytp = ytplayer['config']['args']; ytplayer['config'].loaded = false; ytp.ad3_module = 0;" + 
-                    "ytp.ad_channel_code_instream = 0; ytp.ad_channel_code_overlay = 0; ytp.ad_device = 0; ytp.ad_eurl = 0;" +
-                    "ytp.ad_host = 0; ytp.ad_host_tier = 0; ytp.ad_logging_flag = 0; ytp.ad_preroll = 0; ytp.ad_slots = 0;" +
-                    "ytp.ad_tag = 0; ytp.ad_video_pub_id = 0; ytp.adsense_video_doc_id = 0; ytp.advideo = 0; ytp.afv = 0;" +
-                    "ytp.afv_ad_tag = 0; ytp.afv_ad_tag_restricted_to_instream = 0; ytp.afv_instream_max = 0; ytp.allowed_ads = 0;" +
-                    "ytp.afv_video_min_cpm = 0; ytp.allow_html5_ads = 0; ytp.excluded_ad = 0; ytp.dynamic_allocation_ad_tag = 0;";
-                document.body.appendChild(elemScript);
-                document.body.removeChild(elemScript);
+            // Give up if we still can't find it
+            if(!flashVars)
                 return;
-            }
             inParam = true;
             flashVars = flashVars.getAttribute("value");
         }
         var adRegex = /(^|\&)((ad_.+?|prerolls|interstitial)\=.+?|invideo\=true)(\&|$)/gi;
-        if (!adRegex.test(flashVars))
+        if(!adRegex.test(flashVars))
             return;
 
         log("Removing YouTube ads");
@@ -163,14 +145,16 @@ var before_ready_bandaids = function() {
     youtube_only: function() {
         // If history.pushState is available,
         // YouTube uses it when navigating from one video
-        // to another and tells the HTML5 player via JavaScript,
-        // which ads to show next bypassing ytplayer object rewrite code.
-        // Disabling history.pushState on pages with YouTube's HTML5 player
+        // to another and tells the flash player via JavaScript,
+        // which ads to show next bypassing the flashvars rewrite code.
+        // Disabling history.pushState on pages with YouTube's flash player
         // will force YouTube to not use history.pushState
-        var elemScript = document.createElement("script");
-        elemScript.textContent = "History.prototype.pushState = undefined;";
-        document.documentElement.appendChild(elemScript);
-        document.documentElement.removeChild(elemScript);
+        var s = document.createElement("script");
+        s.type = "application/javascript";
+        s.async = false;
+        s.textContent = "History.prototype.pushState = undefined;";
+        document.documentElement.appendChild(s);
+        document.documentElement.removeChild(s);
     }
   }; // end bandaids
 
