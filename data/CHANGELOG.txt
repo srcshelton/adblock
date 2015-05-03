@@ -1,0 +1,32 @@
+## Versions ##
+
+UNRELEASED:
+
+2.0:  Improved performance of extension
+      Added a user message when the white list and black list wizard can't run on older sites. #49
+      Removed confusing message on the popup menu #48
+      Added logic to allow the getadblock.com web site to set show_survey option #40
+      Fixed the style issue on the whitelist and blacklist wizards #36
+      Modified the color of buttons on option pages to a darker black #34
+      Fixed an issue when subscribing to new filters list using the abp: syntax #27
+      Added AdBlock warning removal filter list #21
+      Removed Chrome and Safari browser specific #20    
+
+1.1   Added support for Firefox Mobile (Fennec)
+      Fixed version reporting (#10)
+      Added YouTube whitelisting feature (#5)
+      Added Hide this button feature (#6)
+      Made several UI improvements to the options pages
+      Added total block ad count to ping data
+      Updated GetAdBlock site detection
+      Added remove listener to wizard close processing
+      Added a check so that only 1 options page is shown
+      Corrected the getadblock.com URL, removed the leading www
+      Updated translations, and added translation credit file
+      Default ad reports to private on the support web site, to avoid spam bot issues
+      Added an option to the support page to show users how to report ads
+      Added retry logic to ping process
+      Added survey id, and check logic to survey logic
+      Removed the Resource Block page
+      Remove unsafe usage of .html() and innerHTML() functions
+      

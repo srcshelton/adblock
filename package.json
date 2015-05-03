@@ -1,0 +1,16 @@
+{
+  "name": "getadblock_com",
+  "fullName": "getadblock.com",
+  "homepage": "https://getadblock.com/",
+  "title": "AdBlock for Firefox",
+  "id": "jid1-NIfFY2CA8fy1tg",
+  "permissions": {"private-browsing": true},
+  "description": "The most popular ad blocker for Chrome and Safari, now available for Firefox!  Block all advertisements on all web pages, even Facebook, Youtube, and Hulu. Browse faster, too! Most ads aren't even downloaded at all, saving you time and bandwidth.",
+  "author": "AdBlock Team",
+  "license": "GPL 3.0",
+  "version": "2.0",
+  "icon": "data/img/icon48.png",
+  "icon64": "data/img/icon64.png",
+  "contributors": ["Alyson Asami", "Antoine Boegler", "Brent Montrose", "Charles Cary", "Cielo dela Cruz", "Dave Ripoll", "Famlam", "Gabriel Cubbage", "Gene Lee", "Glenn Stovall", "Jérémy Keusters", "Kieran Peckett", "Matthew Krisiloff", "Michael Baker", "Michael Gundlach", "Nathan Long", "Paolo Anchoriz", "Stephen Coward", "Steven Valladolid", "Tomáš Taro", "Tony Sodano"],
+  "translators": ["umar hoj", "Николай Филипов", "CatTranslations", "Petr Cízl", "stallemanden", "Rasmus S.", "John Rey", "Ανέστης Βαρσαμίδης", "Ελευθερία Κ.", "Dani de elASDFblog", "@Jotaele_", "Jesse Järvi sekä ollinpos", "Neelfyn", "Matthieu Bobillot", "Cash-man", "BsT", "Stjepan Treger", "iScream", "Ofalvai", "Ghie2lo", "Fabio B.", "Yujin Takayanagi", "minami1983", "메이비(Maybee)", "KristapsK", "Emil Broll", "Martin Hoftun", "Erling Stangnes", "Jérémy Keusters", "Izokrex", "Philippe R.", "Jacques L.", "Matheus M.", "Pedro Oliveira", "Eli", "Вадим Богайсков", "Даниил Санкин", "Tomáš Taro", "Ján Krasnovský", "Gregory_K", "Stefan Bajić", "Åke Engelbrektson", "Ponakala P", "Necip Ateş", "Юрій Жарков", "Tai-Lin Chu", "Gaosong2", "Gli", "Chenxiao", "Tai-Lin Chu", "Illusionmist62442"]
+}
