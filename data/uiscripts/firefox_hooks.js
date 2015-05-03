@@ -1,3 +1,5 @@
+"use strict";
+
 // This file is only loaded by Firefox.
 //the listener for 'call' is done here, since the only scripts the recieve 'call's also use
 //this script.

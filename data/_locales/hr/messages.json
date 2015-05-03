@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Najpopularnije Chrome proširenje, sa preko 15 milijuna korisnika! Blokira reklame na cijelom internetu.",
+    "message":"Najpopularnije Chrome proširenje, sa preko 40 milijuna korisnika! Blokira reklame na cijelom internetu.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -236,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Dodaj stavke na izbornik desnog klika",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Omogući način kompatibilnosti ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Prikaži izjave uklanjanja pogreške u zapisu konzole (usporava AdBlock)",
@@ -703,6 +707,30 @@
     "message":"Da li se reklama pojavljuje i u tom pregledniku?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
+  "ff_checkinchrometitle":{
+    "message":"Provjerite u programu Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Instalirajte Chrome ako ga nemate.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Instalirajte AdBlock za Chrome ako ga nemate.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Pretplatite se u programu Chrome na iste liste filtera kao što se ovdje.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"U programu Chrome otvorite stranicu sa reklamom.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Pojavljuje li se reklama u programu Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
   "refusetocheck":{
     "message":"Ne želim ovo provjeravati",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -1109,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"Svrha ovog pitanja je da se utvrdi tko bi trebao primiti vaš izvještaj. Ako odgovorite netočno, izvještaj će biti poslan krivim ljudima pa tako možda i zanemaren.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Blokirane reklame:",
@@ -1136,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Prikaži na AdBlock gumbu",
+    "message":"Pokaži broj blokiranih reklama na AdBlock gumbu",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Pokaži broj blokiranih reklama na AdBlock izborniku",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Liste filtera blokiranih reklama",
@@ -1168,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Dodaj na listu dopuštenih ovaj YouTube kanal",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Dopusti $name$ kanal",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Jeste li sigurni da želite maknuti $count$ blokiranja koje ste napravili na $host$?",

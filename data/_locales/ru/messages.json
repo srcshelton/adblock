@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Наиболее популярное расширение Chrome с более чем 15 миллионами пользователей! Блокирует рекламу по всему Интернету.",
+    "message":"Наиболее популярное расширение Chrome с более чем 40 миллионами пользователей! Блокирует рекламу по всему Интернету.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -236,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Добавить элементы в меню правой кнопки мыши",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Включить режим совместимости ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Показывать сообщения отладки в Журнале Консоли (замедляет AdBlock)",
@@ -703,6 +707,30 @@
     "message":"Реклама появляется в этом браузере тоже?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
+  "ff_checkinchrometitle":{
+    "message":"Проверить в Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Установить Chrome, если у Вас нет его.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Установить AdBlock для Chrome, если у Вас нет его.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"В Chrome подпишитесь на те же списки фильтров, как и здесь.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"В Chrome загрузите страницу с рекламой.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Реклама появляется в Chrome тоже?",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
   "refusetocheck":{
     "message":"Я не хочу проверять это",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -1109,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"Цель этого вопроса определить, кто должен получить Ваш отчет. Если Вы ответите на этот вопрос неправильно, то отчет будет направлен не тем людям и может быть проигнорирован.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Заблокированная реклама:",
@@ -1136,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Показать на кнопке AdBlock",
+    "message":"Показать количество заблокированной рекламы на кнопке AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Показать количество заблокированной рекламы в меню AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Списки фильтров блокировки рекламы",
@@ -1168,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Занести этот YouTube канал в белый список",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Канал $name$ белого списка",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Вы уверены, что хотите удалить $count$ блокировок, которые Вы создали на $host$?",

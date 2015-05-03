@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Tiện ích phổ biến nhất trên Chrome, với trên 15 triệu người dùng! AdBlock sẽ giúp bạn chặn tất cả quảng cáo trên internet.",
+    "message":"Tiện ích phổ biến nhất trên Chrome, với trên 40 triệu người dùng! AdBlock sẽ giúp bạn chặn tất cả quảng cáo trên internet.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -179,6 +179,14 @@
     "message":"Loại trừ",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"Tải lại trang.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Tính năng này của AdBlock không hoạt động trên trang này bởi vì nó sử dụng công nghệ đã lỗi thời. Bạn có thể dùng danh sách đen hoặc danh sách trắng để chặn bằng tay trong thẻ 'Tùy Chỉnh' trên trang tùy chọn.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
   "subscribingtitle":{
     "message":"Đang đăng ký bộ lọc...",
     "description":"abp: link subscriber title"
@@ -228,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Thêm AdBlock vào menu chuột phải",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Sử dụng chế độ tương thích với ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Hiển thị báo cáo gỡ lỗi trong Console Log (sẽ làm AdBlock chậm đi)",
@@ -425,6 +437,10 @@
     "message":"Chỉnh sửa bộ lọc bằng tay:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Chỉnh sửa bộ lọc bị vô hiệu hóa:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Hãy cẩn thận: Nếu bạn chỉnh sửa không chính xác, rất nhiều bộ lọc khác bao gồm cả bộ lọc chính thức cũng có thể bị lỗi!<br\/>Bạn có thể đọc thêm về <a>cú pháp bộ lọc<\/a> để biết cách chỉnh sửa bộ lọc.",
     "description":"Warning when blacklisting manually"
@@ -444,6 +460,18 @@
   "adreport2":{
     "message":"Bạn mới tìm thấy quảng cáo trên một trang web? Chúng tôi sẽ giúp bạn tìm chính xác nơi để báo cáo!<br\/>Hãy nhớ: việc báo cáo quảng cáo này là tự nguyện, nếu bạn không muốn làm điều này bạn chỉ cần đóng cửa sổ này lại và chặn nó bằng cách thêm vào bộ lọc trong thẻ 'Tùy chỉnh' ở trang Tùy chọn!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Kiểm tra mã độc",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Máy tính của bạn có thể đã bị nhiễm mã độc. Bấm <a>vào đây<\/a> để biết thêm chi tiết.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Không tim thấy mã độc đã được nhận dạng nào.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Hãy chắc chắn rằng bộ lọc của bạn luôn được cập nhật",
@@ -659,6 +687,30 @@
     "message":"Quảng cáo có xuất hiện ở trình duyệt đó không?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
+  "ff_checkinchrometitle":{
+    "message":"Kiểm tra trên Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Cài đặt Chrome, nếu bạn chưa có nó.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Cài đặt AdBlock cho Chrome, nếu bạn chưa có nó.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Trên Chrome, đăng ký danh sách bộ lọc tương tự như ở đây.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"Trên Chrome, tải trang cùng với quảng cáo.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Quảng cáo có xuất hiện trên Chrome không?",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
   "refusetocheck":{
     "message":"Tôi không muốn kiểm tra cái này",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -825,6 +877,14 @@
     "message":"Bộ lọc đã khớp",
     "description":"resourceblocking page string"
   },
+  "close":{
+    "message":"Đóng",
+    "description":"resourceblocking page string"
+  },
+  "resourceblocklegend1":{
+    "message":"Chú thích:",
+    "description":"resourceblocking page string"
+  },
   "resourceblocklegend2":{
     "message":"nguồn đã bị chặn",
     "description":"resourceblocking page string"
@@ -835,6 +895,10 @@
   },
   "resourceblocklegend4":{
     "message":"nguồn có thể chặn được",
+    "description":"resourceblocking page string"
+  },
+  "resourceblocklegend5":{
+    "message":"quy tắc ẩn đã được áp dụng",
     "description":"resourceblocking page string"
   },
   "loading":{
@@ -1053,7 +1117,7 @@
   },
   "firefox_explanation":{
     "message":"Mục đích của câu hỏi này là để xác định ai sẽ nhận được báo cáo của bạn. Nếu bạn trả lời câu hỏi này không chính xác, báo cáo sẽ được gửi đến nhầm người. do đó nó có thể bị bỏ qua.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Số quảng cáo đã bị chặn:",
@@ -1080,8 +1144,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Hiển thị nút AdBlock",
+    "message":"Hiển thị số quảng cáo bị chặn trên nút AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Hiển thị số quảng cáo bị chặn trên menu AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Danh sách các bộ lọc chặn quảng cáo",
@@ -1112,8 +1180,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Đưa kênh YouTube này vào danh sách trắng",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Đưa kênh $name$ vào danh sách trắng",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Bạn có chắc chắn muốn gõ bỏ $count$ khối quảng cáo mà bạn đã chặn trên $host$?",

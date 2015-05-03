@@ -1,6 +1,8 @@
+"use strict";
+
 // Global lock so we can't open more than once on a tab.
 if (typeof may_open_dialog_ui === "undefined")
-  may_open_dialog_ui = true;
+  var may_open_dialog_ui = true;
 
 function top_open_blacklist_ui(options) {
   if (!may_open_dialog_ui)
@@ -14,7 +16,7 @@ function top_open_blacklist_ui(options) {
   load_jquery_ui(function() {
     // If they chose "Block an ad on this page..." ask them to click the ad
     if (options.nothing_clicked)
-      rightclicked_item = null;
+      var rightclicked_item = null;
 
     if (options.id) {
         rightclicked_item = $('[data-getadblock-com-id="' + options.id + '"]');

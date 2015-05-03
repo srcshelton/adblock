@@ -1,8 +1,10 @@
+"use strict";
 
+var customizeInit = function () {
 
-var customizeInit = function() {
+    BGcall("get_filter_syntax_url");
 
-    chrome.extension.onRequest.addListener(function(request) {
+    chrome.extension.onRequest.addListener(function (request) {
         if (request && request.command != "filters_updated")
             return;
         else if (!request) {
@@ -10,10 +12,23 @@ var customizeInit = function() {
         }
         if ($("#txtFiltersAdvanced").prop("disabled") === false)
             return;
-        BGcall("get_custom_filters_text", function(text) {
+        BGcall("get_custom_filters_text", function (text) {
             $("#txtFiltersAdvanced").val(text);
         });
+        BGcall("get_exclude_filters_text", function (text) {
+            $("#txtExcludeFiltersAdvanced").val(text);
+        });
     });
+
+    chrome.extension.onRequest.addListener(function (request) {
+        if (request && request.command != "filter_syntax_url")
+            return;
+        else if (!request || !request.data) {
+            return;
+        }
+        $('#tutorlink').attr("href", request.data);
+    });
+
 
     // Add a custom filter to the list
     function appendCustomFilter(filter) {
@@ -31,7 +46,7 @@ var customizeInit = function() {
         return domainList;
     }
 
-    $("#txtBlacklist").focus(function() {
+    $("#txtBlacklist").focus(function () {
         // Find the blacklist entry in the user's filters, and put it
         // into the blacklist input.
         var customFilterText = $("#txtFiltersAdvanced").val();
@@ -41,7 +56,7 @@ var customizeInit = function() {
     });
 
     // The add_filter functions
-    $("#btnAddUserFilter").click(function() {
+    $("#btnAddUserFilter").click(function () {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
 
@@ -54,7 +69,7 @@ var customizeInit = function() {
         $(this).attr("disabled", "disabled");
     });
 
-    $("#btnAddExcludeFilter").click(function() {
+    $("#btnAddExcludeFilter").click(function () {
         var excludeUrl = $("#txtUnblock").val().trim();
 
         //prevent regexes
@@ -67,7 +82,7 @@ var customizeInit = function() {
         $(this).attr("disabled", "disabled");
     });
 
-    $("#btnAddBlacklist").click(function() {
+    $("#btnAddBlacklist").click(function () {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
         var filters = $("#txtFiltersAdvanced").val().trim() + '\n';
@@ -82,7 +97,7 @@ var customizeInit = function() {
         $("#btnAddBlacklist").attr("disabled", "disabled");
     });
 
-    $("#btnAddUrlBlock").click(function() {
+    $("#btnAddUrlBlock").click(function () {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
         if (blockDomain == '*')
@@ -102,13 +117,13 @@ var customizeInit = function() {
     });
 
     // The validation functions
-    $("#txtBlacklist").bind("input", function() {
+    $("#txtBlacklist").bind("input", function () {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
         if (blacklist)
             blacklist = "@@*$document,domain=" + blacklist;
 
-        BGcall("validateLine", blacklist, function(response) {
+        BGcall("validateLine", blacklist, function (response) {
             if (response)
                 $("#btnAddBlacklist").removeAttr("disabled");
             else
@@ -116,7 +131,7 @@ var customizeInit = function() {
         });
     });
 
-    $("#divUrlBlock input[type='text']").bind("input", function() {
+    $("#divUrlBlock input[type='text']").bind("input", function () {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
         if (blockDomain == '*')
@@ -125,10 +140,10 @@ var customizeInit = function() {
             blockDomain = '$domain=' + blockDomain;
         var ok = false;
 
-        BGcall("validateLine", (blockUrl + blockDomain), function(response) {
+        BGcall("validateLine", (blockUrl + blockDomain), function (response) {
             if (response)
                 ok = true;
-            BGcall("isSelectorFilter", (blockUrl), function(secondResponse) {
+            BGcall("isSelectorFilter", (blockUrl), function (secondResponse) {
                 if (secondResponse)
                     ok = false;
 
@@ -137,27 +152,27 @@ var customizeInit = function() {
         });
     });
 
-    $("#divCssBlock input[type='text']").bind("input", function() {
+    $("#divCssBlock input[type='text']").bind("input", function () {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
         if (blockDomain == '*')
             blockDomain = '';
         var ok = false;
-        BGcall("validateLine", (blockDomain + "##" + blockCss), function(response) {
+        BGcall("validateLine", (blockDomain + "##" + blockCss), function (response) {
             if (response)
                 ok = true;
             $("#btnAddUserFilter").attr("disabled", ok ? null : "disabled");
         });
     });
 
-    $("#divExcludeBlock input[type='text']").bind("input", function() {
+    $("#divExcludeBlock input[type='text']").bind("input", function () {
         var unblockUrl = $("#txtUnblock").val().trim();
         var ok = false;
-        BGcall("validateLine", ('@@' + unblockUrl + '$document'), function(response) {
+        BGcall("validateLine", ('@@' + unblockUrl + '$document'), function (response) {
             if (response)
                 ok = true;
 
-            BGcall("isSelectorFilter", unblockUrl, function(secondResponse) {
+            BGcall("isSelectorFilter", unblockUrl, function (secondResponse) {
                 if (!unblockUrl || secondResponse)
                     ok = false;
 
@@ -167,7 +182,7 @@ var customizeInit = function() {
     });
 
     // When one presses 'Enter', pretend it was a click on the 'add' button
-    $(".entryTable input[type='text']").keypress(function(event) {
+    $(".entryTable input[type='text']").keypress(function (event) {
         var submitButton = $(this).closest(".entryTable").find("input[type='button']");
         if (event.keyCode === 13 && !submitButton.prop("disabled")) {
             event.preventDefault();
@@ -175,24 +190,33 @@ var customizeInit = function() {
         }
     });
 
-    $("a.controlsLink").click(function(event) {
+    $("a.controlsLink").click(function (event) {
         try {
             event.preventDefault();
             var myControls = $(this).closest("div").find(".addControls");
             $(".addControls").not(myControls).slideUp();
             myControls.slideToggle();
-        } catch(e) {
+        } catch (e) {
             dump(e);
         }
     });
 
-    $("#btnEditAdvancedFilters").click(function() {
+    $("#btnEditAdvancedFilters").click(function () {
         $("#divAddNewFilter").slideUp();
         $(".addControls").slideUp();
         $("#txtFiltersAdvanced").removeAttr("disabled");
         $("#spanSaveButton").show();
         $("#btnEditAdvancedFilters").hide();
         $("#txtFiltersAdvanced").focus();
+    });
+
+    $("#btnEditExcludeAdvancedFilters").click(function () {
+        $("#divAddNewFilter").slideUp();
+        $(".addControls").slideUp();
+        $("#txtExcludeFiltersAdvanced").removeAttr("disabled");
+        $("#spanSaveExcludeButton").show();
+        $("#btnEditExcludeAdvancedFilters").hide();
+        $("#txtExcludeFiltersAdvanced").focus();
     });
 
     // Update custom filter count in the background.
@@ -202,17 +226,34 @@ var customizeInit = function() {
         var custom_filters_array = custom_filters_text.split("\n");
         var new_count = {};
         var temp_filter_tracker = [];
-        for(var i = 0; i < custom_filters_array.length; i++) {
-            var filter = custom_filters_array[i]
+        for (var i = 0; i < custom_filters_array.length; i++) {
+            var filter = custom_filters_array[i];
             //Check if filter is a duplicate and that it is a hiding filter.
-            if(temp_filter_tracker.indexOf(filter) < 0 && filter.indexOf("##") > -1) {
+            if (temp_filter_tracker.indexOf(filter) < 0 && filter.indexOf("##") > -1) {
                 temp_filter_tracker.push(filter);
                 var host = filter.split("##")[0];
                 new_count[host] = (new_count[host] || 0) + 1;
             }
-      }
-      BGcall("updateCustomFilterCountMap", new_count);
+        }
+        BGcall("updateCustomFilterCountMap", new_count);
     }
+
+    function saveExcludeFilters() {
+        var exclude_filters_text = $("#txtExcludeFiltersAdvanced").val();
+        BGcall("set_exclude_filters", exclude_filters_text, function (ex) {
+            $("#divAddNewFilter").slideDown();
+            $("#txtExcludeFiltersAdvanced").attr("disabled", "disabled");
+            $("#spanSaveExcludeButton").hide();
+            $("#btnEditExcludeAdvancedFilters").show();
+            BGcall("get_exclude_filters_text", function (text) {
+                $("#txtExcludeFiltersAdvanced").val(text);
+                if (text)
+                    $("#divExcludeFilters").show();
+            });
+        });
+    }
+
+    $("#btnSaveExcludeAdvancedFilters").click(saveExcludeFilters);
 
     function saveFilters() {
         var custom_filters_text = $("#txtFiltersAdvanced").val();
@@ -226,23 +267,34 @@ var customizeInit = function() {
         $("#btnEditAdvancedFilters").show();
         $("#btnCleanUp").show();
     }
+
     $("#btnSaveAdvancedFilters").click(saveFilters);
 
-    BGcall("get_custom_filters_text", function(text) {
+    BGcall("get_custom_filters_text", function (text) {
         $("#txtFiltersAdvanced").val(text);
     });
 
+    BGcall("get_settings", function (settings) {
+        if (settings.show_advanced_options)
+            $("#divExcludeFilters").show();
+    });
 
-    $("#btnCleanUp").click(function() {
+    BGcall("get_exclude_filters_text", function (text) {
+        $("#txtExcludeFiltersAdvanced").val(text);
+        if (text)
+            $("#divExcludeFilters").show();
+    });
+
+    $("#btnCleanUp").click(function () {
         //Don't save immediately, first allow them to review changes
         if ($("#btnEditAdvancedFilters").is(":visible"))
             $("#btnEditAdvancedFilters").click();
 
-        BGcall("normalizeList", $("#txtFiltersAdvanced").val(), true, function(response) {
+        BGcall("normalizeList", $("#txtFiltersAdvanced").val(), true, function (response) {
             var newFilters = response;
-            newFilters = newFilters.replace(/(\n)+$/,'\n'); // Del trailing \n's
+            newFilters = newFilters.replace(/(\n)+$/, '\n'); // Del trailing \n's
             $("#txtFiltersAdvanced").val(newFilters);
         });
 
     });
-}
+};

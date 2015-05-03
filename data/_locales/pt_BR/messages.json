@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"A mais popular extensão do Chrome, com mais de 15 milhões de usuários! Bloqueia propagadas em toda web.",
+    "message":"A extensão mais popular do Chrome, com mais de 40 milhões de usuários. Bloqueie anúncios em toda a web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -236,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Adicionar itens ao menu de contexto",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Ativar o modo de compatibilidade ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Mostrar declarações de depuração no Log do Console (que deixa o AdBlock mais devagar)",
@@ -703,6 +707,30 @@
     "message":"A propaganda também aparece naquele navegador?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
+  "ff_checkinchrometitle":{
+    "message":"Verificar no Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Instale o Chrome se você ainda não o tem.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Instale o AdBlock para o Chrome se você ainda não o tem.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"No Chrome, inscreva-se à mesma lista de filtros que você tem aqui.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"No Chrome, carregue a página com o anúncio.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"O anúncio aparece no Chrome também?",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
   "refusetocheck":{
     "message":"Eu não quero ver isso",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -1109,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"O propósito desta pergunta é determinar quem deve receber seu relatório. Se você responder esta pergunta incorretamente, o relatório sera enviado para as pessoas erradas, logo poderá ser ignorado.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Propagandas bloqueadas:",
@@ -1136,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Exibir no botão do AdBlock",
+    "message":"Mostrar o número de anúncios bloqueados no botão AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Mostrar o número de anúncios bloqueador no menu AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Listas de Filtro de Bloqueio de Propaganda",
@@ -1168,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Colocar este canal do YouTube na lista branca",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Canal de lista branca $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Tem certeza que deseja remover os $count$ bloqueios que criou em $host$?",

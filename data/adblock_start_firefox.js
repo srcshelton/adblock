@@ -1,10 +1,15 @@
+"use strict";
+
 var elementPurger = {
   onPurgeRequest: function(request) {
-    if (request.command === 'purge-elements' &&
+    if (document &&
+        document.location &&
+        document.location.href &&
+        request.command === 'purge-elements' &&
         request.frameUrl === document.location.href.replace(/#.*$/, ""))
       elementPurger._purgeElements(request);
     else {
-      log("ignoring request: " +    document.location.href.replace(/#.*$/, ""));
+      log("ignoring request ", request);
     }
 
   },

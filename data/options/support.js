@@ -1,38 +1,31 @@
-// Set up variables
-var AdBlockVersion = "1.0";
-var subscribed_filter_names = [];
-var adblock_settings = [];
-var adblock_error = null;
-var adblock_pings = 0;
-var l10n_data = {};
-var adblock_custom_filters;
+"use strict";
 
-// Create the debug info for the textbox or the bug report
-var getDebugInfo = function() {
-    var info = [];
-    info.push("==== Filter Lists ====");
-    info.push(subscribed_filter_names.join('  \n'));
-    info.push("");
-    info.push("==== Custom Filters ====");
-    info.push(adblock_custom_filters);
-    info.push("");
-    info.push("==== Settings ====");
-    info.push(adblock_settings);
-    info.push("");
-    info.push("==== Other info: ====");
-    if (AdBlockVersion)
-        info.push("AdBlock version number: " + AdBlockVersion);
-    if (adblock_error)
-        info.push("Last known error: " + adblock_error);
-    info.push("Total pings: " + adblock_pings);
-    info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
-    info.push("Navigator Language: " + navigator.language);
-    info.push("L10N Locales: " + l10n_data.locales);
-    return info.join('  \n');
-};
+// Set up variables
+var l10n_data = {};
+
+// Check if amoVersion is newer than extVersion
+var isNewerVersion = function(extVersion, amoVersion) {
+    if (!amoVersion || !extVersion)
+        return false;
+    var amoVersionInfo = amoVersion.split('.');
+    var extVersionInfo = extVersion.split('.');
+    if (!amoVersionInfo || !extVersionInfo)
+        return false;
+    var minLength = Math.min(amoVersionInfo.length, extVersionInfo.length);
+    for (var i=0; i<minLength; i++) {
+        if (Number(amoVersionInfo[i]) > Number(extVersionInfo[i])) {
+            return true;
+        }
+        if (Number(amoVersionInfo[i]) < Number(extVersionInfo[i])) {
+            return false;
+        }
+    }
+    //Check the length to handle the scenario when ext = 2.0 and amo = 2.0.1
+    return (amoVersionInfo.length > extVersionInfo.length);
+}
 
 // Create a bug report
-var makeReport = function(){
+var makeReport = function () {
     var body = [];
     body.push(chrome.i18n.getMessage("englishonly") + "!");
     body.push("");
@@ -58,107 +51,85 @@ var makeReport = function(){
     body.push("--- The questions below are optional but VERY helpful. ---");
     body.push("");
     body.push("If unchecking all filter lists fixes the problem, which one filter" +
-              "list must you check to cause the problem again after another restart?");
+    "list must you check to cause the problem again after another restart?");
     body.push("");
     body.push("====== Do not touch below this line ======");
     body.push("");
-    body.push(getDebugInfo());
 
-
-    var out = encodeURIComponent(body.join('  \n'))
+    var out = encodeURIComponent(body.join('  \n'));
     return out;
 };//end of makeReport
 
-var supportInit = function() {
+var supportInit = function () {
 
     l10n_data = chrome.i18n.getL10nData();
 
-    BGcall("getFirefoxManifest", function(manifest) {
-            AdBlockVersion = manifest.version;
-    });
-
-    // Get subscribed filter lists
-    BGcall("get_subscriptions_minus_text", function(subs) {
-        for (var id in subs) {
-            if (subs[id].subscribed)
-                subscribed_filter_names.push(id);
-        }
-    });
-
-    // Get settings
-    BGcall("get_settings", function(settings) {
-        for (setting in settings)
-            adblock_settings.push(setting+": "+settings[setting] + "\n");
-        adblock_settings = adblock_settings.join('');
-    });
-
-    // Get last known error
-    BGcall("storage_get", "error", function(error) {
-        adblock_error = error;
-    });
-
-    // Get number of total pings
-    BGcall("storage_get", "total_pings", function(total_pings) {
-        adblock_pings = total_pings;
-    });
-
-    // Get custom filters
-    BGcall("storage_get", "custom_filters", function(custom_filters) {
-       adblock_custom_filters = custom_filters;
-    });
-
     if ((typeof navigator.language !== 'undefined') &&
-         navigator.language &&
-         navigator.language.substring(0, 2) != "en") {
+        navigator.language &&
+        navigator.language.substring(0, 2) != "en") {
         $(".english-only").css("display", "inline");
     } else {
         $(".english-only").css("display", "none");
     }
 
     // Show debug info
-    $("#debug").click(function(){
-        var settings = getDebugInfo();
-        $("#debugInfo").css({ width: "450px", height: "100px"});
-        $("#debugInfo").text(settings);
-        $("#debugInfo").fadeIn();
+    $("#debug").click(function () {
+        BGcall("getDebugInfo", function (info) {
+            $("#debugInfo").text(info).css({width: "450px", height: "100px"}).fadeIn();
+        });
     });
     //disable the context menu, so that user's don't open the link's on new tabs, windows, etc.
-    document.getElementById("debug").oncontextmenu = function() {
-       return false;
-    };    
-
-    //remove the href='#' attribute from any anchor tags, this oddly disables the middle click issues
-    $("a[href='#']").removeAttr("href").css("cursor","pointer");
-
-    // Report us the bug
-    $("#report").click(function(){
-        var out = makeReport();
-        var result = "http://support.getadblock.com/discussion/new" +
-        "?category_id=problems&discussion[body]=" + out;
-        document.location.href = result;
-    });
-    //disable the context menu, so that user's don't open the link's on new tabs, windows, etc.
-    document.getElementById("report").oncontextmenu = function() {
-       return false;
+    document.getElementById("debug").oncontextmenu = function () {
+        return false;
     };
 
+    //remove the href='#' attribute from any anchor tags, this oddly disables the middle click issues
+    $("a[href='#']").removeAttr("href").css("cursor", "pointer");
 
-    // Check, whether update is available
-    //TODO
-    //$("#checkupdate").text(translate("checkforupdates"));
-    //checkupdates("help");
+    // Report us the bug
+    $("#report").click(function () {
+        BGcall("getDebugInfo", function (info) {
+            var out = makeReport();
+            var result = "http://support.getadblock.com/discussion/new" +
+                "?category_id=problems&discussion[body]=" + out + encodeURIComponent('\n' + info);
+            document.location.href = result;
+        });
+    });
+    //disable the context menu, so that user's don't open the link's on new tabs, windows, etc.
+    document.getElementById("report").oncontextmenu = function () {
+        return false;
+    };
 
     // Show the changelog
-    $("#whatsnew a").click(function() {
+    $("#whatsnew a").click(function () {
         try {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "../CHANGELOG.txt");
-            xhr.onload = function() {
+            xhr.onload = function () {
                 $("#changes").text(xhr.responseText).css({width: "670px", height: "200px"}).fadeIn();
             };
             xhr.send();
         } catch (ex) {
-           //file not found, send back empty object;
+            //file not found, send back empty object;
         }
     });
-}
+    var checkUpdateEl = $("#checkupdate");
+    checkUpdateEl.text(translate("checkforupdates"));
+    chrome.extension.onRequest.addListener(function(request, sender) {
+        if (request.command === "amo_info" &&
+            request.data) {
+            var amo_info = $.parseXML(request.data);
+            var amo_version = $(amo_info).find('version').text();
+            if (amo_version) {
+                BGcall("getFirefoxManifest", function(manifest) {
+                    if (isNewerVersion(manifest.version, amo_version)) {
+                        checkUpdateEl.text(translate("ff_adblock_outdated"));
+                    } else {
+                        checkUpdateEl.text(translate("latest_version"));
+                    }
+                });
+            }
+        }
+    });
+    BGcall("get_mozilla_amo_info");
+};

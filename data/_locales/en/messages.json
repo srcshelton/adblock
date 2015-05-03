@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"The most popular Chrome extension, with over 15 million users!  Blocks ads all over the web.",
+    "message":"The most popular Chrome extension, with over 40 million users!  Blocks ads all over the web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -46,6 +46,10 @@
   "safaributton_how_to_hide2":{
     "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the AdBlock button out of the toolbar. You can show it again by dragging it back into the toolbar.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "ff_button_how_to_hide":{
+  	"message":"To hide the button, right click it and choose Remove from Toolbar.  You can show it again under Firefox menu -> Customise.",
+  	"description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customise' should match the text that shows when you click the button on the Firefox toolbar with three lines."
   },
   "sliderexplanation":{
     "message":"Slide the slider until the ad is blocked correctly on the page, and the blocked element looks useful.",
@@ -236,6 +240,10 @@
   "showcontextmenus2":{
     "message":"Add items to the right click menu",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Enable ClickToFlash compatibility mode",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Show debug statements in Console Log (which slows down AdBlock)",
@@ -477,6 +485,26 @@
     "message":"So you just found an ad on a web page? Well, I'll help you to find the correct place to report it!<br\/> Remember: reporting ads is voluntary. If you don't wish to do this you can just close this window and block it only for yourself by adding its filter in the 'Customize' tab of the options page!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
   },
+  "malwarenotificationcheckboxmessage":{
+    "message":"Should AdBlock notify you when it detects malware?",
+    "description":"Message to the user when subscribing to the Malware Filter list on the Options Filter tab."
+  },
+  "malwarenotificationtitle":{
+    "message":"AdBlock",
+    "description":"Title of the AdBlock message to the user"
+  },
+  "malwarenotificationmessage":{
+    "message":"AdBlock has detected Malware.  Your computer may be infected with Malware.",
+    "description":"Message to the user when a Malware request has been blocked.  Message should be under 90 characters"
+  },
+  "malwarenotificationlearnmore":{
+    "message":"Learn more about Malware",
+    "description":"Button text, and when clicked it will take users to a link about malware on our website. Message should be under 45 characters"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Disable these notifications",
+    "description":"Button text on the malware notification message that disable future notifications.  Message should be under 45 characters"
+  },
   "malwarecheck":{
     "message":"Malware check",
     "description":"Section header on the ad report page"
@@ -522,7 +550,7 @@
     "description":"Instruction on ad report page"
   },
   "disableforchromestepone":{
-    "message":"Open <a>the extensions page<\/a>",
+    "message":"Open <a href='#'>the extensions page<\/a>",
     "description":"Step 1 for disabling Chrome extensions"
   },
   "disableforchromeandsafaristeptwo":{
@@ -752,6 +780,10 @@
   "adblock_outdated_chrome":{
     "message":"You are using an old version of AdBlock. Please go to <a href='#'>the extensions page<\/a>, enable 'Developer mode' and click 'Update extensions now'",
     "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome:\/\/chrome\/extensions\/'"
+  },
+  "ff_adblock_outdated":{
+    "message":"You are using an old version of AdBlock. Please click the Firefox menu button and choose Add-ons.  Then on the Add-ons page, under settings (gear icon), click on 'Check for updates'",
+    "description":"On the Options > Support page, shows when there is an update available for AdBlock"
   },
   "block_an_ad_on_this_page":{
     "message":"Block an ad on this page",
@@ -1160,8 +1192,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Show on AdBlock button",
+    "message":"Show number of ads blocked on AdBlock button",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Show number of ads blocked on AdBlock menu",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Ad Blocking Filter Lists",
@@ -1192,8 +1228,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Whitelist this YouTube channel",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Whitelist $name$ channel",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Are you sure you want to remove the $count$ blocks that you have created on $host$?",
@@ -1276,11 +1318,11 @@
     "description":"Link to the contributors page on the Support tab of the options"
   },
   "debuginfo":{
-    "message":"Have our team requested some debug info? Click <a id='debug'>here<\/a> for that!",
+    "message":"Have our team requested some debug info? Click <a href='#' id='debug'>here<\/a> for that!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
   "bugreport":{
-    "message":"Why don't you send us a <a id='report'>bug report<\/a>?",
+    "message":"Why don't you send us a <a href='#' id='report'>bug report<\/a>?",
     "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
@@ -1290,5 +1332,15 @@
   "ad_report_please":{
     "message":"If you're seeing an ad, don't make a bug report, make an <a>ad report<\/a>!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "subscribeconfirm":{
+    "message":"Are you sure that you want to subscribe to the $title$ filter list?",
+    "description":"Prompt question before subscribing to the filter list",
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    }
   }
 }

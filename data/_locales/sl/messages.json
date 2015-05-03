@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Najbolj priljubljena razširitev za brskalnik Google Chrome z več kot 15 milijonov uporabnikov!  Blokira oglase po vsem spletu.",
+    "message":"Najbolj priljubljena razširitev za brskalnik Chrome z več kot 40 milijoni uporabnikov!  Blokira oglase po vsem spletu.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -179,6 +179,14 @@
     "message":"Izvzemi",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"Ponovno naložite stran.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Ta funkcija AdBlocka tukaj ne deluje, ker stran uporablja zastarelo tehnologijo. Vire lahko ročno blokirate ali dovolite v zavihku Prilagodi na strani z nastavitvami.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
   "subscribingtitle":{
     "message":"Poteka naročanje na seznam filtrov...",
     "description":"abp: link subscriber title"
@@ -346,7 +354,7 @@
     "description":"Name of the filter list"
   },
   "filterwarning_removal":{
-    "message":"Seznam odstranitve opozoril za AdBlock (odstrani sporočila o uporabi AdBlocka)",
+    "message":"Seznam odstranitve opozoril za AdBlock (odstrani sporočila spletnih strani o tem, da uporabljate AdBlock)",
     "description":"Name of the filter list"
   },
   "filteradblock_custom":{
@@ -445,6 +453,10 @@
     "message":"Ročno uredite vaše filtre:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Uredi izklopljene filtre:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Bodite previdni: v kolikor tu storite napako, večina filtrov, vključno z uradnimi, ne bo delovala!<br\/>Preberite si <a>vodič po sintaksi filtrov<\/a> in se naučite pravilno dodajati napredne možnosti.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +476,18 @@
   "adreport2":{
     "message":"Ste ravnokar našli oglas na spletni strani? Pomagali vam bomo najti primeren kraj za prijavo!<br\/> Ne pozabite: prijavljanje oglasov je prostovoljno. V kolikor tega ne želite storiti, preprosto zaprite to okno in blokirajte oglas le zase. To storite tako, da dodate filter za oglas preko zavihka 'Prilagodi' na straneh z nastavitvami te razširitve.",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Preverjanje za zlonamerno programsko opremo",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Vaš računalnik je morda okužen z zlonamerno programsko opremo. Kliknite <a>sem<\/a> za dodatne informacije.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Zlonamerna programska oprema ni bila najdena.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Poskrbite, da bodo vaši seznami filtrov posodobljeni",
@@ -678,6 +702,30 @@
   "checkinfirefox_5":{
     "message":"Ali se oglas prikaže tudi v tistem v brskalniku?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Preverite v brskalniku Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Namestite Google Chrome, v kolikor ga še nimate.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Namestite AdBlock za brskalnik Chrome, v kolikor ga že niste.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"V brskalniku Chrome se naročite na iste filtre kot tu.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"V brskalniku Chrome odprite stran z oglasom.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Ali se oglas pojavi tudi v brskalniku Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Tega ne želim preveriti",
@@ -1085,7 +1133,7 @@
   },
   "firefox_explanation":{
     "message":"Namen tega vprašanja je ugotoviti kdo naj prejme vaše poročilo. V kolikor na to vprašanje odgovorite nepravilno, bo bilo poročilo poslano napačni skupini in zaradi tega ne bo obravnavano.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Blokirani oglasi:",
@@ -1112,8 +1160,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Prikaži na AdBlock gumbu",
+    "message":"Prikaži št. blokiranih oglasov na AdBlockovem gumbu",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Prikaži št. blokiranih oglasov v AdBlockovem meniju",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Seznami filtrov za blokiranje oglasov",
@@ -1142,10 +1194,6 @@
   "allow_whitelisting_youtube_channels":{
     "message":"Omogoči dodajanje nekaterih YouTube kanalov na seznam dovoljenih",
     "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "whitelist_youtube_channel":{
-    "message":"Dodajte ta YouTube kanal na seznam dovoljenih",
-    "description":"Text which is displayed on YouTube in popup menu"
   },
   "confirm_undo_custom_filters":{
     "message":"Ali ste prepričani, da želite odstraniti naslednje število blokad, ki ste jih ustvarili na $host$? Št. blokad: $count$",

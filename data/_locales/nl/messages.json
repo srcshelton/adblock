@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"De populairste Chrome extensie met meer dan 15 miljoen gebruikers! Blokkeert advertenties op het internet.",
+    "message":"De populairste Chrome extensie met meer dan 40 miljoen gebruikers! Blokkeert advertenties op het internet.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -52,23 +52,23 @@
     "description":"Blacklister slider page message"
   },
   "block_by_url_instead":{
-    "message":"Geavanceerd: blokkeer via URL ipv het te verbergen",
+    "message":"Geavanceerd: blokkeer via URL",
     "description":"Link on blacklister slider page"
   },
   "slidertitle":{
-    "message":"Stap 1: Zoek uit wat geblokkeerd moet worden",
+    "message":"Stap 1: Uitzoeken wat er geblokkeerd moet worden",
     "description":"Blacklister slider page title"
   },
   "blacklisteroptions1":{
-    "message":"Wat denk je dat elke keer geldt wanneer je deze pagina bezoekt?",
+    "message":"Welke kenmerken gelden er elke keer als je deze pagina bezoekt?",
     "description":"Blacklister attribute choosing page message"
   },
   "blacklisternotsure":{
-    "message":"<b>Niet zeker?<\/b> Klik dan gewoon op 'Blokkeer!'.",
+    "message":"<b>Niet zeker?<\/b> Klik dan gewoon op 'Blokkeer!' hieronder.",
     "description":"Blacklister attribute choosing page message"
   },
   "blacklisterthefilter":{
-    "message":"De filter, die veranderd kan worden in de opties:",
+    "message":"De filterregel, die aangepast kan worden in de opties pagina:",
     "description":"Blacklister attribute choosing page message"
   },
   "blacklisteroptionstitle":{
@@ -183,6 +183,10 @@
     "message":"Laad de pagina opnieuw.",
     "description":"Checkbox on whitelist wizard"
   },
+  "wizardcantrunonframesets":{
+    "message":"Deze AdBlock functie werkt niet op deze website omdat deze verouderde technologie gebruikt. Je kan items op deze website manueel blokkeren of uitsluiten in het 'Personaliseren' menu van de opties pagina.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
   "subscribingtitle":{
     "message":"Aanmelden voor filters",
     "description":"abp: link subscriber title"
@@ -232,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Voeg items toe aan het rechterklik menu",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Activeer de ClickToFlash compatibiliteitsmodus",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Toon debug resultaten in de Console Logs (dit vertraagt AdBlock).",
@@ -414,7 +422,7 @@
     "description":"Section header on the 'Customize' tab"
   },
   "stop_blocking_ads":{
-    "message":"Minder Advertenties Blokkeren:",
+    "message":"Minder advertenties blokkeren:",
     "description":"Section header on the 'Customize' tab"
   },
   "linkblockadbyurl":{
@@ -449,6 +457,10 @@
     "message":"Je filters handmatig bewerken:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Bewerk uitgeschakelde filters:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Pas op: als je hier een fout maakt kunnen de andere filters, inclusief de officiële, onbruikbaar worden!<br\/>Lees de <a>filter syntaxis uitleg (Engelstalig)<\/a> voor meer informatie over het maken van filters.",
     "description":"Warning when blacklisting manually"
@@ -466,8 +478,12 @@
     "description":"Title of the ad report page"
   },
   "adreport2":{
-    "message":"Dus je hebt een advertentie gevonden op een webpagina? We zullen je helpen om de juiste plaats te vinden om het te rapporteren!<br\/> Dit is vrijwillig. Als je dit niet wilt, dan kun je de advertentie ook voor jezelf blokkeren in de opties van AdBlock.",
+    "message":"Dus je hebt een advertentie gevonden op een webpagina? We zullen je helpen om deze op de juiste plek te rapporteren!<br\/> Dit is vrijwillig. Als je dit niet wilt, kan je deze pagina gewoon sluiten en de advertentie voor jezelf blokkeren in het 'Personaliseren' menu van de opties pagina!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Malware controle",
+    "description":"Section header on the ad report page"
   },
   "malwarewarning":{
     "message":"Uw computer is mogelijk besmet door malware. Klik <a>hier<\/a> voor meer informatie.",
@@ -514,7 +530,7 @@
     "description":"Step 1 for disabling Chrome extensions"
   },
   "disableforchromeandsafaristeptwo":{
-    "message":"Vink bij elke extensie het vakje uit dat ervoor zorgt dat de extensie geactiveerd is <b>behalve<\/b> bij AdBlock. <b>Houd AdBlock geactiveerd<\/b>.",
+    "message":"Vink bij elke extensie het selectievakje 'Ingeschakeld' uit <b>behalve<\/b> bij die van AdBlock. <b>Houd AdBlock geactiveerd<\/b>.",
     "description":"Step 2 for disabling Chrome and Safari extensions"
   },
   "disableforsafaristepone":{
@@ -640,7 +656,7 @@
     }
   },
   "retryaftersubscribe":{
-    "message":"Meld je aan voor deze lijst en probeer opnieuw: $list_title$",
+    "message":"Meld je aan voor de volgende lijst en probeer het opnieuw: $list_title$",
     "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
     "placeholders":{
       "list_title":{
@@ -690,6 +706,30 @@
   "checkinfirefox_5":{
     "message":"Zie je de advertentie ook in die browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Controleer in Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Installeer Chrome als je dat nog niet hebt.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Installeer AdBlock voor Chrome als je dat nog niet hebt.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Abonneer je in Chrome op dezelfde filters als waarop je hier geabonneerd bent.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"Laad in Chrome de pagina met de advertentie.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Verschijnt de advertentie ook in Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Ik wil dit niet controleren",
@@ -1096,8 +1136,8 @@
     }
   },
   "firefox_explanation":{
-    "message":"Het doel van deze vraag is om na te gaan wie je melding moet ontvangen. Als je deze vraag incorrect beantwoordt zal de melding naar de verkeerde persoon gestuurd worden. Dit kan ervoor zorgen dat het niet behandeld zal worden.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "message":"Het doel van deze vraag is om na te gaan wie je melding moet ontvangen. Als je deze vraag incorrect beantwoordt zal de melding naar de verkeerde persoon gestuurd worden. Dit kan ervoor zorgen dat deze niet behandeld zal worden.",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Geblokkeerde advertenties:",
@@ -1124,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Laat dit zien op de knop",
+    "message":"Toon het aantal geblokkeerde advertenties op de AdBlock knop",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Toon het aantal geblokkeerde advertenties in het AdBlock menu",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Advertentie Blokkerende Filters",
@@ -1156,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Sluit dit Youtube kanaal uit",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Sluit $name$'s kanaal uit",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Weet je zeker dat je $count$ blokkeringen op $host$ wilt verwijderen?",

@@ -5,6 +5,10 @@
   z-index: 10000;
   padding: 0px;
 }
+.adblock-blacklist-dialog {
+  height: auto !important;
+  width: 410px !important;
+}
 .ui-dialog a[href] {
   text-decoration: underline !important;
 }
@@ -13,6 +17,12 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222;
   margin-top: 0px;
+}
+.ui-button-text {
+  display: block !important;
+}
+.ui-dialog .ui-corner-all {
+  border-radius: 5px;
 }
 .ui-dialog span.ui-dialog-title {
   color: black !important;
@@ -126,6 +136,10 @@
 .ui-dialog #selected_data {
   font-size: smaller;
   height: 7em;
+  text-indent: 0px !important;
+}
+.ui-dialog #selected_data i {
+  text-indent: 0px !important;
 }
 .ui-dialog #pathslider, .ui-dialog #domainslider {
   width: 100px;

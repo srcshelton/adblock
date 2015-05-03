@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"La più popolare estensione di Chrome, con oltre 15 milioni di utilizzatori! Blocca le pubblicità su tutto il web.",
+    "message":"La più popolare estensione di Chrome, con oltre 40 milioni di utilizzatori! Blocca le pubblicità su tutto il web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -236,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Aggiungi AdBlock al menù contestuale (click destro)",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Attiva la compatibilità con ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Mostra messaggi di debug nella Console dei Log (rallenta AdBlock)",
@@ -703,6 +707,30 @@
     "message":"La pubblicità continua ad apparire in questo browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
+  "ff_checkinchrometitle":{
+    "message":"Verifica in Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Installa Chrome, se non ce l'hai.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Installa AdBlock per Chrome, se non ce l'hai.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"In Chrome, sottoscrivi gli stessi elenchi filtro come hai qui.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"In Chrome, carica la pagina con la pubblicità.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"La pubblicità appare ancora in Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
   "refusetocheck":{
     "message":"Non mi va di controllare",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -1109,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"Lo scopo di questa domanda è determniare chi dovrebbe ricevere il tuo report. Se rispondi a questa domanda in modo sbagliato, il report sarà inviato alla persona sbagliata, e così sarà ignorato.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Pubblicità bloccate:",
@@ -1136,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Mostra sul bottone di AdBlock",
+    "message":"Visualizza il numero di annunci bloccati sul pulsante di AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Visualizza il numero di annunci bloccati nel menu di AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Liste Filtri",
@@ -1168,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Metti in whitelist questo canale YouTube",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Canale $name$ in Whitelist",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Sei sicuro di voler rimuovere i $count$ blocchi che hai creato su $host$?",

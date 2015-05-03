@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Най-популярното разширение за Chrome с над 15 милиона потребители! Блокира реклами в световната мрежа.",
+    "message":"Най-популярното разширение за Chrome с над 40 милиона потребители! Блокира реклами в световната мрежа.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -179,6 +179,14 @@
     "message":"Изключи",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"Презареди страницата",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Функцията на AdBlock няма да работи тук, защото сайтът ползва остаряла технология. Можете да забраните или да изключите ресурсите наръка от преградка „Нагласяване“ в страницата с настройки.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
   "subscribingtitle":{
     "message":"Абониране за филтри",
     "description":"abp: link subscriber title"
@@ -228,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Добави елементи към дясното контекстно меню",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Разреши режим на съвместимост с ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Показвай предпроверочните декларации в дневника на Конзола (води до забавяне на AdBlock)",
@@ -445,6 +457,10 @@
     "message":"Да редактирате филтрите наръка:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Да редактирате забранените филтри:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Внимание: ако допуснете грешка много от останалите филтри, в т.ч. официалните, могат също да спрат да работят!<br\/>Прочетете <a>ръководството по синтаксис на филтрите<\/a> за разширено добавяне на позволяващи и изключващи филтри.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +480,18 @@
   "adreport2":{
     "message":"Току-що сте открили реклама в страница? Добре, ще ви съдействаме да намерите правилното място, за да я докладвате!<br\/> Запомнете: докладването на реклами е доброволно. Ако не желаете да го правите можете да затворите този прозорец и да я блокирате самостоятелно, като добавите филтър за нея към преградка „Нагласяване“ в страницата с настройки!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Проверка за злонамерен софтуер",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Компютърът може да e заразен със злонамерен софтуер. <a>Щракнете <\/a> за повече информация.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Няма намерен злонамерен софтуер.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Уверете се, че вашите филтри са обновени",
@@ -678,6 +706,30 @@
   "checkinfirefox_5":{
     "message":"Продължавате ли да я виждате в браузъра?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Проверете с Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Инсталирайте Chrome, ако го нямате.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Инсталирайте AdBlock за Chrome, ако го нямате.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Абонирайте се за същите филтри в Chrome.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"Заредете страницата с рекламата в Chrome.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Продължавате ли да я виждате в Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Не желая такава проверка",
@@ -1085,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"Въпросът определя кой трябва да получи вашия доклад. Ако отговорите неправилно, докладът ви ще получат неподходящите хора и може да не бъде взет под внимание.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Блокирани реклами:",
@@ -1112,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Показвай върху бутона",
+    "message":"Показвай броя на блокираните реклами върху бутона на AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Показвай броя на блокираните реклами в менюто на AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Блокиращи филтри",
@@ -1144,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Изключи този канал в YouTube",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Изключи канал $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Сигурен ли сте, че премахвате $count$ от блокираните елементи за $host$?",

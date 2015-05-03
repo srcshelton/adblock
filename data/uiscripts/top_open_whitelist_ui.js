@@ -1,6 +1,8 @@
+"use strict";
+
 // Global lock so we can't open more than once on a tab.
 if (typeof may_open_dialog_ui === "undefined")
-    may_open_dialog_ui = true;
+    var may_open_dialog_ui = true;
 
 function top_open_whitelist_ui() {
   if (!may_open_dialog_ui)
@@ -23,9 +25,9 @@ function top_open_whitelist_ui() {
         $(".adblock-ui-stylesheet").remove();
         wizardClosing();
         return;
-    }    
-    
-    var adblock_default_button_text = translate("buttonexclude");
+    }
+
+    var adblock_default_button_text = translateAndRemoveHTML("buttonexclude");
     var btns = {};
     btns[adblock_default_button_text] = {
       text: adblock_default_button_text,
@@ -33,24 +35,33 @@ function top_open_whitelist_ui() {
       click: function() {
         var filter = '@@||' + generateUrl() + '$document';
         BGcall('add_custom_filter', filter, function() {
-          document.location.reload();
+            wizardClosing();
+            if ($('#reload_page').is(':checked')) {
+                document.location.reload();
+            } else {
+                may_open_dialog_ui = true;
+                $(".adblock-ui-stylesheet").remove();
+                page.remove();
+            }
         });
       }
     }
     btns[translate("buttoncancel")] = function() { page.dialog('close');}
 
     var page = $('<div>').
-      append($('<span>').text(translate('adblock_wont_run_on_pages_matching'))).
+      append($('<span>').text(translateAndRemoveHTML('adblock_wont_run_on_pages_matching'))).
       append('<br/><br/><i id="domainpart"></i><i id="pathpart"></i>').
       append('<br/><br/><br/>').
-      append($('<span id="whitelister_dirs">').text(translate('you_can_slide_to_change'))).
+      append($('<span id="whitelister_dirs">').text(translateAndRemoveHTML('you_can_slide_to_change'))).
       append('<br/>').
-      append($('<span id="modifydomain">').text(translate('modifydomain')).
+      append($('<span id="modifydomain">').text(translateAndRemoveHTML('modifydomain')).
       append('<input id="domainslider" type="range" min="0" value="0">')).
-      append($('<span id="modifypath">').text(translate('modifypath')).
+      append($('<span id="modifypath">').text(translateAndRemoveHTML('modifypath')).
       append('<input id="pathslider" type="range" min="0" value="0">')).
+      append('<br/><input type="checkbox" id="reload_page" checked/>').
+      append($('<label style="display: inline;" for="reload_page">').text(translateAndRemoveHTML('reloadpageafterwhitelist'))).
       dialog({
-        title: translate("whitelistertitle2"),
+        title: translateAndRemoveHTML("whitelistertitle2"),
         dialogClass: "adblock-whitelist-dialog",
         width: 600,
         minHeight: 130,

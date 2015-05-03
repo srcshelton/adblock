@@ -1,10 +1,12 @@
+"use strict";
+
 //Binds keypress enter to trigger click action on
 //default button or trigger click action on focused
 //button.
 function bind_enter_click_to_default(){
   if (window.GLOBAL_ran_bind_enter_click_to_default)
     return;
-  GLOBAL_ran_bind_enter_click_to_default = true;
+  window.GLOBAL_ran_bind_enter_click_to_default = true;
   $('html').bind('keypress', function(event){
     if (event.keyCode === 13 && $('button:focus').size() <= 0){
       event.preventDefault();

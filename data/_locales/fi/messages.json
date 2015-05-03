@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Chromen suosituin lisäosa. Sitä käyttää yli 15 miljoonaa käyttäjää! Estää kaikki mainokset.",
+    "message":"Chromen suosituin lisäosa. Sitä käyttää yli 40 miljoonaa käyttäjää! Estää kaikki mainokset.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -168,7 +168,7 @@
     "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com\/reader\/*'.  The URL will appear on the next line."
   },
   "you_can_slide_to_change":{
-    "message":"Voit raahata allaolevaa palkkia\/palkkeja määrittääksesi sivut, joilla AdBlock ei ole käytössä.",
+    "message":"Voit raahata alla olevaa palkkia määrittääksesi sivut, joilla AdBlock ei ole käytössä.",
     "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
   },
   "whitelistertitle2":{
@@ -178,6 +178,14 @@
   "buttonexclude":{
     "message":"Poista käytöstä",
     "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Lataa sivu uudelleen.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Tämä AdBlock-ominaisuus ei toimi tällä sivustolla, koska sitä käytetään vanhentuneella tekniikalla. Voit lisätä kohteita mustalle tai valkoisille listalle manuaalisesti \"Mukauta\"-välilehdessä.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
   },
   "subscribingtitle":{
     "message":"Otetaan suodatinlistaa käyttöön...",
@@ -445,6 +453,10 @@
     "message":"Muokkaa suodattimia manuaalisesti:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Muokkaa suodattimia, jotka poistettu käytöstä:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Ole varovainen: jos teet virheen tässä, myös viralliset suodattimet voivat lakata toimimasta!<br\/>Lue <a>suodattimen syntaksiopas<\/a> saadaksesi lisätietoja suodattimien muokkauksesta.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +476,18 @@
   "adreport2":{
     "message":"Löysitkö siis mainoksen joltain verkkosivulta? Nyt löydät oikean paikan siitä ilmoittamiseen!<br\/> Muista: mainosten ilmoittaminen on vapaaehtoista. Jos et halua tehdä tätä, voit sulkea tämän ikkunan ja estää mainoksen vain omalla tietokoneellasi 'Mukauta' -välilehden avulla asetussivulla!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Haittaohjelmien tarkistaminen",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Tietokoneesi voi olla haittaohjelman saastuttama. Klikkaa <a>tästä<\/a> saadaksesi lisää tietoja.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Tunnettuja haittaohjelmia ei löytynyt.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Varmista, että suodatinlistasi ovat ajan tasalla",
@@ -678,6 +702,30 @@
   "checkinfirefox_5":{
     "message":"Näkyykö mainos myös siinä selaimessa?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Tarkista Chromessa",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Asenna Chrome, jos sinulla ei ole vielä sitä.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Asenna AdBlock Chromelle, jos sinulla ei ole vielä sitä.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Tilaa Chromessa samat suodattimet, jotka sinulla on tässä selaimessa.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"Lataa Chromessa sivu, jossa on mainos.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Näkyykö mainos myös Chromessa?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"En halua tarkistaa tätä",
@@ -1085,7 +1133,7 @@
   },
   "firefox_explanation":{
     "message":"Tämän kysymyksen tarkoitus on se, kuka saa vastaanottaa raporttisi. Jos vastaat tähän kysymykseen väärin, raportti lähetetään väärille henkilöille, ja se saatetaan hylätä.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Estetyt mainokset:",
@@ -1112,8 +1160,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Näytä AdBlock-painikkeessa",
+    "message":"Näytä estettyjen mainosten määrän AdBlock-painikkeessa",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Näyttää estettyjen mainosten määrän AdBlock-valikossa",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Mainostenestolistat",
@@ -1144,8 +1196,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Salli mainokset tällä YouTube-kanavalla",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Salli kanava $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Oletko varma, että haluat poistaa $count$ estoa, jotka olet estänyt verkkotunnuksessa $host$?",

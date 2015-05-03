@@ -1,6 +1,8 @@
-if (typeof(send_content_to_back) == "undefined") {
+"use strict";
 
-    send_content_to_back = function() {
+if (typeof(send_content_to_back) === "undefined") {
+
+    var send_content_to_back = function() {
       // Objects and embeds can catch our clicks unless we lay a div over
       // them.  But even then they can catch our clicks unless they were loaded
       // with wmode=transparent.  So, make them load that way, so that our

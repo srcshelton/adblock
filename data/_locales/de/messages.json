@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Die beliebteste Chrome-Erweiterung, mit über 15 Millionen Nutzern!  Entfernt Werbung im ganzen Internet.",
+    "message":"Die beliebteste Chrome-Erweiterung, mit über 40 Millionen Nutzern!  Entfernt Werbung im ganzen Internet.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -178,6 +178,14 @@
   "buttonexclude":{
     "message":"Ausnahme hinzufügen",
     "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Seite neu laden",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Diese AdBlock Funktion funktioniert auf dieser Seite nicht, da die Seite eine veraltete Technologie nutzt. Sie können Ressourcen manuell unter \"AdBlock anpassen\" in den AdBlock Einstellungen aktivieren und deaktivieren.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
   },
   "subscribingtitle":{
     "message":"Filterliste abonnieren...",
@@ -445,6 +453,10 @@
     "message":"Filter manuell bearbeiten:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Deaktivierte Filter bearbeiten:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Achtung: Sollten Sie hier einen Fehler machen, können viele andere Filter sowie die Filter der Filterlisten beschädigt werden!<br\/>Lesen Sie zuerst das <a>Filtersyntax-Tutorial<\/a>, um zu lernen, wie man eigene Black- und Whitelistfilter erstellt und hinzufügt.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +476,18 @@
   "adreport2":{
     "message":"Sie haben Werbung auf einer Seite gefunden? Dieser Assistent wird Ihnen dabei helfen, diese Werbung zu melden!<br\/> Hinweis: Das Melden von Werbung ist freiwillig. Sollten Sie keine Werbung melden wollen, können Sie dieses Fenster schließen und die Werbung über einen Filter im Tab 'Anpassen' der AdBlock-Einstellungen hinzufügen.",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Malware-Überprüfung",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Ihr Computer ist möglicherweise mit Malware infiziert.  Klicken Sie <a>hier<\/a> für weitere Informationen.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Keine bekannte Malware gefunden.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Stellen Sie sicher, dass Ihre Filterlisten aktuell sind",
@@ -678,6 +702,30 @@
   "checkinfirefox_5":{
     "message":"Erscheint die Werbung auch in diesem Browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"In Google Chrome überprüfen",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Installieren Sie Google Chrome falls Sie es noch nicht installiert haben.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Installieren Sie AdBlock für Chrome falls Sie es noch nicht installiert haben.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"Abonnieren Sie in Google Chrome die gleichen Filterlisten wie hier.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"Laden Sie die Seite mit Werbung in Google Chrome.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Wird die Werbung auch in Google Chrome angezeigt?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Nicht überprüfen",
@@ -1085,7 +1133,7 @@
   },
   "firefox_explanation":{
     "message":"Der Zweck dieser Frage ist herauszufinden wer Ihren Bericht erhalten soll. Sollten Sie diese Frage falsch beantworten wird der Bericht an die falschen Personen gesendet und möglicherweise ignoriert.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Anzahl entfernter Werbung:",
@@ -1110,10 +1158,6 @@
         "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
     }
-  },
-  "show_on_adblock_button":{
-    "message":"am AdBlock-Button anzeigen",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Filterlisten für Werbung",
@@ -1142,10 +1186,6 @@
   "allow_whitelisting_youtube_channels":{
     "message":"Zulassen von Werbung auf bestimmten YouTube-Kanälen aktivieren",
     "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "whitelist_youtube_channel":{
-    "message":"Werbung auf diesem YouTube-Kanal zulassen",
-    "description":"Text which is displayed on YouTube in popup menu"
   },
   "confirm_undo_custom_filters":{
     "message":"Sind Sie sicher, dass Sie $count$ Filter entfernen wollen, die Sie für $host$ erstellt haben?",

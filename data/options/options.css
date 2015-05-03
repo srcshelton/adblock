@@ -245,7 +245,7 @@
       #editFilters {
         margin: 15px 0px 8px 0px;
       }
-      #txtFiltersAdvanced {
+      #txtFiltersAdvanced, #txtExcludeFiltersAdvanced {
         font-size: 12px;
         max-width: 100%;
         margin-left: 5px;

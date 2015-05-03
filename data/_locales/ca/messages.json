@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"L'extensió més popular de Chrome, amb més de 15 milions d'usuaris! Bloqueja els anuncis de tota la xarxa.",
+    "message":"L'extensió més popular de Chrome, amb més de 40 milions d'usuaris! Bloqueja els anuncis de tota la xarxa.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -179,6 +179,14 @@
     "message":"Excloure",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"Recarregar la pàgina.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Aquesta característica de l'AdBlock no s'executa en aquest lloc perquè utilitza tecnologia obsoleta. Podeu prohibir o permetre recursos manualment a la pestanya 'personalitzar' de la pàgina d'opcions.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
   "subscribingtitle":{
     "message":"Subscrivint-se a la llista de filtres...",
     "description":"abp: link subscriber title"
@@ -228,6 +236,10 @@
   "showcontextmenus2":{
     "message":"Afegir ítems al menú de clic amb botó dret",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Activeu el mode de compatibilitat amb ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"Mostrar les dades de depuració al registre de la consola (això alentirà l'AdBlock)",
@@ -445,6 +457,10 @@
     "message":"Editar manualment els vostres filtres:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Editar els filtres desactivats:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Aneu amb compte: Si cometeu un error aquí molts filtres, incloent els oficials, es podrien malmetre!<br\/>Llegiu-vos el <a>tutorial de sintaxi per a filtres<\/a> per aprendre com afegir filtres avançats de restricció o permissió.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +480,18 @@
   "adreport2":{
     "message":"Acabeu de trobar un anunci en una pàgina web? Bé, us ajudaré a trobar el lloc correcte per informar-ne!<br\/>Recordeu: Informar sobre anuncis és voluntari. Si no voleu fer-ho podeu tancar aquesta finestra i bloquejar-lo només per a vostè afegint el seu filtre a la pestanya 'Personalitzar' de la pàgina d'opcions!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Comprovació de programari maliciós",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"El vostre ordinador potser està infectat per programari maliciós. Cliqueu <a>aquí<\/a> per obtenir més informació.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"No s'ha trobat programari maliciós conegut.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Assegureu-vos que les llistes de filtres estiguin actualitzades",
@@ -678,6 +706,30 @@
   "checkinfirefox_5":{
     "message":"L'anunci també apareix en aquell navegador?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Comprovar-ho a Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Instal·leu Chrome, si no el teniu.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Instal·leu AdBlock per a Chrome, si no el teniu.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"A Chrome, subscriviu-vos als mateixos filtres als que us heu subscrit aquí.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"A Chrome, carregueu la pàgina amb l'anunci.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"L'anunci també apareix a Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"No vull comprovar això",
@@ -1085,7 +1137,7 @@
   },
   "firefox_explanation":{
     "message":"El propòsit d'aquesta pregunta és determinar qui ha de rebre el seu informe. Si contesteu aquesta pregunta de forma incorrecta, l'informe s'enviarà a les persones equivocades, i potser sou ignorats.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Anuncis bloquejats:",
@@ -1112,8 +1164,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Mostrar-ho al botó d'AdBlock",
+    "message":"Mostrar el nombre d'anuncis blocats al botó",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Mostrar el nombre d'anuncis blocats al menú",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Llistes de filtres per bloquejar anuncis",
@@ -1144,8 +1200,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Permeteu anuncis en aquest canal de YouTube",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"El canal $name$ té permís",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Esteu segur que voleu eliminar els $count$ blocatges que heu creat a $host$?",
