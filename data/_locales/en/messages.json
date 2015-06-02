@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"The most popular Chrome extension, with over 40 million users!  Blocks ads all over the web.",
+    "message":"AdBlock. The #1 ad blocker with over 200 million downloads. Blocks YouTube, Facebook and ALL ads by default (unlike Adblock Plus).",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -48,8 +48,8 @@
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
   "ff_button_how_to_hide":{
-  	"message":"To hide the button, right click it and choose Remove from Toolbar.  You can show it again under Firefox menu -> Customise.",
-  	"description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customise' should match the text that shows when you click the button on the Firefox toolbar with three lines."
+    "message":"To hide the button, right click it and choose Remove from Toolbar.  You can show it again under Firefox menu -> Customize.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
   },
   "sliderexplanation":{
     "message":"Slide the slider until the ad is blocked correctly on the page, and the blocked element looks useful.",
@@ -190,6 +190,16 @@
   "wizardcantrunonframesets":{
     "message":"This AdBlock feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page.",
     "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
+  "subscribeconfirm":{
+    "message":"Are you sure that you want to subscribe to the $title$ filter list?",
+    "description":"Prompt question before subscribing to the filter list",
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    }
   },
   "subscribingtitle":{
     "message":"Subscribing to filter list...",
@@ -487,23 +497,19 @@
   },
   "malwarenotificationcheckboxmessage":{
     "message":"Should AdBlock notify you when it detects malware?",
-    "description":"Message to the user when subscribing to the Malware Filter list on the Options Filter tab."
-  },
-  "malwarenotificationtitle":{
-    "message":"AdBlock",
-    "description":"Title of the AdBlock message to the user"
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
   },
   "malwarenotificationmessage":{
-    "message":"AdBlock has detected Malware.  Your computer may be infected with Malware.",
-    "description":"Message to the user when a Malware request has been blocked.  Message should be under 90 characters"
+    "message":"AdBlock has detected malware.  Your computer may be infected.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
   },
   "malwarenotificationlearnmore":{
-    "message":"Learn more about Malware",
-    "description":"Button text, and when clicked it will take users to a link about malware on our website. Message should be under 45 characters"
+    "message":"Learn more about malware",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
   },
   "malwarenotificationdisablethesemessages":{
     "message":"Disable these notifications",
-    "description":"Button text on the malware notification message that disable future notifications.  Message should be under 45 characters"
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
   },
   "malwarecheck":{
     "message":"Malware check",
@@ -780,10 +786,6 @@
   "adblock_outdated_chrome":{
     "message":"You are using an old version of AdBlock. Please go to <a href='#'>the extensions page<\/a>, enable 'Developer mode' and click 'Update extensions now'",
     "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome:\/\/chrome\/extensions\/'"
-  },
-  "ff_adblock_outdated":{
-    "message":"You are using an old version of AdBlock. Please click the Firefox menu button and choose Add-ons.  Then on the Add-ons page, under settings (gear icon), click on 'Check for updates'",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock"
   },
   "block_an_ad_on_this_page":{
     "message":"Block an ad on this page",
@@ -1211,6 +1213,10 @@
     "message":"Custom Filter Lists",
     "description":"List for custom filters the user subscribed to"
   },
+  "dropboxerrorforfilters":{
+    "message":"You have exceed the Dropbox size limit.  Please remove some entries from your filters or disabled filters, and try again.",
+    "description":"Message to Dropbox sync users on the Customize tab, custom filters / disabled."
+  },
   "languagedropdowndescription":{
     "message":"Add filters for another language: ",
     "description":"Dropdown list for language-specific filters"
@@ -1268,6 +1274,10 @@
         "example":"<a>here<\/a>"
       }
     }
+  },
+  "ff_adblock_outdated":{
+    "message":"You are using an old version of AdBlock. Please click the Firefox menu button and choose Add-ons.  Then on the Add-ons page, under settings (gear icon), click on 'Check for updates'",
+    "description":"On the Options > Support page, shows when there is an update available for AdBlock"
   },
   "adblocksupport":{
     "message":"AdBlock Support",
@@ -1332,15 +1342,5 @@
   "ad_report_please":{
     "message":"If you're seeing an ad, don't make a bug report, make an <a>ad report<\/a>!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
-  },
-  "subscribeconfirm":{
-    "message":"Are you sure that you want to subscribe to the $title$ filter list?",
-    "description":"Prompt question before subscribing to the filter list",
-    "placeholders":{
-      "title":{
-        "content":"$1",
-        "example":"Prebake"
-      }
-    }
   }
 }

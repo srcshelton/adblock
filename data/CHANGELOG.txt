@@ -2,12 +2,26 @@
 
 UNRELEASED:
 
+2.2:
+- Removed the 'osVersion' parameter from ping data. (#146)
+- Fixed a minor bug in the filter processing. (#145)
+- Remove the blank space after Anchor tags in translated text. (#144)
+- Corrected an issue with running content scripts in frames. (#143)
+- Added pop up blocking. (#141)
+
 2.1:
+- Removed the Norwegian filter list since it is no longer active. (#133)
+- For each subscribe filter list, added the last update timestamp to debug data. (#129)
+- Added the malware notification setting to debug data. (#134)
+- Added a check for undefined tabs / active tab / active tab url. (#138)
+- Fixed a JavaScript exception when a Firefox window is closed. (#124)
+- Enhanced the AdBlock Options / Support tab with a version check. (#117)
+- Added a user confirmation prompt when subscribing to a new filter lists using the ABP syntax. (#127)
 - Updated the HTTP 'GET' request for filter Lists (#116)
-- Fixed a problem when trying to open the blocking wizard a second time during the same browser session (#113)
+- Fixed a problem when trying to open a wizard a second time during the same browser session .(#113)
 - Improved the survey processing logic (#111)
 - Removed unnecessary code for other browsers (#108)
-- Fixed a display issue of the wizards on certain sites (#103)
+- Fixed a display issue of the wizards on certain sites (#137, #114, #103)
 - Cleaned up and formatted the code (#87)
 - Fixed an issue with the exclude filters (#97)
 - Added badge text, showing how many ads were blocked (#95)

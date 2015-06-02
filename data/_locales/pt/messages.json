@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"A extensão mais popular para o Chrome, com mais de 15 milhões de utilizadores! Bloqueia anúncios por todo o lado na Web.",
+    "message":"A extensão mais popular para o Chrome, com mais de 40 milhões de utilizadores! Bloqueia anúncios por todo o lado na Web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -46,6 +46,10 @@
   "safaributton_how_to_hide2":{
     "message":"Para ocultar o botão, faça clique com o botão da direita na barra de ferramentas do Safari e escolha Personalizar barra de ferramentas e, em seguida, arraste o botão do AdBlock para fora da barra de ferramentas. Pode visualizá-lo novamente, arrastando-o de novo para a barra de ferramentas.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "ff_button_how_to_hide":{
+    "message":"Para ocultar o botão, clique com o botão direito e escolha \"Remover da barra de ferramentas\". Pode voltar a ver o botão se clicar em \"Personalizar\" no menu do Firefox.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
   },
   "sliderexplanation":{
     "message":"Arrasta o marcador até que o anúncio seja removido completamente nesta página.",
@@ -179,8 +183,26 @@
     "message":"Excluir",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"Recarregue a página.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Esta funcionalidade do AdBlock não funciona neste site porque apresenta tecnologia desactualizada. Pode colocar na lista negra ou nos recursos da whitelist manualmente no separador 'Personalizar' da página de opções.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
+  "subscribeconfirm":{
+    "message":"Tem a certeza que quer subscrever à lista de filtros de $title$?",
+    "description":"Prompt question before subscribing to the filter list",
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    }
+  },
   "subscribingtitle":{
-    "message":"Inscrevendo-se na lista de filtros...",
+    "message":"A inscrever-se na lista de filtros...",
     "description":"abp: link subscriber title"
   },
   "subscribingfinished":{
@@ -229,6 +251,10 @@
     "message":"Adicionar itens ao menu do botão direito",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
+  "disableyoutubestreamingads":{
+    "message":"Ativar o modo de compatibilidade ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
   "debuginlogoption":{
     "message":"Mostar as operações na Consola de Logs (torna o AdBlock lento)",
     "description":"Checkbox on the 'General' tab of the Options page"
@@ -238,7 +264,7 @@
     "description":"Label for subscription"
   },
   "updatedsecondsago":{
-    "message":"actualizado à $seconds$ segundos atrás",
+    "message":"actualizado há $seconds$ segundos atrás",
     "description":"Label for subscription",
     "placeholders":{
       "seconds":{
@@ -248,7 +274,7 @@
     }
   },
   "updatedminutesago":{
-    "message":"actualizado à $minutes$ minutos atrás",
+    "message":"actualizado há $minutes$ minutos atrás",
     "description":"Label for subscription",
     "placeholders":{
       "minutes":{
@@ -258,7 +284,7 @@
     }
   },
   "updatedhoursago":{
-    "message":"actualizado à $hours$ horas atrás",
+    "message":"actualizado há $hours$ horas atrás",
     "description":"Label for subscription",
     "placeholders":{
       "hours":{
@@ -268,7 +294,7 @@
     }
   },
   "updateddaysago":{
-    "message":"actualizado à $days$ dias atrás",
+    "message":"actualizado há $days$ dias atrás",
     "description":"Label for subscription",
     "placeholders":{
       "days":{
@@ -278,15 +304,15 @@
     }
   },
   "updatedminuteago":{
-    "message":"actualizado à 1 minuto atrás",
+    "message":"actualizado há 1 minuto atrás",
     "description":"Label for subscription"
   },
   "updatedhourago":{
-    "message":"actualizado à 1 hora atrás",
+    "message":"actualizado há 1 hora atrás",
     "description":"Label for subscription"
   },
   "updateddayago":{
-    "message":"actualizado à 1 dia atrás",
+    "message":"actualizado há 1 dia atrás",
     "description":"Label for subscription"
   },
   "unsubscribedlabel":{
@@ -298,7 +324,7 @@
     "description":"Status label"
   },
   "invalidListUrl":{
-    "message":"Lista URL inválida. Vai ser apagada.",
+    "message":"URL de lista inválido. Vai ser apagado.",
     "description":"Message when you subscribe to a non-list URL"
   },
   "failedtofetchfilter":{
@@ -310,7 +336,7 @@
     "description":"Label to remove a custom filter"
   },
   "you_know_thats_a_bad_idea_right":{
-    "message":"Maior o número de filtros que usa, mais lento o AdBlock corre. Usar tantos filtros até pode provocar o crash do teu browser em alguns sites. Clica em OK para desinscreveres-te desta lista.",
+    "message":"Quanto mais listas de filtros usar, mais lento será o funcionamento do AdBlock. Usar demasiadas listas até pode provocar um bloqueio do seu browser em alguns websites. Clique em OK para subscrever esta lista de qualquer forma.",
     "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
   },
   "filterstabtitle":{
@@ -318,7 +344,7 @@
     "description":"Title of the filter list tab"
   },
   "filterlistlink":{
-    "message":"Não subscrever mais do que o necessário - cada lista torna-te um pouco lento! Créditos e mais listas podem ser encontradas <a>aqui<\/a>.",
+    "message":"Não subscrever mais do que o necessário - cada lista torna-o um pouco mais lento! Créditos e mais listas podem ser encontradas <a>aqui<\/a>.",
     "description":"Explanation of the filter lists"
   },
   "updatenowmessage2":{
@@ -445,6 +471,10 @@
     "message":"Editar manualmente os filtros:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Editar filtros desactivados:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Tenha cuidado: se cometer um erro aqui, muitos dos outros filtros, incluindo os oficiais, vão deixar de funcionar!<br\/>Leia o <a>tutorial da sintaxe de filtros<\/a> para aprender a adicionar avançadas listas negras e listas brancas manualmente.",
     "description":"Warning when blacklisting manually"
@@ -464,6 +494,34 @@
   "adreport2":{
     "message":"Encontrou um anúncio numa página? Bem, eu vou ajudá-lo a encontrar o local correto para denunciá-lo!<br\/> Recorde: reportar anúncios é voluntário. Se não quiser fazer isso, pode simplesmente fechar esta janela e bloqueá-lo só para si, adicionando o seu filtro em 'Personalizar' na página das opções!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"O AdBlock deve notificá-lo quando detecta malware?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "malwarenotificationmessage":{
+    "message":"O AdBlock detectou malware.  O seu computador pode estar infectado.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "malwarenotificationlearnmore":{
+    "message":"Saber mais acerca do malware",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Desativar estas notificações",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "malwarecheck":{
+    "message":"Verificação de malware",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"O seu computador pode estar infectado por um malware.  Clique <a>aqui<\/a> para obter mais informações.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Nenhum malware encontrado.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"Certifique-se que suas listas de filtros estão atualizados",
@@ -628,7 +686,7 @@
     }
   },
   "retryaftersubscribe":{
-    "message":"Inscrever-se nesta lista de filtros e tentar novamente: $list_title$",
+    "message":"Inscreva-se nesta lista de filtros e tente novamente: $list_title$",
     "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
     "placeholders":{
       "list_title":{
@@ -648,7 +706,7 @@
     }
   },
   "checkinfirefox_1":{
-    "message":"Intale o Firefox $chrome$ caso não o tenha instalado.",
+    "message":"Instale o Firefox $chrome$ caso não o tenha instalado.",
     "description":"instruction for how to check Firefox\/Chrome for a reported ad",
     "placeholders":{
       "chrome":{
@@ -678,6 +736,30 @@
   "checkinfirefox_5":{
     "message":"O anúncio também aparece nesse browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Verifique no Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Instale o Chrome, caso ainda não o tenha.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Instale o AdBlock para o Chrome, caso ainda não o tenha.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"No Chrome, subscreva-se às mesmas listas de filtros que você tem aqui.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"No Chrome, carregue a página com o anúncio.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"O anúncio é exibido no Chrome também?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Não quero verificar isto",
@@ -938,7 +1020,7 @@
     "description":"Option at the bottom of the 'Customize' options tab"
   },
   "disabled_by_filter_lists":{
-    "message":"Desculpe, AdBlock desabilitado nesta página por uma das suas listas de filtros.",
+    "message":"Desculpe, o AdBlock foi desactivado nesta página por uma das suas listas de filtros.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
   "status_disabled":{
@@ -1050,7 +1132,7 @@
     "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
   },
   "storage_quota_exceeded":{
-    "message":"Acabou de exceder a quantidade de armazenamento que o AdBlock pode usar. Por favor, desincreva-se de algumas listas!",
+    "message":"Acabou de exceder a quantidade de armazenamento que o AdBlock pode usar. Por favor, desinscreva-se de algumas listas!",
     "description":"Message shown when the user uses more storage than allowed by the browser"
   },
   "safari50_updatenotice":{
@@ -1085,7 +1167,7 @@
   },
   "firefox_explanation":{
     "message":"O propósito desta questão é determinar quem deve receber o seu relatório. Se responder a esta pergunta incorrectamente, o relatório será enviado às pessoas erradas, por isso pode ser ignorado.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Anúncios bloqueados:",
@@ -1112,8 +1194,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Exibir no botão AdBlock",
+    "message":"Mostrar o número de anúncios bloqueados no botão AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Mostrar o número de anúncios bloqueados no menu AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Listas de Filtros de Bloqueio de Anúncios",
@@ -1144,8 +1230,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Colocar este canal do YouTube na lista branca",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Whitelist canal $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Tem a certeza que deseja remover os $count$ bloqueios que criou em $host$?",

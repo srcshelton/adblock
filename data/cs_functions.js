@@ -75,7 +75,7 @@ var localizePage = function () {
         //if found, remove the tag, and create a child node with same attributes
         //and inner text.
         if (originalTranslateText.indexOf("<") >= 0) {
-            processHTMLNode(this, originalTranslateText)
+            processHTMLNode(this, originalTranslateText);
         } else {
             $(this).text(originalTranslateText);
         }
@@ -391,7 +391,7 @@ function processAnchorNode(currentElement, originalTranslateText) {
         $(currentElement).append(document.createTextNode(preAnchorText + " "));
         $(currentElement).append(newEl);
         postAnchorText = processHTMLNode(currentElement, postAnchorText);
-        $(currentElement).append(document.createTextNode(" " + postAnchorText));
+        $(currentElement).append(document.createTextNode(postAnchorText));
     }
     var entireAnchorText = originalTranslateText.substring(startPos, endPos);
     var startInnerTextPos = entireAnchorText.indexOf(">");
