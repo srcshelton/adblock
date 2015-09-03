@@ -122,12 +122,19 @@ var customizeInit = function () {
 
         if (blacklist)
             blacklist = "@@*$document,domain=" + blacklist;
-
-        BGcall("validateLine", blacklist, function (response) {
-            if (response)
+        $("#messageBlacklist").empty();
+        $("#messageBlacklist").hide();
+        BGcall("validateLine", blacklist, true, function (response) {
+            if (response && !response.exception) {
                 $("#btnAddBlacklist").removeAttr("disabled");
-            else
+            } else if (response && response.exception) {
                 $("#btnAddBlacklist").attr("disabled", "disabled");
+                var filterErrorMessage = translate("customfilterserrormessage", [blacklist, response.exception]);
+                HTMLtoDOM(filterErrorMessage, document.getElementById("messageBlacklist"));
+                $("#messageBlacklist").show();
+            } else {
+                $("#btnAddBlacklist").attr("disabled", "disabled");
+            }
         });
     });
 
@@ -257,15 +264,24 @@ var customizeInit = function () {
 
     function saveFilters() {
         var custom_filters_text = $("#txtFiltersAdvanced").val();
-        BGcall("set_custom_filters_text", custom_filters_text);
-
-        updateCustomFiltersCount(custom_filters_text);
-
-        $("#divAddNewFilter").slideDown();
-        $("#txtFiltersAdvanced").attr("disabled", "disabled");
-        $("#spanSaveButton").hide();
-        $("#btnEditAdvancedFilters").show();
-        $("#btnCleanUp").show();
+        var custom_filters_array = custom_filters_text.split("\n");
+        $("#messagecustom").empty();
+        $("#messagecustom").hide();
+        BGcall("validateList", custom_filters_array, true, function (response) {
+            if (response && !response.exception) {
+                BGcall("set_custom_filters_text", custom_filters_text);
+                updateCustomFiltersCount(custom_filters_text);
+                $("#divAddNewFilter").slideDown();
+                $("#txtFiltersAdvanced").attr("disabled", "disabled");
+                $("#spanSaveButton").hide();
+                $("#btnEditAdvancedFilters").show();
+                $("#btnCleanUp").show();
+            } else if (response && response.exception) {
+                var filterErrorMessage = translate("customfilterserrormessage", [response.filter, response.exception]);
+                HTMLtoDOM(filterErrorMessage, document.getElementById("messagecustom"));
+                $("#messagecustom").show();
+            }
+        });
     }
 
     $("#btnSaveAdvancedFilters").click(saveFilters);

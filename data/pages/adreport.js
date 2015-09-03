@@ -232,7 +232,7 @@ $("#step_other_browser_wontcheck").click(function () {
 
 // Check every domain of downloaded resource against malware-known domains
 var checkForMalware = function () {
-    BGcall("resourceblock_get_frameData", args.tabId, function (tab_frameData) {
+    BGcall("get_frameData", args.tabId, function (tab_frameData) {
         if (!tab_frameData)
             return;
 

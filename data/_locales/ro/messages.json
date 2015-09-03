@@ -407,10 +407,6 @@
     "message":"Letonă",
     "description":"A filter list"
   },
-  "filternorwegian":{
-    "message":"Norvegiană",
-    "description":"A filter list"
-  },
   "filterswedish":{
     "message":"Suedeză",
     "description":"A filter list"
@@ -498,10 +494,6 @@
   "malwarenotificationcheckboxmessage":{
     "message":"Ar trebui să vă notifice AdBlock atunci când detectează malware?",
     "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "malwarenotificationmessage":{
-    "message":"AdBlock a detectat malware.  Computerul poate fi infectat.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
   },
   "malwarenotificationlearnmore":{
     "message":"Aflaţi mai multe despre malware",
@@ -714,20 +706,6 @@
         "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
       }
     }
-  },
-  "checkinfirefox_2":{
-    "message":"Instalează AdBlock Plus pentru Firefox $chrome$ dacă nu le ai.",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad.",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='adblockforchrome'><\/span>",
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
-  },
-  "checkinfirefox_3":{
-    "message":"În acel navigator, adaugă aceleași filtre pe care le ai și aici (cu excepția filtrelor personalizate AdBlock din Firefox).",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
   "checkinfirefox_4":{
     "message":"În acel browser, navighează la pagina cu reclama.",
@@ -1075,14 +1053,6 @@
     "message":"Plătiţi ceea ce doriţi!",
     "description":"Text of a payment request link"
   },
-  "removelabel":{
-    "message":"Șterge",
-    "description":"Link to remove a filter on the resourceblock page"
-  },
-  "changelabel":{
-    "message":"schimbă",
-    "description":"Link to change resources on the resourceblock page"
-  },
   "translator_credit":{
     "message":"Mulțumiri:",
     "description":"Will be followed by a list of translator names (separate string)"
@@ -1139,32 +1109,6 @@
     "message":"Folosești o versiune veche Safari. Instalează ultima versiune pentru a putea folosi butonul din bara de instrumente AdBlock, pentru a permite reclame pe anumite site-uri și pentru a raporta reclame. <a>Actualizează acum<\/a>.",
     "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
-  "searchexplanation":{
-    "message":"Folosește * pentru a marca zero sau mai multe litere. De exemplu, se va folosi 'banner*.gif imagine' pentru 'banner.gif', 'banner123.gif'  și 'bannerxyz.gif'.",
-    "description":"Text in resourceblock when you hover your mouse over the search textbox"
-  },
-  "searchplaceholder":{
-    "message":"Căutare resurse...",
-    "description":"Text in resourceblock shown in the search textbox before you type something"
-  },
-  "nosearchresults":{
-    "message":"Nicio resursă găsită",
-    "description":"Text in resourceblock shown if no results are found after searching"
-  },
-  "custompattern":{
-    "message":"Personalizare:",
-    "description":"Label in front of the 'custom block pattern' textbox in resourceblock, after clicking a resource"
-  },
-  "filterorigin":{
-    "message":"Originea filtrului:\n$list$",
-    "description":"Tooltip of matching filter in resources list, telling which filter list contains the filter",
-    "placeholders":{
-      "list":{
-        "content":"$1",
-        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
-      }
-    }
-  },
   "firefox_explanation":{
     "message":"Scopul acestei întrebări este de a determina cine primește raportul tău.",
     "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
@@ -1212,6 +1156,10 @@
   "customfilters":{
     "message":"Filtre personalizate",
     "description":"List for custom filters the user subscribed to"
+  },
+  "dropboxerrorforfilters":{
+    "message":"Ai depăşit limita de spaţiu Dropbox. Te rugăm îndepărtează câteva intrări din filtrele proprii sau cele dezactivate şi încearcă din nou.",
+    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
   },
   "languagedropdowndescription":{
     "message":"Adaugă filtru pentru altă limbă: ",
@@ -1270,6 +1218,10 @@
         "example":"<a>here<\/a>"
       }
     }
+  },
+  "ff_adblock_outdated":{
+    "message":"Utilizaţi o versiune veche de AdBlock. Vă rugăm să faceţi clic pe butonul Firefox Meniu şi selectaţi Suplimente. Apoi in pagina de suplimente, faceţi clic pe pictograma roţii dinţate (instrumente pentru suplimente) şi alegeţi 'Verifică actualizari'.",
+    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Suport AdBlock",

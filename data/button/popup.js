@@ -29,13 +29,13 @@ function customize_for_this_tab(info) {
             "div_options", "div_help_hide_start"]);
         hide(["block_counts"]);
     } else if (info.whitelisted) {
-        show(["div_status_whitelisted", "div_enable_adblock_on_this_page", "div_show_resourcelist",
+        show(["div_status_whitelisted", "div_enable_adblock_on_this_page",
             "separator0", "div_pause_adblock", "separator1",
             "div_options", "div_help_hide_start"]);
         hide(["block_counts"]);
     } else {
         show(["div_pause_adblock", "div_blacklist", "div_whitelist",
-            "div_whitelist_page", "div_show_resourcelist",
+            "div_whitelist_page",
             "div_report_an_ad", "separator1", "div_options",
             "div_help_hide_start", "separator3", "block_counts"]);
 
@@ -71,10 +71,6 @@ function customize_for_this_tab(info) {
                     $("#div_undo, #separator0").show();
                 }
             });
-        }
-
-        if (!info.show_advanced_options) {
-            hide(["div_show_resourcelist"]);
         }
 
         var url = info.tab.url;
@@ -183,14 +179,6 @@ $(function () {
                 url: info.tab.url
             };
             BGcall("openAdReportTab", JSON.stringify(query));
-            addon.port.emit("close");
-        });
-    });
-
-    $("#div_show_resourcelist").click(function () {
-        BGcall("getCurrentTabInfo", function (info) {
-            var query = {tabId: info.tab.id};
-            BGcall("openResourceBlockTab", JSON.stringify(query));
             addon.port.emit("close");
         });
     });

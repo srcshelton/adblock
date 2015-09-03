@@ -142,40 +142,11 @@ BlacklistUi.prototype.show = function() {
 BlacklistUi.prototype._build_page1 = function() {
   var that = this;
 
-  var link_to_block = $("<a>").
-    attr("id", "block_by_url_link").
-    attr("href", "#").
-    attr("tabIndex", "-1").
-    text(translateAndRemoveHTML("block_by_url_instead")).
-    click(function(e) {
-      var el = that._chain.current();
-      var elType = typeForElement(el[0]);
-      var type = ElementTypes.NONE;
-      if (elType == ElementTypes.image)
-        type = "image";
-      else if (elType == ElementTypes.object)
-        type = "object";
-      else if (elType == ElementTypes.media)
-        type = "media";
-      else if (elType == ElementTypes.subdocument)
-        type = "subdocument";
-      var srcUrl = relativeToAbsoluteUrl(el.attr("src") || el.attr("data"));
-      var tabUrl = document.location.href;
-      var query = {itemType: type, itemUrl:srcUrl, url: tabUrl };
-      BGcall("openResourceBlockTab", JSON.stringify(query));
-      e.preventDefault();
-      e.stopPropagation();
-      that._ui_page1.dialog('close');
-      return false;
-    });
-
   var page = $("<div>").
     text(translateAndRemoveHTML("sliderexplanation")).
     append("<br/>").
     append("<input id='slider' type='range' min='0' value='0'/>").
-    append("<div id='selected_data'></div>").
-    append(link_to_block);
-
+    append("<div id='selected_data'></div>");
   var btns = {};
   var adblock_default_button_text = translate("buttonlooksgood");
   btns[adblock_default_button_text] = {

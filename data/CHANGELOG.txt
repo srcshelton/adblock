@@ -2,6 +2,19 @@
 
 UNRELEASED:
 
+2.4:
+- Added the ping count to the ping data. (#159)
+- Removed the 'View the Resource' page. (#158)
+- Changed the order of IF statements in the 'shouldsurvey' function. (#157)
+- Fix a style issue with the 'Subscribe' popup. (#156)
+- Added more filters for showing ads on Google Search when that option is enabled. (#154)
+- Removed some Chrome specific code. (#152)
+
+2.3:
+- Implemented a standard JavaScript library for dynamic HTML 5 parsing. (#148)
+- Added validation to the custom filters. (#150)
+- Included the GNU general public license file. (#149)
+
 2.2:
 - Removed the 'osVersion' parameter from ping data. (#146)
 - Fixed a minor bug in the filter processing. (#145)
