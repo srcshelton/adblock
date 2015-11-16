@@ -1,29 +1,30 @@
-/*
-Localizable.strings
-AdBlock2
+/* 
+  Localizable.strings
+  AdBlock2
 
-Created by Brent Montrose on 8/25/15.
-Copyright © 2015 AdBlock. All rights reserved.
+  Created by Brent Montrose on 8/25/15.
+  Copyright © 2015 AdBlock. All rights reserved.
 */
 
 /* tab bar text */
 "adblocktabtext" = "AdBlock";
 "supportandhelptabtext" = "Setup & Help";
 "supportustabtext" = "Support Us!";
+"settingstabtext" = "Settings";
 
 /* Labels on the Home Tab */
-setuphelppagetitle = "Setup & Help";
-setuphelpsubtitle1 = "AdBlock should just work...";
-setuphelpsubtitle2 = "...but if not, we're here to help!";
-setuphelpsubtitle3 = "Try these things in order:";
-setuphelppagestep1 = "1.";
-setuphelppagebutton1 = "Check your settings";
-setuphelppagestep2 = "2.";
-setuphelppagebutton2 = "Run the ad-blocking test";
-setuphelppagestep3 = "3.";
-setuphelppagestep3text = "Still no love?";
-setuphelppagebutton3 = "File a support request!";
-setuphelppagestep4 = "4. Don't worry.  We'll get through this.";
+"setuphelppagetitle" = "Setup & Help";
+"setuphelpsubtitle1" = "AdBlock should just work...";
+"setuphelpsubtitle2" = "...but if not, we're here to help!";
+"setuphelpsubtitle3" = "Try these things in order:";
+"setuphelppagestep1" = "1.";
+"setuphelppagebutton1" = "Check your settings";
+"setuphelppagestep2" = "2.";
+"setuphelppagebutton2" = "Run the ad-blocking test";
+"setuphelppagestep3" = "3.";
+"setuphelppagestep3text" = "Still no love?";
+"setuphelppagebutton3" = "File a support request!";
+"setuphelppagestep4" = "4. Don't worry.  We'll get through this.";
 
 
 /* Labels on the AdBlock / Filter List Tab */
@@ -44,12 +45,6 @@ setuphelppagestep4 = "4. Don't worry.  We'll get through this.";
 
 "fetchinglabel" = "Fetching";
 
-"downloaderrormessage" = "The Internet hiccupped. Try again in a minute.";
-
-"downloaderrorlinkmessage" = "Still seeing this error?";
-
-"failedmessage" = "Failed";
-
 /* The name the easy list filter lists*/
 "filtereasylist" = "EasyList";
 
@@ -58,61 +53,38 @@ setuphelppagestep4 = "4. Don't worry.  We'll get through this.";
 
 /* language specific filter lists*/
 "filtereasylist_plus_bulgarian" = "Bulgarian";
-
 "filterczech" = "Czech and Slovak";
-
 "filterdanish" = "Danish";
-
 "filtereasylist_plus_german" = "German";
-
 "filtereasylist_plus_greek" = "Greek";
-
 "filtereasylist_plus_finnish" = "Finnish";
-
 "filtereasylist_plus_french" = "French";
-
 "filterisraeli" = "Hebrew";
-
 "filterhungarian" = "Hungarian";
-
 "filteritalian" = "Italian";
-
 "filtereasylist_plus_indonesian" = "Indonesian";
-
 "filterjapanese" = "Japanese";
-
 "filtereasylist_plun_korean" = "Korean";
-
 "filterlatvian" = "Latvian";
-
 "filterdutch" = "Dutch";
-
 "filtereasylist_plus_polish" = "Polish";
-
 "filtereasylist_plus_romanian" = "Romanian";
-
 "filterrussian" = "Russian and Ukrainian";
-
 "filterswedish" = "Swedish";
-
 "filterturkish" = "Turkish";
-
 "filterchinese" = "Chinese";
 
 /* alert titles and message found on the filter list tab */
-alerttitle = "AdBlock - Mobile Alert";
-
-noconnectionmessage = "Filter lists can only be updated over a WiFi connection.";
-
-notimestampdata = "No data available";
-
-okaybuttontext = "OK";
-
-celluaronlyconnectionmessage = "Do you want to download the files over a celluar connection?  Data charges may apply.";
-
-cancelbuttontext = "Cancel";
-
-proceedbuttontext = "Proceed";
+"alerttitle" = "AdBlock - Mobile Alert";
+"noconnectionmessage" = "Filter lists can only be updated over a WiFi connection.";
+"notimestampdata" = "No data available";
+"okaybuttontext" = "OK";
+"celluaronlyconnectionmessage" = "Do you want to download the files over a celluar connection?  Data charges may apply.";
+"cancelbuttontext" = "Cancel";
+"proceedbuttontext" = "Proceed";
+"downloaderrormessage" = "The Internet hiccupped. Try again in a minute.";
+"downloaderrorlinkmessage" = "Still seeing this error?";
+"failedmessage" = "Failed";
 
 /*settings one page (help users set up the settings)*/
 "settingsonepagetitle" = "AdBlock Setup";
@@ -127,9 +99,28 @@ proceedbuttontext = "Proceed";
 
 /* labels and buttons on the the second setup page */
 "settingstwopagetitle" = "AdBlock Setup";
-settingstwostepone = "1.  Open Settings from the Home screen";
-settingstwosteptwo = "2.  Tap Safari";
-settingstwostepthree = "3.  Tap Content Blockers";
-settingstwostepfour = "4.  Activate all three AdBlock Content Blockers";
-settingstwonextbutton = "Next: Test your settings!";
+"settingstwostepone" = "1.  Open Settings from the Home screen";
+"settingstwosteptwo" = "2.  Tap Safari";
+"settingstwostepthree" = "3.  Tap Content Blockers";
+"settingstwostepfour" = "4.  Activate all three AdBlock Content Blockers";
+"settingstwonextbutton" = "Next: Test your settings!";
+
+
+/* text on the Settings tab */
+"languages" = "Language";
+"supportus" = "Support Us";
+"rateus" = "Rate Us in the App Store";
+"about" = "About";
+
+"savebutton" = "Save";
+"languagesaved" = "The language was updated to ";
+"languageremoved" = "The Language filter list was removed.";
+"dismiss" = "Okay";
+"notimplemented" = "This feature is not currently implemented.";
+
+/* text on the about page */
+"versionlabeltext" = "Version";
+"homepage" = "Home Page";
+"contributors" = "Contributors";
+"helpspreadtheword" = "Help spread the word!";
 

@@ -5,8 +5,6 @@ import UIKit
 class SetupHelpVC: UIViewController {
 
     var window: UIWindow?
-    
-    @IBOutlet weak var homePageTitleLabel: UILabel!
 
     @IBOutlet weak var homePageSubTitle1Label: UILabel!
     
@@ -32,7 +30,8 @@ class SetupHelpVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        homePageTitleLabel.text = NSLocalizedString("setuphelppagetitle", comment:"AdBlock")
+        self.navigationItem.title = NSLocalizedString("setuphelppagetitle", comment:"AdBlock")
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         homePageSubTitle1Label.text = NSLocalizedString("setuphelpsubtitle1", comment:"settings")
         homePageSubTitle2Label.text = NSLocalizedString("setuphelpsubtitle2", comment:"settings")
         homePageSubTitle3Label.text = NSLocalizedString("setuphelpsubtitle3", comment:"settings")

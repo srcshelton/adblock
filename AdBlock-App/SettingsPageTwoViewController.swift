@@ -9,24 +9,19 @@ import Foundation
 import UIKit
 
 
-class SettingsPageTwoVC: UIViewController   {
+class SettingsPageTwoVC: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
     var window: UIWindow?
 
+    let tableRows = [ "settingstwostepone", "settingstep1", "settingstwosteptwo", "settingstep2", "settingstwostepthree", "settingstep3", "settingstwostepfour", "settingstep4"]
+    
     var setupshown:Bool = false
 
     @IBOutlet weak var settingsPageTwoTitleLabel: UILabel!
 
     @IBOutlet weak var settingsPageNextButton: UIButton!
 
-    @IBOutlet weak var settingPageTwoStepOne: UILabel!
-
-    @IBOutlet weak var settingPageTwoStepTwo: UILabel!
-
-    @IBOutlet weak var settingPageTwoStepThree: UILabel!
-
-    @IBOutlet weak var settingPageTwoStepFour: UILabel!
-
+    @IBOutlet weak var table: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +33,7 @@ class SettingsPageTwoVC: UIViewController   {
             settingsPageNextButton.setTitle(NSLocalizedString("settingstwonextbutton", comment:"next page"), forState: UIControlState.Normal)
         }
         settingsPageTwoTitleLabel.text = NSLocalizedString("settingstwopagetitle", comment:"title")
-        settingPageTwoStepOne.text = NSLocalizedString("settingstwostepone", comment:"step one")
-        settingPageTwoStepTwo.text = NSLocalizedString("settingstwosteptwo", comment:"step two")
-        settingPageTwoStepThree.text = NSLocalizedString("settingstwostepthree", comment:"step three")
-        settingPageTwoStepFour.text = NSLocalizedString("settingstwostepfour", comment:"step four")
+        table.tableFooterView = UIView(frame: CGRectZero)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +57,31 @@ class SettingsPageTwoVC: UIViewController   {
             settingsPageNextButton.setTitle(NSLocalizedString("exitsettings", comment:"exit settings"), forState: UIControlState.Normal)
             let myStat = Stats()
             UIApplication.sharedApplication().openURL(NSURL(string:"http://getadblock.com/mobile/test/?u=" + myStat.getUserId())!)
+        }
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableRows.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if ((indexPath.row % 2) == 0) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("textCell")
+            cell!.textLabel?.text = NSLocalizedString(tableRows[indexPath.row], comment:"setupandhelp")
+            cell!.textLabel?.numberOfLines = 0
+            return cell!
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("imageCell")
+            cell!.imageView!.image = UIImage(named: tableRows[indexPath.row])
+            return cell!
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if ((indexPath.row % 2) == 0) {
+            return 44.0
+        } else {
+            return 90.0
         }
     }
 }

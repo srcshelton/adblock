@@ -57,22 +57,21 @@ class MyFilters: NSObject, NSFilePresenter, NSURLSessionDelegate, NSURLSessionDo
     // if so, save it,
     // ... then, if connected via WIFI,
     //     retrieve the file.
-    func checkForLanguageUpdate() {
-        if let newLanguageSub = getInitialLanguageSubscription() {
+    func setNewLanguageByFilterListID(id: String?) {
+        if let newLanguageID = id {
             if let currentLanguageSub = getLanguageSubScription() {
-                if (newLanguageSub.id != nil &&
-                    currentLanguageSub.id != nil &&
-                    newLanguageSub.id != currentLanguageSub.id) {
-                    NSLog("updating Language from " + currentLanguageSub.id! + " to: " +  newLanguageSub.id!)
-                    saveLanguageSubscription(newLanguageSub)
+                if (currentLanguageSub.id != nil &&
+                    newLanguageID != currentLanguageSub.id) {
+                    NSLog("updating Language from " + currentLanguageSub.id! + " to: " +  newLanguageID)
+                    saveLanguageSubscription(FilterListSubscription(filterListID: newLanguageID))
                 } else {
                     NSLog("no update needed ")
                     //no update needed
                     return
                 }
             } else {
-                NSLog("updating Language to: " +  newLanguageSub.id!)
-                saveLanguageSubscription(newLanguageSub)
+                NSLog("updating Language to: " +  newLanguageID)
+                saveLanguageSubscription(FilterListSubscription(filterListID: newLanguageID))
             }
             let reachabilityUtil = Reachability()
             if (reachabilityUtil.connectedToWIFINetwork()) {
@@ -86,6 +85,7 @@ class MyFilters: NSObject, NSFilePresenter, NSURLSessionDelegate, NSURLSessionDo
                 let ud = NSUserDefaults.standardUserDefaults()
                 ud.removeObjectForKey(userDefaultsLanguageKey)
                 deleteLanguageFile()
+                NSNotificationCenter.defaultCenter().postNotificationName("LanguageFilterListRemoved", object: nil)
             }
         }
     }
@@ -263,13 +263,13 @@ class MyFilters: NSObject, NSFilePresenter, NSURLSessionDelegate, NSURLSessionDo
     // Inputs: none.
     // Returns the initial EasyList subscription info
     func getInitialEasylistSubscription()->FilterListSubscription {
-        return FilterListSubscription(id: "easylist", url: "https://adblockcdn.com/filters/easylist.zip")
+        return FilterListSubscription(filterListID: "easylist")
     }
 
     // Inputs: none.
     // Returns the initial Privacy subscription info
     func getInitialPrivacySubscription()->FilterListSubscription {
-        return FilterListSubscription(id: "easyprivacy", url: "https://adblockcdn.com/filters/easyprivacy.zip")
+        return FilterListSubscription(filterListID: "easyprivacy")
     }
 
     func deleteLanguageFile() {
@@ -315,54 +315,30 @@ class MyFilters: NSObject, NSFilePresenter, NSURLSessionDelegate, NSURLSessionDo
         }
         NSLog("getInitialLanguageSubscription Language code: \(language)")
         switch language {
-            case "bg": return FilterListSubscription(id: "easylist_plus_bulgarian", url: "https://adblockcdn.com/filters/easylist_plus_bulgarian.zip")
-            
-            case "cs": return FilterListSubscription(id: "czech",  url: "https://adblockcdn.com/filters/czech.zip")
-            
-            case "cu": return FilterListSubscription(id: "easylist_plus_bulgarian", url: "https://adblockcdn.com/filters/easylist_plus_bulgarian.zip")
-            
-            case "da": return FilterListSubscription(id: "danish", url: "https://adblockcdn.com/filters/danish.zip")
-            
-            case "de": return FilterListSubscription(id: "easylist_plus_german", url: "https://adblockcdn.com/filters/easylist_plus_german.zip")
-            
-            case "el": return FilterListSubscription(id: "easylist_plus_greek", url: "https://adblockcdn.com/filters/easylist_plus_greek.zip")
-            
-            case "fi": return FilterListSubscription(id: "easylist_plus_finnish", url: "https://adblockcdn.com/filters/easylist_plus_finnish.zip")
-            
-            case "fr": return FilterListSubscription( id: "easylist_plus_french", url: "https://adblockcdn.com/filters/easylist_plus_french.zip")
-            
-            case "he": return FilterListSubscription(id: "israeli", url: "https://adblockcdn.com/filters/israeli.zip")
-            
-            case "hu": return FilterListSubscription(id: "hungarian", url: "https://adblockcdn.com/filters/hungarian.zip")
-            
-            case "it": return FilterListSubscription(id: "italian", url: "https://adblockcdn.com/filters/italian.zip")
-            
-            case "id": return FilterListSubscription(id: "easylist_plus_indonesian", url: "https://adblockcdn.com/filters/easylist_plus_indonesian.zip")
-            
-            case "ja": return FilterListSubscription(id: "japanese", url: "https://adblockcdn.com/filters/japanese.zip")
-            
-            case "ko": return FilterListSubscription(id: "easylist_plun_korean", url: "https://adblockcdn.com/filters/easylist_plun_korean.zip")
-            
-            case "lv": return FilterListSubscription(id: "latvian", url: "https://adblockcdn.com/filters/latvian.zip")
-            
-            case "nl": return FilterListSubscription(id: "dutch", url: "https://adblockcdn.com/filters/dutch.zip")
-            
-            case "pl": return FilterListSubscription(id: "easylist_plus_polish", url: "https://adblockcdn.com/filters/easylist_plus_polish.zip")
-            
-            case "ro": return FilterListSubscription(id: "easylist_plus_romanian", url: "https://adblockcdn.com/filters/easylist_plus_romanian.zip")
-            
-            case "ru": return FilterListSubscription(id: "russian", url: "https://adblockcdn.com/filters/russian")
-            
-            case "sk": return FilterListSubscription(id: "czech",  url: "https://adblockcdn.com/filters/czech.zip")
-            
-            case "sv": return FilterListSubscription(id: "swedish", url: "https://adblockcdn.com/filters/swedish.zip")
-            
-            case "tr": return FilterListSubscription(id: "turkish", url: "https://adblockcdn.com/filters/turkish.zip")
-            
-            case "uk": return FilterListSubscription(id: "russian", url: "https://adblockcdn.com/filters/russian")
-            
-            case "zh": return FilterListSubscription(id: "chinese", url: "https://adblockcdn.com/filters/chinese.zip")
-            
+            case "bg": return FilterListSubscription(filterListID: "easylist_plus_bulgarian")
+            case "cs": return FilterListSubscription(filterListID: "czech")
+            case "cu": return FilterListSubscription(filterListID: "easylist_plus_bulgarian")
+            case "da": return FilterListSubscription(filterListID: "danish")
+            case "de": return FilterListSubscription(filterListID: "easylist_plus_german")
+            case "el": return FilterListSubscription(filterListID: "easylist_plus_greek")
+            case "fi": return FilterListSubscription(filterListID: "easylist_plus_finnish")
+            case "fr": return FilterListSubscription(filterListID: "easylist_plus_french")
+            case "he": return FilterListSubscription(filterListID: "israeli")
+            case "hu": return FilterListSubscription(filterListID: "hungarian")
+            case "it": return FilterListSubscription(filterListID: "italian")
+            case "id": return FilterListSubscription(filterListID: "easylist_plus_indonesian")
+            case "ja": return FilterListSubscription(filterListID: "japanese")
+            case "ko": return FilterListSubscription(filterListID: "easylist_plun_korean")
+            case "lv": return FilterListSubscription(filterListID: "latvian")
+            case "nl": return FilterListSubscription(filterListID: "dutch")
+            case "pl": return FilterListSubscription(filterListID: "easylist_plus_polish")
+            case "ro": return FilterListSubscription(filterListID: "easylist_plus_romanian")
+            case "ru": return FilterListSubscription(filterListID: "russian")
+            case "sk": return FilterListSubscription(filterListID: "czech")
+            case "sv": return FilterListSubscription(filterListID: "swedish")
+            case "tr": return FilterListSubscription(filterListID: "turkish")
+            case "uk": return FilterListSubscription(filterListID: "russian")
+            case "zh": return FilterListSubscription(filterListID: "chinese")
             default: return nil
         }
     }

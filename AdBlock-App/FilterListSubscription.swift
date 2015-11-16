@@ -15,6 +15,35 @@ class FilterListSubscription: NSObject, NSCoding {
     var last_modified: NSNumber?            // date & time of the last change on the server
     var last_update_failed_at: NSNumber?    // if set, when the last update attempt failed
 
+    let filterLists:[(id: String, url: String)] = [
+        (id: "easylist", url: "https://adblockcdn.com/filters/easylist.zip"),
+        (id: "easyprivacy", url: "https://adblockcdn.com/filters/easyprivacy.zip"),
+        (id: "easylist_plus_bulgarian", url: "https://adblockcdn.com/filters/easylist_plus_bulgarian.zip"),
+        (id: "czech",  url: "https://adblockcdn.com/filters/czech.zip"),
+        (id: "easylist_plus_bulgarian", url: "https://adblockcdn.com/filters/easylist_plus_bulgarian.zip"),
+        (id: "danish", url: "https://adblockcdn.com/filters/danish.zip"),
+        (id: "easylist_plus_german", url: "https://adblockcdn.com/filters/easylist_plus_german.zip"),
+        (id: "easylist_plus_greek", url: "https://adblockcdn.com/filters/easylist_plus_greek.zip"),
+        (id: "easylist_plus_finnish", url: "https://adblockcdn.com/filters/easylist_plus_finnish.zip"),
+        (id: "easylist_plus_french", url: "https://adblockcdn.com/filters/easylist_plus_french.zip"),
+        (id: "israeli", url: "https://adblockcdn.com/filters/israeli.zip"),
+        (id: "hungarian", url: "https://adblockcdn.com/filters/hungarian.zip"),
+        (id: "italian", url: "https://adblockcdn.com/filters/italian.zip"),
+        (id: "easylist_plus_indonesian", url: "https://adblockcdn.com/filters/easylist_plus_indonesian.zip"),
+        (id: "japanese", url: "https://adblockcdn.com/filters/japanese.zip"),
+        (id: "easylist_plun_korean", url: "https://adblockcdn.com/filters/easylist_plun_korean.zip"),
+        (id: "latvian", url: "https://adblockcdn.com/filters/latvian.zip"),
+        (id: "dutch", url: "https://adblockcdn.com/filters/dutch.zip"),
+        (id: "easylist_plus_polish", url: "https://adblockcdn.com/filters/easylist_plus_polish.zip"),
+        (id: "easylist_plus_romanian", url: "https://adblockcdn.com/filters/easylist_plus_romanian.zip"),
+        (id: "russian", url: "https://adblockcdn.com/filters/russian"),
+        (id: "czech",  url: "https://adblockcdn.com/filters/czech.zip"),
+        (id: "swedish", url: "https://adblockcdn.com/filters/swedish.zip"),
+        (id: "turkish", url: "https://adblockcdn.com/filters/turkish.zip"),
+        (id: "russian", url: "https://adblockcdn.com/filters/russian"),
+        (id: "chinese", url: "https://adblockcdn.com/filters/chinese.zip")
+    ]
+    
     override init() {}
     
     required init(coder aDecoder: NSCoder) {
@@ -53,17 +82,22 @@ class FilterListSubscription: NSObject, NSCoding {
         }
     }
     
-    convenience init(id:String) {
+    convenience init(filterListID:String) {
         self.init()
-        self.id = id
+        self.id = filterListID
         self.url = ""
+        for index in 0..<filterLists.count {
+            if (filterListID == filterLists[index].id) {
+                self.url = filterLists[index].url
+            }
+        }
         self.last_update = 0
         self.last_modified = 0
         self.last_update_failed_at = 0
     }
 
     convenience init(id:String, url:String) {
-        self.init(id: id)
+        self.init(filterListID: id)
         self.url = url
     }
 
@@ -94,37 +128,33 @@ class FilterListSubscription: NSObject, NSCoding {
 
     //get L10N / I18N text string for a given filter list id
     //used only for the language subscription
-    func getI18NId()->String  {
-        if let myID = self.id {
-            switch myID {
-                case "easylist_plus_bulgarian": return  "filtereasylist_plus_bulgarian"
-                case "czech": return  "filterczech"
-                case "easylist_plus_bulgarian": return  "filtereasylist_plus_bulgarian"
-                case "danish": return  "filterdanish"
-                case "easylist_plus_german": return  "filtereasylist_plus_german"
-                case "easylist_plus_greek": return  "filtereasylist_plus_greek"
-                case "easylist_plus_finnish": return  "filtereasylist_plus_finnish"
-                case "easylist_plus_french": return  "filtereasylist_plus_french"
-                case "israeli": return  "filterisraeli"
-                case "hungarian": return  "filterhungarian"
-                case "italian": return  "filteritalian"
-                case "easylist_plus_indonesian": return  "filtereasylist_plus_indonesian"
-                case "japanese": return  "filterjapanese"
-                case "easylist_plun_korean": return  "filtereasylist_plun_korean"
-                case "latvian": return  "filterlatvian"
-                case "dutch": return  "filterdutch"
-                case "easylist_plus_polish": return  "filtereasylist_plus_polish"
-                case "easylist_plus_romanian": return  "filtereasylist_plus_romanian"
-                case "russian": return  "filterrussian"
-                case "czech": return  "filterczech"
-                case "swedish": return  "filterswedish"
-                case "turkish": return  "filterturkish"
-                case "russian": return  "filterrussian"
-                case "chinese": return  "filterchinese"
-                default: return ""
-            }
-        } else {
-            return ""
+    static func getI18NId(id: String)->String  {
+        switch id {
+            case "easylist_plus_bulgarian": return  "filtereasylist_plus_bulgarian"
+            case "czech": return  "filterczech"
+            case "easylist_plus_bulgarian": return  "filtereasylist_plus_bulgarian"
+            case "danish": return  "filterdanish"
+            case "easylist_plus_german": return  "filtereasylist_plus_german"
+            case "easylist_plus_greek": return  "filtereasylist_plus_greek"
+            case "easylist_plus_finnish": return  "filtereasylist_plus_finnish"
+            case "easylist_plus_french": return  "filtereasylist_plus_french"
+            case "israeli": return  "filterisraeli"
+            case "hungarian": return  "filterhungarian"
+            case "italian": return  "filteritalian"
+            case "easylist_plus_indonesian": return  "filtereasylist_plus_indonesian"
+            case "japanese": return  "filterjapanese"
+            case "easylist_plun_korean": return  "filtereasylist_plun_korean"
+            case "latvian": return  "filterlatvian"
+            case "dutch": return  "filterdutch"
+            case "easylist_plus_polish": return  "filtereasylist_plus_polish"
+            case "easylist_plus_romanian": return  "filtereasylist_plus_romanian"
+            case "russian": return  "filterrussian"
+            case "czech": return  "filterczech"
+            case "swedish": return  "filterswedish"
+            case "turkish": return  "filterturkish"
+            case "russian": return  "filterrussian"
+            case "chinese": return  "filterchinese"
+            default: return ""
         }
     }
 }

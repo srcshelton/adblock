@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		370FE5C41BB0C966006D9B08 /* ContentBlockerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370FE5C31BB0C966006D9B08 /* ContentBlockerManager.swift */; settings = {ASSET_TAGS = (); }; };
-		3776C5A31BB48ADE004C7A45 /* ZipDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776C5A21BB48ADE004C7A45 /* ZipDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		370FE5C41BB0C966006D9B08 /* ContentBlockerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370FE5C31BB0C966006D9B08 /* ContentBlockerManager.swift */; };
+		3776C5A31BB48ADE004C7A45 /* ZipDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776C5A21BB48ADE004C7A45 /* ZipDelegate.swift */; };
+		37CE4DE91BC5C44B00E1D801 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE4DE81BC5C44B00E1D801 /* SettingsViewController.swift */; };
+		37D353A11BCEBAF000BC5595 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D353A01BCEBAF000BC5595 /* AboutViewController.swift */; };
+		37F3ED131BC5D7750088A2E0 /* LanguageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F3ED121BC5D7750088A2E0 /* LanguageSelectViewController.swift */; };
 		841DBF481B84E43600B982BC /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841DBF471B84E43600B982BC /* Assests.xcassets */; };
 		8422A6191BA5EC66003D86D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8422A61B1BA5EC66003D86D2 /* InfoPlist.strings */; };
 		844F027E1B82814C0002F9C4 /* SupportUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F027D1B82814C0002F9C4 /* SupportUsViewController.swift */; };
 		844F02801B8282140002F9C4 /* FilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F027F1B8282140002F9C4 /* FilterListViewController.swift */; };
-		84836CF61BA868E4007EE17D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836CF51BA868E4007EE17D /* TabBarViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		84836CF61BA868E4007EE17D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836CF51BA868E4007EE17D /* TabBarViewController.swift */; };
 		8483FBBA1BA5F3F900E18019 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8483FBBC1BA5F3F900E18019 /* InfoPlist.strings */; };
 		848B9DDC1BA0935F00C1811E /* SetupHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B9DDB1BA0935F00C1811E /* SetupHelpViewController.swift */; };
 		848B9DE21BA0955900C1811E /* FilterListSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B9DE11BA0955900C1811E /* FilterListSubscription.swift */; };
@@ -41,8 +44,8 @@
 		84EA27651B6FE7AA0044FCC7 /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA27641B6FE7AA0044FCC7 /* ActionRequestHandler.swift */; };
 		84EA27691B6FE7AA0044FCC7 /* AdBlock-General.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84EA27601B6FE7AA0044FCC7 /* AdBlock-General.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84EA276F1B6FF8340044FCC7 /* AdBlockList.json in Resources */ = {isa = PBXBuildFile; fileRef = 84EA276E1B6FF8340044FCC7 /* AdBlockList.json */; };
-		84EED5471BA730DE007F84D8 /* SettingsPageTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EED5461BA730DE007F84D8 /* SettingsPageTwoViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		84FEA6441BA62929003F33C6 /* SettingsPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA6431BA62929003F33C6 /* SettingsPageOneViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		84EED5471BA730DE007F84D8 /* SettingsPageTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EED5461BA730DE007F84D8 /* SettingsPageTwoViewController.swift */; };
+		84FEA6441BA62929003F33C6 /* SettingsPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA6431BA62929003F33C6 /* SettingsPageOneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 /* Begin PBXFileReference section */
 		370FE5C31BB0C966006D9B08 /* ContentBlockerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentBlockerManager.swift; sourceTree = "<group>"; };
 		3776C5A21BB48ADE004C7A45 /* ZipDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipDelegate.swift; sourceTree = "<group>"; };
+		37CE4DE81BC5C44B00E1D801 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		37D353A01BCEBAF000BC5595 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		37F3ED121BC5D7750088A2E0 /* LanguageSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSelectViewController.swift; sourceTree = "<group>"; };
 		841DBF471B84E43600B982BC /* Assests.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assests.xcassets; sourceTree = "<group>"; };
 		8422A61C1BA5EC69003D86D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8422A61D1BA5EC6A003D86D2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -465,11 +471,14 @@
 				84E171161B72B83300320633 /* filtering */,
 				844872CD1B712C08006E1406 /* AdBlock-App.entitlements */,
 				84EA27481B6FE79C0044FCC7 /* AppDelegate.swift */,
-				844F027D1B82814C0002F9C4 /* SupportUsViewController.swift */,
+				37D353A01BCEBAF000BC5595 /* AboutViewController.swift */,
 				848B9DDB1BA0935F00C1811E /* SetupHelpViewController.swift */,
 				844F027F1B8282140002F9C4 /* FilterListViewController.swift */,
+				37F3ED121BC5D7750088A2E0 /* LanguageSelectViewController.swift */,
 				84FEA6431BA62929003F33C6 /* SettingsPageOneViewController.swift */,
 				84EED5461BA730DE007F84D8 /* SettingsPageTwoViewController.swift */,
+				37CE4DE81BC5C44B00E1D801 /* SettingsViewController.swift */,
+				844F027D1B82814C0002F9C4 /* SupportUsViewController.swift */,
 				84836CF51BA868E4007EE17D /* TabBarViewController.swift */,
 				84EA274E1B6FE79C0044FCC7 /* Main.storyboard */,
 				84EA27531B6FE79C0044FCC7 /* LaunchScreen.storyboard */,
@@ -743,7 +752,9 @@
 			files = (
 				84E1711A1B72B8CF00320633 /* Stats.swift in Sources */,
 				844F02801B8282140002F9C4 /* FilterListViewController.swift in Sources */,
+				37D353A11BCEBAF000BC5595 /* AboutViewController.swift in Sources */,
 				844F027E1B82814C0002F9C4 /* SupportUsViewController.swift in Sources */,
+				37CE4DE91BC5C44B00E1D801 /* SettingsViewController.swift in Sources */,
 				84C882301B8D3036007BD48A /* zip.c in Sources */,
 				848B9DE21BA0955900C1811E /* FilterListSubscription.swift in Sources */,
 				84E1711C1B72B9D200320633 /* Settings.swift in Sources */,
@@ -759,6 +770,7 @@
 				84EED5471BA730DE007F84D8 /* SettingsPageTwoViewController.swift in Sources */,
 				84C882231B8D3021007BD48A /* Main.m in Sources */,
 				370FE5C41BB0C966006D9B08 /* ContentBlockerManager.swift in Sources */,
+				37F3ED131BC5D7750088A2E0 /* LanguageSelectViewController.swift in Sources */,
 				84C8822E1B8D3036007BD48A /* mztools.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if launchedBefore {
             let myStats = Stats()
             myStats.pingNow(true)
-            let myFilters = MyFilters()
-            myFilters.checkForLanguageUpdate()
         } else {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
             let today = NSDate()

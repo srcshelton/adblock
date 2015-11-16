@@ -26,8 +26,8 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
                 if id == "home" {
                     let icon = UITabBarItem(title: NSLocalizedString("adblocktabtext", comment:"tab") , image: UIImage(named: "AdBlockTabInactive"), selectedImage: UIImage(named: "AdBlockTabActive"))
                     viewController.tabBarItem = icon
-                } else if id == "setupandhelp" {
-                    let icon = UITabBarItem(title: NSLocalizedString("supportandhelptabtext", comment:"tab") , image: UIImage(named: "SetupHelpTabInActive"), selectedImage: UIImage(named: "SetupHelpTabActive"))
+                } else if id == "settingstab" {
+                    let icon = UITabBarItem(title: NSLocalizedString("settingstabtext", comment:"tab") , image: UIImage(named: "SetupHelpTabInActive"), selectedImage: UIImage(named: "SetupHelpTabActive"))
                     viewController.tabBarItem = icon
                 }
             }

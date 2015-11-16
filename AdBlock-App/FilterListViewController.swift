@@ -11,7 +11,7 @@ class FilterListVC: UIViewController  {
     
     let fileManager = NSFileManager.defaultManager()
 
-    @IBOutlet weak var adblockPageTitleLabel: UILabel!
+    //@IBOutlet weak var adblockPageTitleLabel: UILabel!
 
     @IBOutlet weak var adblockPageSubTitleLabel: UILabel!
     
@@ -140,9 +140,13 @@ class FilterListVC: UIViewController  {
                     let fileURL = presentedItemURL.URLByAppendingPathComponent(MyFilters.adBlockRuleUpdateListFilename)
                     self.getTimestampInfoForFile(fileURL, theLabel: easyListTimeStamp)
                 } else if (id.hasPrefix(MyFilters.languageSessionIDPrefix)) {
-                    if (getLanguageSubscriptionId() != nil) {
+                    NSLog("update language selection")
+                    if let languageID = self.getLanguageSubscriptionId() {
                         let fileURL = presentedItemURL.URLByAppendingPathComponent(MyFilters.adBlockLanguageRuleUpdateListFilename)
                         self.getTimestampInfoForFile(fileURL, theLabel: languageTimeStamp)
+                        self.languageName.text = NSLocalizedString(languageID, comment:"languagename")
+                        self.languageName.hidden = false
+                        self.languageTimeStamp.hidden = false
                     }
                 } else if (id.hasPrefix(MyFilters.privacySessionIDPrefix)) {
                     let fileURL = presentedItemURL.URLByAppendingPathComponent(MyFilters.adBlockPrivacyRuleUpdateListFilename)
@@ -213,13 +217,20 @@ class FilterListVC: UIViewController  {
             self.updateFailureLabel(nil)
         }
     }
+    
+    func languageFilterListRemoved(notification: NSNotification) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.languageName.hidden = true
+            self.languageTimeStamp.hidden = true
+        }
+    }
 
     //set the labels and button text when loaded
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let titleText = NSLocalizedString("adblockpagetitle", comment:"AdBlock")
-        adblockPageTitleLabel.text = titleText
+        //adblockPageTitleLabel.text = titleText
+        self.navigationItem.title = titleText
         adblockLoveLabel.text = NSLocalizedString("adblocklove", comment:"AdBlock")
         //
         let abString = "AdBlock" as NSString
@@ -236,14 +247,10 @@ class FilterListVC: UIViewController  {
         filterListTimeStampHeader.text = NSLocalizedString("filterlist_timestamp_header", comment:"Timestamp")
         easyListName.text = NSLocalizedString("filtereasylist", comment:"EasyList")
         privacyName.text = NSLocalizedString("filtereasyprivacy", comment:"EasyList")
-        if let _ = self.getLanguageSubscriptionId() {
-            var lang =  NSLocale.preferredLanguages()[0]
-            if (lang.characters.count > 2) {
-                let endIndex = lang.startIndex.advancedBy(2)
-                lang = lang.substringToIndex(endIndex)
-            }
-            let locale = NSLocale(localeIdentifier: (NSString(string: lang) as String))
-            languageName.text = locale.displayNameForKey(NSLocaleIdentifier, value: (NSString(string: lang) as String))
+        if let languageID = self.getLanguageSubscriptionId() {
+            languageName.text = NSLocalizedString(languageID, comment:"languagename")
+            self.languageName.hidden = false
+            self.languageTimeStamp.hidden = false
         } else {
             self.languageName.hidden = true
             self.languageTimeStamp.hidden = true
@@ -254,6 +261,7 @@ class FilterListVC: UIViewController  {
         self.userMessageButton.hidden = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logNotificationReceived:", name:"FilterListUpdated", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "filterListUpdatedFailed:", name:"FilterListUpdatedFailed", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "languageFilterListRemoved:", name:"LanguageFilterListRemoved", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -269,7 +277,7 @@ class FilterListVC: UIViewController  {
     func getLanguageSubscriptionId()->String? {
         let myFilters = MyFilters()
         if let myLanguageSub = myFilters.getLanguageSubScription() {
-            return myLanguageSub.getI18NId()
+            return FilterListSubscription.getI18NId(myLanguageSub.id!)
         }
         return nil
     }
