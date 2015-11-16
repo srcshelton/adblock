@@ -1,9 +1,20 @@
+// Copyright 2015 BetaFish, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 //  FilterListSubscription.swift
 //  AdBlock2
 //
-//  Created by Brent Montrose on 8/5/15.
-//  Copyright © 2015 AdBlock. All rights reserved.
 //
 
 import Foundation
@@ -36,11 +47,10 @@ class FilterListSubscription: NSObject, NSCoding {
         (id: "dutch", url: "https://adblockcdn.com/filters/dutch.zip"),
         (id: "easylist_plus_polish", url: "https://adblockcdn.com/filters/easylist_plus_polish.zip"),
         (id: "easylist_plus_romanian", url: "https://adblockcdn.com/filters/easylist_plus_romanian.zip"),
-        (id: "russian", url: "https://adblockcdn.com/filters/russian"),
+        (id: "russian", url: "https://adblockcdn.com/filters/russian.zip"),
         (id: "czech",  url: "https://adblockcdn.com/filters/czech.zip"),
         (id: "swedish", url: "https://adblockcdn.com/filters/swedish.zip"),
         (id: "turkish", url: "https://adblockcdn.com/filters/turkish.zip"),
-        (id: "russian", url: "https://adblockcdn.com/filters/russian"),
         (id: "chinese", url: "https://adblockcdn.com/filters/chinese.zip")
     ]
     
