@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BA46BA96-5866-4991-AB58-856EF6D0CBC0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AdBlock2</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1AE5AF3C2729EB05F28D70CE1DE9DEA1A612EE11</key>
+		<string>github.com:betafish-inc/adblock-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AdBlock2.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1AE5AF3C2729EB05F28D70CE1DE9DEA1A612EE11</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:betafish-inc/adblock-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1AE5AF3C2729EB05F28D70CE1DE9DEA1A612EE11</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1AE5AF3C2729EB05F28D70CE1DE9DEA1A612EE11</string>
+			<key>IDESourceControlWCCName</key>
+			<string>adblock-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

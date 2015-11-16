@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  AdBlock
+
+  Created by Brent Montrose on 9/13/15.
+  Copyright © 2015 AdBlock. All rights reserved.
+*/
+"CFBundleDisplayName" = "Français";
+"CFBundleName" = "Français";
