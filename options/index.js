@@ -36,6 +36,9 @@ function load_options() {
                     $(".safari-only").hide();
             },
         }).show();
+        // Set the focus on the active Tab element (not the panel) to allow
+        // keyboard navigation
+        $(".ui-tabs-active a").focus();
         generalInit();
         filtersInit();
         customizeInit();

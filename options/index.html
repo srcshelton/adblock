@@ -25,13 +25,13 @@
 
 <div id="tabs">
 <ul>
-<li><a href="#general"><span i18n="tabgeneral"></span></a></li>
-<li><a href="#filters"><span i18n="tabfilterlists"></span></a></li>
-<!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
-<li><a href="#customize"><span i18n="tabcustomize" class="menubuttons"></span></a></li>
-<li><a href="#support"><span i18n="tabsupport"></span></a></li>
+  <li><a href="#general" tabindex="0"><span i18n="tabgeneral"></span></a></li>
+  <li><a href="#filters" tabindex="0"><span i18n="tabfilterlists"></span></a></li>
+  <!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
+  <li><a href="#customize" tabindex="0"><span i18n="tabcustomize" class="menubuttons"></span></a></li>
+  <li><a href="#support" tabindex="0"><span i18n="tabsupport"></span></a></li>
 </ul>
-<div id="general">
+<div id="general" tabindex="0">
 <h2 i18n="generaloptions"></h2>
 
 <div id="acceptable_ads_info">
@@ -45,13 +45,13 @@
 </div>
 
 <p>
-<input type="checkbox" class="feature" id="acceptable_ads"/>
-<label for="acceptable_ads" i18n="acceptableadsoption"></label>
+<input type="checkbox" class="feature" id="acceptable_ads" />
+<label for="acceptable_ads" i18n="acceptableadsoption" ></label>
 </p>
 
 <p class="exclude_safari_content_blocking">
-<input type="checkbox" class="feature" id="enable_youtube_channel_whitelist"/>
-<label for="enable_youtube_channel_whitelist" i18n="allow_whitelisting_youtube_channels"></label>
+<input type="checkbox" class="feature" id="enable_youtube_channel_whitelist" />
+<label for="enable_youtube_channel_whitelist" i18n="allow_whitelisting_youtube_channels" ></label>
 </p>
 
 <p>
@@ -88,7 +88,7 @@
 </p>
 
 </div>
-<div id="filters">
+<div id="filters" tabindex="0">
 <div id="message_holder" class="failed_fetch"></div>
 <h2 i18n="filterstabtitle"></h2>
 <p class="footnote padding" i18n="filterlistlink" i18n_replacement_el="footnotelink"></p>
@@ -123,7 +123,7 @@ target="_blank"></a>
 <span id="btnShowLinks" i18n="showlinkstolists2"></span>
 </p>
 </div>
-<div id="customize">
+<div id="customize" tabindex="0">
 <h2 i18n="tabcustomizetitle" class="marginh2"></h2>
 
 <div i18n="filterlistsrock" class="margin"></div>
@@ -278,7 +278,7 @@ placeholder="http://example.com" /></td>
 
 </div>
 </div>
-<div id="support">
+<div id="support" tabindex="0">
 <h2 i18n="adblocksupport"></h2>
 
 <h3 i18n="foundbug"></h3>

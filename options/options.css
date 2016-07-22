@@ -190,10 +190,13 @@
         z-index: 2;
       }
 
-      /* This will not work with ltr/rtl */
       .ui-tabs-nav {
          margin-left: 275px;
-      }  
+      }
+
+      [dir="rtl"] .ui-tabs-nav {
+        margin-right: 275px;
+      }
           
       .ui-tabs .ui-tabs-nav li {
         float: left;

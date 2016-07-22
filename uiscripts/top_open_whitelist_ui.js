@@ -76,7 +76,7 @@ function top_open_whitelist_ui() {
           $(".adblock-ui-stylesheet").remove();
           page.remove();
         }
-      });
+      }).wrapAll('<div id="adblock-parent-div"></div>');;
 
     changeTextDirection($("body .adblock-whitelist-dialog"));
 
