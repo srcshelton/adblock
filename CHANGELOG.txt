@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+0.9.11.0:
+- Added EasyList-Lite as a default filter list, instead of EasyList.
+
 0.9.10.0:
 - Removed logging added in 0.9.8.0.
 - Changed the EasyList URL to use a minified version of EasyList.

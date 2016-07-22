@@ -229,6 +229,7 @@ FilterListUtil.getFilterListType = function(filter_list) {
   var filter_list_type;
   if (filter_list.id === "adblock_custom" ||
       filter_list.id === "easylist" ||
+      filter_list.id === "easylist_lite" ||
       filter_list.id === "acceptable_ads") {
     filter_list_type = "adblock_filter_list";
   } else if (filter_list.id === "easyprivacy" || filter_list.id === "antisocial"

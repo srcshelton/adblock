@@ -781,8 +781,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
   }
   //Update will be done immediately after this function returns
   result["adblock_custom"] = { subscribed: true };
-  result["easylist"] = { subscribed: true };
-  result["malware"] = { subscribed: true };
+  result["easylist_lite"] = { subscribed: true };
   result["acceptable_ads"] = { subscribed: true };
   var list_for_lang = listIdForThisLocale();
   if (list_for_lang)
@@ -800,10 +799,12 @@ MyFilters.prototype._make_subscription_options = function() {
       url: "https://cdn.adblockcdn.com/filters/adblock_custom.txt",
     },
     "easylist": { // EasyList
-      //url: "https://easylist-downloads.adblockplus.org/easylist.txt",
-      url: "https://cdn.adblockcdn.com/filters/easylist-min.txt",
+      url: "https://easylist-downloads.adblockplus.org/easylist.txt",
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist.json",
       safariJSON_URL_AA: "https://cdn.adblockcdn.com/filters/easylist_aa.json",
+    },
+    "easylist_lite": { // EasyList lite
+      url: "https://cdn.adblockcdn.com/filters/easylist-min.txt",
     },
     "easylist_plus_bulgarian": { // Additional Bulgarian filters
       url: "http://stanev.org/abp/adblock_bg.txt",

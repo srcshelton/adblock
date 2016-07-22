@@ -376,7 +376,11 @@
     "description":"A filter list"
   },
   "filtereasylist":{
-    "message":"EasyList (recommended)",
+    "message":"EasyList",
+    "description":"A filter list"
+  },
+  "filtereasylist_lite":{
+    "message":"EasyList Lite (recommended)",
     "description":"A filter list"
   },
   "filterrussian":{
