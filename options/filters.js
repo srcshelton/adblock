@@ -246,7 +246,14 @@ FilterListUtil.prepareSubscriptions = function(subs) {
   FilterListUtil.cached_subscriptions = subs;
   for(var id in subs) {
     var entry = subs[id];
-    entry.label = translate("filter" + id);
+    // Edge throws an exception if the translate msg isn't found.
+    // Since, the user can enter custom filter URLs, translate will fail to find it.
+    try {
+      entry.label = translate("filter" + id);
+    } catch(ex) {
+      // Ignore error
+      entry.label = "";
+    }
     entry.id = id;
     var filter_list_type = FilterListUtil.getFilterListType(entry);
     filterListSections[filter_list_type].array.push(entry);

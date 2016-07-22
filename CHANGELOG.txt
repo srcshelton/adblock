@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+0.9.10.0:
+- Removed logging added in 0.9.8.0.
+- Changed the EasyList URL to use a minified version of EasyList.
+
 0.9.8.0:
 - Added logging of Javascript exceptions during a data save operation.
 

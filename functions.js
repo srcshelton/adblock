@@ -204,8 +204,7 @@ storage_set = function(key, value) {
   try {
     store.setItem(key, JSON.stringify(value));
   } catch (ex) {
-    // For Edge Beta users, record errors
-    recordErrorMessage("storage set error, key: " + key + ", error: " + ex.toString());
+    // ToDo - handle errors gracefully.
   }
 };
 
