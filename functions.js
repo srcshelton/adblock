@@ -204,12 +204,8 @@ storage_set = function(key, value) {
   try {
     store.setItem(key, JSON.stringify(value));
   } catch (ex) {
-    // Safari throws this error for all writes in Private Browsing mode.
-    // TODO: deal with the Safari case more gracefully.
-    if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
-      alert(translate("storage_quota_exceeded"));
-      openTab("options/index.html#ui-tabs-2");
-    }
+    // For Edge Beta users, record errors
+    recordErrorMessage("storage set error, key: " + key + ", error: " + ex.toString());
   }
 };
 

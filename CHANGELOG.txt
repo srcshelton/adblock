@@ -2,6 +2,12 @@
 
 UNRELEASED:
 
+0.9.8.0:
+- Added logging of Javascript exceptions during a data save operation.
+
+0.9.7.0:
+- Added a check for an error when querying for tabs.
+- Fixed an issue with sending the 'filters updated' message from the background page.
 0.9.6.0:
  - Fixed errors when querying for tabs.
  - Fixed the version number display on the AdBlock options page.

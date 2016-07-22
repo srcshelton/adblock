@@ -1510,7 +1510,13 @@
       }
 
       chrome.tabs.onCreated.addListener(function(tab) {
+          if (chrome.runtime.lastError) {
+            return;
+          }
           chrome.tabs.get(tab.id, function(tabs) {
+              if (chrome.runtime.lastError) {
+                return;
+              }
               if (tabs && tabs.url && tabs.id) {
                   runChannelWhitelist(tabs.url, tabs.id);
               }
@@ -1518,8 +1524,14 @@
       });
 
       chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+        if (chrome.runtime.lastError) {
+          return;
+        }
         if (changeInfo.status === "loading") {
           chrome.tabs.get(tabId, function(tabs) {
+            if (chrome.runtime.lastError) {
+              return;
+            }
             if (tabs && tabs.url && tabs.id) {
               runChannelWhitelist(tabs.url, tabs.id);
             }

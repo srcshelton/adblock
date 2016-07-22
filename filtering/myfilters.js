@@ -141,6 +141,18 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
 };
 // When a subscription property changes, this function stores it
 // Inputs: rebuild? boolean, true if the filterset should be rebuilt
+MyFilters.prototype._sendFiltersUpdatedMsg = function() {
+  chrome.tabs.query({}, function(tabs) {
+    if (!tabs) {
+      return;
+    }
+    for(var i = 0; i < tabs.length; i++) {
+      chrome.tabs.sendMessage(tabs[i].id, {command : "filters_updated"});
+    }
+  });
+}
+// When a subscription property changes, this function stores it
+// Inputs: rebuild? boolean, true if the filterset should be rebuilt
 MyFilters.prototype._onSubscriptionChange = function(rebuild) {
   storage_set('filter_lists', this._subscriptions);
 
@@ -152,14 +164,7 @@ MyFilters.prototype._onSubscriptionChange = function(rebuild) {
 
   // chrome.extension.sendRequest({command: "filters_updated"});
   // chrome.runtime.sendMessage({command : "filters_updated"});
-  chrome.tabs.query({}, function(tabs) {
-    if (!tabs) {
-      return;
-    }
-    for(var i = 0; i < tabs.length; i++) {
-      chrome.tabs.sendMessage(tabs[i].id, {command : "filters_updated"});
-    }
-  });
+  this._sendFiltersUpdatedMsg();
 }
 
 // get filters that are defined in the extension
@@ -462,7 +467,8 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
       // (when content blocking enabled)
       // we don't need to process it, just update the last_update timestamp.
       this._subscriptions[id].last_update = Date.now();
-      chrome.extension.sendRequest({command: "filters_updated"});
+      this._sendFiltersUpdatedMsg();
+      //chrome.extension.sendRequest({command: "filters_updated"});
       return;
     }
     url = this._subscriptions[id].safariJSON_URL;
@@ -702,7 +708,8 @@ MyFilters.prototype._loadMalwareDomains = function() {
            that._subscriptions.malware.expiresAfterHours = 24;
            var smear = Math.random() * 0.4 + 0.8;
            that._subscriptions.malware.expiresAfterHours *= smear;
-           chrome.extension.sendRequest({command: "filters_updated"});
+           that._sendFiltersUpdatedMsg();
+           //chrome.extension.sendRequest({command: "filters_updated"});
            log("Fetched " + url);
         }
         xhr.open("GET",  url);

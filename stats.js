@@ -49,7 +49,8 @@ STATS = (function() {
       cb: get_settings().safari_content_blocking ? '1': '0',
     };
     //only on Chrome
-    if (flavor === "E" && blockCounts) {
+    if (blockCounts &&
+        typeof blockCounts.get === "function") {
         var bc = blockCounts.get();
         data["b"] = bc.total;
         data["mt"] = bc.malware_total;

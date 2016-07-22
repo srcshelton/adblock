@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "0.9.6.0",
+  "version": "0.9.8.0",
   "background": {
     "page": "compat.html",
     "persistent": true
