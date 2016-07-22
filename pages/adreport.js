@@ -13,7 +13,11 @@ $(function() {
         var messageElement = $("li[i18n='disableforchromestepone']");
         messageElement.find("a")
             .click(function() {
-                if (OPERA) {
+                if(EDGE) {
+                    chrome.tabs.create({
+                        url: 'https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/adding-and-removing-extensions/'
+                    });
+                } else if (OPERA) {
                     chrome.tabs.create({
                         url: 'opera://extensions/'
                     });
@@ -55,6 +59,13 @@ BGcall("get_subscriptions_minus_text", function(subs) {
         if (!subs[id].subscribed && !subs[id].user_submitted) {
             unsubscribed_default_filters[id] = subs[id];
         }
+    }
+    // In this scenario, Easylist-lite is the same as Easylist
+    // so if the user is subscribed to Easylist lite,
+    // remove the Easylist entry in the unsubscribed list
+    if (subs.easylist_lite.subscribed &&
+        !subs.easylist.subscribed) {
+        delete unsubscribed_default_filters.easylist;
     }
 });
 

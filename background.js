@@ -1,7 +1,3 @@
-  chrome.browserAction.onClicked.addListener(function(tab) {
-    openTab(chrome.runtime.getURL('options/index.html'));
-  });
-
   // Send the file name and line number of any error message. This will help us
   // to trace down any frequent errors we can't confirm ourselves.
   window.addEventListener("error", function(e) {
@@ -895,14 +891,6 @@
         if (!get_settings().show_context_menu_items)
           return;
 
-        // TODO: Workaround to add pausing to context menu until popups are supported
-        if(adblock_is_paused()) {
-          addMenu(translate("unpause_adblock"), function(tab, clickdata) {
-            adblock_is_paused(false);
-            updateButtonUIAndContextMenus();
-          });
-        }
-
         if (adblock_is_paused() || info.whitelisted || info.disabled_site)
           return;
 
@@ -927,12 +915,6 @@
             {fn:'top_open_blacklist_ui', options:{nothing_clicked: true}},
             {tab: tab}
           );
-        });
-
-        // TODO: Workaround to add pausing to context menu until popups are supported
-        addMenu(translate("pause_adblock"), function(tab, clickdata) {
-          adblock_is_paused(true);
-          updateButtonUIAndContextMenus();
         });
 
         var host = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
@@ -1046,7 +1028,7 @@
     var options = request.opts;
     var settings = get_settings();
     var runnable = !adblock_is_paused() && !page_is_unblockable(sender.url);
-    var running_top = runnable && !page_is_whitelisted(sender.url);
+    var running_top = runnable && !page_is_whitelisted(sender.tab.url);
     var running = runnable && !page_is_whitelisted(sender.url);
     var hiding = running && !page_is_whitelisted(sender.url, ElementTypes.elemhide);
 
@@ -1080,6 +1062,7 @@
         'top_open_whitelist_ui': {
           allFrames: false,
           include: [
+            "compat.js",
             "punycode.min.js",
             "jquery/jquery.min.js",
             "jquery/jquery-ui.custom.min.js",
@@ -1090,6 +1073,7 @@
         'top_open_blacklist_ui': {
           allFrames: false,
           include: [
+            "compat.js",
             "punycode.min.js",
             "jquery/jquery.min.js",
             "jquery/jquery-ui.custom.min.js",
@@ -1135,6 +1119,7 @@
 
       // The emit_page_broadcast() function
       var theFunction = function(request) {
+        request.options = JSON.stringify(request.options);
         executeOnTab(request.fn, request.options);
       };
       return theFunction;

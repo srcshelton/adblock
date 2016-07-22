@@ -23,16 +23,15 @@ $(function() {
             show(["div_status_paused", "separator0","div_paused_adblock", "div_options"]);
         } else if (info.disabled_site) {
             show(["div_status_disabled", "separator0", "div_pause_adblock",
-                  "div_options", "div_help_hide_start"]);
+                  "div_options"]);
         } else if (info.whitelisted) {
             show(["div_status_whitelisted","div_enable_adblock_on_this_page",
                   "separator0", "div_pause_adblock", "separator1", "div_show_resourcelist",
-                  "div_options", "div_help_hide_start"]);
+                  "div_options"]);
         } else {
             show(["div_pause_adblock", "div_blacklist", "div_whitelist",
                   "div_whitelist_page", "div_show_resourcelist",
-                  "div_report_an_ad", "separator1", "div_options",
-                  "div_help_hide_start", "separator3", "block_counts"]);
+                  "div_report_an_ad", "separator1", "div_options", "separator3", "block_counts"]);
 
             var page_count = info.tab_blocked || "0";
             $("#page_blocked_count").text(page_count);
@@ -54,8 +53,7 @@ $(function() {
         var eligible_for_undo = !paused && (info.disabled_site || !info.whitelisted);
         var url_to_check_for_undo = info.disabled_site ? undefined : host;
         if (eligible_for_undo &&
-            BG.count_cache.getCustomFilterCount(url_to_check_for_undo) &&
-            !LEGACY_SAFARI_51)
+            BG.count_cache.getCustomFilterCount(url_to_check_for_undo))
             show(["div_undo", "separator0"]);
 
         if (SAFARI || !advanced_option || !tab.id)
@@ -134,11 +132,14 @@ $(function() {
     $("#titletext").click(function() {
         var chrome_url = "https://chrome.google.com/webstore/detail/gighmmpiobklfepjocnamgkkbiglidom";
         var opera_url = "https://addons.opera.com/extensions/details/adblockforopera/";
+        var edge_url = "https://www.microsoft.com/store/apps/9nblggh4rfhk";
         var getadblock_url = "https://getadblock.com/"
         if (OPERA) {
             BG.openTab(opera_url);
         } else if (SAFARI) {
             BG.openTab(getadblock_url);
+        } else if (EDGE) {
+            BG.openTab(edge_url);
         } else {
             BG.openTab(chrome_url);
         }
@@ -147,7 +148,13 @@ $(function() {
 
     $("#div_enable_adblock_on_this_page").click(function() {
         if (BG.try_to_unwhitelist(tab.unicodeUrl)) {
-            !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
+            if(!SAFARI && !EDGE) {
+                chrome.tabs.reload()
+            } else if (EDGE) {
+                chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
+            } else {
+                activeTab.url = activeTab.url;
+            }
             closeAndReloadPopup();
         } else {
             $("#div_status_whitelisted").
@@ -165,14 +172,20 @@ $(function() {
 
     $("#div_undo").click(function() {
         var host = parseUri(tab.unicodeUrl).host;
-        BG.confirm_removal_of_custom_filters_on_host(host, activeTab);
+        BG.confirm_removal_of_custom_filters_on_host(host, tab);
         closeAndReloadPopup();
     });
 
     $("#div_whitelist_channel").click(function() {
         BG.create_whitelist_filter_for_youtube_channel(tab.unicodeUrl);
         closeAndReloadPopup();
-        !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
+        if(!SAFARI && !EDGE) {
+            chrome.tabs.reload()
+        } else if (EDGE) {
+            chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
+        } else {
+            tab.url = tab.url;
+        }
     });
 
      $("#div_pause_adblock").click(function() {
@@ -214,7 +227,13 @@ $(function() {
     $("#div_whitelist_page").click(function() {
         BG.create_page_whitelist_filter(tab.unicodeUrl);
         closeAndReloadPopup();
-        !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
+        if(!SAFARI && !EDGE) {
+            chrome.tabs.reload()
+        } else if (EDGE) {
+            chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
+        } else {
+            activeTab.url = activeTab.url;
+        }
     });
 
     $("#div_show_resourcelist").click(function() {

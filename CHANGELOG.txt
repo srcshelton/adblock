@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+0.9.12.0:
+- Enabled the AdBlock popup menu
+
 0.9.11.0:
 - Added EasyList-Lite as a default filter list, instead of EasyList.
 
