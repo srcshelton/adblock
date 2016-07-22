@@ -2,16 +2,23 @@ function load_options() {
     // Check or uncheck each option.
     BGcall("get_settings", function(settings) {
         optionalSettings = settings;
+        if (!optionalSettings.show_advanced_options)
+            $(".advanced").hide();
+        if (!EDGE)
+            $(".chrome-only").hide();
+        if (EDGE)
+            $(".safari-only").hide();
         var activeTab  = $.cookie('activetab');
-        if (window.location && 
+        if (window.location &&
             window.location.search) {
             var searchQuery = parseUri.parseSearch(window.location.search);
             if (searchQuery &&
                 searchQuery.tab) {
                 activeTab = searchQuery.tab;
             }
-        }        
-        $("#tabpages").
+        }
+        localizePage();
+        $("#tabs").
         tabs({
             // Go to the last opened tab
             active: activeTab,
@@ -19,42 +26,20 @@ function load_options() {
                 $.cookie('activetab', ui.newTab.index(), {
                     expires : 10
                 });
-            },
-            // Cache tabs
-            beforeLoad: function(event, ui) {
-                var tab_id = ui.tab.index();
-                if (ui.tab.data("loaded") && tab_id !== 3) {
-                    event.preventDefault();
-                    return;
-                }
-
-                ui.jqXHR.success(function() {
-                    ui.tab.data("loaded", true);
-                });
-            },
-            load: function(event, ui) {
-                //translation
-                localizePage();
 
                 // Toggle won't handle .advanced.chrome-only
                 if (!optionalSettings.show_advanced_options)
                     $(".advanced").hide();
-                if (SAFARI)
+                if (!EDGE)
                     $(".chrome-only").hide();
-                if (!SAFARI)
+                if (EDGE)
                     $(".safari-only").hide();
-
-                // Must load tab .js here: CSP won't let injected html inject <script>
-                // see index.html:data-scripts
-                ui.tab["0"].dataset.scripts.split(' ').forEach(function(scriptToLoad) {
-                    // CSP blocks eval, which $().append(scriptTag) uses
-                    var s = document.createElement("script");
-                    s.src = scriptToLoad;
-                    document.body.appendChild(s);
-                });
             },
-        }).
-        show();
+        }).show();
+        generalInit();
+        filtersInit();
+        customizeInit();
+        supportInit();
     });
 }
 
@@ -106,17 +91,12 @@ function showMiniMenu() {
 }
 
 function displayVersionNumber() {
-  try {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.extension.getURL('manifest.json'), true);
-    xhr.onreadystatechange = function() {
-      if(this.readyState == 4) {
-        var theManifest = JSON.parse(this.responseText);
-        $("#version_number").text(translate("optionsversion", [theManifest.version]));
-      }
-    };
-    xhr.send();
-  } catch (ex) {} // silently fail
+  if (backgroundPage &&
+      backgroundPage.chrome &&
+      backgroundPage.chrome.runtime &&
+      backgroundPage.chrome.runtime.getManifest()) {
+    $("#version_number").text(translate("optionsversion", [backgroundPage.chrome.runtime.getManifest().version]));
+  }
 }
 
 BGcall("storage_get", "userid", function(userId) {
@@ -172,16 +152,10 @@ function displayTranslationCredit() {
     }
 }
 
-if (SAFARI && LEGACY_SAFARI) {
-  if (navigator.appVersion.indexOf("Mac OS X 10_5_") !== -1) {
-    // Safari 5.1 isn't available on Leopard (OS X 10.5). Don't urge the users to upgrade in this case.
-  } else {
-    $("#safari50_updatenotice").show();
-  }
-}
-
 var optionalSettings = {};
+var backgroundPage;
 $(document).ready(function(){
+  backgroundPage = chrome.extension.getBackgroundPage();
   load_options();
   rightToLeft();
   showMiniMenu();

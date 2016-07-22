@@ -40,36 +40,9 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
       attr("target", "_blank").
       attr("class", "linkToList").
       attr("data-URL", this._filter_list.url).
-      attr("data-safariJSON_URL", this._filter_list.safariJSON_URL).
-      attr("data-safariJSON_URL_AA", this._filter_list.safariJSON_URL_AA).
       click(function(e) {
         var id = $(this).parent().attr("name");
-        var safariJSON_URL = $(this).attr("data-safariJSON_URL");
-        var safariJSON_URL_AA = $(this).attr("data-safariJSON_URL_AA");
         var url = $(this).attr("data-URL");
-
-        // If the user has Safari content blocking enabled,
-        // and the filter list is EasyList
-        // and they are subscribed to AA
-        // change the URL to the content blocking rule URL
-        if (id === "easylist" &&
-            optionalSettings &&
-            optionalSettings.safari_content_blocking &&
-            window.FilterListUtil &&
-            window.FilterListUtil.cached_subscriptions &&
-            window.FilterListUtil.cached_subscriptions["acceptable_ads"] &&
-            window.FilterListUtil.cached_subscriptions["acceptable_ads"].subscribed &&
-            safariJSON_URL_AA) {
-              $(this).attr("href", safariJSON_URL_AA);
-              return;
-        }
-        // If the user has Safari content blocking enabled, change the URL to the content blocking rule URL
-        if (optionalSettings &&
-            optionalSettings.safari_content_blocking &&
-            safariJSON_URL) {
-              $(this).attr("href", safariJSON_URL);
-              return;
-        }
         $(this).attr("href", url);
       });
 
@@ -324,19 +297,19 @@ FilterListUtil.updateSubscriptionInfoAll = function() {
         if (seconds < 10)
           text += translate("updatedrightnow");
         else if (seconds < 60)
-          text += translate("updatedsecondsago", [seconds]);
+          text += translate("updatedsecondsago", [seconds.toString()]);
         else if (minutes === 1)
           text += translate("updatedminuteago");
         else if (minutes < 60)
-          text += translate("updatedminutesago", [minutes]);
+          text += translate("updatedminutesago", [minutes.toString()]);
         else if (hours === 1)
           text += translate("updatedhourago");
         else if (hours < 24)
-          text += translate("updatedhoursago", [hours]);
+          text += translate("updatedhoursago", [hours.toString()]);
         else if (days === 1)
           text += translate("updateddayago");
         else
-          text += translate("updateddaysago", [days]);
+          text += translate("updateddaysago", [days.toString()]);
     }
     infoLabel.text(text);
   }
@@ -461,12 +434,6 @@ SubscriptionUtil.subscribe = function(id, title) {
   if (id === "acceptable_ads") {
     $("#acceptable_ads_info").slideUp();
     $("#acceptable_ads").prop("checked", true);
-    // If the user has Safari content blocking enabled, then
-    // disable content blocking (on general tab) due to incompatiblity issues between AA and content blocking
-  if (optionalSettings &&
-        optionalSettings.safari_content_blocking) {
-        $("#enable_safari_content_blocking").trigger("click");
-    }
   }
 };
 // Unsubscribe to the filter list with the given |id|.
@@ -479,14 +446,6 @@ SubscriptionUtil.unsubscribe = function(id, del) {
   if (id === "acceptable_ads") {
     $("#acceptable_ads_info").slideDown();
     $("#acceptable_ads").prop("checked", false);
-    // If the user has Safari content blocking enabled, then update the filter lists when
-    // a user subscribes to AA
-    BGcall("get_settings", function(settings) {
-      if (settings &&
-          settings.safari_content_blocking) {
-        BGcall("update_subscriptions_now");
-      }
-    });
   }
 };
 // Update the given filter list in the cached list.
@@ -623,10 +582,11 @@ function addMalwareNotificationDiv() {
     }
 }
 
-$(function() {
+var filtersInit = function() {
 
   // Retrieves list of filter lists from the background.
-  BGcall('get_subscriptions_minus_text', function(subs) {
+  // BGcall('get_subscriptions_minus_text', function(subs) {
+  chrome.runtime.sendMessage({"message": "get_subscriptions_minus_text"}, function(subs) {
 
     // Initialize page using subscriptions from the background.
     // Copy from update subscription list + setsubscriptionlist
@@ -646,27 +606,9 @@ $(function() {
     }
   });
 
-  window.setInterval(function() {
-   FilterListUtil.updateSubscriptionInfoAll();
-  }, 1000);
-
-  $("#btnUpdateNow").click(function() {
-    $(this).prop("disabled", true);
-    BGcall("update_subscriptions_now");
-    setTimeout(function() {
-      $("#btnUpdateNow").prop("disabled", false);
-    }, 300000); // Re-enable update button after 5 minutes.
-  });
-
-  $("#btnShowLinks").click(function() {
-    $(".linkToList").fadeIn("slow");
-    $("#btnShowLinks").remove();
-  });
-
-  chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-    if (request.command !== "filters_updated")
-      return;
-    BGcall("get_subscriptions_minus_text", function(subs) {
+  var updateFilterUI = function() {
+    // BGcall("get_subscriptions_minus_text", function(subs) {
+    chrome.runtime.sendMessage({"message": "get_subscriptions_minus_text"}, function(subs) {
       var cached_subscriptions = FilterListUtil.cached_subscriptions;
       for(var id in cached_subscriptions) {
         var entry = subs[id];
@@ -696,6 +638,34 @@ $(function() {
         }
       }
     });
+  };
+
+  window.setInterval(function() {
+   FilterListUtil.updateSubscriptionInfoAll();
+  }, 1000);
+
+  $("#btnUpdateNow").click(function() {
+    $(this).prop("disabled", true);
+    BGcall("update_subscriptions_now");
+    setTimeout(function() {
+      $("#btnUpdateNow").prop("disabled", false);
+    }, 300000); // Re-enable update button after 5 minutes.
+    setTimeout(function() {
+      updateFilterUI();
+    }, 10000); // Update UI after 10 seconds
+  });
+
+  $("#btnShowLinks").click(function() {
+    $(".linkToList").fadeIn("slow");
+    $("#btnShowLinks").remove();
+  });
+
+  // chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    // debugger;
+    if (request.command !== "filters_updated")
+      return;
+    updateFilterUI();
     sendResponse({});
   });
-});
+};

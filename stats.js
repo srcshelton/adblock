@@ -8,17 +8,8 @@ STATS = (function() {
   var match = navigator.userAgent.match(/(CrOS\ \w+|Windows\ NT|Mac\ OS\ X|Linux)\ ([\d\._]+)?/);
   var os = (match || [])[1] || "Unknown";
   var osVersion = (match || [])[2] || "Unknown";
-  var flavor;
-  if (window.opr)
-    flavor = "O"; // Opera
-  else if (window.safari)
-    flavor = "S"; // Safari
-  else
-    flavor = "E"; // Chrome
-  if (flavor === "O")
-    match = navigator.userAgent.match(/(?:OPR)\/([\d\.]+)/);
-  else
-    match = navigator.userAgent.match(/(?:Chrome|Version)\/([\d\.]+)/);
+  var flavor = 'M';
+  match = navigator.userAgent.match(/(?:Edge|Version)\/([\d\.]+)/);
   var browserVersion = (match || [])[1] || "Unknown";
 
   var firstRun = !storage_get("userid");
@@ -114,35 +105,12 @@ STATS = (function() {
       $.ajax(ajaxOptions);
     }
   };
-  //tell the server we've started
-  var adminPing = function() {
-    var data = getPingData();
-    data["cmd"] = 'adminping';
-    //hard code the 'admin' type
-    data["it"] = 'a';
-    $.ajax({
-      type: 'POST',
-      url: stats_url,
-      data: data,
-      success: handlePingResponse, // TODO: Remove when we no longer do a/b tests
-      error: function(e) {
-        console.log("Ping returned error: ", e.status);
-      },
-    });
-  };
+
 
   var handlePingResponse = function(responseData, textStatus, jqXHR) {
     SURVEY.maybeSurvey(responseData);
   };
 
-  //after installation; for 'admin' installation, do a ping at start up.
-  if (!firstRun && chrome.management && chrome.management.getSelf) {
-    chrome.management.getSelf(function(info) {
-      if (info && info.installType === "admin") {
-        adminPing();
-      }
-    });
-  }
 
   // Called just after we ping the server, to schedule our next ping.
   var scheduleNextPing = function() {
@@ -198,7 +166,7 @@ STATS = (function() {
     userId: userId,
     version: version,
     flavor: flavor,
-    browser: ({O:"Opera", S:"Safari", E:"Chrome"})[flavor],
+    browser: "Edge",
     browserVersion: browserVersion,
     os: os,
     osVersion: osVersion,
@@ -206,12 +174,15 @@ STATS = (function() {
     // Ping the server when necessary.
     startPinging: function() {
       function sleepThenPing() {
-        var delay = millisTillNextPing();
+        // Wait 10 seconds to allow the previous 'set' to finish
         window.setTimeout(function() {
-          pingNow();
-          scheduleNextPing();
-          sleepThenPing();
-        }, delay );
+          var delay = millisTillNextPing();
+          window.setTimeout(function() {
+            pingNow();
+            scheduleNextPing();
+            sleepThenPing();
+          }, delay );
+        }, 10000 );
       };
       // Try to detect corrupt storage and thus avoid ping floods.
       if (! (millisTillNextPing() > 0) ) {

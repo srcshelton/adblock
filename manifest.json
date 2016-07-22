@@ -1,33 +1,16 @@
 {
   "name": "AdBlock",
-  "version": "2.56",
+  "author": "BetaFish",
+  "version": "0.9.6.0",
   "background": {
-    "scripts": [
-      "punycode.min.js",
-      "jquery/jquery.min.js",
-      "port.js",
-      "functions.js",
-      "stats.js",
-      "survey.js",
-      "filtering/domainset.js",
-      "filtering/filteroptions.js",
-      "filtering/filtertypes.js",
-      "filtering/filterset.js",
-      "filtering/myfilters.js",
-      "filtering/filternormalizer.js",
-      "idlehandler.js",
-      "gab_question.js",
-      "background.js",
-      "datacollection.js"
-    ]
+    "page": "compat.html",
+    "persistent": true
   },
   "browser_action": {
     "default_icon": {
-      "19": "img/icon19.png",
-      "38": "img/icon38.png"
+      "38": "img/icon40.png"
     },
-    "default_popup": "button/popup.html",
-    "default_title": "__MSG_adblock_click_for_details__"
+    "default_title": "AdBlock"
   },
   "content_scripts": [
     {
@@ -52,7 +35,7 @@
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": [
-        "port.js",
+        "compat.js",
         "functions.js",
         "filtering/filteroptions.js",
         "adblock_start_common.js",
@@ -73,6 +56,7 @@
   ],
   "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self' https://chromeadblock.com https://getadblock.com",
   "default_locale": "en",
+  "locale": "en",  
   "description": "__MSG_description2__",
   "icons": {
     "16": "img/icon16.png",
@@ -81,13 +65,13 @@
   },
   "incognito": "spanning",
   "manifest_version": 2,
-  "minimum_chrome_version": "23",
+  "minimum_edge_version": "37.14332.1000.0",
   "options_page": "options/index.html",
   "permissions": [
     "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
   ],
-  "optional_permissions": [ "management" ],
   "web_accessible_resources": [
+    "CHANGELOG.txt",
     "img/icon24.png",
     "img/icon48.png",
     "jquery/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",

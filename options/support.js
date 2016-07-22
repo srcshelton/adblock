@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var supportInit = function() {
 
     // Get debug info
     var debug_info = null;
@@ -28,22 +28,18 @@ $(document).ready(function() {
         debug_info = content.join("\n");
     });
 
-    // Check for updates
-    $("#checkupdate").html(translate("checkforupdates"));
-    checkupdates("help");
-
     if (navigator.language.substring(0, 2) != "en") {
         $(".english-only").css("display", "inline");
     }
 
     // Show debug info
-    $("#debug").click(function(){
+    $("#debug").click(function() {
         var showDebugInfo = function() {
             $("#debugInfo").html(debug_info);
             $("#debugInfo").css({ width: "450px", height: "100px"});
             $("#debugInfo").fadeIn();
         }
-        if (SAFARI) {
+        if (SAFARI || EDGE) {
             showDebugInfo();
         } else {
             chrome.permissions.request({
@@ -80,9 +76,10 @@ $(document).ready(function() {
     // Show the changelog
     $("#whatsnew a").click(function() {
         var xhr = new XMLHttpRequest();
+        // TODO: Known issue. Will work once XHR bug is fixed in Edge
         xhr.open("GET", chrome.extension.getURL("CHANGELOG.txt"), false);
         xhr.send();
         var object = xhr.responseText;
         $("#changes").text(object).css({width: "670px", height: "200px"}).fadeIn();
     });
-});
+};

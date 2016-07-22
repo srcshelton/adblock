@@ -848,5 +848,3 @@ $("#step_report_submit")
     .click(function() {
         sendReport();
     });
-
-checkupdates("adreport");

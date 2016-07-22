@@ -19,12 +19,15 @@
 
       /* Menu */
       img {
+        max-width: 100%;
         height: auto;
       }
       ul {
         display: block;
-        -webkit-margin-after: 0em;
-        -webkit-margin-before: 0em;
+        margin-top: 0em;
+        margin-bottom: 0em;
+        /*-webkit-margin-after: 0em;
+        -webkit-margin-before: 0em;*/
       }
       #header {
         background: #F1F1F1;
@@ -45,34 +48,7 @@
       }
       #main_nav li.social {
         text-indent: -9999px;
-      }
-      #small_nav {
-        display: none;
-        cursor:pointer;
-        border:none;
-        position: absolute;
-        bottom: 25px;
-        right: 45px;
-        width: 42px;
-        height: 30px;
-        outline:none;
-        background: #F1F1F1;
-      }
-      #small_nav:after{
-        content:"";
-        width: 42px;
-        height:4px;
-        display:block;
-        position: absolute;
-        top: 3px;
-        right: 0;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-        background: #6B6969;
-        box-shadow: 0 10px 0 #6B6969, 0 20px 0 #6B6969;
-      }
-      .adblock-logo {
-        margin: 10px 0px 0px 10px;
+        overflow: hidden;
       }
       .social .facebook {
         background: transparent url(../img/facebook-sprite.png) no-repeat left top;
@@ -100,6 +76,37 @@
         background-position: left -26px;
         transition: none;
       }
+
+      #small_nav {
+        display: none;
+        cursor:pointer;
+        border:none;
+        position: absolute;
+        bottom: 25px;
+        right: 45px;
+        width: 42px;
+        height: 30px;
+        outline:none;
+        background: #F1F1F1;
+      }
+      #small_nav:after{
+        content:"";
+        width: 42px;
+        height:4px;
+        display:block;
+        position: absolute;
+        top: 3px;
+        right: 0;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        background: #6B6969;
+        box-shadow: 0 10px 0 #6B6969, 0 20px 0 #6B6969;
+      }
+
+      .adblock-logo {
+        margin: 10px 0px 0px 10px;
+      }
+
       .left {
         float: left;
       }
@@ -114,7 +121,7 @@
       }
 
       /* Tabpages */
-      #tabpages {
+      #tabs {
         position: relative;
         display: none;
         margin: 0px auto;
@@ -182,11 +189,60 @@
         -webkit-margin-start: 275px;
         z-index: 2;
       }
+
+      /* This will not work with ltr/rtl */
+      .ui-tabs-nav {
+         margin-left: 275px;
+      }  
+          
       .ui-tabs .ui-tabs-nav li {
         float: left;
       }
 
       /* General tab */
+      #dbauth {
+        cursor: pointer;
+        height: 44px;
+        display: inline-block;
+        margin-left: 5px;
+      }
+      #dropboxlabel {
+        position: absolute;
+        margin-top: -4px;
+      }
+      .authenticated {
+        background: transparent url(../img/dropbox3.png);
+        width: 215px;
+        transition: 0.5s;
+      }
+      .not-authenticated {
+        background: transparent url(../img/dropbox1.png);
+        width: 186px;
+        transition: 0.5s;
+      }
+      .not-authenticated:hover {
+        background: transparent url(../img/dropbox2.png);
+        transition: 0.25s;
+      }
+      #dbauthinfo {
+        cursor: pointer;
+        vertical-align: top;
+        display: inline-block;
+        background-position: -15px -142px;
+        background-image: url(../jquery/css/images/ui-icons_d8e7f3_256x240.png);
+        width: 16px;
+        height: 16px;
+        margin: -4px 7px 0px 0px;
+      }
+      #dbauthinfo:hover {
+        background-position: -15px -142px;
+        background-image: url(../jquery/css/images/ui-icons_056b93_256x240.png);
+      }
+      .dbmessage {
+        color: red;
+        font-weight: bold;
+        margin: 5px 0px 5px 3px;
+      }
       #acceptable_ads_info {
         display: none;
         line-height: 1;
@@ -225,11 +281,6 @@
       #language_dropdown_container {
         margin-left: 3px;
       }
-      .usermessage {
-        color: red;
-        font-weight: bold;
-        margin: 5px 0px 5px 3px;
-      }      
       .error_message {
         color: red;
       }
@@ -381,7 +432,7 @@
           opacity: 0.85;
           margin-top: 23px;
           right: 40px;
-          -webkit-padding-start: 0px;
+          padding-left: 0px;
           z-index: 2;
           background: #F1F1F1;
           border-bottom: 1px solid #E9E9E9;
@@ -405,7 +456,6 @@
         font-style: normal;
         text-decoration: none;
         text-align: center;
-        text-shadow: 1px 1px 0px #ffffff;
         border-radius: 2px;
       }
       input[type="button"]:hover, select:hover {

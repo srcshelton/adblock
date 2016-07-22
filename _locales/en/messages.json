@@ -1,10 +1,10 @@
 {
   "description2":{
-    "message":"The most popular Chrome extension, with over 40 million users! Blocks ads all over the web.",
+    "message":"AdBlock. The #1 ad blocker with over 200 million downloads. Blocks ads all over the web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock - click for details",
+    "message":"AdBlock",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{
@@ -694,7 +694,7 @@
   "lang_spanish":{
     "message":"Spanish",
     "description":"language"
-  },  
+  },
   "filtereasylist_plus_spanish":{
     "message":"Spanish",
     "description":"language"
@@ -1088,6 +1088,10 @@
         "example":"invalid filter"
       }
     }
+  },
+  "dropboxerrorforfilters":{
+    "message":"You have exceeded the Dropbox size limit. Please remove some entries from your custom or disabled filters, and try again.",
+    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
   },
   "languagedropdowndescription":{
     "message":"Add filters for another language: ",

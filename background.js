@@ -1,4 +1,8 @@
- // Send the file name and line number of any error message. This will help us
+  chrome.browserAction.onClicked.addListener(function(tab) {
+    openTab(chrome.runtime.getURL('options/index.html'));
+  });
+
+  // Send the file name and line number of any error message. This will help us
   // to trace down any frequent errors we can't confirm ourselves.
   window.addEventListener("error", function(e) {
     var str = "Error: " +
@@ -101,7 +105,7 @@
       display_stats: true,
       display_menu_stats: true,
       show_block_counts_help_link: true,
-      show_survey: true
+      show_survey: true,
     };
     var settings = storage_get('settings') || {};
     this._data = $.extend(defaults, settings);
@@ -302,28 +306,6 @@
         }
     };
 
-    var normalizeRequestType = function(details) {
-        // normalize type, because of issue with Chrome 38+
-        var type = details.type;
-        if (type !== 'other') {
-            return type;
-        }
-        var url = parseUri(details.url);
-        if (url && url.pathname) {
-          var pos = url.pathname.lastIndexOf('.');
-          if (pos > -1) {
-            var ext = url.pathname.slice(pos) + '.';
-            // Still need this because often behind-the-scene requests are wrongly
-            // categorized as 'other'
-            if ('.ico.png.gif.jpg.jpeg.webp.'.indexOf(ext) !== -1) {
-              return 'image';
-            }
-          }
-        }
-        // see crbug.com/410382
-        return 'object';
-    };
-
     // When a request starts, perhaps block it.
     function onBeforeRequestHandler(details) {
       if (adblock_is_paused())
@@ -336,7 +318,7 @@
         return { cancel: false };
 
       var tabId = details.tabId;
-      var reqType = normalizeRequestType({url: details.url, type: details.type});
+      var reqType = details.type;
 
       var top_frame = frameData.get(tabId, 0);
       var sub_frame = (details.frameId !== 0 ? frameData.get(tabId, details.frameId) : null);
@@ -388,7 +370,7 @@
         // receive this or not.  Because the #anchor of a page can change without navigating
         // the frame, ignore the anchor when matching.
         var frameUrl = frameData.get(tabId, requestingFrameId).url.replace(/#.*$/, "");
-        var data = { command: "purge-elements", tabId: tabId, frameUrl: frameUrl, url:details.url, elType: elType };
+        var data = { command: "purge-elements", tabId: tabId, frameUrl: frameUrl, url: details.url, elType: elType };
         chrome.tabs.sendRequest(tabId, data);
       }
       if (blocked) {
@@ -485,7 +467,6 @@
           if (whitelist > -1) {
               // Remove protocols
               url = url.replace(/((http|https):\/\/)?(www.)?/, "").split(/[/?#]/)[0];
-
               text = text + "|~" + url;
               custom_filters.splice(i, 1); // Remove the old filter text
               custom_filters.push(text); // add the new filter text to original array
@@ -639,8 +620,10 @@
     var confirmation_text   = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
     if (!confirm(confirmation_text)) { return; }
     remove_custom_filter_for_host(host);
-    if (!SAFARI) {
+    if (!SAFARI && !EDGE) {
         chrome.tabs.reload();
+    } else if(EDGE) {
+        chrome.tabs.executeScript(activeTab.id, {code: 'location.reload();'});
     } else {
         activeTab.url = activeTab.url;
     }
@@ -672,6 +655,14 @@
   update_subscriptions_now = function() {
     _myfilters.checkFilterUpdates(true);
   }
+
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if(request.message != 'get_subscriptions_minus_text')
+      return;
+
+    var result = get_subscriptions_minus_text();
+    sendResponse(result);
+  });
 
   // Returns map from id to subscription object.  See filters.js for
   // description of subscription object.
@@ -735,8 +726,10 @@
     if (!url) { // Safari empty/bookmarks/top sites page
       return true;
     } else {
-      var scheme = parseUri(url).protocol;
-      return (scheme !== 'http:' && scheme !== 'https:' && scheme !== 'feed:');
+      var parsedUrl = parseUri(url);
+      var scheme = parsedUrl.protocol;
+      var pathname = parsedUrl.pathname;
+      return ((scheme !== 'http:' && scheme !== 'https:' && scheme !== 'feed:') || (pathname && pathname.includes('.pdf')));
     }
   }
 
@@ -745,23 +738,12 @@
   //                  false, AdBlock will not be paused.
   // Returns: undefined if newValue was specified, otherwise it returns true
   //          if paused, false otherwise.
+  var _adblock_is_paused = false;
   adblock_is_paused = function(newValue) {
     if (newValue === undefined) {
-      return sessionStorage.getItem('adblock_is_paused') === "true";
+      return (_adblock_is_paused === true);
     }
-    sessionStorage.setItem('adblock_is_paused', newValue);
-    // To prevent certain web site issues that occur with the "beforeload" event listener
-    // remove the Safari specific "beforeload" script when AdBlock is paused, and
-    // add it back when AdBlock is un-paused
-    if (SAFARI &&
-        newValue === true &&
-        !get_settings().safari_content_blocking) {
-       safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_beforeload.js");
-    } else if (SAFARI &&
-            newValue === false &&
-            !get_settings().safari_content_blocking) {
-       safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_beforeload.js", [], [], false);
-    }
+    _adblock_is_paused = newValue;
   }
 
   // Get if AdBlock is paused
@@ -790,6 +772,9 @@
   getCurrentTabInfo = function(callback, secondTime) {
     if (!SAFARI) {
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        if (!tabs) {
+          return;
+        }
         if (tabs.length === 0)
           return; // For example: only the background devtools or a popup are opened
 
@@ -896,7 +881,7 @@
         if (badge_text === "0")
             badge_text = ""; // Only show the user when we've done something useful
         browsersBadgeOptions.badge_text = badge_text;
-        browsersBadgeOptions.iconPaths = {'19': 'img/icon19.png', '38': 'img/icon38.png'};
+        browsersBadgeOptions.iconPaths = {'19': 'img/icon20.png', '38': 'img/icon40.png'};
         //see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8
         setBrowserActions(browsersBadgeOptions);
       }
@@ -910,11 +895,20 @@
         if (!get_settings().show_context_menu_items)
           return;
 
+        // TODO: Workaround to add pausing to context menu until popups are supported
+        if(adblock_is_paused()) {
+          addMenu(translate("unpause_adblock"), function(tab, clickdata) {
+            adblock_is_paused(false);
+            updateButtonUIAndContextMenus();
+          });
+        }
+
         if (adblock_is_paused() || info.whitelisted || info.disabled_site)
           return;
 
         function addMenu(title, callback) {
           chrome.contextMenus.create({
+            id: title,
             title: title,
             contexts: ["all"],
             onclick: function(clickdata, tab) { callback(tab, clickdata); }
@@ -935,11 +929,17 @@
           );
         });
 
-        var host                = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
+        // TODO: Workaround to add pausing to context menu until popups are supported
+        addMenu(translate("pause_adblock"), function(tab, clickdata) {
+          adblock_is_paused(true);
+          updateButtonUIAndContextMenus();
+        });
+
+        var host = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
         var custom_filter_count = count_cache.getCustomFilterCount(host);
         if (custom_filter_count) {
           addMenu(translate("undo_last_block"), function(tab) {
-            confirm_removal_of_custom_filters_on_host(host);
+            confirm_removal_of_custom_filters_on_host(host, tab);
           });
         }
       }
@@ -950,17 +950,17 @@
         browsersBadgeOptions.color = "#555";
         browsersBadgeOptions.badge_text = "";
         if (adblock_is_paused()) {
-          browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+          browsersBadgeOptions.iconPaths = {'19': "img/icon20-grayscale.png", '38': "img/icon40-grayscale.png"};
           setBrowserActions(browsersBadgeOptions);
         } else if (info.disabled_site &&
             !/^chrome-extension:.*pages\/install\//.test(info.tab.unicodeUrl)) {
           // Show non-disabled icon on the installation-success page so it
           // users see how it will normally look. All other disabled pages
           // will have the gray one
-          browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+          browsersBadgeOptions.iconPaths = {'19': "img/icon20-grayscale.png", '38': "img/icon40-grayscale.png"};
           setBrowserActions(browsersBadgeOptions);
         } else if (info.whitelisted) {
-          browsersBadgeOptions.iconPaths = {'19': "img/icon19-whitelisted.png", '38': "img/icon38-whitelisted.png"};
+          browsersBadgeOptions.iconPaths = {'19': "img/icon20-whitelisted.png", '38': "img/icon40-whitelisted.png"};
           setBrowserActions(browsersBadgeOptions);
         } else {
           updateBadge(info.tab.id);
@@ -1039,10 +1039,14 @@
 
   // Inputs: options object containing:
   //           domain:string the domain of the calling frame.
-  get_content_script_data = function(options, sender) {
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (!(request.message == "get_content_script_data")) {
+      return;
+    }
+    var options = request.opts;
     var settings = get_settings();
     var runnable = !adblock_is_paused() && !page_is_unblockable(sender.url);
-    var running_top = runnable && !page_is_whitelisted(sender.tab.url);
+    var running_top = runnable && !page_is_whitelisted(sender.url);
     var running = runnable && !page_is_whitelisted(sender.url);
     var hiding = running && !page_is_whitelisted(sender.url, ElementTypes.elemhide);
 
@@ -1066,8 +1070,8 @@
         !settings.safari_content_blocking) {
       result.selectors = _myfilters.hiding.filtersFor(options.domain);
     }
-    return result;
-  };
+    sendResponse(result);
+  });
 
   // Bounce messages back to content scripts.
   if (!SAFARI) {
@@ -1335,7 +1339,7 @@
     gabQuestion.removeGABTabListeners(saveState);
   }
 
-  var installedURL = "https://getadblock.com/installed/?u=" + STATS.userId;
+  var installedURL = "https://getadblock.com/installedbetaedge?u=" + STATS.userId;
   var openInstalledTab = function() {
     chrome.tabs.create({url: installedURL}, function(tab) {
       // if we couldn't open a tab to '/installed', save that fact, so we can retry later at startup
@@ -1418,6 +1422,9 @@
 
         //get the current tab, so we only create 1 notification per tab
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            if (!tabs) {
+              return;
+            }
             if (tabs.length === 0) {
                 return; // For example: only the background devtools or a popup are opened
             }
@@ -1472,6 +1479,9 @@
       chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
 
     var handleEarlyOpenedTabs = function(tabs) {
+      if (!tabs) {
+        return;
+      }
       log("Found", tabs.length, "tabs that were already opened");
       for (var i=0; i<tabs.length; i++) {
         var currentTab = tabs[i], tabId = currentTab.id;

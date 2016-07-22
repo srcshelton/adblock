@@ -56,9 +56,10 @@ Filter._toDomainSet = function(domainText, divider) {
 
   if (domains == '')
     return new DomainSet(data);
-
-  for (var i = 0; i < domains.length; i++) {
-    var domain = domains[i];
+  
+  var domainsLength = domains.length;
+  while (domainsLength--) {
+    var domain = domains[domainsLength];
     if (domain[0] == '~') {
       data[domain.substring(1)] = false;
     } else {
@@ -90,8 +91,9 @@ SelectorFilter.merge = function(filter, excludeFilters) {
     return filter;
 
   var domains = filter._domains.clone();
-  for (var i = 0; i < excludeFilters.length; i++) {
-    domains.subtract(excludeFilters[i]._domains);
+  var excludeFiltersLength = excludeFilters.length;
+  while (excludeFiltersLength--) {
+    domains.subtract(excludeFilters[excludeFiltersLength]._domains);
   }
 
   var result = new SelectorFilter("_##_");

@@ -4,7 +4,7 @@
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock - Haz click para más detalles",
+    "message":"AdBlock",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{

@@ -51,6 +51,15 @@ onReady = function(callback) {
 };
 
 translate = function(messageID, args) {
+  if(Array.isArray(args)) {
+    for(var i = 0; i < args.length; i++) {
+      if(typeof args[i] !== 'string') {
+        args[i] = args[i].toString();
+      }
+    }
+  } else if(args && typeof args !== 'string') {
+    args = args.toString();
+  }
   return chrome.i18n.getMessage(messageID, args);
 };
 

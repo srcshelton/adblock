@@ -12,7 +12,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   // a call to sendResponse is not needed because of the call in filters.js
 });
 
-$(function() {
+var customizeInit = function() {
     //try to get filter syntax page with users language
     //if it fails, default to english (en).
     var syntaxURL = "https://adblockplus.org/" +
@@ -295,9 +295,6 @@ $(function() {
         !settings.safari_content_blocking) {
         $("#divExcludeFilters").show();
     }
-    if (settings.safari_content_blocking) {
-        $("#safariwarning").text(translate("contentblockingwarning")).show();
-    }
   });
 
   BGcall("get_exclude_filters_text", function(text) {
@@ -314,4 +311,9 @@ $(function() {
     newFilters = newFilters.replace(/(\n)+$/,'\n'); // Del trailing \n's
     $("#txtFiltersAdvanced").val(newFilters);
   });
-});
+
+  BGcall("sessionstorage_get", "dropboxerror", function(text) {
+    if (text)
+      $("#dbmessagecustom").text(text);
+  });
+};

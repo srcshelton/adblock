@@ -101,9 +101,10 @@ BlacklistUi.prototype._build_page1 = function() {
   var that = this;
 
   var page = $("<div>").
-    append(translate("sliderexplanation")).
-    append("<br/>").
-    append("<input id='slider' type='range' min='0' value='0'/>").
+    // TODO: The slider throws exceptions in Edge. Looks to be a jquery problem.
+    // append(translate("sliderexplanation")).
+    // append("<br/>").
+    // append("<input id='slider' type='range' min='0' value='0'/>").
     append("<div id='selected_data'></div>");
 
   var btns = {};

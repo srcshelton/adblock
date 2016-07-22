@@ -61,24 +61,28 @@ FilterSet.prototype = {
   filtersFor: function(domain) {
     domain = getUnicodeDomain(domain);
     var limited = this._viewFor(domain);
-    var data = {};
-    // data = set(limited.items)
-    for (var subdomain in limited.items) {
-      var entry = limited.items[subdomain];
-      for (var i = 0; i < entry.length; i++) {
-        var filter = entry[i];
-        data[filter.id] = filter;
-      }
-    }
-    // data -= limited.exclude
+
+    // Get IDs of excluded filters
+    var excluded = [];
     for (var subdomain in limited.exclude) {
       for (var filterId in limited.exclude[subdomain]) {
-        delete data[filterId];
+        excluded.push(filterId);
       }
     }
+
+    // result -= excluded
     var result = [];
-    for (var k in data)
-      result.push(data[k].selector);
+    for (var subdomain in limited.items) {
+      var entry = limited.items[subdomain];
+      var entryLength = entry.length;
+      while (entryLength--) {
+        var filter = entry[entryLength];
+        if (excluded.indexOf(filter.id) > -1) {
+          continue;
+        }
+        result.push(filter.selector);
+      }
+    }
     return result;
   },
 
@@ -90,8 +94,9 @@ FilterSet.prototype = {
     var limited = this._viewFor(frameDomain);
     for (var k in limited.items) {
       var entry = limited.items[k];
-      for (var i = 0; i < entry.length; i++) {
-        var filter = entry[i];
+      var entryLength = entry.length;
+      while (entryLength--) {
+        var filter = entry[entryLength];
         if (!filter.matches(url, elementType, isThirdParty))
           continue; // no match
         // Maybe filter shouldn't match because it is excluded on our domain?
