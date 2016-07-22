@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+1.0.0.0:
+- Updated the address new users are shown.  (#45).
+
 0.9.13.0:
 - Fixed an issue with display of the AdBlock Options page with RTL languages.  (#38)
 - Fixed an issue with White-list and Black-list wizards displaying correctly.  (#39)

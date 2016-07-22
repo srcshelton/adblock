@@ -1324,7 +1324,7 @@
     gabQuestion.removeGABTabListeners(saveState);
   }
 
-  var installedURL = "https://getadblock.com/installedbetaedge?u=" + STATS.userId;
+  var installedURL = "https://getadblock.com/installed/?u=" + STATS.userId;
   var openInstalledTab = function() {
     chrome.tabs.create({url: installedURL}, function(tab) {
       // if we couldn't open a tab to '/installed', save that fact, so we can retry later at startup
