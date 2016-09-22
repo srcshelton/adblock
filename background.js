@@ -775,34 +775,20 @@
           return; // For example: only the background devtools or a popup are opened
 
         var tab = tabs[0];
-
-        if (tab && !tab.url) {
-          // Issue 6877: tab URL is not set directly after you opened a window
-          // using window.open()
-          if (!secondTime)
-            window.setTimeout(function() {
-              getCurrentTabInfo(callback, true);
-            }, 250);
-          return;
-        }
-
-        // GH #472
-        tab.unicodeUrl = getUnicodeUrl(tab.url);
-
-        var disabled_site = page_is_unblockable(tab.unicodeUrl);
-        var total_blocked = blockCounts.getTotalAdsBlocked();
-        var tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
-        var display_stats = get_settings().display_stats;
-        var display_menu_stats = get_settings().display_menu_stats;
-
         var result = {
           tab: tab,
-          disabled_site: disabled_site,
-          total_blocked: total_blocked,
-          tab_blocked: tab_blocked,
-          display_stats: display_stats,
-          display_menu_stats: display_menu_stats
+          total_blocked: blockCounts.getTotalAdsBlocked(),
+          display_stats: get_settings().display_stats,
+          display_menu_stats: get_settings().display_menu_stats
         };
+        if (!tab.url) {
+          result.disabled_site = true;
+          result.tab_blocked = 0;
+        } else {
+          tab.unicodeUrl = getUnicodeUrl(tab.url);
+          result.disabled_site = page_is_unblockable(tab.unicodeUrl);
+          result.tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
+        }
 
         if (!disabled_site)
           result.whitelisted = page_is_whitelisted(tab.unicodeUrl);
@@ -1597,10 +1583,7 @@
       // Is this installed build of AdBlock the official one?
       var AdBlockBuild = function() {
           if (!SAFARI) {
-              if (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk") {
-                  return "Beta";
-              } else if (chrome.runtime.id === "gighmmpiobklfepjocnamgkkbiglidom" ||
-                         chrome.runtime.id === "aobdicepooefnbaeokijohmhjlleamfj") {
+               if (chrome.runtime.id === "EdgeExtension_BetaFishAdBlock_c1wakc4j0nefm") {
                   return "Stable";
               } else {
                   return "Unofficial";

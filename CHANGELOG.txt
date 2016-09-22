@@ -2,6 +2,13 @@
 
 UNRELEASED:
 
+1.1.0.0:
+- Fixed a bug in the logic which generates the hidden selector tags. (#58)
+- Fixed a bug in the popover menu logic caused an error when local files were opened (the tab URL was not HTTP or HTTPS).  (#57)
+- Updated the embeded extension id so that the debug data correctly identifies 'Official' versions of AdBlock on Edge.  (#56)
+- Fixed a bug in the blacklist wizard when opened from the context menu.  (#48)
+- Fixed a bug in the unit test cases.  (#46)
+
 1.0.0.0:
 - Updated the address new users are shown.  (#45).
 

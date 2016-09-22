@@ -3,8 +3,18 @@ if (typeof may_open_dialog_ui === "undefined")
   may_open_dialog_ui = true;
 
 function top_open_blacklist_ui(options) {
+
   if (!may_open_dialog_ui)
     return;
+
+  if (typeof options === "string") {
+    try {
+      options = JSON.parse(options);
+    } catch(ex) {
+      options = {}
+      options.nothing_clicked = true
+    }
+  }
 
   may_open_dialog_ui = false;
 
@@ -13,8 +23,9 @@ function top_open_blacklist_ui(options) {
 
   load_jquery_ui(function() {
     // If they chose "Block an ad on this page..." ask them to click the ad
-    if (options.nothing_clicked)
+    if (options.nothing_clicked) {
       rightclicked_item = null;
+    }
 
     // If they right clicked in a frame in Chrome, use the frame instead
     if (options.info && options.info.frameUrl) {
