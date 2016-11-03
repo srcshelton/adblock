@@ -72,18 +72,22 @@ var run_bandaids = function() {
             BGcall("set_setting", "show_survey", !document.getElementById("enable_show_survey").checked, true);
          };
       }
-      if (document.getElementById("disableacceptableads")) {
-        document.getElementById("disableacceptableads").onclick = function(event) {
-          event.preventDefault();
-          BGcall("unsubscribe", {id:"acceptable_ads", del:false}, function() {
-            BGcall("recordGeneralMessage", "disableacceptableads clicked", undefined, function() {
-              BGcall("openTab",  "options/index.html?tab=0&aadisabled=true");
+      var aaElements = document.querySelectorAll("#disableacceptableads");
+      if (aaElements &&
+          aaElements.length) {
+        for (i = 0; i < aaElements.length; ++i) {
+          aaElements[i].onclick = function(event) {
+            event.preventDefault();
+            BGcall("unsubscribe", {id:"acceptable_ads", del:false}, function() {
+              BGcall("recordGeneralMessage", "disableacceptableads clicked", undefined, function() {
+                BGcall("openTab",  "options/index.html?tab=0&aadisabled=true");
+              });
+              // Rebuild the rules if running in Safari
+              if (SAFARI) {
+                BGcall("update_subscriptions_now");
+              }
             });
-            // Rebuild the rules if running in Safari
-            if (SAFARI) {
-              BGcall("update_subscriptions_now");
-            }
-          });
+          }
         }
       }
     },

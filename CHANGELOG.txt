@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.2.0.0:
+- Modified the 'ping' logic, so that users ping at most, every 5 minutes. (# 60)
+- Modified the 'bandaids' processing on getadblock.com to support multiple 'disableacceptableads' elements.  (#62)
+
 1.1.0.0:
 - Fixed a bug in the logic which generates the hidden selector tags. (#58)
 - Fixed a bug in the popover menu logic caused an error when local files were opened (the tab URL was not HTTP or HTTPS).  (#57)

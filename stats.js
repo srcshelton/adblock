@@ -175,7 +175,7 @@ STATS = (function() {
     // Ping the server when necessary.
     startPinging: function() {
       function sleepThenPing() {
-        // Wait 10 seconds to allow the previous 'set' to finish
+        // Wait 5 minutes to allow the previous 'set' to finish
         window.setTimeout(function() {
           var delay = millisTillNextPing();
           window.setTimeout(function() {
@@ -183,7 +183,7 @@ STATS = (function() {
             scheduleNextPing();
             sleepThenPing();
           }, delay );
-        }, 10000 );
+        }, 300000 );
       };
       // Try to detect corrupt storage and thus avoid ping floods.
       if (! (millisTillNextPing() > 0) ) {
