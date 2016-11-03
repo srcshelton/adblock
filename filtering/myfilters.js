@@ -807,7 +807,7 @@ MyFilters.prototype._make_subscription_options = function() {
       url: "https://cdn.adblockcdn.com/filters/easylist-min.txt",
     },
     "easylist_plus_bulgarian": { // Additional Bulgarian filters
-      url: "http://stanev.org/abp/adblock_bg.txt",
+      url: "https://easylist-downloads.adblockplus.org/bulgarian_list+easylist.txt",
       requiresList: "easylist",
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_bulgarian.json",
     },
@@ -837,8 +837,7 @@ MyFilters.prototype._make_subscription_options = function() {
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_greek.json",
     },
     "easylist_plus_indonesian": { // Additional Indonesian filters
-      url: "https://indonesianadblockrules.googlecode.com/hg/subscriptions/abpindo.txt",
-      requiresList: "easylist",
+      url: "https://easylist-downloads.adblockplus.org/abpindo+easylist.txt",
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_indonesian.json",
     },
     "easylist_plus_polish": { // Additional Polish filters

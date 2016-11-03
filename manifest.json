@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "1.2.0.0",
+  "version": "1.3.0.0",
   "background": {
     "page": "compat.html",
     "persistent": true
@@ -58,7 +58,7 @@
   "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self' https://chromeadblock.com https://getadblock.com",
   "default_locale": "en",
   "locale": "en",  
-  "description": "__MSG_description2__",
+  "description": "__MSG_description_edge__",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",

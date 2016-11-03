@@ -56,7 +56,7 @@ Filter._toDomainSet = function(domainText, divider) {
 
   if (domains == '')
     return new DomainSet(data);
-  
+
   var domainsLength = domains.length;
   while (domainsLength--) {
     var domain = domains[domainsLength];

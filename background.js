@@ -259,14 +259,18 @@
                 delete fd[tabId];
                 fd.record(tabId, 0, details.url);
                 fd[tabId].blockCount = 0;
-                log("\n-------", fd.get(tabId, 0).domain, ": loaded in tab", tabId, "--------\n\n");
+                if (loggingEnable) {
+                  log("\n-------", fd.get(tabId, 0).domain, ": loaded in tab", tabId, "--------\n\n");
+                }
                 return true;
             }
 
             // Request from a tab opened before AdBlock started, or from a
             // chrome:// tab containing an http:// iframe
             if (!fd[tabId]) {
-                log("[DEBUG]", "Ignoring unknown tab:", tabId, details.frameId, details.url);
+                if (loggingEnable) {
+                  log("[DEBUG]", "Ignoring unknown tab:", tabId, details.frameId, details.url);
+                }
                 return false;
             }
 
@@ -276,12 +280,16 @@
             var potentialEmptyFrameId = (details.type === 'sub_frame' ? details.parentFrameId: details.frameId);
             if (undefined === fd.get(tabId, potentialEmptyFrameId)) {
                 fd.record(tabId, potentialEmptyFrameId, fd.get(tabId, 0).url);
-                log("[DEBUG]", "Null frame", tabId, potentialEmptyFrameId, "found; giving it the tab's URL.");
+                if (loggingEnable) {
+                  log("[DEBUG]", "Null frame", tabId, potentialEmptyFrameId, "found; giving it the tab's URL.");
+                }
             }
 
             if (details.type === 'sub_frame') { // New frame
                 fd.record(tabId, details.frameId, details.url);
-                log("[DEBUG]", "=========== Tracking frame", tabId, details.parentFrameId, details.frameId, details.url);
+                if (loggingEnable) {
+                  log("[DEBUG]", "=========== Tracking frame", tabId, details.parentFrameId, details.frameId, details.url);
+                }
             }
 
             return true;
@@ -321,12 +329,16 @@
 
       // If top frame is whitelisted, don't process anything
       if (top_frame.whitelisted) {
-        log("[DEBUG]", "Ignoring whitelisted tab", tabId, details.url.substring(0, 100));
+        if (loggingEnable) {
+          log("[DEBUG]", "Ignoring whitelisted tab", tabId, details.url.substring(0, 100));
+        }
         return { cancel: false };
       // If request comes from whitelisted sub_frame and
       // top frame is not whitelisted, don't process the request
       } else if (sub_frame && sub_frame.whitelisted) {
-        log("[DEBUG]", "Ignoring whitelisted frame", tabId, details.url.substring(0, 100));
+        if (loggingEnable) {
+          log("[DEBUG]", "Ignoring whitelisted frame", tabId, details.url.substring(0, 100));
+        }
         return { cancel: false };
       }
 
@@ -339,8 +351,11 @@
 
       // May the URL be loaded by the requesting frame?
       var frameDomain = frameData.get(tabId, requestingFrameId).domain;
+
+      // If |matchGeneric| is null, don't test request against blocking generic rules
+      var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
       if (get_settings().data_collection) {
-          var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, true, true);
+          var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, true, true, matchGeneric);
           if (blockedData !== false) {
               DataCollection.addItem(blockedData.text);
               var blocked = blockedData.blocked;
@@ -348,7 +363,7 @@
               var blocked = blockedData;
           }
       } else {
-          var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
+          var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric);
       }
 
       frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
@@ -373,7 +388,9 @@
         blockCounts.recordOneAdBlocked(tabId);
         updateBadge(tabId);
       }
-      log("[DEBUG]", "Block result", blocked, reqType, frameDomain, details.url.substring(0, 100));
+      if (loggingEnable) {
+        log("[DEBUG]", "Block result", blocked, reqType, frameDomain, details.url.substring(0, 100));
+      }
       if (blocked && elType === ElementTypes.subdocument) {
         return { redirectUrl: "about:blank" };
       }
@@ -438,7 +455,9 @@
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
     if (data) {
-      log(data.domain, ": hiding rule", selector, "matched:\n", matches);
+      if (loggingEnable) {
+        log(data.domain, ": hiding rule", selector, "matched:\n", matches);
+      }
       DataCollection.addItem(selector);
       if (!SAFARI) {
         blockCounts.recordOneAdBlocked(sender.tab.id);
@@ -1036,7 +1055,9 @@
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-      result.selectors = _myfilters.hiding.filtersFor(options.domain);
+      // If |matchGeneric| is , don't test request against hiding generic rules
+      var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+      result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
     }
     sendResponse(result);
   });
@@ -1300,6 +1321,27 @@
   _myfilters.init();
   // Record that we exist.
   STATS.startPinging();
+
+  // Respond to calls from the content script regarding the
+  // blocking of websocket requests.
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+      if (message.type !== "request.websocket") {
+        return;
+      }
+      var data = frameData.get(sender.tab.id, sender.frameId || 0);
+      if (data) {
+        var blocked = _myfilters.blocking.matches(message.url, ElementTypes.other, data.domain);
+        frameData.storeResource(sender.tab.id, sender.frameId, message.url, ElementTypes.other, data.domain);
+        if (blocked) {
+          blockCounts.recordOneAdBlocked(sender.tab.id);
+          updateBadge(sender.tab.id);
+        }
+        log("web socket block result", blocked, data.domain, message.url.substring(0, 100));
+        sendResponse(blocked);
+      } else {
+        sendResponse(false);
+      }
+  })
 
   //passthrough functions
   var addGABTabListeners = function(sender) {

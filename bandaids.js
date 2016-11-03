@@ -5,8 +5,10 @@ var run_bandaids = function() {
   var apply_bandaid_for = "";
   if (/mail\.live\.com/.test(document.location.hostname))
     apply_bandaid_for = "hotmail";
-  else if (/getadblock\.com$/.test(document.location.hostname) &&
-           window.top === window.self) {
+  else if (("getadblock.com" === document.location.hostname ||
+            "dev.getadblock.com" === document.location.hostname) &&
+           (window.top === window.self))
+  {
     if (/\/question\/$/.test(document.location.pathname)) {
       apply_bandaid_for = "getadblockquestion";
     } else {
@@ -77,6 +79,9 @@ var run_bandaids = function() {
           aaElements.length) {
         for (i = 0; i < aaElements.length; ++i) {
           aaElements[i].onclick = function(event) {
+            if (event.isTrusted === false) {
+              return;
+            }
             event.preventDefault();
             BGcall("unsubscribe", {id:"acceptable_ads", del:false}, function() {
               BGcall("recordGeneralMessage", "disableacceptableads clicked", undefined, function() {

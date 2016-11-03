@@ -29,6 +29,7 @@ BGcall = function() {
 // Enabled in adblock_start_common.js and background.js if the user wants
 logging = function(enabled) {
   if (enabled) {
+    loggingEnable = true;
     log = function() {
       if (VERBOSE_DEBUG || arguments[0] != '[DEBUG]') // comment out for verbosity
         console.log.apply(console, arguments);
@@ -38,9 +39,11 @@ logging = function(enabled) {
   }
   else {
     log = logGroup = logGroupEnd = function() {};
+    loggingEnable = false;
   }
 };
 logging(false); // disabled by default
+loggingEnable = false;
 
 // Behaves very similarly to $.ready() but does not require jQuery.
 onReady = function(callback) {

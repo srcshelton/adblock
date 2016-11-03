@@ -26,6 +26,15 @@ function typeForElement(el) {
   }
 }
 
+function runInDocument(document, fn, arg) {
+  var script = document.createElement("script");
+  script.type = "application/javascript";
+  script.async = false;
+  script.textContent = "(" + fn + ")(" + JSON.stringify(arg) + ");";
+  document.documentElement.appendChild(script);
+  document.documentElement.removeChild(script);
+}
+
 // If url is relative, convert to absolute.
 function relativeToAbsoluteUrl(url) {
   // Author: Tom Joseph of AdThwart
@@ -137,6 +146,9 @@ function handleABPLinkClicks() {
   // Subscribe to the list when you click an abp: link
   var elems = document.querySelectorAll('[href^="abp:"], [href^="ABP:"]');
   var abplinkhandler = function(event) {
+    if (event.isTrusted === false) {
+      return;
+    }
     event.preventDefault();
     var searchquery = this.href.replace(/^.+?\?/, '?');
     if (searchquery) {
@@ -167,6 +179,90 @@ function handleABPLinkClicks() {
   }
 }
 
+// Edge does not allow us to intercept WebSockets, and therefore
+// some ad networks are misusing them as a way to serve adverts and circumvent
+// us. As a workaround we wrap WebSocket, preventing blocked WebSocket
+// connections from being opened.
+function wrapWebSocket(document)
+{
+  if (typeof WebSocket == "undefined")
+    return;
+
+  var eventName = "abpws-" + Math.random().toString(36).substr(2);
+
+  document.addEventListener(eventName, function(event)
+  {
+    chrome.runtime.sendMessage({
+      type: "request.websocket",
+      url: event.detail.url
+    }, function (block)
+    {
+      document.dispatchEvent(
+        new CustomEvent(eventName + "-" + event.detail.url, {detail: block})
+      );
+    });
+  });
+
+  runInDocument(document, function(eventName)
+  {
+    // As far as possible we must track everything we use that could be
+    // sabotaged by the website later in order to circumvent us.
+    var RealWebSocket = WebSocket;
+    var closeWebSocket = Function.prototype.call.bind(RealWebSocket.prototype.close);
+    var addEventListener = document.addEventListener.bind(document);
+    var removeEventListener = document.removeEventListener.bind(document);
+    var dispatchEvent = document.dispatchEvent.bind(document);
+    var CustomEvent = window.CustomEvent;
+
+    function checkRequest(url, callback)
+    {
+      var incomingEventName = eventName + "-" + url;
+      function listener(event)
+      {
+        callback(event.detail);
+        removeEventListener(incomingEventName, listener);
+      }
+      addEventListener(incomingEventName, listener);
+
+      dispatchEvent(new CustomEvent(eventName, {
+        detail: {url: url}
+      }));
+    }
+
+    function WrappedWebSocket(url)
+    {
+      // Throw correct exceptions if the constructor is used improperly.
+      if (!(this instanceof WrappedWebSocket)) return RealWebSocket();
+      if (arguments.length < 1) return new RealWebSocket();
+
+      var websocket;
+      if (arguments.length == 1)
+        websocket = new RealWebSocket(url);
+      else
+        websocket = new RealWebSocket(url, arguments[1]);
+
+      checkRequest(websocket.url, function(blocked)
+      {
+        if (blocked)
+          closeWebSocket(websocket);
+      });
+
+      return websocket;
+    }
+    WrappedWebSocket.prototype = RealWebSocket.prototype;
+    WebSocket = WrappedWebSocket.bind();
+    Object.defineProperties(WebSocket, {
+      CONNECTING: {value: RealWebSocket.CONNECTING, enumerable: true},
+      OPEN: {value: RealWebSocket.OPEN, enumerable: true},
+      CLOSING: {value: RealWebSocket.CLOSING, enumerable: true},
+      CLOSED: {value: RealWebSocket.CLOSED, enumerable: true},
+      prototype: {value: RealWebSocket.prototype}
+    });
+
+    RealWebSocket.prototype.constructor = WebSocket;
+  }, eventName);
+}
+
 // Called at document load.
 // inputs:
 //   startPurger: function to start watching for elements to remove.
@@ -190,6 +286,8 @@ function adblock_begin(inputs) {
   }
 
   inputs.startPurger();
+
+  wrapWebSocket(document);
 
   var opts = { domain: document.location.hostname };
    chrome.runtime.sendMessage({message: "get_content_script_data", opts: opts}, function(data) {

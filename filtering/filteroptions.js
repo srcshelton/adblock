@@ -16,12 +16,14 @@ var ElementTypes = {
   'document': 1024,
   elemhide: 2048,
   popup: 4096,
+  generichide: 8192,
+  genericblock: 16384
   // If you add something here, update .DEFAULTTYPES and .CHROMEONLY below.
 };
 // The types that are implied by a filter that doesn't explicitly specify types
 ElementTypes.DEFAULTTYPES = 1023;
 // Add here any types that Safari does not support.
-ElementTypes.CHROMEONLY = (ElementTypes.object_subrequest | ElementTypes.other 
+ElementTypes.CHROMEONLY = (ElementTypes.object_subrequest | ElementTypes.other
                            | ElementTypes.xmlhttprequest);
 
 // Convert a webRequest.onBeforeRequest type to an ElementType.
