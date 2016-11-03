@@ -300,7 +300,8 @@
             if (!get_settings().show_advanced_options)
                 return;
             var data = frameData.get(tabId, frameId);
-            if (data !== undefined) {
+            if (data !== undefined &&
+                data.resources) {
                 data.resources[elType + ":|:" + url + ":|:" + frameDomain] = null;
             }
         },
@@ -693,6 +694,20 @@
     return result;
   }
 
+  // Returns map from id to subscription object.  See filters.js for
+  // description of subscription object.
+  // returns all subscription data which will be a large object
+  get_subscriptions = function() {
+    var result = {};
+    for (var id in _myfilters._subscriptions) {
+      result[id] = {};
+      for (var attr in _myfilters._subscriptions[id]) {
+        result[id][attr] = _myfilters._subscriptions[id][attr];
+      }
+    }
+    return result;
+  }
+
   // Get subscribed filter lists
   get_subscribed_filter_lists = function() {
       var subs = get_subscriptions_minus_text();
@@ -1024,6 +1039,58 @@
     }
   }
 
+
+  // Listen for the message from the ytchannel.js content script
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse)
+  {
+    if (message.command !== "updateYouTubeWhitelistFilters")
+    {
+      return;
+    }
+    var response = updateYouTubeWhitelistFilters(message.args);
+    sendResponse(response);
+  });
+  // Creates a custom filter entry that whitelists a YouTube channel
+  // Inputs: titles:string array of the YouTube Channels to Whitelist.
+  // The titles / channel names in the input string should be parsed, and
+  // URLEncoded prior to calling this function.
+  // Returns: true if successful, or throws an exception.
+  var updateYouTubeWhitelistFilters = function(titles) {
+    if (!titles ||
+        !Array.isArray(titles) ||
+        titles.length < 1) {
+      return true;
+    }
+
+    var customFiltersText = get_custom_filters_text();
+    var customFiltersArray = [];
+    var newCustomFiltersArray = [];
+    if (customFiltersText) {
+      customFiltersArray = customFiltersText.split("\n");
+    }
+    // First, remove any old YouTube white list filters
+    if (customFiltersArray) {
+      for (var inx = 0; inx < customFiltersArray.length; inx++) {
+        var filter = customFiltersArray[inx];
+        if (!filter.startsWith("@@|https://www.youtube.com/*")) {
+          newCustomFiltersArray.push(filter);
+        }
+      }
+    }
+    // Second, add all of the YouTube channel titles
+    for (var inx = 0; inx < titles.length; inx++)
+    {
+      var title = titles[inx];
+      if (title) {
+        var filter = '@@|https://www.youtube.com/*' + title + '|$document';
+        newCustomFiltersArray.push(filter);
+      }
+    }
+    // Second, add all of the YouTube channel titles
+    set_custom_filters_text(newCustomFiltersArray.join('\n'));
+    return true;
+  };
+
   // Inputs: options object containing:
   //           domain:string the domain of the calling frame.
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -1330,8 +1397,9 @@
       }
       var data = frameData.get(sender.tab.id, sender.frameId || 0);
       if (data) {
-        var blocked = _myfilters.blocking.matches(message.url, ElementTypes.other, data.domain);
-        frameData.storeResource(sender.tab.id, sender.frameId, message.url, ElementTypes.other, data.domain);
+        var blocked = _myfilters.blocking.matches(message.url, ElementTypes.websocket, data.domain);
+        frameData.track({tabId: sender.tab.id, type: ElementTypes.websocket, url: message.url, frameId: sender.frameId || 0})
+        frameData.storeResource(sender.tab.id, sender.frameId || 0, message.url, ElementTypes.websocket, data.domain);
         if (blocked) {
           blockCounts.recordOneAdBlocked(sender.tab.id);
           updateBadge(sender.tab.id);
@@ -1518,6 +1586,8 @@
           if (parseUri(tabUrl).hostname === "www.youtube.com" &&
               get_settings().youtube_channel_whitelist &&
               !parseUri.parseSearch(tabUrl).ab_channel) {
+              chrome.tabs.executeScript(tabId, {file: "compat.js", runAt: "document_start"});
+              chrome.tabs.executeScript(tabId, {file: "functions.js", runAt: "document_start"});
               chrome.tabs.executeScript(tabId, {file: "ytchannel.js", runAt: "document_start"});
           }
       }

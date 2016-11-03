@@ -72,6 +72,11 @@ $(function() {
             show(["div_whitelist_channel"]);
         }
 
+        if (BG.get_settings().youtube_channel_whitelist &&
+            tab.unicodeUrl === 'https://www.youtube.com/feed/subscriptions') {
+          show(["div_whitelist_all_channels"]);
+        }
+
         if (chrome.runtime && chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk")
             show(["div_status_beta"]);
 
@@ -188,6 +193,12 @@ $(function() {
         }
     });
 
+    $('#div_whitelist_all_channels').click(function ()
+    {
+        chrome.tabs.sendMessage(tab.id, {type: "whitelistAllYouTubeChannels"});
+        closeAndReloadPopup();
+    });
+
      $("#div_pause_adblock").click(function() {
         if (BG.get_settings().safari_content_blocking) {
           alert(translate('safaricontentblockingpausemessage'));
@@ -268,7 +279,7 @@ $(function() {
     });
 
     $("#link_open").click(function() {
-        var linkHref = "https://getadblock.com/share/";
+        var linkHref = "https://getadblock.com/pay/?exp=7001&v=0";
         BG.openTab(linkHref);
         closeAndReloadPopup();
         return;

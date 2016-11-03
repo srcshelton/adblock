@@ -7,19 +7,22 @@ tabId = parseInt(tabId);
 // Convert element type to request type
 function reqTypeForElement(elType) {
     switch (parseInt(elType)) {
-        case 1:    return "script";
-        case 2:    return "image";
-        case 4:    return "background";
-        case 8:    return "stylesheet";
-        case 16:   return "object";
-        case 32:   return "sub_frame";
-        case 64:   return "object_subrequest";
-        case 128:  return "media";
-        case 256:  return "other";
-        case 512:  return "xmlhttprequest";
-        case 1024: return "main_frame";
-        case 2048: return "elemhide";
-        case 4096: return "popup";
+        case 1:     return "script";
+        case 2:     return "image";
+        case 4:     return "background";
+        case 8:     return "stylesheet";
+        case 16:    return "object";
+        case 32:    return "sub_frame";
+        case 64:    return "object_subrequest";
+        case 128:   return "media";
+        case 256:   return "other";
+        case 512:   return "xmlhttprequest";
+        case 1024:  return "main_frame";
+        case 2048:  return "elemhide";
+        case 4096:  return "popup";
+        case 8192:  return "generichide";
+        case 16384: return "genericblock";
+        case 32768: return "websocket";
         default:   return "selector";
     }
 }
@@ -33,7 +36,7 @@ BGcall("reset_matchCache", function(matchCache) {
             window.close();
             return;
         } else {
-            BGcall("storage_get", "filter_lists", function(filterLists) {
+            BGcall("get_subscriptions", undefined, function(filterLists) {
                 // TODO: Excluded filters & excluded hiding filters?
                 for (var id in filterLists) {
                     // Delete every filter list we are not subscribed to
@@ -42,7 +45,8 @@ BGcall("reset_matchCache", function(matchCache) {
                         continue;
                     }
                     // Process malware filter list separately
-                    if (id !== "malware") {
+                    if (id !== "malware" &&
+                        filterLists[id].text) {
                         filterLists[id].text = filterLists[id].text.split("\n");
                     }
                 }
@@ -99,11 +103,13 @@ BGcall("reset_matchCache", function(matchCache) {
                                                         res.blockedData["filterList"] = filterList;
                                                     }
                                                 } else {
-                                                    var filterListText = filterLists[filterList].text;
-                                                    for (var i=0; i<filterListText.length; i++) {
-                                                        var filterls = filterListText[i];
-                                                        if (filterls === filter) {
-                                                            res.blockedData["filterList"] = filterList;
+                                                    if (filterLists[filterList].text) {
+                                                        var filterListText = filterLists[filterList].text;
+                                                        for (var i=0; i<filterListText.length; i++) {
+                                                            var filterls = filterListText[i];
+                                                            if (filterls === filter) {
+                                                                res.blockedData["filterList"] = filterList;
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -116,27 +122,29 @@ BGcall("reset_matchCache", function(matchCache) {
                                                 continue;
                                             }
                                             var filterListText = filterLists[filterList].text;
-                                            for (var i=0; i<filterListText.length; i++) {
-                                                var filter = filterListText[i];
-                                                // Don't check selector against non-selector filters
-                                                if (!Filter.isSelectorFilter(filter)) {
-                                                    continue;
-                                                }
-                                                if (filter.indexOf(res.url) > -1) {
-                                                    // If |filter| is global selector filter,
-                                                    // it needs to be the same as |resource|.
-                                                    // If it is not the same as |resource|, keep searching for a right |filter|
-                                                    if ((filter.split("##")[0] === "" && filter === res.url) ||
-                                                        filter.split("##")[0].indexOf(res.frameDomain) > -1) {
-                                                        // Shorten lengthy selector filters
-                                                        if (filter.split("##")[0] !== "") {
-                                                            filter = res.frameDomain + res.url;
+                                            if (filterLists[filterList].text) {
+                                                for (var i=0; i<filterListText.length; i++) {
+                                                    var filter = filterListText[i];
+                                                    // Don't check selector against non-selector filters
+                                                    if (!Filter.isSelectorFilter(filter)) {
+                                                        continue;
+                                                    }
+                                                    if (filter.indexOf(res.url) > -1) {
+                                                        // If |filter| is global selector filter,
+                                                        // it needs to be the same as |resource|.
+                                                        // If it is not the same as |resource|, keep searching for a right |filter|
+                                                        if ((filter.split("##")[0] === "" && filter === res.url) ||
+                                                            filter.split("##")[0].indexOf(res.frameDomain) > -1) {
+                                                            // Shorten lengthy selector filters
+                                                            if (filter.split("##")[0] !== "") {
+                                                                filter = res.frameDomain + res.url;
+                                                            }
+                                                            res.blockedData = {};
+                                                            res.blockedData["filterList"] = filterList;
+                                                            res.blockedData["text"] = filter;
+                                                            res.frameUrl = frame.url;
+                                                            break;
                                                         }
-                                                        res.blockedData = {};
-                                                        res.blockedData["filterList"] = filterList;
-                                                        res.blockedData["text"] = filter;
-                                                        res.frameUrl = frame.url;
-                                                        break;
                                                     }
                                                 }
                                             }

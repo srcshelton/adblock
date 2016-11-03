@@ -3,9 +3,11 @@
 var run_bandaids = function() {
   // Tests to determine whether a particular bandaid should be applied
   var apply_bandaid_for = "";
-  if (/mail\.live\.com/.test(document.location.hostname))
+  if (/facebook\.com/.test(document.location.hostname)) {
+    apply_bandaid_for = "facebook";
+  } else if (/mail\.live\.com/.test(document.location.hostname)) {
     apply_bandaid_for = "hotmail";
-  else if (("getadblock.com" === document.location.hostname ||
+  } else if (("getadblock.com" === document.location.hostname ||
             "dev.getadblock.com" === document.location.hostname) &&
            (window.top === window.self))
   {
@@ -103,7 +105,63 @@ var run_bandaids = function() {
         for (var i=0; i<player.length; i++)
           player[i].removeAttribute("data-ad");
       }
-    }
+    },
+    facebook: function() {
+      // The following code is from :
+      // https://greasyfork.org/en/scripts/22210-facebook-unsponsored
+      var streamSelector = 'div[id^="topnews_main_stream"]';
+      var storySelector = 'div[id^="hyperfeed_story_id"]';
+      var sponsoredSelectors = [
+          'a[href^="https://www.facebook.com/about/ads"]',
+          'a[href^="https://www.facebook.com/ads/about"]',
+          'a[href^="/about/ads"]',
+          'a[href^="/ads/about"]'
+      ];
+
+      var mutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
+      function block(story) {
+          if(!story) {
+              return;
+          }
+
+          var sponsored = false;
+          for(var i = 0; i < sponsoredSelectors.length; i++) {
+              if(story.querySelectorAll(sponsoredSelectors[i]).length) {
+                  sponsored = true;
+                  break;
+              }
+          }
+
+          if(sponsored) {
+              story.remove();
+          }
+      }
+
+      function process() {
+          // Locate the stream every iteration to allow for FB SPA navigation which
+          // replaces the stream element
+          var stream = document.querySelector(streamSelector);
+          if(!stream) {
+              return;
+          }
+
+          var stories = stream.querySelectorAll(storySelector);
+          if(!stories.length) {
+              return;
+          }
+
+          for(var i = 0; i < stories.length; i++) {
+              block(stories[i]);
+          }
+      }
+
+      var observer = new mutationObserver(process);
+      observer.observe(document.querySelector('body'), {
+          'childList': true,
+          'subtree': true
+      });
+    },    
   }; // end bandaids
 
   if (apply_bandaid_for) {
@@ -122,9 +180,7 @@ var before_ready_bandaids = function() {
 //This function is outside the normal 'bandaids' processing
 //so that it works correctly
 (function() {
-    if ((typeof SAFARI) !== 'undefined' &&
-         SAFARI &&
-         document.domain === "www.youtube.com") {
+    if (document.domain === "www.youtube.com") {
        //continue
     } else {
        return;

@@ -202,8 +202,6 @@ STATS = (function() {
               recordGeneralMessage('new install');
             }
           });
-        } else {
-          recordGeneralMessage('new install');
         }
       }
       // This will sleep, then ping, then schedule a new ping, then

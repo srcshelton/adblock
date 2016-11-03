@@ -1059,6 +1059,10 @@
     "message":"page",
     "description":"A resource type"
   },
+  "typewebsocket":{
+    "message":"websocket",
+    "description":"A resource type"
+  },
   "typeunknown":{
     "message":"unknown",
     "description":"A resource type"
@@ -1154,6 +1158,10 @@
   "spread_the_word":{
     "message":"Help spread the word!",
     "description":"Text of a share link"
+  },
+  "donate_to_adblock":{
+    "message":"Please donate to help support AdBlock!",
+    "description":"Text of a donate link in the popup menu"
   },
   "pwyw":{
     "message":"Pay what you want!",
@@ -1304,6 +1312,19 @@
   "allow_whitelisting_youtube_channels":{
     "message":"Allow whitelisting of specific YouTube channels (requires restarting your browser)",
     "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "whitelist_all_youtube_channels":{
+    "message":"Whitelist all subscribed YouTube channels",
+    "description":"Popup menu item when the user has YouTube Channel White-listing enabled, and on youtube.com/feed/subscriptions"
+  },
+  "one_moment_all_youtube_channels":{
+    "message":"One moment while we gather all of your subscriptions",
+    "description":"Alert message to the user when Adblock is processing all of YouTube Channels for White-listing."
+  },
+
+  "all_youtube_channels_complete":{
+    "message":"All of your YouTube channel subscriptions have been whitelisted",
+    "description":"Alert message to the user when Adblock has completed processing all of YouTube Channels for White-listing."
   },
   "whitelist_youtube_channel":{
     "message":"Whitelist $name$ channel",

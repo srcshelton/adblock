@@ -2,6 +2,14 @@
 
 UNRELEASED:
 
+1.4.0.0:
+- Changed the 'Spread the word' link on the AdBlock menu to 'Donate to help support AdBlock!'.  (#91)
+- Added 'bandaids' processing to help block the 'Suggested Post' ads on Facebook.  (#72)
+- Added a new feature to allow users to white list all subscribed YouTube channels.  (#83)
+- Added 'bandaids' processing to help block streaming ads on YouTube.  (#84)
+- Fixed a JavaScript error on the 'Show All Requests' page.  (#89)
+- Added support of the new 'websocket' filter list option. (#86)
+
 1.3.0.0:
 - Added support of blocking ads that are loaded using web sockets.  (#71)
 - Improved the security for the 'bandaids' processing on the getadblock.com site by improving the host name check, and adding a check to the click event handler for isTrusted.  (#170)
