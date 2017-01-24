@@ -1,6 +1,13 @@
 ## Versions ##
 
 UNRELEASED:
+ 
+1.8.0.0:
+- Added log messages to the AdBlock pop up menu to help determine usage of each menu item.  (#117)
+- Added the '%' as an allowed character in a filter list domain.  (#115)
+- Updated the Israeli / Hebrew filter list contact info.  (#116)
+- Fixed an issue when a user subscribed to a language filter list that required an EasyList subscription also. (#93)
+- Updated translations.
 
 1.7.1.0:
 - Fixed an issue with the build process to include all necessary files.

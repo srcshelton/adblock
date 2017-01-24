@@ -126,7 +126,7 @@
     }
   },
   "blacklisterattrwillbe":{
-    "message":"$attribute$ will be $value$",
+    "message":"$attribute$ は $value$ です",
     "description":"Checkbox label",
     "placeholders":{
       "attribute":{
@@ -140,7 +140,7 @@
     }
   },
   "blacklistertype":{
-    "message":"Type",
+    "message":"タイプ",
     "description":"node name is called 'Type'"
   },
   "buttonlooksgood":{
@@ -164,15 +164,15 @@
     "description":"When you have to click the ad to continue"
   },
   "adblock_wont_run_on_pages_matching":{
-    "message":"AdBlock won't run on any page matching:",
+    "message":"AdBlockを以下に一致するページでは実行しない:",
     "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com\/reader\/*'.  The URL will appear on the next line."
   },
   "you_can_slide_to_change":{
-    "message":"You can slide below to change exactly what pages AdBlock won't run on.",
+    "message":"下にスライドすると、AdBlockを実行しないページを正確に変更することができます。",
     "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
   },
   "whitelistertitle2":{
-    "message":"Don't run AdBlock on...",
+    "message":"以下のページではAdBlockを実行しない...",
     "description":"The title of the whitelister dialog"
   },
   "buttonexclude":{
@@ -1136,7 +1136,7 @@
     "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
   "safarinotificationbody":{
-    "message":"フィルタリストを無効にしてください。 AdBlock オプションの詳細。",
+    "message":"フィルタリストを無効にしてください。 詳細については、AdBlockオプションでご確認いただけます。",
     "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
   "undo_last_block":{
@@ -1204,7 +1204,7 @@
     "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
   },
   "show_ads_except_for":{
-    "message":"Show ads <i>everywhere<\/i> except for these domains...",
+    "message":"これらのドメインを除く<i>すべての場所<\/i>の広告を表示...",
     "description":"Section title for blacklisting section of Customize tab"
   },
   "only_block_ads_on_these_sites":{
@@ -1216,7 +1216,7 @@
     "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
   },
   "warning_overrules_filters":{
-    "message":"注意： on all other sites you will see ads!<br>This overrules all other filters for those sites.",
+    "message":"警告： 他のすべてのサイトに広告が表示されます！<br>これは、それら以外のサイトのフィルタよりも優先されます。",
     "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
   },
   "storage_quota_exceeded":{
@@ -1440,7 +1440,7 @@
     "description":"Resource list page: title of a column"
   },
   "headertype":{
-    "message":"Type",
+    "message":"タイプ",
     "description":"Resource list page: title of a column"
   },
   "headerfilter":{

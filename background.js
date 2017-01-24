@@ -1190,6 +1190,10 @@
     });
   }
 
+  var recordUserMetricsMessage = function(msg) {
+    recordMessageWithUserID(msg, 'user_metrics');
+  };
+
   // Log an 'error' message on GAB log server.
   var recordErrorMessage = function(msg, callback) {
     recordMessageWithUserID(msg, 'error', callback);
@@ -1213,9 +1217,8 @@
     }
     // Include user ID in message
     var fullUrl = 'https://log.getadblock.com/record_log.php?type=' +
-                  queryType +
-                  '&message=' +
-                  encodeURIComponent(STATS.userId() + " " + msg);
+                   queryType + '&message=' + encodeURIComponent(STATS.userId() +
+                   ' f:' + STATS.flavor + ' o:' + STATS.os + ' ' + msg);
     sendMessageToLogServer(fullUrl, callback);
   };
 
@@ -1285,7 +1288,7 @@
 
   //passthrough functions
   var addGABTabListeners = function(sender) {
-    gabQuestion.addGABTabListeners(sender);
+    gabfQuestion.addGABTabListeners(sender);
   };
 
   var removeGABTabListeners = function(saveState) {

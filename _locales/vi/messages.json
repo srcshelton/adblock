@@ -8,7 +8,7 @@
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "description_edge":{
-    "message":"AdBlock. Trình chặn quảng cáo số 1 hiện nay với trên 200 triệu lượt download. AdBlock sẽ giúp bạn chặn tất cả quảng cáo trên internet.",
+    "message":"AdBlock. Trình chặn quảng cáo số 1 hiện nay với trên 200 triệu lượt tải về. Giúp bạn chặn tất cả quảng cáo trên internet.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{

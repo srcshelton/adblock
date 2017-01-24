@@ -98,17 +98,20 @@ $(function() {
 
     // Click handlers
     $("#bugreport").click(function() {
+        BG.recordGeneralMessage("bugreport clicked");
         BG.openTab("http://help.getadblock.com/support/tickets/new");
         closeAndReloadPopup();
     });
 
     $("#titletext").click(function() {
+        BG.recordGeneralMessage("titletext clicked");
         var edge_url = "https://www.microsoft.com/store/apps/9nblggh4rfhk";
         BG.openTab(edge_url);
         closeAndReloadPopup();
     });
 
     $("#div_enable_adblock_on_this_page").click(function() {
+        BG.recordGeneralMessage("enable adblock clicked");
         if (BG.try_to_unwhitelist(tab.unicodeUrl)) {
             chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
             closeAndReloadPopup();
@@ -119,6 +122,7 @@ $(function() {
     });
 
     $("#div_paused_adblock").click(function() {
+        BG.recordGeneralMessage("unpause clicked");
         BG.adblock_is_paused(false);
         BG.handlerBehaviorChanged();
         BG.updateButtonUIAndContextMenus();
@@ -126,12 +130,14 @@ $(function() {
     });
 
     $("#div_undo").click(function() {
+        BG.recordGeneralMessage("undo clicked");
         var host = parseUri(tab.unicodeUrl).host;
         BG.confirm_removal_of_custom_filters_on_host(host, tab);
         closeAndReloadPopup();
     });
 
     $("#div_whitelist_channel").click(function() {
+        BG.recordGeneralMessage("whitelist youtube clicked");
         BG.create_whitelist_filter_for_youtube_channel(tab.unicodeUrl);
         closeAndReloadPopup();
         chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
@@ -139,17 +145,20 @@ $(function() {
 
     $('#div_whitelist_all_channels').click(function ()
     {
+        BG.recordGeneralMessage("whitelist all youtube clicked");
         chrome.tabs.sendMessage(tab.id, {type: "whitelistAllYouTubeChannels"});
         closeAndReloadPopup();
     });
 
      $("#div_pause_adblock").click(function() {
+        BG.recordGeneralMessage("pause clicked");
         BG.adblock_is_paused(true);
         BG.updateButtonUIAndContextMenus();
         closeAndReloadPopup();
      });
 
     $("#div_blacklist").click(function() {
+        BG.recordGeneralMessage("blacklist clicked");
         BG.emit_page_broadcast(
             {fn:'top_open_blacklist_ui', options: { nothing_clicked: true }},
             { tab: tab } // fake sender to determine target page
@@ -158,6 +167,7 @@ $(function() {
     });
 
     $("#div_whitelist").click(function() {
+        BG.recordGeneralMessage("whitelist domain clicked");
         BG.emit_page_broadcast(
             {fn:'top_open_whitelist_ui', options:{}},
             { tab: tab } // fake sender to determine target page
@@ -166,17 +176,20 @@ $(function() {
     });
 
     $("#div_whitelist_page").click(function() {
+        BG.recordGeneralMessage("whitelist page clicked");
         BG.create_page_whitelist_filter(tab.unicodeUrl);
         closeAndReloadPopup();
         chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
     });
 
     $("#div_show_resourcelist").click(function() {
+        BG.recordGeneralMessage("resource clicked");
         BG.launch_resourceblocker("?tabId=" + tab.id);
         closeAndReloadPopup();
     });
 
     $("#div_report_an_ad").click(function() {
+        BG.recordGeneralMessage("report ad clicked");
         var url = "pages/adreport.html?url=" + encodeURIComponent(tab.unicodeUrl)
                 + "&tabId=" + tab.id;
         BG.openTab(url, true);
@@ -184,15 +197,18 @@ $(function() {
     });
 
     $("#div_options").click(function() {
+        BG.recordGeneralMessage("options clicked");
         BG.openTab("options/index.html");
         closeAndReloadPopup();
     });
 
     $("#div_help_hide").click(function() {
+        BG.recordGeneralMessage("help clicked");
         $("#help_hide_explanation").slideToggle();
     });
 
     $("#link_open").click(function() {
+        BG.recordGeneralMessage("link clicked");
         var linkHref = "https://getadblock.com/pay/?exp=7002&v=0";
         BG.openTab(linkHref);
         closeAndReloadPopup();
