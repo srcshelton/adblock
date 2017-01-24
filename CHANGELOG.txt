@@ -1,7 +1,11 @@
 ## Versions ##
 
 UNRELEASED:
- 
+
+1.8.0.1:
+- Fixed an issue with the build process to include all necessary files.
+- Updated translations.
+
 1.8.0.0:
 - Added log messages to the AdBlock pop up menu to help determine usage of each menu item.  (#117)
 - Added the '%' as an allowed character in a filter list domain.  (#115)
