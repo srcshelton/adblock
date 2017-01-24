@@ -8,7 +8,7 @@
 var HOUR_IN_MS = 1000 * 60 * 60;
 
 function MyFilters() {
-  this._subscriptions = storage_get('filter_lists');
+  this._subscriptions = this._getSubscriptions();
   this._official_options = this._make_subscription_options();
 }
 
@@ -25,15 +25,17 @@ MyFilters.prototype.init = function() {
   // On startup and then every hour, check if a list is out of date and has to
   // be updated
   var that = this;
-  if (newUser)
+  if (newUser) {
+    this._loadEasyListLiteFromLocalFile();
     this.checkFilterUpdates();
-  else
+  } else {
     idleHandler.scheduleItemOnce(
       function() {
         that.checkFilterUpdates();
       },
       60
     );
+  }
 
   window.setInterval(
     function() {
@@ -148,7 +150,7 @@ MyFilters.prototype._sendFiltersUpdatedMsg = function() {
 // When a subscription property changes, this function stores it
 // Inputs: rebuild? boolean, true if the filterset should be rebuilt
 MyFilters.prototype._onSubscriptionChange = function(rebuild) {
-  storage_set('filter_lists', this._subscriptions);
+  this._saveSubscriptions();
 
   // The only reasons to (re)build the filter set are
   // - when AdBlock starts
@@ -179,6 +181,7 @@ MyFilters.prototype.getExtensionFilters = function(settings) {
 
 // Rebuild filters based on the current settings and subscriptions.
 MyFilters.prototype.rebuild = function() {
+
   var texts = [];
   // Only add subscriptions in Chrome, Opera, and older version of Safari...
   for (var id in this._subscriptions) {
@@ -255,7 +258,6 @@ MyFilters.prototype._splitByType = function(texts) {
 //         subData: object containing all data that should be changed
 //         forceFetch: if the subscriptions have to be fetched again forced
 MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
-
   var subscribeRequiredListToo = false;
   var listDidntExistBefore = false;
 
@@ -265,13 +267,15 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     // After a failure, wait at least a day to refetch (overridden below if
     // it's a new filter list, having no .text)
     var failed_at = subscription.last_update_failed_at || 0;
-    if (Date.now() - failed_at < HOUR_IN_MS * 24)
+    if (Date.now() - failed_at < HOUR_IN_MS * 24) {
       return false;
+    }
     // Don't let expiresAfterHours delay indefinitely (Issue 7443)
     var hardStop = subscription.expiresAfterHoursHard || 240;
     var smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
     var millis = Date.now() - subscription.last_update;
-    return (millis > HOUR_IN_MS * smallerExpiry);
+    var returnVal = (millis > HOUR_IN_MS * smallerExpiry);
+    return returnVal;
   }
 
   //since the malware ID isn't really a filter list, we need to process it seperately
@@ -296,7 +300,6 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
         }
         // If unsubscribed, remove properties
         delete this._subscriptions[id].text;
-        delete this._subscriptions[id].rules;
         delete this._subscriptions[id].last_update;
         delete this._subscriptions[id].expiresAfterHours;
         delete this._subscriptions[id].last_update_failed_at;
@@ -338,16 +341,16 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
   if (forceFetch)
     delete this._subscriptions[id].last_modified;
 
+
   if (this._subscriptions[id].subscribed) {
     if ((!this._subscriptions[id].text) ||
-        (!this._subscriptions[id].rules) ||
          out_of_date(this._subscriptions[id])) {
+
       this.fetch_and_update(id, listDidntExistBefore);
     }
   } else {
     // If unsubscribed, remove some properties
     delete this._subscriptions[id].text;
-    delete this._subscriptions[id].rules;
     delete this._subscriptions[id].last_update;
     delete this._subscriptions[id].expiresAfterHours;
     delete this._subscriptions[id].last_update_failed_at;
@@ -361,8 +364,17 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
   this._onSubscriptionChange(subData.subscribed == false);
 
   // Subscribe to a required list if nessecary
-  if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList)
-    this.changeSubscription(this._subscriptions[id].requiresList, {subscribed:true});
+  if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList) {
+    var requiredList = this._subscriptions[id].requiresList;
+    // If the required list is easylist, but the user is subscribed to easylist_lite
+    // change the required list to easylist lite
+    if (requiredList === 'easylist' &&
+        this._subscriptions.easylist_lite.subscribed) {
+      requiredList = 'easylist_lite';
+    }
+    this.changeSubscription(requiredList, {subscribed:true});
+  }
+
 }
 
 // Fetch a filter list and parse it
@@ -401,14 +413,14 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
       // Sometimes text is "". Happens sometimes.  Weird, I know.
       // Every legit list starts with a comment.
       if (status == "notmodified") {
-        log("List not modified " + url);
+        log("List not modified ", id, url);
         that._updateSubscriptionText(id, that._subscriptions[id].text);
         that._onSubscriptionChange(true);
       } else if (text &&
                  (((typeof text === "string") &&
                    text.length != 0 && Filter.isComment(text.trim())) ||
                   (typeof text === "object"))) {
-        log("Fetched " + url);
+        log("Fetched ", id, url);
         that._updateSubscriptionText(id, text, xhr);
         that._onSubscriptionChange(true);
       } else {
@@ -479,7 +491,6 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
 // Checks if subscriptions have to be updated
 // Inputs: force? (boolean), true if every filter has to be updated
 MyFilters.prototype.checkFilterUpdates = function(force) {
-
   var key = 'last_subscriptions_check';
   var now = Date.now();
   var delta = now - (storage_get(key) || now);
@@ -494,7 +505,6 @@ MyFilters.prototype.checkFilterUpdates = function(force) {
     }
     this._onSubscriptionChange(); // Store the change
   }
-
   for (var id in this._subscriptions) {
     if (this._subscriptions[id].subscribed) {
       this.changeSubscription(id, {}, force);
@@ -810,3 +820,68 @@ expiresAfterHours (int): the time after which the subscription expires
 expiresAfterHoursHard (int): we must redownload subscription after this delay
 deleteMe (bool): if the subscription has to be deleted
 */
+
+MyFilters.prototype._saveSubscriptions = function() {
+  // If the user is subscribed to easylist, then
+  // remove the 'text' attribute from the subs
+  // to save persistent storage space when being saved
+  if (this._subscriptions &&
+      this._subscriptions.easylist_lite &&
+      this._subscriptions.easylist_lite.subscribed) {
+    var result = {};
+    for (var id in this._subscriptions) {
+      result[id] = {};
+      for (var attr in this._subscriptions[id]) {
+        result[id][attr] = this._subscriptions[id][attr];
+      }
+    }
+    delete result.easylist_lite.text;
+    storage_set('filter_lists', result);
+    return;
+  }
+  storage_set('filter_lists', this._subscriptions);
+}
+
+MyFilters.prototype._getSubscriptions = function() {
+  var subscriptions = storage_get('filter_lists');
+  if (subscriptions &&
+      subscriptions.easylist_lite &&
+      subscriptions.easylist_lite.subscribed) {
+      this._loadEasyListLiteFromLocalFile(true);
+  }
+  return subscriptions;
+}
+
+MyFilters.prototype._loadEasyListLiteFromLocalFile = function(rebuild) {
+  var that = this;
+  if (this._subscriptions &&
+      this._subscriptions.easylist_lite) {
+    // Add a fake rule that will be over written when the file is successfully read from the local file
+    // This prevents the check later in the processing to incorrectly retrieving easylist from the web site.
+    that._subscriptions.easylist_lite.text = FilterNormalizer.normalizeList("&ad_box_");
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", chrome.extension.getURL('filters/easylist-min.txt'));
+  xhr.onerror = function() {
+    // If there's an error reading the local file, force a download of easylist lite
+    that._subscriptions.easylist_lite.last_update_failed_at = Date.now();
+    that.changeSubscription("easylist_lite", {}, true);
+  }
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200 && xhr.responseText) {
+      that._subscriptions.easylist_lite.text = FilterNormalizer.normalizeList(xhr.responseText);
+      var currentTimeInMs = Date.now();
+      // Subtract 241 hours from current time to
+      // force a downloaded during the next filter list check
+      currentTimeInMs = currentTimeInMs - (241 * HOUR_IN_MS);
+
+      that._subscriptions.easylist_lite.last_update = currentTimeInMs;
+      that._subscriptions.easylist_lite.last_modified = currentTimeInMs;
+      that._subscriptions.easylist_lite.expiresAfterHours = 120;
+      if (rebuild) {
+        that.rebuild();
+      }
+    }
+  }
+  xhr.send();
+}

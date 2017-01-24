@@ -1,9 +1,13 @@
-
+// PornHub - related code in this file based on code from uBlockOrigin GPLv3.
+// and available at https://github.com/uBlockOrigin/uAssets/blob/master/filters/filters.txt
+// and https://github.com/uBlockOrigin/uAssets/blob/master/filters/resources.txt
 var run_bandaids = function() {
   // Tests to determine whether a particular bandaid should be applied
   var apply_bandaid_for = "";
   if (/facebook\.com/.test(document.location.hostname)) {
     apply_bandaid_for = "facebook";
+  } else if (/pornhub\.com/.test(document.location.hostname)) {
+    apply_bandaid_for = "pornhub";    
   } else if (/mail\.live\.com/.test(document.location.hostname)) {
     apply_bandaid_for = "hotmail";
   } else if (("getadblock.com" === document.location.hostname ||
@@ -100,6 +104,39 @@ var run_bandaids = function() {
         for (var i=0; i<player.length; i++)
           player[i].removeAttribute("data-ad");
       }
+    },
+    pornhub: function() {
+      (function() {
+      	var w = window;
+      	var count = Math.ceil(8+Math.random()*4);
+      	var tomorrow = new Date(Date.now() + 86400);
+      	var expire = tomorrow.toString();
+      	document.cookie = 'FastPopSessionRequestNumber=' + count + '; expires=' + expire;
+      	var db;
+      	if ( (db = w.localStorage) ) {
+      		db.setItem('InfNumFastPops', count);
+      		db.setItem('InfNumFastPopsExpire', expire);
+      	}
+      	if ( (db = w.sessionStorage) ) {
+      		db.setItem('InfNumFastPops', count);
+      		db.setItem('InfNumFastPopsExpire', expire);
+      	}
+      })();
+      (function() {
+      	var removeAdFrames = function(aa) {
+      		var el;
+      		for ( var i = 0; i < aa.length; i++ ) {
+      			el = document.getElementById(aa[i]);
+      			if ( el !== null ) {
+      				el.parentNode.removeChild(el);
+      			}
+      		}
+      	};
+      	Object.defineProperty(window, 'block_logic', {
+      		get: function() { return removeAdFrames; },
+      		set: function() {}
+      	});
+      })();      
     },
     facebook: function() {
       // The following code is from :

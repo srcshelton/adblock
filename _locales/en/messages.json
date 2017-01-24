@@ -1315,13 +1315,12 @@
   },
   "whitelist_all_youtube_channels":{
     "message":"Whitelist all subscribed YouTube channels",
-    "description":"Toolbar button menu entry, displayed only on youtube.com/feed/subscriptions and if the YouTube channel whitelisting option is enabled"
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "one_moment_all_youtube_channels":{
     "message":"One moment while we gather all of your subscriptions",
     "description":"Alert message displayed when whitelisting all subscribed YouTube channels"
   },
-
   "all_youtube_channels_complete":{
     "message":"All of your YouTube channel subscriptions have been whitelisted",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"

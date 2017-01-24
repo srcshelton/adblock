@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "1.6.1.0",
+  "version": "1.7.0.0",
   "background": {
     "page": "compat.html",
     "persistent": true
@@ -25,6 +25,7 @@
         "*://*.e15.cz/*",
         "*://*.sportrevue.cz/*",
         "*://*.autorevue.cz/*",
+        "*://*.pornhub.com/*",
         "*://*.facebook.com/*"
       ],
       "js": [

@@ -55,15 +55,15 @@ if (!/ab_channel/.test(url)) {
     } else {
         if (/user/.test(url)) {
             document.addEventListener("spfdone", function() {
-                var channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
-                if (channelName) {
+                var channelNameElement  = document.querySelector("span .qualified-channel-title-text > a");
+                if (channelNameElement && channelNameElement.textContent) {
                     updateURL(channelName, true);
                 }
             }, true);
             // Spfdone event doesn't fire, when you access YT user directly
             window.addEventListener("DOMContentLoaded", function() {
-                var channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
-                if (channelName) {
+                var channelNameElement = document.querySelector("span .qualified-channel-title-text > a");
+                if (channelNameElement && channelNameElement.textContent) {
                     updateURL(channelName, true);
                 }
             }, true);

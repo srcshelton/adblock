@@ -399,9 +399,7 @@
       if (details &&
           details.hasOwnProperty("frameId") &&
           details.hasOwnProperty("tabId") &&
-          details.hasOwnProperty("url") &&
-          details.hasOwnProperty("transitionType") &&
-          details.transitionType === "link") {
+          details.hasOwnProperty("url")) {
           //on some single page sites that update the URL using the History API pushState(),
           //but they don't actually load a new page, we need to get notified when this happens
           //and track these updates in the frameData object.
