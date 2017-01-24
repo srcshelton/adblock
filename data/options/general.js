@@ -1,8 +1,27 @@
 "use strict";
-
+// Handle incoming clicks from bandaids.js & '/installed'
+try
+{
+  if (parseUri.parseSearch(location.search).aadisabled === 'true')
+  {
+    $('#acceptable_ads_info').show();
+  }
+}
+catch (ex)
+{}
 // Check or uncheck each loaded DOM option checkbox according to the
 // user's saved settings.
 var generalInit = function () {
+
+    BGcall("get_subscriptions_minus_text", function (subs) {
+      //if the user is currently subscribed to AA
+      //then 'check' the acceptable ads button.
+      if ('acceptable_ads' in subs &&
+        subs.acceptable_ads.subscribed)
+      {
+        $('#acceptable_ads').prop('checked', true);
+      }
+    });
 
     for (var name in optionalSettings) {
         $("#enable_" + name).
@@ -11,7 +30,19 @@ var generalInit = function () {
     $("input.feature[type='checkbox']").change(function () {
         var is_enabled = $(this).is(':checked');
         var name = this.id.substring(7); // TODO: hack
+        if (this.id === "acceptable_ads") {
+            if (is_enabled) {
+                $("#acceptable_ads_info").slideUp();
+                BGcall("subscribe", {id: "acceptable_ads"});
+            } else {
+                $("#acceptable_ads_info").slideDown();
+                $("#acceptable_ads_content_blocking_message").text("").slideUp();
+                BGcall("unsubscribe", {id:"acceptable_ads", del:false});
+            }
+            return;
+        }
         BGcall("set_setting", name, is_enabled);
+
     });
 
     // TODO: This is a dumb race condition, and still has a bug where

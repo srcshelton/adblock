@@ -16,7 +16,7 @@ if (typeof(send_content_to_back) === "undefined") {
         var el = all[i];
         el.oldDisplay = el.style.display;
         el.style.display = "none";
-    
+
         if (el.nodeName === "OBJECT") {
           var param = document.createElement("param");
           param.setAttribute("name", "wmode");
@@ -26,21 +26,20 @@ if (typeof(send_content_to_back) === "undefined") {
         else
           el.setAttribute("wmode", "transparent");
       }
-    
-      window.setTimeout(function() { 
-        log("send content to back::showing");
+
+      window.setTimeout(function() {
         for (var i=0; i < all.length; i++) {
           all[i].style.display = all[i].oldDisplay;
         }
       }, 250);
-    
+
       // Also, anybody with a z-index over 1 million is going to get in our
       // way.  Decrease it.
       var zIndexes = document.querySelectorAll('[style*="z-index"]');
       for (var i = 0; i < zIndexes.length; i++) {
         var el = zIndexes[i];
         if (el.style["z-index"] >= 1000000)
-          el.style["z-index"] = 999999;
+          el.style["z-index"] = 999;
       }
     }
 

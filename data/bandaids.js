@@ -1,14 +1,14 @@
 "use strict";
-
 var run_bandaids = function () {
     // Tests to determine whether a particular bandaid should be applied
     var apply_bandaid_for = "";
     if (/mail\.live\.com/.test(document.location.hostname))
         apply_bandaid_for = "hotmail";
-    else if (/getadblock\.com$/.test(document.location.hostname) &&
-        window.top === window.self)
+    else if ("getadblock.com" === document.location.hostname ||
+             "dev.getadblock.com" === document.location.hostname)
+    {
         apply_bandaid_for = "getadblock";
-    else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
+    } else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
         apply_bandaid_for = "czech_sites";
     else {
         var hosts = [/mastertoons\.com$/];
@@ -18,7 +18,6 @@ var run_bandaids = function () {
         if (hosts.length > 0)
             apply_bandaid_for = "noblock";
     }
-
     var bandaids = {
         noblock: function () {
             var styles = document.querySelectorAll("style");
@@ -65,6 +64,30 @@ var run_bandaids = function () {
                 document.body.appendChild(elemDiv);
             });
             BGcall('set_first_run_to_false', null);
+            var aaElements = document.querySelectorAll("#disableacceptableads");
+            if (aaElements.length > 0)
+            {
+                for (var i = 0; i < aaElements.length; ++i)
+                {
+                    aaElements[i].onclick = function(event)
+                    {
+                      if (event.isTrusted === false) {
+                        return;
+                      }
+                      event.preventDefault();
+                      BGcall("unsubscribe", {
+                        id : "acceptable_ads",
+                        del : false
+                      }, function()
+                      {
+                        BGcall("recordGeneralMessage", "disableacceptableads clicked", undefined, function()
+                        {
+                          BGcall("openOptionsTab", "tab=0&aadisabled=true");
+                        });
+                      });
+                    }
+                }
+            }
         },
         czech_sites: function () {
             var player = document.getElementsByClassName("flowplayer");
@@ -75,15 +98,6 @@ var run_bandaids = function () {
             }
         },
     }; // end bandaids
-
-    if (apply_bandaid_for) {
-        bandaids[apply_bandaid_for]();
-    }
-};
-
-var before_ready_bandaids = function () {
-    // Tests to determine whether a particular bandaid should be applied
-    var apply_bandaid_for = "";
 
     if (apply_bandaid_for) {
         bandaids[apply_bandaid_for]();

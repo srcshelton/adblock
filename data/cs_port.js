@@ -67,7 +67,12 @@ if (typeof FIREFOX === "undefined") {
                         contentScriptListeners[inx](request);
                     }
                 });
-                myPort.on("amo_info", function(request) {
+                myPort.on("bugReportResponse", function(request) {
+                    for (var inx = 0; inx < contentScriptListeners.length ; inx++) {
+                        contentScriptListeners[inx](request);
+                    }
+                });
+                myPort.on("adReportResponse", function(request) {
                     for (var inx = 0; inx < contentScriptListeners.length ; inx++) {
                         contentScriptListeners[inx](request);
                     }
@@ -139,12 +144,16 @@ if (typeof FIREFOX === "undefined") {
                     }
                 },
                 i18n: (function () {
+
                     function getFileByLocale(locale, callBackgroundPage, fn) {
                         if (!callBackgroundPage) {
                             var xhr = new XMLHttpRequest();
                             xhr.open("GET", "../_locales/" + locale + "/messages.json", true);
                             xhr.onload = function () {
                                 fn({locale: locale, contents: xhr.responseText});
+                            };
+                            xhr.onerror = function () {
+                              fn('{ "locale" : "' + locale + '", "failed":"true" }');
                             };
                             try {
                                 xhr.send();

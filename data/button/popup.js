@@ -203,7 +203,7 @@ $(function () {
 
     //// Share - social links page click handlers
     $("#link_open").click(function () {
-        addon.port.emit("openExternalTab", "https://getadblock.com/share/");
+        addon.port.emit("openExternalTab", "https://getadblock.com/pay/?exp=7002&v=0");
         addon.port.emit("close");
     });
 
@@ -221,6 +221,7 @@ $(document).ready(function () {
         localizePage();
         var popupHeight = parseInt(document.body.offsetHeight) + 5;
         addon.port.emit("resizePopup", {width: ADBLOCK_BUTTON_PANEL_WIDTH, height: popupHeight});
+        addon.port.emit("popupOpened");
     });
 
     chrome.i18n.initializeL10nData(function () {

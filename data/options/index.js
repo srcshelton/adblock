@@ -5,7 +5,6 @@ function load_options() {
     // Check or uncheck each option.
     BGcall("get_settings", function (settings) {
         optionalSettings = settings;
-
         localizePage();
 
         var currTabIndex = $.cookie('adblock_optiontab_index');
@@ -138,9 +137,7 @@ function displayVersionNumber() {
 
 var optionalSettings = {};
 $(document).ready(function () {
-
     chrome.i18n.initializeL10nData(function () {
-
         load_options();
         rightToLeft();
         showMiniMenu();

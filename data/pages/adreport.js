@@ -13,6 +13,210 @@ BGcall("getDebugInfo", function (info) {
     debug_info = info;
 });
 
+function sendReport() {
+    // Cache access to input boxes
+    var $name = $("#step_report_name");
+    var $email = $("#step_report_email");
+    var $location = $("#step_report_location");
+    var $filter = $("#step_report_filter");
+    var problems = 0;
+    // Reset any error messages
+    $email.removeClass("inputError");
+    $name.removeClass("inputError");
+    $("#step_response_error")
+        .parent()
+        .fadeOut();
+    $("#step_response_success")
+        .parent()
+        .fadeOut();
+    $("#adreport_missing_info")
+        .hide();
+    // Validate user entered info
+    if ($name.val() === "") {
+        problems++;
+        $name.addClass("inputError");
+        $("#adreport_missing_info")
+            .show();
+    }
+    if ($email.val() === "" ||
+        $email.val()
+        .search(/^.+@.+\..+$/) === -1) {
+        problems++;
+        $email.addClass("inputError");
+        $("#adreport_missing_info")
+            .show();
+    }
+    if (problems) {
+        $('html, body')
+            .animate({
+                scrollTop: $("#adreport_missing_info")
+                    .offset()
+                    .top
+            }, 2000);
+        return;
+    }
+
+    var report_data = {
+        title: "Ad Report",
+        name: $name.val(),
+        email: $email.val(),
+        location: $location.val(),
+        filter: $filter.val(),
+        debug: debug_info,
+        noscreencapturefile: true,
+        url: ""
+    };
+    var domain = "";
+    var domain = parseUri(args.url).hostname.replace(/((http|https):\/\/)?(www.)?/g, "");
+    report_data.title = report_data.title + ": " + domain;
+    report_data.url = args.url;
+    var the_answers = [];
+    var answers = $('span[class="answer"]');
+    var text = $('div[class="section"]:visible');
+    var minArrayLength = Math.min(answers.length, text.length);
+    for (var i = 0; i < minArrayLength; i++) {
+        the_answers.push((i + 1) + "." + text[i].id + ": " + answers[i].getAttribute("chosen"));
+    }
+    report_data.answers = the_answers.join("\n");
+
+    // Handle any HTTP or server errors
+    var handleResponseError = function(respObj) {
+        $("#step_response_error")
+            .parent()
+            .fadeIn();
+        if (respObj &&
+            respObj.hasOwnProperty("error_msg")) {
+            $("#step_response_error_msg")
+                .text(translate(respObj["error_msg"]));
+        }
+        //re-enable the button(s) if the error is recoverable (the user can re-submit)
+        if (respObj &&
+            respObj.hasOwnProperty("retry_allowed") &&
+            respObj["retry_allowed"] === "true") {
+            $("#step_report_submit")
+                .prop("disabled", false);
+            $("#step_response_error_manual_submission")
+                .hide();
+        } else {
+            $("#step_response_error_manual_submission a")
+                .attr("href", "https://adblocksupport.freshdesk.com/support/tickets/new");
+            $("#step_response_error_manual_submission a")
+                .attr("target", "_blank");
+            $("#step_response_error_manual_submission")
+                .show();
+        }
+        $('html, body')
+            .animate({
+                scrollTop: $("#step_response_error")
+                    .offset()
+                    .top
+            }, 2000);
+    };
+    $("#debug-info").val(createReadableReport(report_data));
+    chrome.extension.onRequest.addListener(function (request) {
+        if (request && request.command != "adReportResponse")
+            return;
+        else if (!request || !request.data) {
+            return;
+        }
+        var respObj = {};
+        try {
+          respObj = JSON.parse(request.data);
+        } catch(e) {
+            prepareManualReport(report_data, null, null, respObj);
+            handleResponseError(respObj);
+        }
+        if (respObj &&
+            respObj.hasOwnProperty("helpdesk_ticket") &&
+            respObj["helpdesk_ticket"].hasOwnProperty("display_id")) {
+            $("#step_report_submit")
+                .prop("disabled", true);
+            // if a ticket was created, the response should contain a ticket id #
+            $("#step_response_success")
+              .parent()
+              .fadeIn();
+            $('html, body')
+              .animate({
+                  scrollTop: $("#step_response_success")
+                      .offset()
+                      .top
+              }, 2000);
+        } else {
+            prepareManualReport(report_data, null, null, respObj);
+            handleResponseError(respObj);
+        }
+    });
+    BGcall("sendAdReportToServer", { ad_report: JSON.stringify(report_data) });
+}; // end of sendReport()
+
+var createReadableReport = function(data) {
+    var body = [];
+    if (data.location) {
+        body.push("* Location of ad *");
+        body.push(data.location);
+    }
+    if (data.expect) {
+        body.push("");
+        body.push("* Working Filter? *");
+        body.push(data.expect);
+    }
+    body.push("");
+
+    // Get written debug info
+    // data.debug is the debug info object
+    content = [];
+    content.push("* Debug Info *");
+    content.push("");
+    if (data.debug &&
+        data.debug.filter_lists) {
+        content.push("=== Filter Lists ===");
+        content.push(data.debug.filter_lists);
+    }
+    content.push("");
+    // Custom & Excluded filters might not always be in the object
+    if (data.custom_filters) {
+        content.push("=== Custom Filters ===");
+        content.push(data.debug.custom_filters);
+        content.push("")
+    }
+    if (data.exclude_filters) {
+        content.push("=== Exclude Filters ===");
+        content.push(data.debug.exclude_filters);
+        content.push("");
+    }
+    if (data.debug &&
+        data.debug.settings) {
+        content.push("=== Settings ===");
+        content.push(data.debug.settings);
+    }
+    content.push("");
+    if (data.debug &&
+        data.debug.other_info) {
+        content.push("=== Other Info ===");
+        content.push(data.debug.other_info);
+    }
+    body.push(content.join("\n"));
+    body.push("");
+    return body.join("\n");
+} // end of createReadableReport
+
+// Pretty Print the data
+var prepareManualReport = function(data, status, HTTPerror, respObj) {
+    var body = [];
+    body.push(createReadableReport(data));
+    if (status) {
+        body.push("Status: " + status);
+    }
+    if (HTTPerror) {
+        body.push("HTTP error code: " + HTTPerror);
+    }
+    if (respObj) {
+        body.push("Server error information: " + JSON.stringify(respObj));
+    }
+    $("#manual_submission")
+        .val(body.join("\n"));
+}
+
 // Auto-scroll to bottom of the page
 $('input[type=radio]').click(function (event) {
     event.preventDefault();
@@ -24,7 +228,6 @@ $('select').change(function (event) {
     event.preventDefault();
     $("html, body").animate({scrollTop: $(document).height()}, "slow");
 });
-
 
 $(document).ready(function () {
 
@@ -123,10 +326,74 @@ $("#step_update_filters_yes").click(function () {
     newSpan.appendChild(textNode);
 
     $("#step_update_filters").append(newSpan);
-    $("#step_disable_extensions_DIV").fadeIn().css("display", "block");
+
+    BGcall('get_subscriptions_minus_text', function(subs) {
+        //if the user is subscribed to Acceptable-Ads, ask them to disable it
+        if (subs && subs["acceptable_ads"] && subs["acceptable_ads"].subscribed) {
+            $('#step_update_aa_DIV')
+                .show();
+            $(".odd")
+                .css("background-color", "#f8f8f8");
+        } else {
+            $("#step_disable_extensions_DIV").fadeIn().css("display", "block");
+            $(".even")
+                .css("background-color", "#f8f8f8");
+        }
+    });
 });
 
-// STEP 3: disable all extensions
+// STEP 3: disable AA - IF enabled...
+
+$("#DisableAA")
+    .click(function() {
+        $(this)
+            .prop("disabled", true);
+        BGcall("unsubscribe", {
+            id: "acceptable_ads",
+            del: false
+        }, function() {
+            // display the Yes/No buttons
+            $(".afterDisableAA input")
+                .prop('disabled', false);
+            $(".afterDisableAA")
+                .removeClass('afterDisableAA');
+        });
+    });
+
+//if the user clicks a radio button
+$("#step_update_aa_no")
+    .click(function() {
+        $("#step_update_aa").children().remove();
+        var newSpan = document.createElement("span");
+        newSpan.setAttribute("class", "answer");
+        newSpan.setAttribute("chosen", "no");
+        var textNode = document.createTextNode(translate("no"));
+        newSpan.appendChild(textNode);
+        $("#step_update_aa").append(newSpan);
+        $("#checkupdate")
+            .text(translate("aamessageadreport"));
+        $("#checkupdatelink")
+            .text(translate("aalinkadreport"));
+        $("#checkupdatelink_DIV")
+            .fadeIn()
+            .css("display", "block");
+
+    });
+$("#step_update_aa_yes")
+    .click(function() {
+        $("#step_update_aa").children().remove();
+        var newSpan = document.createElement("span");
+        newSpan.setAttribute("class", "answer");
+        newSpan.setAttribute("chosen", "yes");
+        var textNode = document.createTextNode(translate("yes"));
+        newSpan.appendChild(textNode);
+        $("#step_update_aa").append(newSpan);
+        $("#step_disable_extensions_DIV")
+            .fadeIn()
+            .css("display", "block");
+    });
+
+// STEP 4: disable all extensions
 
 //Code for displaying the div is in the $function() that contains localizePage()
 //after user disables all extensions except for AdBlock
@@ -152,7 +419,7 @@ $("#step_disable_extensions_yes").click(function () {
     $("#step_language_DIV").fadeIn().css("display", "block");
 });
 
-// STEP 4: language
+// STEP 5: language
 //if the user clicks an item
 var contact = "";
 $("#step_language_lang").change(function () {
@@ -183,7 +450,7 @@ $("#step_language_lang").change(function () {
     $("#checkinchrome").text(translate("ff_checkinchrometitle"));
 });
 
-// STEP 5: also in Chrome
+// STEP 6: also in Chrome
 
 //If the user clicks a radio button
 $("#step_other_browser_yes").click(function () {
@@ -214,10 +481,15 @@ $("#step_other_browser_no").click(function () {
     var textNode = document.createTextNode(translate("no"));
     newSpan.appendChild(textNode);
     $("#step_other_browser").append(newSpan);
-
-    $("#checkupdate").append(translate("reporttous2"));
-    $("#checkupdate > a").prop("href", generateReportURL());
-    $("#privacy").show();
+    $("#step_report_DIV")
+                .fadeIn()
+                .css("display", "block");
+    if (debug_info) {
+      $("#debug-info")
+            .val(createReadableReport({
+              "debug": debug_info
+            }));
+    }
 });
 
 $("#step_other_browser_wontcheck").click(function () {
@@ -277,7 +549,7 @@ var checkForMalware = function () {
         if (infected) {
             $('#step_update_filters_DIV').hide();
             $("#malwarewarning").html(translate("malwarewarning"));
-            $("a", "#malwarewarning").attr("href", "http://support.getadblock.com/kb/im-seeing-an-ad/im-seeing-similar-ads-on-every-website/")
+            $("a", "#malwarewarning").attr("href", "http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-")
         } else {
             $('#step_update_filters_DIV').show();
             $("#malwarewarning").html(translate("malwarenotfound"));
@@ -285,6 +557,13 @@ var checkForMalware = function () {
         $('#malwarewarning').show();
     });
 };
+
+// STEP 7: Ad Report
+$("#step_report_submit")
+    .click(function() {
+        $("#step_report_submit").prop("disabled", false);
+        sendReport();
+    });
 
 //generate the URL to the issue tracker
 function generateReportURL() {

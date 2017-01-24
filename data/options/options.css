@@ -137,26 +137,55 @@
       .ui-tabs-panel {
         margin: 10px;
       }
-      .dbmessage {
-        color: red;
-        font-weight: bold;
-        margin: 5px 0px 5px 3px;
-      }
+
       /* Index tab */
       a:hover {
         -webkit-transition: all 0.2s ease-out;
         transition: all 0.2s ease-out;
         color: red;
       }
-      #paymentlink {
-        font-size: 16;
-        margin: 0px 50%;
-        min-width: 475px;
-        position: absolute;
-        color: #4D7BD6;
-        text-decoration: none;
-        text-align: right;
+      footer {
+        position: fixed;
+        bottom: 0;
+        background: #F1F1F1;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 9;
+        border-top: 1px solid #E9E9E9;
+        -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+        box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+        text-align: center;
       }
+      footer a {
+        padding-left: 30px;
+        display: inline-block;
+        color: #606060;
+        text-decoration: none;
+        font-weight: normal;
+        text-transform: uppercase;
+        clear: none;
+        display: inline;
+        font-size: 12px;
+      }
+      footer span {
+        padding-left: 30px;
+        display: inline-block;
+        color: #606060;
+        text-decoration: none;
+        font-weight: normal;
+        text-transform: uppercase;
+        clear: none;
+        display: inline;
+        font-size: 12px;
+      }
+      footer .no-uppercase {
+          text-transform: none;
+      }
+      footer a:hover {
+        color: #FC1C1C;
+        text-decoration: none;
+      }
+
       #translation_credits {
         font-size: 13px;
         margin: 0px 50%;
@@ -191,6 +220,21 @@
         float: left;
       }
 
+      /* General tab */
+      #acceptable_ads_info {
+        display: none;
+        line-height: 1;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 7px 2em;
+        background-color: #FFD966;
+        border: 1px solid black;
+        width: 65%;
+      }
+      span[i18n="acceptableadsdisable_done"] {
+        font-size: 110%;
+      }
+
       /* Filters tab */
       #btnShowLinks {
         opacity: 0.7;
@@ -205,6 +249,11 @@
       #language_dropdown_container {
         margin-left: 3px;
       }
+      .usermessage {
+         color: red;
+         font-weight: bold;
+         margin: 5px 0px 5px 3px;
+       }
       .error_message {
         color: red;
       }

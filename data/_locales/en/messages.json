@@ -243,9 +243,17 @@
     "message":"Beta",
     "description":"Label for beta features in AdBlock Options"
   },
-  "googletextads2":{
-    "message":"I like the text ads on Google search results; show me those",
-    "description":"Checkbox on the 'General' tab of the Options page"
+  "acceptableadsoption":{
+    "message":"Allow some non-intrusive advertising",
+    "description":"option on the 'General' tab"
+  },
+  "acceptableadsdisable_done":{
+    "message":"You're no longer subscribed to the Acceptable Ads filter list.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"You can turn this back on and support the websites you love by selecting \"Allow some non-intrusive advertising\" below.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
   "showcontextmenus2":{
     "message":"Add items to the right click menu",
@@ -262,7 +270,7 @@
   "datacollectionoption":{
     "message":"Allow AdBlock to collect anonymous filter list usage and data",
     "description":"Checkbox on the 'General' tab of the Options page"
-  },  
+  },
   "updatedrightnow":{
     "message":"updated right now",
     "description":"Label for subscription"
@@ -367,6 +375,122 @@
     "message":"Show links to the filter lists",
     "description":"Option on the 'Filter lists' tab of the Options page"
   },
+  "lang_english":{
+    "message":"English",
+    "description":"Language name"
+  },
+  "lang_czech":{
+    "message":"Czech",
+    "description":"Language name"
+  },
+  "lang_spanish":{
+    "message":"Spanish",
+    "description":"Language name"
+  },
+  "lang_russian":{
+    "message":"Russian",
+    "description":"Language name"
+  },
+  "lang_slovak":{
+    "message":"Slovak",
+    "description":"Language name"
+  },
+  "lang_ukranian":{
+    "message":"Ukrainian",
+    "description":"Language name"
+  },
+  "lang_arabic":{
+    "message":"Arabic",
+    "description":"Language name"
+  },
+  "lang_bulgarian":{
+    "message":"Bulgarian",
+    "description":"Language name"
+  },
+  "lang_chinese":{
+    "message":"Chinese",
+    "description":"Language name"
+  },
+  "lang_danish":{
+    "message":"Danish",
+    "description":"Language name"
+  },
+  "lang_dutch":{
+    "message":"Dutch",
+    "description":"Language name"
+  },
+  "lang_estonian":{
+    "message":"Estonian",
+    "description":"Language name"
+  },
+  "lang_finnish":{
+    "message":"Finnish",
+    "description":"Language name"
+  },
+  "lang_french":{
+    "message":"French",
+    "description":"Language name"
+  },
+  "lang_german":{
+    "message":"German",
+    "description":"Language name"
+  },
+  "lang_greek":{
+    "message":"Greek",
+    "description":"Language name"
+  },
+  "lang_hungarian":{
+    "message":"Hungarian",
+    "description":"Language name"
+  },
+  "lang_indonesian":{
+    "message":"Indonesian",
+    "description":"Language name"
+  },
+  "lang_icelandic":{
+    "message":"Icelandic",
+    "description":"Language name"
+  },
+  "lang_israeli":{
+    "message":"Hebrew",
+    "description":"Language name"
+  },
+  "lang_italian":{
+    "message":"Italian",
+    "description":"Language name"
+  },
+  "lang_japanese":{
+    "message":"Japanese",
+    "description":"Language name"
+  },
+  "lang_korean":{
+    "message":"Korean",
+    "description":"Language name"
+  },
+  "lang_lithuania":{
+    "message":"Lithuanian",
+    "description":"Language name"
+  },
+  "lang_polish":{
+    "message":"Polish",
+    "description":"Language name"
+  },
+  "lang_romanian":{
+    "message":"Romanian",
+    "description":"Language name"
+  },
+  "lang_latvian":{
+    "message":"Latvian",
+    "description":"Language name"
+  },
+  "lang_swedish":{
+    "message":"Swedish",
+    "description":"Language name"
+  },
+  "lang_turkish":{
+    "message":"Turkish",
+    "description":"Language name"
+  },
   "filterantisocial":{
     "message":"Antisocial filter list (removes social media buttons)",
     "description":"Name of the filter list"
@@ -385,6 +509,10 @@
   },
   "filtereasylist":{
     "message":"EasyList (recommended)",
+    "description":"A filter list"
+  },
+  "filteracceptable_ads":{
+    "message":"Acceptable Ads",
     "description":"A filter list"
   },
   "filterrussian":{
@@ -495,6 +623,82 @@
     "message":"So you just found an ad on a web page? Well, I'll help you to find the correct place to report it!<br\/> Remember: reporting ads is voluntary. If you don't wish to do this you can just close this window and block it only for yourself by adding its filter in the 'Customize' tab of the options page!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
   },
+  "adreport_laststep":{
+    "message":"Last step: report the issue to us.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"What's your name?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"What's your email address?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"We'll only use this to contact you if we need more information.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Exactly where on that page is the ad? What does it look like?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Attach a screenshot:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"If you have created a working filter using the \"block an ad\" wizard, paste it in the box below:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
+  "buttonsubmit":{
+    "message":"Submit",
+    "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Required information is missing or invalid.  Please fill in the questions that have a red border.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"You forgot to attach a screenshot! We can't help you without seeing the ad(s) you're reporting.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"All set!  We'll be in touch soon, most likely within a day, two if it's a holiday. In the meantime, look for an email from AdBlock. You'll find a link to your ticket on our help site there. If you prefer to follow along by email, you can do that, too!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"That's not an image file. Please upload a .png, .gif, or .jpg file.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"That file is too big. Please make sure your file is less than 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Error saving the uploaded file.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"That file name is too long. Please give your file a shorter name.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"The following information will also be included in the ad report.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"There was an error processing your request.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Please go to <a>our support website<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"And manually create a ticket, and copy and paste the information below into the \"Fill in any details you think will help us understand your issue\" section.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
   "malwarenotificationcheckboxmessage":{
     "message":"Should AdBlock notify you when it detects malware?",
     "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
@@ -523,8 +727,24 @@
     "message":"No known malware found.",
     "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
+  "disableaa":{
+    "message":"Check the Acceptable Ads filters:",
+    "description":"Section header on the ad report page"
+  },
+  "clickdisableaa":{
+    "message":"Click this: <a>Disable Acceptable Ads<\/a>",
+    "description":"Instruction on ad report page"
+  },
+  "aamessageadreport":{
+    "message":"If you'd rather not see ads like this one, you may want to leave the Acceptable Ads filter list turned off.",
+    "description":"Acceptable Ads message on ad report page"
+  },
+  "aalinkadreport":{
+    "message":"Find out more about the Acceptable Ads program.",
+    "description":"Acceptable Ads link message on ad report page"
+  },
   "updateyourlists":{
-    "message":"Make sure your filter lists are up to date",
+    "message":"Make sure your filter lists are up to date:",
     "description":"Section header on the ad report page"
   },
   "clickupdatefilters":{
@@ -548,7 +768,7 @@
     "description":"A negative response to a question"
   },
   "adalreadyblocked":{
-    "message":"You don't have to do anything as the ad is already blocked",
+    "message":"Great! You're all set.",
     "description":"On the ad report page, telling a user there is nothing to do"
   },
   "disableallextensions":{
@@ -682,6 +902,34 @@
   "lang_ukranian":{
     "message":"Ukrainian",
     "description":"language"
+  },
+  "filtereasylist_plus_arabic":{
+    "message":"Arabic",
+    "description":"A filter list"
+  },
+  "filter_easylist_plus_arabic":{
+    "message":"Arabic + EasyList",
+    "description":"A filter list combined with EasyList"
+  },
+  "filter_easylist_plus_arabic_plus_french":{
+    "message":"Arabic + French + EasyList",
+    "description":"A filter list combined with EasyList"
+  },
+  "filtereasylist_plus_estonian":{
+    "message":"Estonian",
+    "description":"A filter list"
+  },
+  "filtericelandic":{
+    "message":"Icelandic",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_lithuania":{
+    "message":"Lithuanian",
+    "description":"A filter list"
+  },
+  "filter_easylist_plus_lithuania":{
+    "message":"Lithuanian + EasyList",
+    "description":"A filter list combined with EasyList"
   },
   "other":{
     "message":"Other",
@@ -1091,9 +1339,17 @@
     "message":"Help spread the word!",
     "description":"Text of a share link"
   },
+  "donate_to_adblock":{
+    "message":"Love AdBlock? Consider donating!",
+    "description":"Text of a donate link in the popup menu"
+  },
   "pwyw":{
     "message":"Pay what you want!",
     "description":"Text of a payment request link"
+  },
+  "privacy_policy":{
+    "message":"Privacy Policy",
+    "description":"Link to AdBlock's privacy policy"
   },
   "translator_credit":{
     "message":"Credit for translation goes to:",
@@ -1256,6 +1512,14 @@
         "example":"code.google.ph, ph.msn.com, stackoverflow.com"
       }
     }
+  },
+  "acceptableadsdisable_done":{
+    "message":"You're no longer subscribed to the Acceptable Ads filter list.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"You can turn this back on and support the websites you love by selecting \"Allow some non-intrusive advertising\" below.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
   "latest_version":{
     "message":"AdBlock is up-to-date!",

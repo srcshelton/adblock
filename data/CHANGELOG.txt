@@ -1,6 +1,12 @@
 ## Versions ##
 
 UNRELEASED:
+ 
+2.5.0:
+- Added logic to the 'Report an Ad' page to check if Acceptable Ads is enabled.
+- Added Acceptable Ads filter list.
+- Fixed incorrect URLs / links on the Support tab of the Options page.
+- Added browser version, advanced option enabled indicator, block count total, ping count total, and acceptable_ads subscribed indicator to the ping data.
 
 2.4:
 - Added the ping count to the ping data. (#159)

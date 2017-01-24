@@ -210,8 +210,9 @@ function adblock_begin(inputs) {
             if (data && data.settings && data.settings.debug_logging)
                 debug_print_selector_matches(data.selectors || []);
 
-            if (typeof run_bandaids === "function")
+            if (typeof run_bandaids === "function") {
                 run_bandaids("new");
+            }
 
             handleABPLinkClicks();
         });

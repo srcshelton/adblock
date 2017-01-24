@@ -33,9 +33,14 @@
       <div id="general">
           <div>
             <h2 i18n="generaloptions"></h2>
+            <div id="acceptable_ads_info">
+              <b><span i18n="acceptableadsdisable_done"></span></b>
+              <span i18n="acceptableadsdisable_how_to_reenable"></span>
+              <br/>
+            </div>
             <p>
-              <input type="checkbox" class="feature" id="enable_show_google_search_text_ads"/>
-              <label for="enable_show_google_search_text_ads" i18n="googletextads2"></label>
+              <input type="checkbox" class="feature" id="acceptable_ads"/>
+              <label for="acceptable_ads" i18n="acceptableadsoption"></label>
             </p>
             <p>
               <input type="checkbox" class="feature" id="enable_display_stats" />
@@ -260,12 +265,13 @@
 
           <h3 i18n="foundbug"></h3>
           <p>
-            <span i18n="bugreport"></span>
+            <span i18n="bugreport" i18n_replacement_el="report"></span>
+            <a id="report"></a>
             <span class='english-only'>(<span i18n='englishonly'></span>)</span>
           </p>
           <p>
             <span i18n="ad_report_please" i18n_replacement_el="kb_adreport"></span>
-            <a id="kb_adreport" href="http://support.getadblock.com/kb/im-seeing-an-ad/report-an-ad-to-us" target="_blank"></a>
+            <a id="kb_adreport" href="http://getadblock.com/faq/adreport" target="_blank"></a>
             <p i18n="debuginfo"></p>
             <textarea id="debugInfo" rows="30" cols="60" style="display:none;"></textarea>
           </p>
@@ -273,7 +279,7 @@
           <h3 i18n="questionoridea"></h3>
           <p>
            <span i18n="supportsite" i18n_replacement_el="supportlink"></span>
-           <a id="supportlink" href="http://support.getadblock.com/" target="_blank"></a>
+           <a id="supportlink" href="http://help.getadblock.com/" target="_blank"></a>
            <span class='english-only'>(<span i18n='englishonly'></span>)</span>
           </p>
 
@@ -284,8 +290,6 @@
           <a id="contributorslink" href="http://getadblock.com/contributors/" target="_blank"></a>
 
           <h3 i18n="adblockupdates"></h3>
-          <div id="checkupdate"></div>
-
           <p id="whatsnew" i18n="whatsnew"></p>
           <textarea id="changes" style="display:none;"></textarea>
       </div>
