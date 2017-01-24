@@ -1,10 +1,14 @@
 {
+  "description":{
+    "message":"A legnépszerűbb Chrome kiegészítő, több mint 40 millió felhasználóval! Reklámokat blokkol szerte a weben.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "description2":{
     "message":"A legnépszerűbb Chrome kiegészítő, több mint 40 millió felhasználóval! Reklámokat blokkol szerte a weben.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock",
+    "message":"AdBlock - kattintson a részletekért",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{
@@ -32,7 +36,7 @@
     "description":"Title for the options page"
   },
   "chromebutton_how_to_hide2":{
-    "message":"A gomb elrejtéséhez jobb klikkeljen rá, majd válassza a Gomb elrejtése menüpontot. Újból megjelenítheti a chrome:\/\/chrome\/extensions alatt.",
+    "message":"Jobb klikkeljen az AdBlock ikonra és válasssza az 'Elrejtés Chrome menüben'-t. Megjelenítéséhez kattintson a Chrome menüre, jobb klikk az AdBlock gombra, majd válassza a 'Eszköztáron tartás\"-t.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
   },
   "operabutton_how_to_hide2":{
@@ -239,6 +243,10 @@
     "message":"ClickToFlash kompatibilitási üzemmód engedélyezése",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
+  "safaricontentblocking":{
+    "message":"Safati tartalom blokkolás engedélyezése",
+    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
   "debuginlogoption":{
     "message":"Hibakeresési kijelentések megjelenítése a Konzolnaplóban (ami lelassítja az AdBlock-ot)",
     "description":"Checkbox on the 'General' tab of the Options page"
@@ -356,20 +364,12 @@
     "description":"A filter list"
   },
   "filterannoyances":{
-    "message":"Fiúrajongói zaklatások (eltávolítja a weben található zavaró tényezőket)",
+    "message":"Fiú rajongói nyűgök (blokkolja az oldalon előugró ablakokat, a közösségi médiát valamint a kapcsolódó minialkalmazásokat, és egyébeket)",
     "description":"A filter list"
   },
-  "filteracceptable_ads":{
-    "message":"Elfogadható hirdetések (ajánlott)",
-    "description":"A filter list"
-  },
-  "filteradblock_custom":{
-    "message":"AdBlock egyéni szűrők (ajánlott)",
-    "description":"A filter list"
-  },
-  "filtereasylist":{
-    "message":"EasyList (ajánlott)",
-    "description":"A filter list"
+  "filterwarning_removal":{
+    "message":"Adblock figyelmeztetés eltávolítási lista (törli a hirdetésblokkolók használatával kapcsolatos figyelmeztetéseket)",
+    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
   },
   "filterrussian":{
     "message":"Orosz és ukrán",
@@ -377,7 +377,7 @@
   },
   "filterczech":{
     "message":"Cseh és szlovák",
-    "description":"Language names for a filter list"
+    "description":"A filter list"
   },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (személyes adatok védelme)",
@@ -462,6 +462,10 @@
   "filtersavewarning":{
     "message":"Legyen óvatos: ha itt hibát vét, sok más szűrő, beleértve a hivatalosakat is, szintén meghibásodhatnak!<br\/>Olvassa el a <a>szűrő mondattan oktatóanyagot<\/a>, hogy megtudja hogyan kell összetett fekete lista és fehér lista szűrőket hozzáadni.",
     "description":"Warning when blacklisting manually"
+  },
+  "contentblockingwarning":{
+    "message":"Megjegyzés: Egy oldal vagy webhely fehérlistára helyezése (hirdetések engedélyezése az oldalon) nem támogatott az engedélyezett Safari tartalomblokkolás mellett.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
   },
   "savebutton":{
     "message":"Mentés",
@@ -559,6 +563,10 @@
     "message":"Az AdBlock kivételével tiltson le minden kiegészítőt:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"A <a href='#'>bővítmények oldal<\/a> megnyitása.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>VAGY<\/b>, csak kattintson erre a gombra, hogy a fent említetteket mi végezzük el: <a>Minden egyéb bővítmény letiltása<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -601,103 +609,199 @@
   },
   "lang_english":{
     "message":"Angol",
-    "description":"language"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Bolgár",
-    "description":"language"
-  },
-  "filterchinese":{
-    "message":"Kínai",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_czech":{
     "message":"Cseh",
-    "description":"language"
+    "description":"Language name"
   },
-  "filterdanish":{
-    "message":"Dán",
-    "description":"language"
-  },
-  "filterdutch":{
-    "message":"Holland",
-    "description":"language"
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Finn",
-    "description":"language"
-  },
-  "filtereasylist_plus_french":{
-    "message":"Francia",
-    "description":"language"
-  },
-  "filtereasylist_plus_german":{
-    "message":"Német",
-    "description":"language"
-  },
-  "filtereasylist_plus_greek":{
-    "message":"Görög",
-    "description":"language"
-  },
-  "filterhungarian":{
-    "message":"Magyar",
-    "description":"language"
-  },
-  "filterisraeli":{
-    "message":"Héber",
-    "description":"language"
-  },
-  "filteritalian":{
-    "message":"Olasz",
-    "description":"language"
-  },
-  "filterjapanese":{
-    "message":"Japán",
-    "description":"language"
-  },
-  "filtereasylist_plun_korean":{
-    "message":"Koreai",
-    "description":"language"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Lengyel",
-    "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Román",
-    "description":"language"
+  "lang_spanish":{
+    "message":"Spanyol",
+    "description":"Language name"
   },
   "lang_russian":{
     "message":"Orosz",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_slovak":{
     "message":"Szlovák",
-    "description":"language"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"Spanyol",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_ukranian":{
     "message":"Ukrán",
-    "description":"language"
+    "description":"Language name"
+  },
+  "lang_arabic":{
+    "message":"Arab",
+    "description":"Language name"
+  },
+  "lang_bulgarian":{
+    "message":"Bolgár",
+    "description":"Language name"
+  },
+  "lang_chinese":{
+    "message":"Kínai",
+    "description":"Language name"
+  },
+  "lang_danish":{
+    "message":"Dán",
+    "description":"Language name"
+  },
+  "lang_dutch":{
+    "message":"Holland",
+    "description":"Language name"
+  },
+  "lang_estonian":{
+    "message":"Észt",
+    "description":"Language name"
+  },
+  "lang_finnish":{
+    "message":"Finn",
+    "description":"Language name"
+  },
+  "lang_french":{
+    "message":"Francia",
+    "description":"Language name"
+  },
+  "lang_german":{
+    "message":"Német",
+    "description":"Language name"
+  },
+  "lang_greek":{
+    "message":"Görög",
+    "description":"Language name"
+  },
+  "lang_hungarian":{
+    "message":"Magyar",
+    "description":"Language name"
+  },
+  "lang_indonesian":{
+    "message":"Indonéz",
+    "description":"Language name"
+  },
+  "lang_icelandic":{
+    "message":"Izlandi",
+    "description":"Language name"
+  },
+  "lang_israeli":{
+    "message":"Héber",
+    "description":"Language name"
+  },
+  "lang_italian":{
+    "message":"Olasz",
+    "description":"Language name"
+  },
+  "lang_japanese":{
+    "message":"Japán",
+    "description":"Language name"
+  },
+  "lang_korean":{
+    "message":"Koreai",
+    "description":"Language name"
+  },
+  "lang_lithuania":{
+    "message":"Litván",
+    "description":"Language name"
+  },
+  "lang_polish":{
+    "message":"Lengyel",
+    "description":"Language name"
+  },
+  "lang_romanian":{
+    "message":"Román",
+    "description":"Language name"
+  },
+  "lang_latvian":{
+    "message":"Lett",
+    "description":"Language name"
+  },
+  "lang_swedish":{
+    "message":"Svéd",
+    "description":"Language name"
+  },
+  "lang_turkish":{
+    "message":"Török",
+    "description":"Language name"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Bolgár",
+    "description":"A filter list"
+  },
+  "filterchinese":{
+    "message":"Kínai",
+    "description":"A filter list"
+  },
+  "filterdanish":{
+    "message":"Dán",
+    "description":"A filter list"
+  },
+  "filterdutch":{
+    "message":"Holland",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Finn",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Francia",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Német",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Görög",
+    "description":"A filter list"
+  },
+  "filterhungarian":{
+    "message":"Magyar",
+    "description":"A filter list"
+  },
+  "filterisraeli":{
+    "message":"Héber",
+    "description":"A filter list"
+  },
+  "filteritalian":{
+    "message":"Olasz",
+    "description":"A filter list"
+  },
+  "filterjapanese":{
+    "message":"Japán",
+    "description":"A filter list"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Koreai",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Lengyel",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_romanian":{
+    "message":"Román",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Spanyol",
+    "description":"A filter list"
   },
   "filtereasylist_plus_arabic":{
     "message":"Arab",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_estonian":{
     "message":"Észt",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtericelandic":{
     "message":"Izlandi",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_lithuania":{
     "message":"Litván",
-    "description":"language"
+    "description":"A filter list"
   },
   "other":{
     "message":"Egyéb",
@@ -907,6 +1011,26 @@
     "message":"Az AdBlock felfüggesztése",
     "description":"Menu entry to pause AdBlock"
   },
+  "safaricontentblockingpausemessage":{
+    "message":"Az AdBlock engedélyezett tartalomblokkolás melletti szüneteltetéséhez kérjük válassza a Safati (a menüsávon) > Környezeti beállítások > Bővítmények > AdBlock menüpontot, és törölje a jelölést az 'AdBlock engedéylezése' elől.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
+  },
+  "safaricontentblockinglimitexceeded":{
+    "message":"A szűrőlista szabályok száma meghaladja az 50,000-es határt, így automatikusan csökkentésre került. Kérjük iratkozzon le néhány listáról vagy tiltsa le a Safari tartalomblokkolást!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
+  },
+  "browserestartrequired":{
+    "message":"Kérjük indítsa újra a Safari-t a tartalomblokkolás kikapcsolásának befejezéséhez.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
+  "safarinotificationtitle":{
+    "message":"Tartalomblokkolás szabálylista túllépve",
+    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
+  "safarinotificationbody":{
+    "message":"Kérjük tiltson le néhány szűrólistát. További információ az AdBlock opciói közt.",
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
   "undo_last_block":{
     "message":"Blokkolásaim visszavonása ebben a tartományban",
     "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
@@ -1049,13 +1173,13 @@
       }
     }
   },
-  "dropboxerrorforfilters":{
-    "message":"Túllépte a Dropbox méretkorlátot. Kérjük töröljön néhány bejegyzést egyéni vagy letiltott szűrő közül, majd próbálja újra.",
-    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
-  },
   "languagedropdowndescription":{
     "message":"Szűrők hozzáadása másik nyelvhez: ",
     "description":"Dropdown list for language-specific filters"
+  },
+  "how":{
+    "message":"Hogyan?",
+    "description":"Text of a link pointing to instructions on how to do something"
   },
   "whats_this":{
     "message":"Mi ez?",
@@ -1064,10 +1188,6 @@
   "selectlanguage":{
     "message":" -- Nyelv kiválasztása -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Adott YouTube csatornák fehér listára tételének engedélyezése",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
     "message":"A(z) $name$ csatorna fehér listára tétele",
@@ -1163,6 +1283,10 @@
     "message":"Csapatunk netán némi hibakeresési információt kérelmezett? Ehhez kattintson <a href='#' id='debug'>ide<\/a>!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
+  "bugreport":{
+    "message":"Miért nem küld nekünk <a>hibajelentést<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
+  },
   "supportsite":{
     "message":"Tudassa velünk <a>ügyfélszolgálatunk oldalán<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
@@ -1171,9 +1295,53 @@
     "message":"Ha hirdetést lát, ne hibajelentést tegyen, hanem <a>hirdetés jelentést<\/a>!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   },
+  "resourceblocktitle":{
+    "message":"Minden forrás",
+    "description":"Resource list page name"
+  },
+  "headerresource":{
+    "message":"Forrás",
+    "description":"Resource list page: title of a column"
+  },
   "headertype":{
     "message":"Típus",
     "description":"Resource list page: title of a column"
+  },
+  "headerfilter":{
+    "message":"Megegyező szűrő",
+    "description":"Resource list page: title of a column"
+  },
+  "show_resourcelist":{
+    "message":"Minden kérelem megjelenítése",
+    "description":"Menu entry to open the resource list page"
+  },
+  "noresourcessend2":{
+    "message":"Valami elromlott. Nem került erőforrás átküldésre. Ez az oldal most bezárul. Próbálja újratölteni a weboldalt.",
+    "description":"Resource list page: error message"
+  },
+  "resourcedomain":{
+    "message":"Betöltve ebben a tartományban lévő oldalon: $domain$",
+    "description":"Resource list page: text shown when hovering over an item in the third-party column",
+    "placeholders":{
+      "domain":{
+        "content":"$1",
+        "example":"example.com"
+      }
+    }
+  },
+  "filterorigin":{
+    "message":"Szűrő eredete:\n$list$",
+    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter",
+    "placeholders":{
+      "list":{
+        "content":"$1",
+        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
+      }
+    }
+  },
+  "typeselector":{
+    "message":"választó",
+    "description":"A resource type"
   },
   "typesub_frame":{
     "message":"adatkeret",
@@ -1183,8 +1351,136 @@
     "message":"oldal",
     "description":"A resource type"
   },
+  "topframe":{
+    "message":"Tetőkeret",
+    "description":"Resource list page: frame type"
+  },
+  "subframe":{
+    "message":"Alkeret",
+    "description":"Resource list page: frame type"
+  },
+  "frametype":{
+    "message":"Kerettípus: ",
+    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
+  },
+  "framedomain":{
+    "message":"Kerettartomány: ",
+    "description":"Resource list page: domain name of the frame"
+  },
+  "frameurl":{
+    "message":"Keret URL-je: ",
+    "description":"Resource list page: full URL of the frame"
+  },
+  "legend":{
+    "message":"Színmagyarázat: ",
+    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
+  },
+  "blockedresource":{
+    "message":"Blokkolt forrás",
+    "description":"Resource list page: resource status"
+  },
+  "whitelistedresource":{
+    "message":"Fehérlistás forrás",
+    "description":"Resource list page: resource status"
+  },
+  "hiddenelement":{
+    "message":"Rejtett elem",
+    "description":"Resource list page: resource status"
+  },
+  "thirdparty":{
+    "message":"Külsős",
+    "description":"Resource list page: column title telling if the resource originates from a different domain"
+  },
+  "acceptableadsdisable_done":{
+    "message":"Többé már nincs feliratkozva az Elfogadható hirdetések szűrőlistára.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"Ezt visszakapcsolhatja és támogathatja kedvenc weboldalait a \"Néhány nem tolakodó hirdetés engedélyezése\" kiválasztásával alább.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Leirattuk Önt az Elfogadható hirdetések-ről, mivel bekapcsolta a Safari tartalomblokkolás-t. Egyszerre csak egy választható. (<a>Miért?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Leirattuk Önt a Safari tartalomblokkolás-ról, mivel a nem tolakodó hirdetések engedélyezése mellett döntött. Egyszerre csak egy választható. (<a>Miért?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Utolsó épés: jelentse felénk a problémát.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Mi az Ön neve?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Mi az Ön email címe?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Ezt csak kapcsolatba lépéshez használjuk fel, ha több információra lenne szükségünk.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Pontosan hol van azon az oldalon a hirdetés? Hogyan néz ki?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Pillanatkép csatolása:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Ha létrehozott egy működő szűrőt az \"egy hirdetés blokkolása\" varázslóval, másolja azt be az alábbi mezőbe:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Beküldés",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"A szükséges információ hiányzik vagy érvénytelen. Kérjük töltse ki a piros szegélyel ellátott kérdéseket.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Elfelejtett pillanatképet mellékelni! Nem segíthetünk anélkül, hogy látnánk a jelentett hirdetés(eke)t.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Minden kész! Hamarosan kapcsolatba lépünk Önnel, valószínűleg egy napon belül, kettő ha ünnep nap. Addig is keressen egy az AdBlock-tól kapott levelet. Találni fog benne egy linket a bejelentéséhez. Ha inkább email-ben követné a dolgokat, azt is megteheti!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Ez nem egy képfájl. Kérjük .png, .gif vagy .jpg fájt töltsön fel.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Ez a fájl túl nagy. Kérjük ellenőrizze, hogy a fájl kevesebb mint 10MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Hiba a feltöltött fájl mentésekor.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"A fájlnév túl hosszú. Kérjük adjon a fájlnak rövidebb nevet.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"A következő információ szintén belekerül a hirdetésjelentésbe.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Hiba történt a kérelmének feldolgozásakor.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Kérjük menjen <a>ügyfélszolgálati weboldalunkra<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"Aztán manuálisan hozzon létre egy bejelentési jegyet, majd másolja be az információt az alábbi \"Írjon le minden részletet, ami Ön szerint segít megértenünk a problémát\" részbe.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

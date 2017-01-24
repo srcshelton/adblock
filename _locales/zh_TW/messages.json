@@ -1,10 +1,14 @@
 {
+  "description":{
+    "message":"最受歡迎的 Chrome 擴充，有超過四千萬名的用戶正在用 AdBlock 阻擋網頁上的廣告",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "description2":{
     "message":"最受歡迎的 Chrome 擴充，有超過四千萬名的用戶正在用 AdBlock 阻擋網頁上的廣告",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock",
+    "message":"AdBlock-點擊查看詳情",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{
@@ -30,10 +34,6 @@
   "optionstitle":{
     "message":"AdBlock 選項",
     "description":"Title for the options page"
-  },
-  "chromebutton_how_to_hide2":{
-    "message":"如要隱藏按鈕，請按滑鼠右鍵並選擇隱藏按鈕。在 chrome:\/\/chrome\/extensions 下，你可以再次顯示它。",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
   },
   "operabutton_how_to_hide2":{
     "message":"如需隱藏按鈕，請到  opera:\/\/extensions 並且點選 『從工具列上隱藏』選項。 你可以取消該選項以顯示該按鈕",
@@ -347,21 +347,13 @@
     "message":"反社群網站過濾器  （社群網站的按鈕會被自動過濾掉）",
     "description":"A filter list"
   },
-  "filteradblock_custom":{
-    "message":"AdBlock 自訂過濾清單 （推薦）",
-    "description":"A filter list"
-  },
-  "filtereasylist":{
-    "message":"EasyList （推薦）",
-    "description":"A filter list"
-  },
   "filterrussian":{
     "message":"俄羅斯和烏克蘭",
     "description":"Language names for a filter list"
   },
   "filterczech":{
     "message":"捷克和斯洛伐克",
-    "description":"Language names for a filter list"
+    "description":"A filter list"
   },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (隱私保護)",
@@ -521,87 +513,167 @@
   },
   "lang_english":{
     "message":"英文",
-    "description":"language"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"保加利亞文",
-    "description":"language"
-  },
-  "filterchinese":{
-    "message":"中文",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_czech":{
     "message":"捷克文",
-    "description":"language"
+    "description":"Language name"
   },
-  "filterdanish":{
-    "message":"丹麥文",
-    "description":"language"
-  },
-  "filterdutch":{
-    "message":"荷蘭文",
-    "description":"language"
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"芬蘭文",
-    "description":"language"
-  },
-  "filtereasylist_plus_french":{
-    "message":"法文",
-    "description":"language"
-  },
-  "filtereasylist_plus_german":{
-    "message":"德文",
-    "description":"language"
-  },
-  "filtereasylist_plus_greek":{
-    "message":"希臘文",
-    "description":"language"
-  },
-  "filterhungarian":{
-    "message":"匈牙利文",
-    "description":"language"
-  },
-  "filterisraeli":{
-    "message":"希伯來文",
-    "description":"language"
-  },
-  "filteritalian":{
-    "message":"義大利文",
-    "description":"language"
-  },
-  "filterjapanese":{
-    "message":"日文",
-    "description":"language"
-  },
-  "filtereasylist_plun_korean":{
-    "message":"韓文",
-    "description":"language"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"波蘭文",
-    "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"羅馬尼亞文",
-    "description":"language"
+  "lang_spanish":{
+    "message":"西班牙文",
+    "description":"Language name"
   },
   "lang_russian":{
     "message":"俄文",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_slovak":{
     "message":"斯洛伐克文",
-    "description":"language"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"西班牙文",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_ukranian":{
     "message":"烏克蘭文",
-    "description":"language"
+    "description":"Language name"
+  },
+  "lang_bulgarian":{
+    "message":"保加利亞文",
+    "description":"Language name"
+  },
+  "lang_chinese":{
+    "message":"中文",
+    "description":"Language name"
+  },
+  "lang_danish":{
+    "message":"丹麥文",
+    "description":"Language name"
+  },
+  "lang_dutch":{
+    "message":"荷蘭文",
+    "description":"Language name"
+  },
+  "lang_finnish":{
+    "message":"芬蘭文",
+    "description":"Language name"
+  },
+  "lang_french":{
+    "message":"法文",
+    "description":"Language name"
+  },
+  "lang_german":{
+    "message":"德文",
+    "description":"Language name"
+  },
+  "lang_greek":{
+    "message":"希臘文",
+    "description":"Language name"
+  },
+  "lang_hungarian":{
+    "message":"匈牙利文",
+    "description":"Language name"
+  },
+  "lang_indonesian":{
+    "message":"印尼文",
+    "description":"Language name"
+  },
+  "lang_israeli":{
+    "message":"希伯來文",
+    "description":"Language name"
+  },
+  "lang_italian":{
+    "message":"義大利文",
+    "description":"Language name"
+  },
+  "lang_japanese":{
+    "message":"日文",
+    "description":"Language name"
+  },
+  "lang_korean":{
+    "message":"韓文",
+    "description":"Language name"
+  },
+  "lang_polish":{
+    "message":"波蘭文",
+    "description":"Language name"
+  },
+  "lang_romanian":{
+    "message":"羅馬尼亞文",
+    "description":"Language name"
+  },
+  "lang_latvian":{
+    "message":"拉脫維亞文",
+    "description":"Language name"
+  },
+  "lang_swedish":{
+    "message":"瑞典文",
+    "description":"Language name"
+  },
+  "lang_turkish":{
+    "message":"土耳其文",
+    "description":"Language name"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"保加利亞文",
+    "description":"A filter list"
+  },
+  "filterchinese":{
+    "message":"中文",
+    "description":"A filter list"
+  },
+  "filterdanish":{
+    "message":"丹麥文",
+    "description":"A filter list"
+  },
+  "filterdutch":{
+    "message":"荷蘭文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"芬蘭文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_french":{
+    "message":"法文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_german":{
+    "message":"德文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"希臘文",
+    "description":"A filter list"
+  },
+  "filterhungarian":{
+    "message":"匈牙利文",
+    "description":"A filter list"
+  },
+  "filterisraeli":{
+    "message":"希伯來文",
+    "description":"A filter list"
+  },
+  "filteritalian":{
+    "message":"義大利文",
+    "description":"A filter list"
+  },
+  "filterjapanese":{
+    "message":"日文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"韓文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"波蘭文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_romanian":{
+    "message":"羅馬尼亞文",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"西班牙文",
+    "description":"A filter list"
   },
   "other":{
     "message":"其他",
@@ -914,10 +986,6 @@
         "example":"invalid filter"
       }
     }
-  },
-  "dropboxerrorforfilters":{
-    "message":"你已經到達了 Dropbox 空間限制。 請在您的過濾清單中移除一些項目並再試一次",
-    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
   },
   "languagedropdowndescription":{
     "message":"替其他語言新增過濾清單 ",

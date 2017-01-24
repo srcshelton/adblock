@@ -1,10 +1,14 @@
 {
+  "description":{
+    "message":"A extensão mais popular para o Chrome, com mais de 40 milhões de utilizadores! Bloqueia anúncios por todo o lado na Web.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "description2":{
     "message":"A extensão mais popular para o Chrome, com mais de 40 milhões de utilizadores! Bloqueia anúncios por todo o lado na Web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock ",
+    "message":"AdBlock - clique para detalhes",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{
@@ -32,7 +36,7 @@
     "description":"Title for the options page"
   },
   "chromebutton_how_to_hide2":{
-    "message":"Para ocultar o botão, faça clique direito sobre ele e seleccione Ocultar botão. Pode visualizá-lo novamente em chrome:\/\/chrome\/extensions.",
+    "message":"Clique direito sobre o botão AdBlock e selecione 'Ocultar no menu do Chrome'. Para visualizar, clique no menu do Chrome, clique direito sobre o botão do AdBlock e selecione 'Mostrar na barra de ferramentas'.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
   },
   "operabutton_how_to_hide2":{
@@ -360,24 +364,12 @@
     "description":"A filter list"
   },
   "filterannoyances":{
-    "message":"Fanboy's Annoyances (remove os aborrecimentos da Web)",
+    "message":"Fanboy's Annoyances (bloqueia pop-ups dentro das páginas, meios de comunicação social e respectivos widgets, e outros aborrecimentos)",
     "description":"A filter list"
   },
   "filterwarning_removal":{
     "message":"Lista de Remoção de Avisos Adblock (remove avisos acerca do uso de bloqueadores de anúncios)",
     "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
-  },
-  "filteracceptable_ads":{
-    "message":"Anúncios aceitáveis (recomendado)",
-    "description":"A filter list"
-  },
-  "filteradblock_custom":{
-    "message":"AdBlock filtros personalizados (recomendado)",
-    "description":"A filter list"
-  },
-  "filtereasylist":{
-    "message":"EasyList (recomendado)",
-    "description":"A filter list"
   },
   "filterrussian":{
     "message":"Russo e Ucraniano",
@@ -385,7 +377,7 @@
   },
   "filterczech":{
     "message":"Checo e Eslovaco",
-    "description":"Language names for a filter list"
+    "description":"A filter list"
   },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (protecção da privacidade)",
@@ -617,103 +609,199 @@
   },
   "lang_english":{
     "message":"Inglês",
-    "description":"language"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Búlgaro",
-    "description":"language"
-  },
-  "filterchinese":{
-    "message":"Chinês",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_czech":{
     "message":"Checo",
-    "description":"language"
+    "description":"Language name"
   },
-  "filterdanish":{
-    "message":"Dinamarquês",
-    "description":"language"
-  },
-  "filterdutch":{
-    "message":"Holandês",
-    "description":"language"
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Finlandês",
-    "description":"language"
-  },
-  "filtereasylist_plus_french":{
-    "message":"Francês",
-    "description":"language"
-  },
-  "filtereasylist_plus_german":{
-    "message":"Alemão",
-    "description":"language"
-  },
-  "filtereasylist_plus_greek":{
-    "message":"Grego",
-    "description":"language"
-  },
-  "filterhungarian":{
-    "message":"Húngaro",
-    "description":"language"
-  },
-  "filterisraeli":{
-    "message":"Hebraico",
-    "description":"language"
-  },
-  "filteritalian":{
-    "message":"Italiano",
-    "description":"language"
-  },
-  "filterjapanese":{
-    "message":"Japonês",
-    "description":"language"
-  },
-  "filtereasylist_plun_korean":{
-    "message":"Coreano",
-    "description":"language"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Polaco",
-    "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Romêno",
-    "description":"language"
+  "lang_spanish":{
+    "message":"Espanhol",
+    "description":"Language name"
   },
   "lang_russian":{
     "message":"Russo",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_slovak":{
     "message":"Eslovaco",
-    "description":"language"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"Espanhol",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_ukranian":{
     "message":"Ucraniano",
-    "description":"language"
+    "description":"Language name"
+  },
+  "lang_arabic":{
+    "message":"Árabe",
+    "description":"Language name"
+  },
+  "lang_bulgarian":{
+    "message":"Búlgaro",
+    "description":"Language name"
+  },
+  "lang_chinese":{
+    "message":"Chinês",
+    "description":"Language name"
+  },
+  "lang_danish":{
+    "message":"Dinamarquês",
+    "description":"Language name"
+  },
+  "lang_dutch":{
+    "message":"Holandês",
+    "description":"Language name"
+  },
+  "lang_estonian":{
+    "message":"Estoniano",
+    "description":"Language name"
+  },
+  "lang_finnish":{
+    "message":"Finlandês",
+    "description":"Language name"
+  },
+  "lang_french":{
+    "message":"Francês",
+    "description":"Language name"
+  },
+  "lang_german":{
+    "message":"Alemão",
+    "description":"Language name"
+  },
+  "lang_greek":{
+    "message":"Grego",
+    "description":"Language name"
+  },
+  "lang_hungarian":{
+    "message":"Húngaro",
+    "description":"Language name"
+  },
+  "lang_indonesian":{
+    "message":"Indonésio",
+    "description":"Language name"
+  },
+  "lang_icelandic":{
+    "message":"Islandês",
+    "description":"Language name"
+  },
+  "lang_israeli":{
+    "message":"Hebraico",
+    "description":"Language name"
+  },
+  "lang_italian":{
+    "message":"Italiano",
+    "description":"Language name"
+  },
+  "lang_japanese":{
+    "message":"Japonês",
+    "description":"Language name"
+  },
+  "lang_korean":{
+    "message":"Coreano",
+    "description":"Language name"
+  },
+  "lang_lithuania":{
+    "message":"Lituano",
+    "description":"Language name"
+  },
+  "lang_polish":{
+    "message":"Polaco",
+    "description":"Language name"
+  },
+  "lang_romanian":{
+    "message":"Romêno",
+    "description":"Language name"
+  },
+  "lang_latvian":{
+    "message":"Letão",
+    "description":"Language name"
+  },
+  "lang_swedish":{
+    "message":"Sueco",
+    "description":"Language name"
+  },
+  "lang_turkish":{
+    "message":"Turco",
+    "description":"Language name"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Búlgaro",
+    "description":"A filter list"
+  },
+  "filterchinese":{
+    "message":"Chinês",
+    "description":"A filter list"
+  },
+  "filterdanish":{
+    "message":"Dinamarquês",
+    "description":"A filter list"
+  },
+  "filterdutch":{
+    "message":"Holandês",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Finlandês",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Francês",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Alemão",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Grego",
+    "description":"A filter list"
+  },
+  "filterhungarian":{
+    "message":"Húngaro",
+    "description":"A filter list"
+  },
+  "filterisraeli":{
+    "message":"Hebraico",
+    "description":"A filter list"
+  },
+  "filteritalian":{
+    "message":"Italiano",
+    "description":"A filter list"
+  },
+  "filterjapanese":{
+    "message":"Japonês",
+    "description":"A filter list"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Coreano",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Polaco",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_romanian":{
+    "message":"Romêno",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Espanhol",
+    "description":"A filter list"
   },
   "filtereasylist_plus_arabic":{
     "message":"Árabe",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_estonian":{
     "message":"Estoniano",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtericelandic":{
     "message":"Islandês",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_lithuania":{
     "message":"Lituano",
-    "description":"language"
+    "description":"A filter list"
   },
   "other":{
     "message":"Outro",
@@ -927,6 +1015,14 @@
     "message":"Para pausar o AdBlock com Bloqueio de Conteúdos ativado, por favor selecione Safari (na barra de menus) > Preferências > Extensões > AdBlock e desmarque a opção 'Ativar AdBlock'.",
     "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
   },
+  "safaricontentblockinglimitexceeded":{
+    "message":"O número de regras da lista de filtro excedeu o limite de 50.000 e foi automaticamente reduzida. Por favor, desinscreva-se de algumas listas de filtro ou desative o Bloqueio de Conteúdo do Safari!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
+  },
+  "browserestartrequired":{
+    "message":"Por favor reinicie o Safari para concluir a desactivação do bloqueio de conteúdo.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
   "safarinotificationtitle":{
     "message":"Limite da regra de Bloqueio de Conteúdos ultrapassado",
     "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
@@ -1077,29 +1173,21 @@
       }
     }
   },
-  "dropboxerrorforfilters":{
-    "message":"Excedeu o limite de tamanho do Dropbox. Por favor, remova alguns dos seus filtros personalizados ou desativados e volte a tentar.",
-    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
-  },
   "languagedropdowndescription":{
     "message":"Adicione filtros para outro idioma: ",
     "description":"Dropdown list for language-specific filters"
-  },
-  "whats_this":{
-    "message":"O que é isto?",
-    "description":"Text of a link pointing to the explanation of a new feature"
   },
   "how":{
     "message":"Como?",
     "description":"Text of a link pointing to instructions on how to do something"
   },
+  "whats_this":{
+    "message":"O que é isto?",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
   "selectlanguage":{
     "message":"-- Seleccione o Idioma --",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Permitir anúncios de canais específicos do YouTube",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
     "message":"Whitelist canal $name$",
@@ -1310,6 +1398,14 @@
   "acceptableadsdisable_how_to_reenable":{
     "message":"Pode ligar isto novamente e suportar os sites que ama bastando selecionar \"Permitir alguma publicidade não intrusiva\" abaixo.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Nós desinscrevemos-te dos Anúncios Aceitáveis porque ativaste a opção de Bloqueio de Conteúdo do Safari. Só pode selecionar um de cada vez. (<a>Porquê?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Desátivamos o Bloqueio de Conteúdo do Safari porque optou por permitir anúncios não-intrusiva. Só pode selecionar um de cada vez. (<a>Porquê?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
   },
   "adreport_laststep":{
     "message":"Última etapa: reportar o problema.",

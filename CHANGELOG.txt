@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.7.1.0:
+- Fixed an issue with the build process to include all necessary files.
+- Updated translations.
+
 1.7.0.0:
 - Changed the filter list subscription persistence logic to not store EasyList Lite to persistent storage, and instead load it from a file included with the add on.  EasyList Lite will be updated 1 hour after the browser has been started.  (#110)
 - Fixed the updating of the frame data information when tracking navigation on single page sites that use the History API.  This will allow the YouTube channel white-list feature to function correctly on Edge. (#112)

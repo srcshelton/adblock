@@ -1,10 +1,14 @@
 {
+  "description":{
+    "message":"La più popolare estensione di Chrome, con oltre 40 milioni di utilizzatori! Blocca le pubblicità su tutto il web.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "description2":{
     "message":"La più popolare estensione di Chrome, con oltre 40 milioni di utilizzatori! Blocca le pubblicità su tutto il web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
-    "message":"AdBlock",
+    "message":"AdBlock - clicca per dettagli",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
   "buttoncancel":{
@@ -30,10 +34,6 @@
   "optionstitle":{
     "message":"Opzioni di AdBlock",
     "description":"Title for the options page"
-  },
-  "chromebutton_how_to_hide2":{
-    "message":"Per nascondere il bottone, cliccaci sopra col destro e scegli Nascondi Bottone. Puoi farlo apparire di nuovo andando in chrome:\/\/chrome\/extensions.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
   },
   "operabutton_how_to_hide2":{
     "message":"Per nascondere il bottone, andare in opera:\/\/extension e spuntare 'Nascondi dalla toolbar'. Puoi tornare a visualizzarla deselezionando l'opzione.",
@@ -359,25 +359,9 @@
     "message":"Lista filtri Antisocial (rimuove i bottoni dei social media)",
     "description":"A filter list"
   },
-  "filterannoyances":{
-    "message":"Fanboy's Annoyances (rimuove i fastidi sul Web)",
-    "description":"A filter list"
-  },
   "filterwarning_removal":{
     "message":"Elenco avvisi rimozione di adblock (rimuove avvertenze sull'utilizzo di annuncio bloccanti)",
     "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
-  },
-  "filteracceptable_ads":{
-    "message":"Annunci Accettabili (consigliato)",
-    "description":"A filter list"
-  },
-  "filteradblock_custom":{
-    "message":"Filtri personalizzati di AdBlock (raccomandato)",
-    "description":"A filter list"
-  },
-  "filtereasylist":{
-    "message":"EasyList (raccomandato)",
-    "description":"A filter list"
   },
   "filterrussian":{
     "message":"Russo e Ucraino",
@@ -385,7 +369,7 @@
   },
   "filterczech":{
     "message":"Ceco e Slovacco",
-    "description":"Language names for a filter list"
+    "description":"A filter list"
   },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (protezione della privacy)",
@@ -617,103 +601,199 @@
   },
   "lang_english":{
     "message":"Inglese",
-    "description":"language"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Bulgaro",
-    "description":"language"
-  },
-  "filterchinese":{
-    "message":"Cinese",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_czech":{
     "message":"Ceco",
-    "description":"language"
+    "description":"Language name"
   },
-  "filterdanish":{
-    "message":"Danese",
-    "description":"language"
-  },
-  "filterdutch":{
-    "message":"Olandese",
-    "description":"language"
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Finlandese",
-    "description":"language"
-  },
-  "filtereasylist_plus_french":{
-    "message":"Francese",
-    "description":"language"
-  },
-  "filtereasylist_plus_german":{
-    "message":"Tedesco",
-    "description":"language"
-  },
-  "filtereasylist_plus_greek":{
-    "message":"Greco",
-    "description":"language"
-  },
-  "filterhungarian":{
-    "message":"Ungherese",
-    "description":"language"
-  },
-  "filterisraeli":{
-    "message":"Ebraico",
-    "description":"language"
-  },
-  "filteritalian":{
-    "message":"Italiano",
-    "description":"language"
-  },
-  "filterjapanese":{
-    "message":"Giapponese",
-    "description":"language"
-  },
-  "filtereasylist_plun_korean":{
-    "message":"Coreano",
-    "description":"language"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Polacco",
-    "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Rumeno",
-    "description":"language"
+  "lang_spanish":{
+    "message":"Spagnolo",
+    "description":"Language name"
   },
   "lang_russian":{
     "message":"Russo",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_slovak":{
     "message":"Slovacco",
-    "description":"language"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"Spagnolo",
-    "description":"language"
+    "description":"Language name"
   },
   "lang_ukranian":{
     "message":"Ucraino",
-    "description":"language"
+    "description":"Language name"
+  },
+  "lang_arabic":{
+    "message":"Arabo",
+    "description":"Language name"
+  },
+  "lang_bulgarian":{
+    "message":"Bulgaro",
+    "description":"Language name"
+  },
+  "lang_chinese":{
+    "message":"Cinese",
+    "description":"Language name"
+  },
+  "lang_danish":{
+    "message":"Danese",
+    "description":"Language name"
+  },
+  "lang_dutch":{
+    "message":"Olandese",
+    "description":"Language name"
+  },
+  "lang_estonian":{
+    "message":"Estone",
+    "description":"Language name"
+  },
+  "lang_finnish":{
+    "message":"Finlandese",
+    "description":"Language name"
+  },
+  "lang_french":{
+    "message":"Francese",
+    "description":"Language name"
+  },
+  "lang_german":{
+    "message":"Tedesco",
+    "description":"Language name"
+  },
+  "lang_greek":{
+    "message":"Greco",
+    "description":"Language name"
+  },
+  "lang_hungarian":{
+    "message":"Ungherese",
+    "description":"Language name"
+  },
+  "lang_indonesian":{
+    "message":"Indonesiano",
+    "description":"Language name"
+  },
+  "lang_icelandic":{
+    "message":"Islandese",
+    "description":"Language name"
+  },
+  "lang_israeli":{
+    "message":"Ebraico",
+    "description":"Language name"
+  },
+  "lang_italian":{
+    "message":"Italiano",
+    "description":"Language name"
+  },
+  "lang_japanese":{
+    "message":"Giapponese",
+    "description":"Language name"
+  },
+  "lang_korean":{
+    "message":"Coreano",
+    "description":"Language name"
+  },
+  "lang_lithuania":{
+    "message":"Lituano",
+    "description":"Language name"
+  },
+  "lang_polish":{
+    "message":"Polacco",
+    "description":"Language name"
+  },
+  "lang_romanian":{
+    "message":"Rumeno",
+    "description":"Language name"
+  },
+  "lang_latvian":{
+    "message":"Lettone",
+    "description":"Language name"
+  },
+  "lang_swedish":{
+    "message":"Svedese",
+    "description":"Language name"
+  },
+  "lang_turkish":{
+    "message":"Turco",
+    "description":"Language name"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Bulgaro",
+    "description":"A filter list"
+  },
+  "filterchinese":{
+    "message":"Cinese",
+    "description":"A filter list"
+  },
+  "filterdanish":{
+    "message":"Danese",
+    "description":"A filter list"
+  },
+  "filterdutch":{
+    "message":"Olandese",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Finlandese",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Francese",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Tedesco",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Greco",
+    "description":"A filter list"
+  },
+  "filterhungarian":{
+    "message":"Ungherese",
+    "description":"A filter list"
+  },
+  "filterisraeli":{
+    "message":"Ebraico",
+    "description":"A filter list"
+  },
+  "filteritalian":{
+    "message":"Italiano",
+    "description":"A filter list"
+  },
+  "filterjapanese":{
+    "message":"Giapponese",
+    "description":"A filter list"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Coreano",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Polacco",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_romanian":{
+    "message":"Rumeno",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Spagnolo",
+    "description":"A filter list"
   },
   "filtereasylist_plus_arabic":{
     "message":"Arabo",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_estonian":{
     "message":"Estone",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtericelandic":{
     "message":"Islandese",
-    "description":"language"
+    "description":"A filter list"
   },
   "filtereasylist_plus_lithuania":{
     "message":"Lituano",
-    "description":"language"
+    "description":"A filter list"
   },
   "other":{
     "message":"Altra",
@@ -1081,29 +1161,21 @@
       }
     }
   },
-  "dropboxerrorforfilters":{
-    "message":"Hai superato le dimensioni limite di Dropbox. Rimuovi alcune voci dai filtri personalizzati o disabilitati e riprova.",
-    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
-  },
   "languagedropdowndescription":{
     "message":"Aggiungi filtri per altre lingue: ",
     "description":"Dropdown list for language-specific filters"
-  },
-  "whats_this":{
-    "message":"Cos'è?",
-    "description":"Text of a link pointing to the explanation of a new feature"
   },
   "how":{
     "message":"Come?",
     "description":"Text of a link pointing to instructions on how to do something"
   },
+  "whats_this":{
+    "message":"Cos'è?",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
   "selectlanguage":{
     "message":"-- Scegli una lingua --",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Consenti la whitelist di specifici canali YouTube",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
     "message":"Canale $name$ in Whitelist",
