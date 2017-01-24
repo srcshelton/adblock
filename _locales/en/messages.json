@@ -1161,7 +1161,7 @@
   },
   "donate_to_adblock":{
     "message":"Love AdBlock? Consider donating!",
-    "description":"Text of a donate link in the popup menu"
+    "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
     "message":"Pay what you want!",
@@ -1315,16 +1315,16 @@
   },
   "whitelist_all_youtube_channels":{
     "message":"Whitelist all subscribed YouTube channels",
-    "description":"Popup menu item when the user has YouTube Channel White-listing enabled, and on youtube.com/feed/subscriptions"
+    "description":"Toolbar button menu entry, displayed only on youtube.com/feed/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "one_moment_all_youtube_channels":{
     "message":"One moment while we gather all of your subscriptions",
-    "description":"Alert message to the user when Adblock is processing all of YouTube Channels for White-listing."
+    "description":"Alert message displayed when whitelisting all subscribed YouTube channels"
   },
 
   "all_youtube_channels_complete":{
     "message":"All of your YouTube channel subscriptions have been whitelisted",
-    "description":"Alert message to the user when Adblock has completed processing all of YouTube Channels for White-listing."
+    "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
   "whitelist_youtube_channel":{
     "message":"Whitelist $name$ channel",

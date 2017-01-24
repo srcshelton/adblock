@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+1.6.1.0:
+- Fixed a bug with the 'getting' of the STATS unique identifier. (#108)
+
 1.6.0.0:
 - Added a log message when the popup menu is opened.  (#107)
 - Removed old Safari specific browser logic.  (#102)

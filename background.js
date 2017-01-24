@@ -1217,7 +1217,7 @@
     var fullUrl = 'https://log.getadblock.com/record_log.php?type=' +
                   queryType +
                   '&message=' +
-                  encodeURIComponent(STATS.userId + " " + msg);
+                  encodeURIComponent(STATS.userId() + " " + msg);
     sendMessageToLogServer(fullUrl, callback);
   };
 
@@ -1294,14 +1294,9 @@
     gabQuestion.removeGABTabListeners(saveState);
   }
 
-  var installedURL = "https://getadblock.com/installed/?u=" + STATS.userId;
   var openInstalledTab = function() {
-    chrome.tabs.create({url: installedURL}, function(tab) {
-      // if we couldn't open a tab to '/installed', save that fact, so we can retry later at startup
-      if (chrome.runtime.lastError) {
-        storage_set("/installed_error", { retry_count: 0 } );
-      }
-    });
+    var installedURL = "https://getadblock.com/installed/?u=" + STATS.userId();
+    chrome.tabs.create({url: installedURL});
   };
   // If the Chrome API 'onInstalled' is available, and
   // reason is 'install' and
@@ -1337,7 +1332,7 @@
   }
 
   if (chrome.runtime.setUninstallURL) {
-    var uninstallURL = "https://getadblock.com/uninstall/?u=" + STATS.userId;
+    var uninstallURL = "https://getadblock.com/uninstall/?u=" + STATS.userId();
     //if the start property of blockCount exists (which is the AdBlock installation timestamp)
     //use it to calculate the approximate length of time that user has AdBlock installed
     if (blockCounts && blockCounts.get().start) {
@@ -1573,5 +1568,5 @@
       sendResponse(result);
     }
   );
-  
+
   log("\n===FINISHED LOADING===\n\n");

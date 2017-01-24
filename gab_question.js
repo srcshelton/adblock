@@ -79,7 +79,7 @@ gabQuestion = (function() {
     }
     if (!questionURL) {
       var tempURLObj = parseUri(sender.url || sender.tab.url);
-      questionURL = tempURLObj.origin + tempURLObj.pathname + "?u=" + STATS.userId;
+      questionURL = tempURLObj.origin + tempURLObj.pathname + "?u=" + STATS.userId();
     }
     questionTab = undefined;
     if (chrome.tabs && chrome.tabs.onRemoved && chrome.tabs.onUpdated) {
