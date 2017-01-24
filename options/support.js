@@ -39,7 +39,7 @@ var supportInit = function() {
             $("#debugInfo").css({ width: "450px", height: "100px"});
             $("#debugInfo").fadeIn();
         }
-        if (SAFARI || EDGE) {
+        if (EDGE) {
             showDebugInfo();
         } else {
             chrome.permissions.request({

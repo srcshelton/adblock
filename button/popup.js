@@ -5,6 +5,7 @@ $(function() {
     localizePage();
 
     var BG = chrome.extension.getBackgroundPage();
+    BG.recordGeneralMessage("popup opened");
 
     // Set menu entries appropriately for the selected tab.
     $(".menu-entry, .menu-status, .separator").hide();
@@ -56,11 +57,8 @@ $(function() {
             BG.count_cache.getCustomFilterCount(url_to_check_for_undo))
             show(["div_undo", "separator0"]);
 
-        if (SAFARI || !advanced_option || !tab.id)
+        if (!advanced_option || !tab.id)
             hide(["div_show_resourcelist"]);
-
-        if ((SAFARI && !advanced_option) || !tab.id)
-            hide(["div_report_an_ad", "separator1"]);
 
         if (host === "www.youtube.com" &&
             /channel|user/.test(tab.unicodeUrl) &&
@@ -80,20 +78,11 @@ $(function() {
         if (chrome.runtime && chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk")
             show(["div_status_beta"]);
 
-        // In Safari with content blocking enabled,
-        // whitelisting of domains is not currently supported.
-        if (SAFARI &&
-            BG.get_settings().safari_content_blocking) {
-          hide(["div_paused_adblock", "div_whitelist_page", "div_whitelist"]);
-        }
-
-
         for (var div in shown)
             if (shown[div])
                 $('#' + div).show();
 
-        if (SAFARI ||
-            !info.display_menu_stats ||
+        if (!info.display_menu_stats ||
             paused ||
             info.disabled_site ||
             info.whitelisted) {
@@ -101,31 +90,10 @@ $(function() {
         }
     });
 
-    if (SAFARI) {
-        // Update the width and height of popover in Safari
-        $(window).load(function() {
-            var popupheight = $("body").outerHeight();
-            safari.extension.popovers[0].height = popupheight + 5;
-            safari.extension.popovers[0].width = 270;
-        });
-
-        // Store info about active tab
-        var activeTab = safari.application.activeBrowserWindow.activeTab;
-    }
-
-    // We need to reload popover in Safari, so that we could
-    // update popover according to the status of AdBlock.
     // We don't need to reload popup in Chrome,
     // because Chrome reloads every time the popup for us.
     function closeAndReloadPopup() {
-        if (SAFARI) {
-            safari.self.hide();
-            setTimeout(function() {
-                window.location.reload();
-            }, 200);
-        } else {
-            window.close();
-        }
+      window.close();
     }
 
     // Click handlers
@@ -135,31 +103,14 @@ $(function() {
     });
 
     $("#titletext").click(function() {
-        var chrome_url = "https://chrome.google.com/webstore/detail/gighmmpiobklfepjocnamgkkbiglidom";
-        var opera_url = "https://addons.opera.com/extensions/details/adblockforopera/";
         var edge_url = "https://www.microsoft.com/store/apps/9nblggh4rfhk";
-        var getadblock_url = "https://getadblock.com/"
-        if (OPERA) {
-            BG.openTab(opera_url);
-        } else if (SAFARI) {
-            BG.openTab(getadblock_url);
-        } else if (EDGE) {
-            BG.openTab(edge_url);
-        } else {
-            BG.openTab(chrome_url);
-        }
+        BG.openTab(edge_url);
         closeAndReloadPopup();
     });
 
     $("#div_enable_adblock_on_this_page").click(function() {
         if (BG.try_to_unwhitelist(tab.unicodeUrl)) {
-            if(!SAFARI && !EDGE) {
-                chrome.tabs.reload()
-            } else if (EDGE) {
-                chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
-            } else {
-                activeTab.url = activeTab.url;
-            }
+            chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
             closeAndReloadPopup();
         } else {
             $("#div_status_whitelisted").
@@ -170,8 +121,7 @@ $(function() {
     $("#div_paused_adblock").click(function() {
         BG.adblock_is_paused(false);
         BG.handlerBehaviorChanged();
-        if (!SAFARI)
-            BG.updateButtonUIAndContextMenus();
+        BG.updateButtonUIAndContextMenus();
         closeAndReloadPopup();
     });
 
@@ -184,13 +134,7 @@ $(function() {
     $("#div_whitelist_channel").click(function() {
         BG.create_whitelist_filter_for_youtube_channel(tab.unicodeUrl);
         closeAndReloadPopup();
-        if(!SAFARI && !EDGE) {
-            chrome.tabs.reload()
-        } else if (EDGE) {
-            chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
-        } else {
-            tab.url = tab.url;
-        }
+        chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
     });
 
     $('#div_whitelist_all_channels').click(function ()
@@ -200,51 +144,31 @@ $(function() {
     });
 
      $("#div_pause_adblock").click(function() {
-        if (BG.get_settings().safari_content_blocking) {
-          alert(translate('safaricontentblockingpausemessage'));
-        } else {
-          BG.adblock_is_paused(true);
-          if (!SAFARI) {
-              BG.updateButtonUIAndContextMenus();
-          }
-        }
+        BG.adblock_is_paused(true);
+        BG.updateButtonUIAndContextMenus();
         closeAndReloadPopup();
      });
 
     $("#div_blacklist").click(function() {
-        if (!SAFARI) {
-            BG.emit_page_broadcast(
-                {fn:'top_open_blacklist_ui', options: { nothing_clicked: true }},
-                { tab: tab } // fake sender to determine target page
-            );
-        } else {
-            BG.dispatchMessage("show-blacklist-wizard");
-        }
+        BG.emit_page_broadcast(
+            {fn:'top_open_blacklist_ui', options: { nothing_clicked: true }},
+            { tab: tab } // fake sender to determine target page
+        );
         closeAndReloadPopup();
     });
 
     $("#div_whitelist").click(function() {
-        if (!SAFARI) {
-            BG.emit_page_broadcast(
-                {fn:'top_open_whitelist_ui', options:{}},
-                { tab: tab } // fake sender to determine target page
-            );
-        } else {
-            BG.dispatchMessage("show-whitelist-wizard");
-        }
+        BG.emit_page_broadcast(
+            {fn:'top_open_whitelist_ui', options:{}},
+            { tab: tab } // fake sender to determine target page
+        );
         closeAndReloadPopup();
     });
 
     $("#div_whitelist_page").click(function() {
         BG.create_page_whitelist_filter(tab.unicodeUrl);
         closeAndReloadPopup();
-        if(!SAFARI && !EDGE) {
-            chrome.tabs.reload()
-        } else if (EDGE) {
-            chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
-        } else {
-            activeTab.url = activeTab.url;
-        }
+        chrome.tabs.executeScript(tab.id, {code: 'location.reload();'});
     });
 
     $("#div_show_resourcelist").click(function() {
@@ -265,21 +189,11 @@ $(function() {
     });
 
     $("#div_help_hide").click(function() {
-        if (OPERA) {
-            $("#help_hide_explanation").text(translate("operabutton_how_to_hide2")).slideToggle();
-        } else if (SAFARI) {
-            $("#help_hide_explanation").text(translate("safaributton_how_to_hide2")).
-            slideToggle(function() {
-                var popupheight = $("body").outerHeight();
-                safari.extension.popovers[0].height = popupheight;
-            });
-        } else {
-            $("#help_hide_explanation").slideToggle();
-        }
+        $("#help_hide_explanation").slideToggle();
     });
 
     $("#link_open").click(function() {
-        var linkHref = "https://getadblock.com/pay/?exp=7001&v=0";
+        var linkHref = "https://getadblock.com/pay/?exp=7002&v=0";
         BG.openTab(linkHref);
         closeAndReloadPopup();
         return;

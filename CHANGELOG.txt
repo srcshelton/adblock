@@ -2,6 +2,11 @@
 
 UNRELEASED:
 
+1.6.0.0:
+- Added a log message when the popup menu is opened.  (#107)
+- Removed old Safari specific browser logic.  (#102)
+- Implemented the improved ping / stats processing.  (#103)
+
 1.5.0.0:
 - Removed the 'bandaids' processing on YouTube because of video playback issues.  (#99)
 - Added a check for invalid characters to the purge element processing to avoid issue with bad CSS query strings.  (#98)

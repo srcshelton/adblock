@@ -291,8 +291,7 @@ var customizeInit = function() {
   });
 
   BGcall("get_settings", function(settings) {
-    if (settings.show_advanced_options &&
-        !settings.safari_content_blocking) {
+    if (settings.show_advanced_options) {
         $("#divExcludeFilters").show();
     }
   });

@@ -4,30 +4,16 @@ $(function() {
     localizePage();
 
     //Shows the instructions for how to enable all extensions according to the browser of the user
-    if (SAFARI) {
-        $(".chrome_only")
+    $(".safari_only")
             .hide();
-    } else {
-        $(".safari_only")
-            .hide();
-        var messageElement = $("li[i18n='disableforchromestepone']");
-        messageElement.find("a")
-            .click(function() {
-                if(EDGE) {
-                    chrome.tabs.create({
-                        url: 'https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/adding-and-removing-extensions/'
-                    });
-                } else if (OPERA) {
-                    chrome.tabs.create({
-                        url: 'opera://extensions/'
-                    });
-                } else {
-                    chrome.tabs.create({
-                        url: 'chrome://extensions/'
-                    });
-                }
+    var messageElement = $("li[i18n='disableforchromestepone']");
+    messageElement.find("a")
+        .click(function() {
+            chrome.tabs.create({
+                url: 'https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/adding-and-removing-extensions/'
             });
-    }
+        });
+    
 
     // Sort the languages list
     var languageOptions = $("#step_language_lang option");
@@ -386,25 +372,17 @@ var checkmalware = function() {
         var infected = null;
 
         // Get all loaded frames
-        if (!SAFARI) {
-            // Get all loaded frames
-            for (var object in frameData) {
-                if (!isNaN(object)) {
-                    frames.push(object);
-                }
+        // Get all loaded frames
+        for (var object in frameData) {
+            if (!isNaN(object)) {
+                frames.push(object);
             }
-            // Push loaded resources from each frame into an array
-            for (var i = 0; i < frames.length; i++) {
-                if (Object.keys(frameData[frames[i]].resources)
-                    .length !== 0) {
-                    loaded_resources.push(frameData[frames[i]].resources);
-                }
-            }
-        } else {
-            // Push loaded resources into an array
-            if (Object.keys(frameData.resources)
+        }
+        // Push loaded resources from each frame into an array
+        for (var i = 0; i < frames.length; i++) {
+            if (Object.keys(frameData[frames[i]].resources)
                 .length !== 0) {
-                loaded_resources.push(frameData.resources);
+                loaded_resources.push(frameData[frames[i]].resources);
             }
         }
 
@@ -412,21 +390,10 @@ var checkmalware = function() {
         for (var i = 0; i < loaded_resources.length; i++) {
             for (var key in loaded_resources[i]) {
                 // Push just domains, which are not already in extracted_domains array
-                if (SAFARI) {
-                    var resource = key.split(':|:');
-                    if (resource &&
-                        resource.length === 2 &&
-                        extracted_domains.indexOf(parseUri(resource[1])
-                            .hostname) === -1) {
-                        extracted_domains.push(parseUri(resource[1])
-                            .hostname);
-                    }
-                } else {
-                    if (extracted_domains.indexOf(parseUri(key)
-                            .hostname) === -1) {
-                        extracted_domains.push(parseUri(key)
-                            .hostname);
-                    }
+                if (extracted_domains.indexOf(parseUri(key)
+                        .hostname) === -1) {
+                    extracted_domains.push(parseUri(key)
+                        .hostname);
                 }
             }
         }
@@ -477,18 +444,6 @@ var checkAdvanceOptions = function() {
     // Check, if downloaded resources are available,
     // if not, just reload tab with parsed tabId
     BGcall("get_settings", function(settings) {
-
-        // We can't do a malware check when content blocking is enabled, so skip it.
-        if (settings.safari_content_blocking) {
-            $("#step_malware_checking_DIV")
-                .hide();
-            $('#step_update_filters_DIV')
-                .show();
-            return;
-        } else if (SAFARI) {
-            $("#step_malware_checking_DIV")
-                .show();
-        }
 
         if (settings.show_advanced_options) {
             checkmalware();
@@ -674,59 +629,57 @@ $("#OtherExtensions")
     .click(function() {
         $("#OtherExtensions")
             .prop("disabled", true);
-        if (!SAFARI) {
-            chrome.permissions.request({
-                permissions: ['management']
-            }, function(granted) {
-                // The callback argument will be true if the user granted the permissions.
-                if (granted) {
-                    //remove the Yes/No buttons, so users don't click them to soon.
-                    $("#step_disable_extensions")
-                        .fadeOut()
-                        .css("display", "none");
-                    chrome.management.getAll(function(result) {
-                        for (var i = 0; i < result.length; i++) {
-                            if (result[i].enabled &&
-                                result[i].mayDisable &&
-                                result[i].id !== "gighmmpiobklfepjocnamgkkbiglidom" &&
-                                result[i].id !== "aobdicepooefnbaeokijohmhjlleamfj" &&
-                                result[i].id !== "pljaalgmajnlogcgiohkhdmgpomjcihk") {
-                                //if the extension is a developer version, continue, don't disable.
-                                if (result[i].installType === "development" &&
-                                    result[i].type === "extension" &&
-                                    result[i].name === "AdBlock") {
-                                    continue;
-                                }
-                                chrome.management.setEnabled(result[i].id, false);
-                                extensionsDisabled.push(result[i].id);
+        chrome.permissions.request({
+            permissions: ['management']
+        }, function(granted) {
+            // The callback argument will be true if the user granted the permissions.
+            if (granted) {
+                //remove the Yes/No buttons, so users don't click them to soon.
+                $("#step_disable_extensions")
+                    .fadeOut()
+                    .css("display", "none");
+                chrome.management.getAll(function(result) {
+                    for (var i = 0; i < result.length; i++) {
+                        if (result[i].enabled &&
+                            result[i].mayDisable &&
+                            result[i].id !== "gighmmpiobklfepjocnamgkkbiglidom" &&
+                            result[i].id !== "aobdicepooefnbaeokijohmhjlleamfj" &&
+                            result[i].id !== "pljaalgmajnlogcgiohkhdmgpomjcihk") {
+                            //if the extension is a developer version, continue, don't disable.
+                            if (result[i].installType === "development" &&
+                                result[i].type === "extension" &&
+                                result[i].name === "AdBlock") {
+                                continue;
+                            }
+                            chrome.management.setEnabled(result[i].id, false);
+                            extensionsDisabled.push(result[i].id);
+                        }
+                    }
+                    chrome.permissions.remove({
+                        permissions: ['management']
+                    }, function(removed) {});
+                    var alertDisplayed = false;
+                    alert(translate('disableotherextensionscomplete'));
+                    chrome.extension.onRequest.addListener(
+                        function(message, sender, sendResponse) {
+                            if (!alertDisplayed && message.command === "reloadcomplete") {
+                                alertDisplayed = true;
+                                alert(translate('tabreloadcomplete'));
+                                //we're done, redisplay the Yes/No buttons
+                                $("#step_disable_extensions")
+                                    .fadeIn()
+                                    .css("display", "block");
+                                sendResponse({});
                             }
                         }
-                        chrome.permissions.remove({
-                            permissions: ['management']
-                        }, function(removed) {});
-                        var alertDisplayed = false;
-                        alert(translate('disableotherextensionscomplete'));
-                        chrome.extension.onRequest.addListener(
-                            function(message, sender, sendResponse) {
-                                if (!alertDisplayed && message.command === "reloadcomplete") {
-                                    alertDisplayed = true;
-                                    alert(translate('tabreloadcomplete'));
-                                    //we're done, redisplay the Yes/No buttons
-                                    $("#step_disable_extensions")
-                                        .fadeIn()
-                                        .css("display", "block");
-                                    sendResponse({});
-                                }
-                            }
-                        );
-                        BGcall("reloadTab", parseInt(tabId));
-                    }); // end of chrome.management.getAll()
-                } else {
-                    $("#OtherExtensions")
-                        .prop("disabled", false);
-                }
-            }); // end of chrome.permissions.request()
-        }
+                    );
+                    BGcall("reloadTab", parseInt(tabId));
+                }); // end of chrome.management.getAll()
+            } else {
+                $("#OtherExtensions")
+                    .prop("disabled", false);
+            }
+        }); // end of chrome.permissions.request()
     });
 
 // STEP 5: language
@@ -769,12 +722,6 @@ $("#step_language_lang")
             .html(translate("checkinfirefox_2"));
         $("#checkinfirefox")
             .html(translate("checkinfirefoxtitle"));
-        if (SAFARI) {
-            $("#chrome1, #chrome2")
-                .html(translate("orchrome"));
-            $("#adblockforchrome")
-                .html(translate("oradblockforchrome"));
-        }
     });
 
 // STEP 6: also in Firefox
@@ -796,56 +743,9 @@ $("#step_firefox_no")
     .click(function() {
         $("#step_firefox")
             .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
-        if (SAFARI) {
-            // Safari can't block video ads
-            $("#step_flash_DIV")
-                .fadeIn()
-                .css("display", "block");
-        } else {
             $("#step_report_DIV")
                 .fadeIn()
                 .css("display", "block");
-            if (debug_info) {
-                $("#debug-info")
-                    .val(createReadableReport({
-                        "debug": debug_info
-                    }));
-            }
-        }
-    });
-
-$("#step_firefox_wontcheck")
-    .click(function() {
-        if (!SAFARI) {
-            // Chrome blocking is good enough to assume the answer is 'yes'
-            $("#step_firefox_yes")
-                .click();
-        } else {
-            // Safari can't do this.
-            $("#checkupdate")
-                .text(translate("fixityourself"));
-        }
-        $("#step_firefox")
-            .html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
-    });
-
-// STEP 7: video/flash ad (Safari-only)
-
-//If the user clicks a radio button
-$("#step_flash_yes")
-    .click(function() {
-        $("#step_flash")
-            .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-        $("#checkupdate")
-            .text(translate("cantblockflash"));
-    });
-$("#step_flash_no")
-    .click(function() {
-        $("#step_flash")
-            .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
-        $("#step_report_DIV")
-            .fadeIn()
-            .css("display", "block");
         if (debug_info) {
             $("#debug-info")
                 .val(createReadableReport({
@@ -853,6 +753,16 @@ $("#step_flash_no")
                 }));
         }
     });
+
+$("#step_firefox_wontcheck")
+    .click(function() {
+        // Chrome blocking is good enough to assume the answer is 'yes'
+        $("#step_firefox_yes")
+            .click();
+        $("#step_firefox")
+            .html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
+    });
+
 
 // STEP 7: Ad Report
 $("#step_report_submit")

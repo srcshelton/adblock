@@ -1160,7 +1160,7 @@
     "description":"Text of a share link"
   },
   "donate_to_adblock":{
-    "message":"Please donate to help support AdBlock!",
+    "message":"Love AdBlock? Consider donating!",
     "description":"Text of a donate link in the popup menu"
   },
   "pwyw":{

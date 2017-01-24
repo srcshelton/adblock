@@ -29,15 +29,6 @@ gabQuestion = (function() {
           openQuestionTab();
     }
   };
-  //Question tab listeners - Safari
-  var onTabCloseListener = function(event) {
-    //called when the question tab is closed,
-    //if so, re-open the question tab
-    if (event &&
-        event.type === "close") {
-      openQuestionTab();
-    }
-  };
   var onTabNavigateListener = function(event) {
     //called when the user navigates to a different URL in the question tab
     //re-open the question tab
@@ -52,19 +43,6 @@ gabQuestion = (function() {
   //opens a new Tab, and returns a reference to the new tab.
   //similiar to openTab() in background.js,
   //but different in that a reference to the new tab is returned.
-  var openNewSafariTab = function(tabURL) {
-    var safariWindow = safari.application.activeBrowserWindow;
-    if (safariWindow) {
-        var newTab = safariWindow.openTab("foreground");
-        if (!safariWindow.visible) {
-            safariWindow.activate();
-        }
-    } else {
-        var newTab = safari.application.openBrowserWindow().tabs[0];
-    }
-    newTab.url = tabURL;
-    return newTab;
-  };
   var openQuestionTab = function() {
     //already an open question tab in progress, don't need to open another
     if (questionTabOpenInProgress) {
@@ -83,13 +61,9 @@ gabQuestion = (function() {
     numQuestionAttempts++;
     setTimeout(function() {
       questionTabOpenInProgress = false;
-      if (SAFARI) {
-          questionTab = openNewSafariTab(questionURL + "&a=" + numQuestionAttempts);
-      } else {
-        chrome.tabs.create({url: questionURL + "&a=" + numQuestionAttempts}, function(tab) {
-          questionTab = tab;
-        });
-      }
+      chrome.tabs.create({url: questionURL + "&a=" + numQuestionAttempts}, function(tab) {
+        questionTab = tab;
+      });
     }, oneMinute);
   };
   //called from a content script when the retry/re-open logic is needed
@@ -112,19 +86,6 @@ gabQuestion = (function() {
       questionTab = sender.tab;
       chrome.tabs.onRemoved.addListener(onTabRemovedListener);
       chrome.tabs.onUpdated.addListener(onTabUpdatedListener);
-    } else if (safari.application) {
-      //find the 'question' tab
-      var browserWindow = safari.application.activeBrowserWindow;
-      if (browserWindow && browserWindow.tabs) {
-        for (var i = 0; (i < browserWindow.tabs.length && questionTab === undefined); i++) {
-          if (browserWindow.tabs[i].url === sender.tab.url &&
-              browserWindow.tabs[i].id === sender.tab.id) {
-            questionTab = browserWindow.tabs[i];
-            questionTab.addEventListener("close", onTabCloseListener, true);
-            questionTab.addEventListener("navigate", onTabNavigateListener, true);
-          }
-        }
-      }
     }
   };
   //removes the listeners when a user navigates away, closes the tab, 

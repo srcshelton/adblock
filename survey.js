@@ -9,11 +9,7 @@ SURVEY = (function() {
   var processTab = function(surveyData) {
 
     var waitForUserAction = function() {
-      if (SAFARI) {
-        safari.application.removeEventListener("open", waitForUserAction, true);
-      } else {
-        chrome.tabs.onCreated.removeListener(waitForUserAction);
-      }
+      chrome.tabs.onCreated.removeListener(waitForUserAction);
       var openTabIfAllowed = function() {
         shouldShowSurvey(surveyData, function () {
           openTab('https://getadblock.com/' + surveyData.open_this_url, true);
@@ -33,14 +29,10 @@ SURVEY = (function() {
       }
     };
 
-    if (SAFARI) {
-      safari.application.addEventListener("open", waitForUserAction, true);
-    } else {
-      if (chrome.tabs.onCreated.hasListener(waitForUserAction)) {
-          chrome.tabs.onCreated.removeListener(waitForUserAction);
-      }
-      chrome.tabs.onCreated.addListener(waitForUserAction);
+    if (chrome.tabs.onCreated.hasListener(waitForUserAction)) {
+        chrome.tabs.onCreated.removeListener(waitForUserAction);
     }
+    chrome.tabs.onCreated.addListener(waitForUserAction);
   }; //end of processTab()
 
   //Display a notification overlay on the active tab
@@ -122,7 +114,7 @@ SURVEY = (function() {
     // Check if we should show survey only if it can actually be shown
     // based on surveyAllowed.
     if (surveyAllowed) {
-        var data = { cmd: "survey", u: STATS.userId, sid: surveyData.survey_id };
+        var data = { cmd: "survey", u: STATS.userId(), sid: surveyData.survey_id };
         $.post(STATS.statsUrl, data, function(responseData) {
           try {
             var data = JSON.parse(responseData);

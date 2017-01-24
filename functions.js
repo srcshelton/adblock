@@ -180,7 +180,7 @@ getUnicodeUrl = function(url) {
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
 storage_get = function(key) {
-  var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  var store = localStorage;
   if (store === undefined) {
       return undefined;
   }
@@ -199,7 +199,7 @@ storage_get = function(key) {
 // If value === undefined, removes key from storage.
 // Returns undefined.
 storage_set = function(key, value) {
-  var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  var store = localStorage;
   if (value === undefined) {
     store.removeItem(key);
     return;
@@ -242,22 +242,9 @@ sessionstorage_set = function(key, value) {
   try {
     sessionStorage.setItem(key, JSON.stringify(value));
   } catch (ex) {
-    if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
+    if (ex.name == "QUOTA_EXCEEDED_ERR") {
       alert(translate("storage_quota_exceeded"));
       openTab("options/index.html#ui-tabs-2");
     }
-  }
-};
-
-// Create a user notification on Safari
-//
-var createRuleLimitExceededSafariNotification = function() {
-  if (SAFARI && ("Notification" in window)) {
-    sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
-    chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
-    var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("safarinotificationbody"), 'tag' : 1 });
-    note.onclick = function() {
-      openTab("options/index.html?tab=0");
-    };
   }
 };

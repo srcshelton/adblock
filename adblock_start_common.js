@@ -161,15 +161,7 @@ function handleABPLinkClicks() {
         if (abConfirm(translatedMsg)) {
           BGcall("subscribe", {id: "url:" + loc, requires: reqList, title: title});
           // Open subscribe popup
-          if (SAFARI) {
-            // In Safari, window.open() cannot be used
-            // to open a new window from our global HTML file
-            window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
-                        "_blank",
-                        'scrollbars=0,location=0,resizable=0,width=460,height=150');
-          } else {
-            BGcall("launch_subscribe_popup", loc);
-          }
+          BGcall("launch_subscribe_popup", loc);
         }
       });
     }
@@ -271,11 +263,11 @@ function wrapWebSocket(document)
 //   success?: function called at the end if AdBlock should run on the page.
 function adblock_begin(inputs) {
 
-  if (document.location.href === 'about:blank') // Safari does this
+  if (document.location.href === 'about:blank') 
     return;
-  if (document.location.href === 'topsites://') // Safari does this
+  if (document.location.href === 'topsites://')
     return;
-  if (document.location.href === 'favorites://') // Safari does this
+  if (document.location.href === 'favorites://')
     return;
 
   if (!(document.documentElement instanceof HTMLElement))

@@ -4,10 +4,7 @@ function load_options() {
         optionalSettings = settings;
         if (!optionalSettings.show_advanced_options)
             $(".advanced").hide();
-        if (!EDGE)
-            $(".chrome-only").hide();
-        if (EDGE)
-            $(".safari-only").hide();
+        $(".safari-only").hide();
         var activeTab  = $.cookie('activetab');
         if (window.location &&
             window.location.search) {
@@ -30,10 +27,7 @@ function load_options() {
                 // Toggle won't handle .advanced.chrome-only
                 if (!optionalSettings.show_advanced_options)
                     $(".advanced").hide();
-                if (!EDGE)
-                    $(".chrome-only").hide();
-                if (EDGE)
-                    $(".safari-only").hide();
+                $(".safari-only").hide();
             },
         }).show();
         // Set the focus on the active Tab element (not the panel) to allow
@@ -116,36 +110,20 @@ function displayTranslationCredit() {
         xhr.onload = function() {
             var text = JSON.parse(this.responseText);
             var lang = navigator.language;
-            for (var id in text) {
-                if (!SAFARI) {
-                    if (id === lang) {
-                        for (var translator in text[id].translators) {
-                            var name = text[id].translators[translator].credit;
-                            translators.push(" " + name);
-                        }
-                    } else {
-                       for (var translator in text[id].translators) {
-                          var lang = lang.toLowerCase();
-                          if (id === lang) {
-                              var name = text[lang].translators[translator].credit;
-                              translators.push(" " + name);
-                          }
-                       }
+            for (var id in text) {                 
+                if (id === lang) {
+                    for (var translator in text[id].translators) {
+                        var name = text[id].translators[translator].credit;
+                        translators.push(" " + name);
                     }
                 } else {
-                    if (lang.substring(0, 2) === id) {
-                        for (var translator in text[id].translators) {
-                            var name = text[id].translators[translator].credit;
-                            translators.push(" " + name);
-                        }
-                    } else {
-                      for (var translator in text[id].translators) {
-                          if (id === lang) {
-                            var name = text[lang].translators[translator].credit;
-                            translators.push(" " + name);
-                          }
-                        }
-                    }
+                   for (var translator in text[id].translators) {
+                      var lang = lang.toLowerCase();
+                      if (id === lang) {
+                          var name = text[lang].translators[translator].credit;
+                          translators.push(" " + name);
+                      }
+                   }
                 }
             }
             $("#translator_credit").text(translate("translator_credit"));

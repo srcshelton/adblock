@@ -560,8 +560,7 @@ function addMalwareNotificationDiv() {
 
     if (document.getElementById("malware-notification-message-div"))
         return;//already exists, don't add it again.
-    if (!SAFARI &&
-        chrome &&
+    if (chrome &&
         chrome.notifications) {
         BGcall('storage_get', 'malware-notification', function(notify) {
             var newDiv = $("<div>").
