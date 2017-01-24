@@ -1239,6 +1239,7 @@
   // Used by 'Resource' page
   add_to_matchCache = function(cache) {
      _myfilters.blocking._matchCache = cache;
+     _myfilters.blocking._numCacheEntries = Object.keys(cache).length;
   }
 
   // Reset matchCache
@@ -1246,7 +1247,7 @@
   // Returns: object with cached requests
   reset_matchCache = function() {
       var matchCache = _myfilters.blocking._matchCache;
-      _myfilters.blocking._matchCache = {};
+      _myfilters.blocking.resetMatchCache();
       return matchCache;
   }
 

@@ -26,17 +26,18 @@ var elementPurger = {
         var src = srcdata[i];
         var attr = (tag === "OBJECT" ? "data" : "src");
         var selector = tag + '[' + attr + src.op + '"' + src.text + '"]';
-
+        // Don't process any query selectors with brackets in them
+        if (src.text &&
+            src.text.indexOf('[') >= 0) {
+          log("[DEBUG]", "  ", "bracket found in selector, returning")
+          continue;
+        }
         var results = document.querySelectorAll(selector);
         log("[DEBUG]", "  ", results.length, "results for selector:", selector);
         if (results.length) {
           for (var j=0; j < results.length; j++) {
             destroyElement(results[j], elType);
           }
-          var externalId = "kodkhcagmjcidjgljmbfiaconnbnohho";
-          request.selector = selector;
-          chrome.extension.sendRequest(externalId, request);
-
           return; // I doubt the same URL was loaded via 2 different src attrs.
         }
       }

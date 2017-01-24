@@ -46,3 +46,5 @@ var FilterOptions = {
   MATCHCASE: 2,
   FIRSTPARTY: 4
 };
+
+var MaxCacheEntries = 1000;

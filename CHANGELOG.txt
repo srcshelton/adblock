@@ -2,6 +2,11 @@
 
 UNRELEASED:
 
+1.5.0.0:
+- Removed the 'bandaids' processing on YouTube because of video playback issues.  (#99)
+- Added a check for invalid characters to the purge element processing to avoid issue with bad CSS query strings.  (#98)
+- To prevent memory leaks, the blocked resource cache now has an max size of 1,000 entries.  (#77)
+
 1.4.0.0:
 - Changed the 'Spread the word' link on the AdBlock menu to 'Donate to help support AdBlock!'.  (#91)
 - Added 'bandaids' processing to help block the 'Suggested Post' ads on Facebook.  (#72)

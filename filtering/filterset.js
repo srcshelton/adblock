@@ -121,6 +121,7 @@ BlockingFilterSet = function(patternFilterSet, whitelistFilterSet) {
 
   // Caches results for this.matches()
   this._matchCache = {};
+  this._numCacheEntries = 0;
 }
 
 // Checks if the two domains have the same origin
@@ -164,11 +165,13 @@ BlockingFilterSet.prototype = {
       if (loggingEnable) {
         log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
       }
+      this._checkCacheSize();
       if (returnTuple && returnFilter) {
         this._matchCache[key] = { blocked: false, text: match._text};
       } else {
         this._matchCache[key] = (returnFilter ? match._text : false);
       }
+      this._numCacheEntries++;
       return this._matchCache[key];
     }
     match = this.pattern.matches(url, elementType, frameDomain, isThirdParty);
@@ -176,11 +179,13 @@ BlockingFilterSet.prototype = {
       if (loggingEnable) {
         log(frameDomain, ": matched", match._rule, "to url", url);
       }
+      this._checkCacheSize();
       if (returnTuple && returnFilter) {
         this._matchCache[key] = { blocked: true, text: match._text};
       } else {
         this._matchCache[key] = (returnFilter ? match._text : true);
       }
+      this._numCacheEntries++;
       return this._matchCache[key];
     }
     if (this.malwareDomains &&
@@ -193,14 +198,18 @@ BlockingFilterSet.prototype = {
       if (blockCounts) {
         blockCounts.recordOneMalwareBlocked();
       }
+      this._checkCacheSize();
       this._matchCache[key] = (returnFilter ? urlDomain: true);
       // createMalwareNotification is not defined outside of BG page
       if (typeof createMalwareNotification === "function") {
           createMalwareNotification(frameDomain);
       }
+      this._numCacheEntries++;
       return this._matchCache[key];
     }
+    this._checkCacheSize();
     this._matchCache[key] = false;
+    this._numCacheEntries++;
     return this._matchCache[key];
   },
   setMalwareDomains: function(malwareDoms) {
@@ -223,4 +232,14 @@ BlockingFilterSet.prototype = {
   getMalwareDomains: function() {
     return this.malwareDomains;
   },
+  _checkCacheSize: function() {
+    if (this._numCacheEntries >= MaxCacheEntries)
+    {
+      this.resetMatchCache();
+    }
+  },
+  resetMatchCache: function() {
+      this._matchCache = {};
+      this._numCacheEntries = 0;
+  }
 }
