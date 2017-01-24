@@ -18,7 +18,8 @@ var supportInit = function () {
     // Show debug info
     $("#debug").click(function () {
         BGcall("getDebugInfo", function (info) {
-            $("#debugInfo").text(info).css({width: "450px", height: "100px"}).fadeIn();
+            var debugStr = info.filter_lists + '\n\n' + info.settings + '\n\n' + info.custom_filters + '\n\n' + info.other_info;
+            $("#debugInfo").text(debugStr).css({width: "450px", height: "100px"}).fadeIn();
         });
     });
     //disable the context menu, so that user's don't open the link's on new tabs, windows, etc.

@@ -2,8 +2,6 @@
 
 var customizeInit = function () {
 
-    BGcall("get_filter_syntax_url");
-
     chrome.extension.onRequest.addListener(function (request) {
         if (request && request.command != "filters_updated")
             return;
@@ -19,16 +17,6 @@ var customizeInit = function () {
             $("#txtExcludeFiltersAdvanced").val(text);
         });
     });
-
-    chrome.extension.onRequest.addListener(function (request) {
-        if (request && request.command != "filter_syntax_url")
-            return;
-        else if (!request || !request.data) {
-            return;
-        }
-        $('#tutorlink').attr("href", request.data);
-    });
-
 
     // Add a custom filter to the list
     function appendCustomFilter(filter) {

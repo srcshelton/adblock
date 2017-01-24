@@ -2,6 +2,7 @@
 
 // Set menu entries appropriately for the selected tab.
 var shown = {};
+var userid = "";
 const ADBLOCK_BUTTON_PANEL_WIDTH = 275;
 
 function customize_for_this_tab(info) {
@@ -19,7 +20,10 @@ function customize_for_this_tab(info) {
             shown[x] = false;
         });
     }
-
+    BGcall('get_adblock_user_id', function (adblock_user_id) {
+      userid = adblock_user_id;
+    });
+    
     show(["div_options", "separator2"]);
     if (info.adblock_is_paused) {
         show(["div_status_paused", "separator0", "div_paused_adblock", "div_options"]);
@@ -203,7 +207,7 @@ $(function () {
 
     //// Share - social links page click handlers
     $("#link_open").click(function () {
-        addon.port.emit("openExternalTab", "https://getadblock.com/pay/?exp=7002&v=0");
+        addon.port.emit("openExternalTab", "https://getadblock.com/pay/?exp=7003&u=" + userid);
         addon.port.emit("close");
     });
 

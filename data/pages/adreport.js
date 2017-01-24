@@ -169,7 +169,6 @@ var createReadableReport = function(data) {
     content.push("");
     if (data.debug &&
         data.debug.filter_lists) {
-        content.push("=== Filter Lists ===");
         content.push(data.debug.filter_lists);
     }
     content.push("");

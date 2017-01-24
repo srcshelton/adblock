@@ -7,31 +7,8 @@ $(document).ready(function() {
       // Get debug info
       BGcall("getDebugInfo", function(info) {
           debug_info = info;
-          debug_info.language = determineUserLanguage();
-          // Get written debug info
-          // info is the debug info object
-          content = [];
-          content.push("=== Filter Lists ===");
-          content.push(debug_info.filter_lists);
-          content.push("");
-          // Custom & Excluded filters might not always be in the object
-          if (debug_info.custom_filters) {
-              content.push("=== Custom Filters ===");
-              content.push(debug_info.custom_filters);
-              content.push("");
-          }
-          if (debug_info.exclude_filters) {
-              content.push("=== Exclude Filters ===");
-              content.push(debug_info.exclude_filters);
-              content.push("");
-          }
-          content.push("=== Settings ===");
-          content.push(debug_info.settings);
-          content.push("");
-          content.push("=== Other Info ===");
-          content.push(debug_info.other_info);
           // Put it together to put into the textbox
-          text_debug_info = content.join("\n");
+          text_debug_info = info.filter_lists + '\n\n' + info.settings + '\n\n' + info.custom_filters + '\n\n' + info.other_info;
       });
 
       // Cache access to input boxes

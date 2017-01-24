@@ -1,6 +1,21 @@
 ## Versions ##
 
 UNRELEASED:
+
+2.6.0:
+- Updated Translations.
+- Fixed an alignment issue with the version number in AdBlock Options page footer. (#194)
+- Updated the 'donate to us' link on the AdBlock menu. (#197)
+- Fixed an issue in the black list wizard, the second 'page' showed the attributes as undefined.  (#192)
+- Fixed an issue on the Options page with the bottom line not visible. (#189)
+- Updated the contact information for the Hungarian filter list. (#186)
+- Removed the 'Arabic' language filter list, and added 'Arabic & French' in its place. (#176)
+- Updated the contact information for the Israeli / Hebrew filter list. (#181)
+- Removed the check for the filter list syntax tutorial URL link on the Options page. (#174)
+- Fixed the display of the 'debug information' on the Support tab on the Options page. (#182)
+- Updated the filter list rule validation logic to allow domains with URL escape characters in filter lists. (#179)
+- Added a check for the 'isTrusted' attribute in filter list subscription click handler. (#177)
+- Added support for web socket filter list option. (#175)
  
 2.5.0:
 - Added logic to the 'Report an Ad' page to check if Acceptable Ads is enabled.

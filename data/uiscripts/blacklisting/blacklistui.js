@@ -402,12 +402,10 @@ BlacklistUi.prototype._redrawPage2 = function() {
     var checked = true;
     if (attr == 'src' || attr == 'href' || attr == 'data')
       checked = $("input", detailsDiv).length == 1;
-    var italic = $("<i></i>").text(val);
     var checkboxlabel = $("<label></label>").
       text(translateAndRemoveHTML("blacklisterattrwillbe",
-           [(attr == 'nodeName' ? translate("blacklistertype") : attr)])).
+           [(attr == 'nodeName' ? translate("blacklistertype") : attr), val])).
       attr("for", "ck" + attr);
-    $('i', checkboxlabel).replaceWith(italic);
 
     var checkbox = $("<div></div>").
       append("<input type=checkbox " + (checked ? 'checked="checked"': '') +

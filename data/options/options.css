@@ -116,7 +116,7 @@
       #tabpages {
         position: relative;
         display: none;
-        margin: 0px auto;
+        margin: 0px auto 35px;
         max-width: 1020px;
         padding-top: 55px;
       }
@@ -195,13 +195,7 @@
         text-align: right;
         padding-top: 135px;
       }
-      #version_number {
-        margin: 20px 50%;
-        min-width: 100px;
-        padding-left: 375px;
-        position: absolute;
-        text-align: right;
-      }
+
       .footnote {
         font-size: small;
         font-style: italic;

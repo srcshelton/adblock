@@ -903,12 +903,8 @@
     "message":"Ukrainian",
     "description":"language"
   },
-  "filtereasylist_plus_arabic":{
-    "message":"Arabic",
-    "description":"A filter list"
-  },
-  "filter_easylist_plus_arabic":{
-    "message":"Arabic + EasyList",
+  "filtereasylist_plus_arabic_plus_french":{
+    "message":"Arabic + French + EasyList",
     "description":"A filter list combined with EasyList"
   },
   "filter_easylist_plus_arabic_plus_french":{
