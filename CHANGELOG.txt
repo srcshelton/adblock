@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.11.0.0:
+- Updated translations. 
+- Updated 'bandaids' processing to help block ads on certain web sites. (#135)
+
 1.10.3.0:
 - Updated the 'success' text on the 'Debug Report' page.  Also, the debug data now includes the AdBlock 'paused' state.  (#126)
 - Updated translations.

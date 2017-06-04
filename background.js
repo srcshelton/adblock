@@ -1530,6 +1530,8 @@
       var AdBlockBuild = function() {
         if (chrome.runtime.id === "EdgeExtension_BetaFishAdBlock_c1wakc4j0nefm") {
             return "Stable";
+        } else if (chrome.runtime.id === "EdgeExtension_BetaFishAdBlockBeta_c1wakc4j0nefm") {
+            return "Beta";
         } else {
             return "Unofficial";
         }

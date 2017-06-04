@@ -75,7 +75,7 @@ $(function() {
           show(["div_whitelist_all_channels"]);
         }
 
-        if (chrome.runtime && chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk")
+        if (chrome.runtime && chrome.runtime.id === "EdgeExtension_BetaFishAdBlockBeta_c1wakc4j0nefm")
             show(["div_status_beta"]);
 
         for (var div in shown)
