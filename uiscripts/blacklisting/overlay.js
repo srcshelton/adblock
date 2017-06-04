@@ -1,44 +1,47 @@
-Overlay = function(options) {
+Overlay = function (options) {
 
-  var el = $(options.dom_element);
+  var $el = $(options.dom_element);
 
   this.image = $("<div class='adblock-killme-overlay'></div>").
     css({
-      "left": el.position().left,
-      "top": el.position().top
+      left: $el.position().left,
+      top: $el.position().top,
     }).
-    width(el.width()).
-    height(el.height());
-  this.el = el;
+    width($el.width()).
+    height($el.height());
+  this.el = $el;
   this.click_handler = options.click_handler;
-  
+
   this.image.
-    bind("mouseenter",function() {
+    bind('mouseenter', function () {
       // crbug.com/110084
-      this.style.setProperty("background-color", "rgba(130, 180, 230, 0.5)", "important");
+      this.style.setProperty('background-color', 'rgba(130, 180, 230, 0.5)', 'important');
     }).
-    bind("mouseleave",function() {
+    bind('mouseleave', function () {
       // crbug.com/110084
-      this.style.setProperty("background-color", "transparent", "important");
-    })
+      this.style.setProperty('background-color', 'transparent', 'important');
+    });
 
   Overlay.instances.push(this);
-}
+};
+
 Overlay.instances = [];
-Overlay.removeAll = function() {
-  $.each(Overlay.instances, function(i,overlay) {
+Overlay.removeAll = function () {
+  $.each(Overlay.instances, function (i, overlay) {
     overlay.image.remove();
   });
+
   Overlay.instances = [];
-}
-Overlay.prototype.display = function() {
-  var that = this;
+};
+
+Overlay.prototype.display = function () {
+  var _this = this;
   this.image.
-    appendTo(that.el.parent()).
-    click(function() {
-      that.click_handler(that.el);
+    appendTo(_this.el.parent()).
+    click(function () {
+      _this.click_handler(_this.el);
       return false;
     });
-}
+};
 
-//@ sourceURL=/uiscripts/blacklisting/overlay.js
+//# sourceURL=/uiscripts/blacklisting/overlay.js

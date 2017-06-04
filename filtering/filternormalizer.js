@@ -4,11 +4,11 @@ var FilterNormalizer = {
 
   userExcludedFilterArray: [],
 
-  setExcludeFilters: function(text) {
+  setExcludeFilters: function (text) {
     if (text) {
-        userExcludedFilterArray = text.split('\n');
+      userExcludedFilterArray = text.split('\n');
     } else {
-        userExcludedFilterArray = null;
+      userExcludedFilterArray = null;
     }
   },
 
@@ -18,12 +18,12 @@ var FilterNormalizer = {
   //        keepComments:boolean if true, comments will not be removed
   // Returns: filter strings separated by '\n' with invalid filters
   //          removed or modified
-  normalizeList: function(text, keepComments) {
+  normalizeList: function (text, keepComments) {
     var lines = text.split('\n');
     delete text;
     var result = [];
     var ignoredFilterCount = 0;
-    for (var i=0; i<lines.length; i++) {
+    for (var i = 0; i < lines.length; i++) {
       try {
         var newfilter = FilterNormalizer.normalizeLine(lines[i]);
         if (newfilter)
@@ -37,6 +37,7 @@ var FilterNormalizer = {
         ignoredFilterCount++;
       }
     }
+
     if (ignoredFilterCount)
       log('Ignoring ' + ignoredFilterCount + ' rule(s)');
     return result.join('\n') + '\n';
@@ -50,7 +51,8 @@ var FilterNormalizer = {
   //
   // Note that 'Expires' comments are considered valid comments that
   // need retention, because they carry information.
-  normalizeLine: function(filter) {
+  normalizeLine: function (filter) {
+
     // Some rules are separated by \r\n; and hey, some rules may
     // have leading or trailing whitespace for some reason.
     filter = filter.replace(/\r$/, '').trim();
@@ -61,30 +63,34 @@ var FilterNormalizer = {
 
     // Convert old-style hiding rules to new-style.
     if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/\#\@?\#./.test(filter)) {
+
       // Throws exception if unparseable.
       var oldFilter = filter;
       filter = FilterNormalizer._old_style_hiding_to_new(filter);
       log('Converted ' + oldFilter + ' to ' + filter);
     }
+
     if (typeof userExcludedFilterArray !== 'undefined' &&
         userExcludedFilterArray &&
         userExcludedFilterArray.length > 0 &&
         userExcludedFilterArray.indexOf(filter) >= 0) {
-            return null;
+      return null;
     }
 
     // If it is a hiding rule...
     if (Filter.isSelectorFilter(filter)) {
-      // The filter must be of a correct syntax
 
+      // The filter must be of a correct syntax
       try {
+
         // Throws if the filter is invalid...
         var selectorPart = filter.replace(/^.*?\#\@?\#/, '');
         if (document.querySelector(selectorPart + ',html').length === 0)
-          throw new Error("Causes other filters to fail");
-      } catch(ex) {
+          throw new Error('Causes other filters to fail');
+      } catch (ex) {
+
         // ...however, the thing it throws is not human-readable. This is.
-        throw new Error("Invalid CSS selector syntax");
+        throw new Error('Invalid CSS selector syntax');
       }
 
       // On a few sites, we have to ignore [style] rules.
@@ -93,7 +99,7 @@ var FilterNormalizer = {
       // loading the site will hang in Safari 6 while Safari creates a bunch of
       // one-off style sheets (issue 7356).
       if (/style([\^\$\*]?=|\])/.test(filter)) {
-        var excludedDomains = ["mail.google.com", "mail.yahoo.com"];
+        var excludedDomains = ['mail.google.com', 'mail.yahoo.com'];
         filter = FilterNormalizer._ensureExcluded(filter, excludedDomains);
       }
 
@@ -106,7 +112,7 @@ var FilterNormalizer = {
       var whitelistOptions = (ElementTypes.document | ElementTypes.elemhide);
       var hasWhitelistOptions = types & whitelistOptions;
       if (!Filter.isWhitelistFilter(filter) && hasWhitelistOptions)
-        throw new Error("$document and $elemhide may only be used on whitelist filters");
+        throw new Error('$document and $elemhide may only be used on whitelist filters');
 
       // We are ignoring Hulu whitelist filter, so user won't see ads in videos
       // but just a message about using AdBlock - Issue 7178
@@ -133,21 +139,57 @@ var FilterNormalizer = {
     return filter;
   },
 
+  //validates a single filter
+  //used by option pages, content scripts, etc
+  validateLine: function (filter, returnException) {
+      try {
+        return FilterNormalizer.normalizeLine(filter);
+      } catch (ex) {
+        if (returnException) {
+          return ({ exception: ex.message });
+        } else {
+          return false;
+        }
+      }
+    },
+
+  //validates an array of filters
+  //used by option pages, content scripts, etc
+  validateList: function (filters, returnException) {
+      var filterText;
+      try {
+        for (var i = 0; i < filters.length; i++) {
+          filterText = filters[i];
+          FilterNormalizer.normalizeLine(filterText);
+        }
+      } catch (ex) {
+        if (returnException) {
+          return ({ exception: ex.message, filter: filterText });
+        } else {
+          return false;
+        }
+      }
+
+      return true;
+    },
+
   // Return |selectorFilterText| modified if necessary so that it applies to no
   // domain in the |excludedDomains| list.
   // Throws if |selectorFilterText| is not a valid filter.
   // Example: ("a.com##div", ["sub.a.com", "b.com"]) -> "a.com,~sub.a.com##div"
-  _ensureExcluded: function(selectorFilterText, excludedDomains) {
+  _ensureExcluded: function (selectorFilterText, excludedDomains) {
     var text = selectorFilterText;
     var filter = new SelectorFilter(text);
-    var mustExclude = excludedDomains.filter(function(domain) {
+    var mustExclude = excludedDomains.filter(function (domain) {
       return filter._domains._computedHas(domain);
     });
+
     if (mustExclude.length > 0) {
-      var toPrepend = "~" + mustExclude.join(",~");
-      if (text[0] != "#") toPrepend += ",";
+      var toPrepend = '~' + mustExclude.join(',~');
+      if (text[0] != '#') toPrepend += ',';
       text = toPrepend + text;
     }
+
     return text;
   },
 
@@ -155,7 +197,8 @@ var FilterNormalizer = {
   // Input: filter:string old-style filter
   // Returns: string new-style filter
   // Throws: exception if filter is unparseable.
-  _old_style_hiding_to_new: function(filter) {
+  _old_style_hiding_to_new: function (filter) {
+
     // Old-style is domain#node(attr=value) or domain#node(attr)
     // domain and node are optional, and there can be many () parts.
     filter = filter.replace('#', '##');
@@ -169,21 +212,23 @@ var FilterNormalizer = {
     //    the ()s can't be empty, and can't start with '='
     if (rule.length == 0 ||
         !/^(?:\*|[a-z0-9\-_]*)(?:\([^=][^\)]*?\))*$/i.test(rule))
-      throw new Error("bad selector filter");
+      throw new Error('bad selector filter');
 
-    var first_segment = rule.indexOf('(');
+    var firstSegment = rule.indexOf('(');
 
-    if (first_segment == -1)
+    if (firstSegment == -1)
       return domain + '##' + rule;
 
-    var node = rule.substring(0, first_segment);
-    var segments = rule.substring(first_segment);
+    var node = rule.substring(0, firstSegment);
+    var segments = rule.substring(firstSegment);
 
     // turn all (foo) groups into [foo]
-    segments = segments.replace(/\((.*?)\)/g, "[$1]");
+    segments = segments.replace(/\((.*?)\)/g, '[$1]');
+
     // turn all [foo=bar baz] groups into [foo="bar baz"]
     // Specifically match:    = then not " then anything till ]
     segments = segments.replace(/\=([^"][^\]]*)/g, '="$1"');
+
     // turn all [foo] into .foo, #foo
     // #div(adblock) means all divs with class or id adblock
     // class must be a single class, not multiple (not #*(ad listitem))
@@ -191,38 +236,45 @@ var FilterNormalizer = {
     var resultFilter = node + segments;
     var match = resultFilter.match(/\[([^\=]*?)\]/);
     if (match)
-      resultFilter = resultFilter.replace(match[0], "#" + match[1]) +
-       "," + resultFilter.replace(match[0], "." + match[1]);
+      resultFilter = resultFilter.replace(match[0], '#' + match[1]) +
+       ',' + resultFilter.replace(match[0], '.' + match[1]);
 
-    return domain + "##" + resultFilter;
+    return domain + '##' + resultFilter;
   },
 
   // Checks if the filter is an object property, which we should not overwrite.
   // See Issue 7117.
   // Throw an exeption if that's the case
   // Input: text (string): the item to check
-  _checkForObjectProperty: function(text) {
+  _checkForObjectProperty: function (text) {
     if (text in Object)
-      throw new Error("Filter causes problems in the code");
+      throw new Error('Filter causes problems in the code');
   },
 
   // Throw an exception if the DomainSet |domainSet| contains invalid domains.
-  verifyDomains: function(domainSet) {
+  verifyDomains: function (domainSet) {
     for (var domain in domainSet.has) {
       if (domain === DomainSet.ALL)
         continue;
+
       // Convert punycode domains to Unicode
       domain = getUnicodeDomain(domain);
       if (/^([%a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[%a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) == false)
-        throw new Error("Invalid domain: " + domain);
+        throw new Error('Invalid domain: ' + domain);
+
       // Ensure domain doesn't break AdBlock
       FilterNormalizer._checkForObjectProperty(domain);
     }
-  }
-}
+  },
+};
+
 //Initialize the exclude filters at startup
-try { 
-    FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
-} catch(e) {
-    //ignore exception in Safari on options / resource block pages
+try {
+  chrome.storage.local.get('exclude_filters', function (response)
+  {
+    FilterNormalizer.setExcludeFilters(response['exclude_filters']);
+  });
+} catch (e) {
+
+  //ignore exception
 }

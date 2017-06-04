@@ -1,3 +1,172 @@
+﻿'use strict';
+
+var _settings = {};
+var _myfilters = {};
+
+var initializeBackgroundObjects = function (storageData) {
+
+  if (Object.keys(storageData).length) {
+
+    var migrateLogMessageKey = 'migrateLogMessageKey';
+    var migrateLogMessageString = 'Date migrated: ' + new Date() + ' \n';
+    var migrateLog = function ()
+    {
+      console.log.apply(console, arguments);
+      var args = Array.prototype.slice.call(arguments);
+      migrateLogMessageString = migrateLogMessageString + args.join(' ') + '\n';
+      chrome.storage.local.set({ migrateLogMessageKey: migrateLogMessageString });
+    };
+
+    if (storageData.settings) {
+      chrome.storage.local.set({ settings: storageData.settings });
+      migrateLog('migrated settings ' + JSON.stringify(storageData.settings));
+    }
+
+    if (storageData.filter_lists) {
+      chrome.storage.local.set( { filter_lists: storageData.filter_lists }, function () {
+          if (chrome.runtime.lastError) {
+            migrateLog('filter list data migrate write failure', chrome.runtime.lastError);
+          } else {
+            delete localStorage.filter_lists;
+            migrateLog('Done migrating subscriptions, count: ', Object.keys(storageData.filter_lists).length);
+          }
+        });
+    }
+
+    if (storageData.last_subscriptions_check) {
+      chrome.storage.local.set({ last_subscriptions_check: storageData.last_subscriptions_check });
+      migrateLog('migrated last_subscriptions_check ' + storageData.last_subscriptions_check);
+    }
+
+    if (storageData.custom_filters) {
+      chrome.storage.local.set({ custom_filters: storageData.custom_filters }, function () {
+          if (chrome.runtime.lastError) {
+            migrateLog('custom_filters data migrate write failure', chrome.runtime.lastError);
+          } else {
+            delete localStorage.custom_filters;
+            migrateLog('migrated custom_filters ' + storageData.custom_filters);
+          }
+      });
+    }
+
+    if (storageData.custom_filter_count) {
+      chrome.storage.local.set({ custom_filter_count: storageData.custom_filter_count });
+      migrateLog('migrated custom_filter_count ' + JSON.stringify(storageData.custom_filter_count));
+    }
+
+    if (storageData.exclude_filters) {
+      chrome.storage.local.set({ exclude_filters: storageData.exclude_filters }, function () {
+          if (chrome.runtime.lastError) {
+            migrateLog('exclude_filters data migrate write failure', chrome.runtime.lastError);
+          } else {
+            delete localStorage.exclude_filters;
+            migrateLog('migrated exclude_filters ' + storageData.exclude_filters);
+          }
+      });
+    }
+
+    if (storageData['malware-notification']) {
+      chrome.storage.local.set({ 'malware-notification': storageData['malware-notification'] });
+      migrateLog('migrated malware-notification ' + storageData['malware-notification']);
+    }
+  }
+
+  _settings = new Settings();
+  _settings.onload().then(function ()
+  {
+
+    if (getSettings().debug_logging) {
+      logging(true);
+    }
+  });
+
+  if (typeof STATS === 'object') {
+    STATS.startPinging();
+  }
+
+  if (typeof blockCounts === 'object') {
+    blockCounts.init();
+
+    if (chrome.runtime.setUninstallURL) {
+      STATS.checkUserId().then(function (userID)
+      {
+        var uninstallURL = 'https://getadblock.com/uninstall/?u=' + userID;
+        //if the start property of blockCount exists (which is the AdBlock installation timestamp)
+        //use it to calculate the approximate length of time that user has AdBlock installed
+        if (blockCounts && typeof blockCounts.get === 'function') {
+          var twoMinutes = 2 * 60 * 1000;
+          var updateUninstallURL = function () {
+            var localBC = blockCounts.get();
+            if (localBC && localBC.start) {
+              var installedDuration = (Date.now() - localBC.start);
+              var url = uninstallURL + '&t=' + installedDuration;
+              var bc = localBC.total;
+              url = url + '&bc=' + bc;
+              if (typeof _myfilters === 'object' &&
+                  _myfilters._subscriptions &&
+                  _myfilters._subscriptions.adblock_custom &&
+                  _myfilters._subscriptions.adblock_custom.last_update) {
+                url = url + '&abc-lt=' + _myfilters._subscriptions.adblock_custom.last_update;
+              } else {
+                url = url + '&abc-lt=-1';
+              }
+
+              chrome.runtime.setUninstallURL(url);
+            }
+          };
+          //start an interval timer that will update the Uninstall URL every 2 minutes
+          setInterval(updateUninstallURL, twoMinutes);
+          updateUninstallURL();
+        } else {
+          chrome.runtime.setUninstallURL(uninstallURL + '&t=-1');
+        }
+      });
+    }
+  }
+
+  count_cache_init();
+
+  _myfilters = new MyFilters(function () {
+    _myfilters.init();
+  }); // end of new MyFilters
+  _myfilters.ready().then(function(result) {
+
+    var handleEarlyOpenedTabs = function(tabs) {
+      if (!tabs) {
+        return;
+      }
+      log("Found", tabs.length, "tabs that were already opened");
+      for (var i=0; i<tabs.length; i++) {
+        var currentTab = tabs[i], tabId = currentTab.id;
+        if (!frameData.get(tabId)) { // unknown tab
+            currentTab.url = getUnicodeUrl(currentTab.url);
+            frameData.track({url: currentTab.url, tabId: tabId, type: "main_frame"});
+        }
+        updateBadge(tabId);
+      }
+    };
+
+    chrome.tabs.query({ url: 'http://*/*' }, handleEarlyOpenedTabs);
+    chrome.tabs.query({ url: 'https://*/*' }, handleEarlyOpenedTabs);
+    chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, { urls: ['http://*/*', 'https://*/*'] }, ['blocking']);
+    chrome.tabs.onRemoved.addListener(frameData.removeTabId);
+    // Popup blocking
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
+      chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
+    }
+    if (chrome.tabs) {
+      chrome.tabs.onUpdated.addListener(function (tabid, changeInfo, tab) {
+        if (tab.active && changeInfo.status)
+          updateButtonUIAndContextMenus();
+      });
+
+      chrome.tabs.onActivated.addListener(function () {
+        updateButtonUIAndContextMenus();
+      });
+    }
+  });
+}; // end of initializeBackgroundObjects
+
   // Send the file name and line number of any error message. This will help us
   // to trace down any frequent errors we can't confirm ourselves.
   window.addEventListener("error", function(e) {
@@ -24,52 +193,88 @@
     log(str);
   });
 
-  // Records how many ads have been blocked by AdBlock.  This is used
-  // by the AdBlock app in the Chrome Web Store to display statistics
-  // to the user.
-  var blockCounts = (function() {
-    var key = "blockage_stats";
-    var data = storage_get(key);
-    if (!data)
-      data = {};
-    if (data.start === undefined)
-      data.start = Date.now();
-    if (data.total === undefined)
-      data.total = 0;
-    if (data.malware_total === undefined)
-      data.malware_total = 0;
-    data.version = 1;
-    storage_set(key, data);
+// If the Chrome API 'onInstalled' is available, and
+// reason is 'install' and
+// AdBlock wasn't installed using an 'admin' group policy then
+// Open the install tab.
+if (chrome.runtime.onInstalled) {
+  chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason === "install") {
+      STATS.checkUserId().then(function (userID) {
+        var openInstalledTab = function () {
+          var installedURL = 'https://getadblock.com/installed/?u=' + userID;
+          chrome.tabs.create({ url: installedURL });
+        };
 
-    return {
-      recordOneAdBlocked: function(tabId) {
-        var data = storage_get(key);
-        data.total += 1;
-        storage_set(key, data);
+        if (chrome.management && chrome.management.getSelf) {
+          chrome.management.getSelf(function(info) {
+            if (info && info.installType !== "admin") {
+              openInstalledTab();
+            }
+          });
+        } else {
+          openInstalledTab();
+        }
+      });
+    }
+  });
+}
 
-        //code for incrementing ad blocks
-        currentTab = frameData.get(tabId);
-        if(currentTab){
-          currentTab.blockCount++;
-        }
-      },
-      recordOneMalwareBlocked: function() {
-        var data = storage_get(key);
-        data.malware_total += 1;
-        storage_set(key, data);
-      },
-      get: function() {
-        return storage_get(key);
-      },
-      getTotalAdsBlocked: function(tabId){
-        if(tabId){
-          currentTab = frameData.get(tabId);
-          return currentTab ? currentTab.blockCount : 0;
-        }
-        return this.get().total;
+// Records how many ads have been blocked by AdBlock.  This is used
+// by the AdBlock app in the Chrome Web Store to display statistics
+// to the user.
+// Block Counts are stored in 'localstorage' because of performance requirements
+// in the recordOneAdBlocked() function.  Data loss can occur when using storage.local.get/set
+// in quick succession.
+var blockCounts = (function () {
+  var BCkey = 'blockage_stats';
+  return {
+    init: function () {
+      var data = storage_get(BCkey);
+      if (!data)
+        data = {};
+      if (data.start === undefined)
+        data.start = Date.now();
+      if (data.total === undefined)
+        data.total = 0;
+      if (data.malware_total === undefined)
+        data.malware_total = 0;
+      data.version = 1;
+      storage_set(BCkey, data);
+    },
+
+    recordOneAdBlocked: function (tabId) {
+      var data = storage_get(BCkey);
+      data.total += 1;
+      storage_set(BCkey, data);
+
+      //code for incrementing ad blocks
+      var currentTab = frameData.get(tabId);
+      if (currentTab) {
+        currentTab.blockCount++;
       }
-    };
-  })();
+    },
+
+    recordOneMalwareBlocked: function () {
+      var data = storage_get(BCkey);
+      data.malware_total += 1;
+      storage_set(BCkey, data);
+    },
+
+    get: function () {
+      return storage_get(BCkey);
+    },
+
+    getTotalAdsBlocked: function (tabId) {
+      if (tabId) {
+        var currentTab = frameData.get(tabId);
+        return currentTab ? currentTab.blockCount : 0;
+      }
+
+      return this.get().total;
+    },
+  };
+})();
 
   //called from bandaids, for use on our getadblock.com site
   var get_adblock_user_id = function() {
@@ -85,38 +290,6 @@
   var set_first_run_to_false = function() {
     STATS.firstRun = false;
   };
-
-  // OPTIONAL SETTINGS
-
-  function Settings() {
-    var defaults = {
-      debug_logging: false,
-      youtube_channel_whitelist: false,
-      whitelist_hulu_ads: false, // Issue 7178
-      show_context_menu_items: true,
-      show_advanced_options: false,
-      display_stats: true,
-      display_menu_stats: true,
-      show_block_counts_help_link: true,
-      show_survey: true,
-    };
-    var settings = storage_get('settings') || {};
-    this._data = $.extend(defaults, settings);
-
-  };
-  Settings.prototype = {
-    set: function(name, is_enabled) {
-      this._data[name] = is_enabled;
-      // Don't store defaults that the user hasn't modified
-      var stored_data = storage_get("settings") || {};
-      stored_data[name] = is_enabled;
-      storage_set('settings', stored_data);
-    },
-    get_all: function() {
-      return this._data;
-    }
-  };
-  _settings = new Settings();
 
   // Open a new tab with a given URL.
   // Inputs:
@@ -171,25 +344,31 @@
   // Reload already opened tab
   // Input:
   //   tabId: integer - id of the tab which should be reloaded
-  reloadTab = function(tabId) {
+  var reloadTab = function(tabId) {
       var listener = function(tabId, changeInfo, tab) {
           if (changeInfo.status === "complete" &&
               tab.status === "complete") {
               setTimeout(function() {
-                  chrome.extension.sendRequest({command: "reloadcomplete"});
+                  chrome.runtime.sendMessage({ command: 'reloadcomplete' });
                   chrome.tabs.onUpdated.removeListener(listener);
               }, 2000);
           }
       }
-      chrome.tabs.reload(tabId, { bypassCache: true }, function() {
-          chrome.tabs.onUpdated.addListener(listener);
-      });
+      if (typeof tabId === 'string') {
+        tabId = parseInt(tabId);
+      }
+      chrome.tabs.onUpdated.addListener(listener);
+      if (typeof chrome.tabs.reload === "function") {
+        chrome.tabs.reload(tabId, { bypassCache: true });
+      } else {
+        chrome.tabs.executeScript(tabId, {code: 'location.reload();'});
+      }
   }
 
   // Implement blocking via the Chrome webRequest API.
   // Stores url, whitelisting, and blocking info for a tabid+frameid
   // TODO: can we avoid making this a global?
-  frameData = {
+  var frameData = {
       // Returns the data object for the frame with ID frameId on the tab with
       // ID tabId. If frameId is not specified, it'll return the data for all
       // frames on the tab with ID tabId. Returns undefined if tabId and frameId
@@ -266,7 +445,7 @@
 
       // Save a resource for the resource blocker.
       storeResource: function(tabId, frameId, url, elType, frameDomain) {
-          if (!get_settings().show_advanced_options)
+          if (!getSettings().show_advanced_options)
               return;
           var data = frameData.get(tabId, frameId);
           if (data !== undefined &&
@@ -282,6 +461,7 @@
 
   // When a request starts, perhaps block it.
   function onBeforeRequestHandler(details) {
+
     if (adblock_is_paused())
       return { cancel: false };
 
@@ -324,7 +504,7 @@
 
     // If |matchGeneric| is null, don't test request against blocking generic rules
     var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
-    if (get_settings().data_collection) {
+    if (getSettings().data_collection) {
         var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, true, true, matchGeneric);
         if (blockedData !== false) {
             DataCollection.addItem(blockedData.text);
@@ -409,11 +589,14 @@
               details.type = 'main_frame';
               details.url = getUnicodeUrl(details.url);
               frameData.track(details);
+              if (tabData.youTubeChannelName) {
+                frameData.get(details.tabId, details.frameId).youTubeChannelName = tabData.youTubeChannelName;
+              }
           }
       }
   });
 
-  debug_report_elemhide = function(selector, matches, sender) {
+  var debug_report_elemhide = function(selector, matches, sender) {
     if (!window.frameData) {
       return;
     }
@@ -437,44 +620,60 @@
   // and if any exist, remove the first one.
   // Inputs: url:string - a URL that may be whitelisted by a custom filter
   // Returns: true if a filter was found and removed; false otherwise.
-  try_to_unwhitelist = function(url) {
-      url = url.replace(/#.*$/, ''); // Whitelist ignores anchors
-      var custom_filters = get_custom_filters_text().split('\n');
-      for (var i = 0; i < custom_filters.length; i++) {
+  var try_to_unwhitelist = function (url, callback) {
+    url = url.replace(/#.*$/, ''); // Whitelist ignores anchors
+    get_custom_filters_text(function (custom_filters) {
+        custom_filters = custom_filters.split('\n');
+        for (var i = 0; i < custom_filters.length; i++) {
           var text = custom_filters[i];
           var whitelist = text.search(/@@\*\$document,domain=\~/);
           // Blacklist site, which is whitelisted by global @@*&document,domain=~ filter
           if (whitelist > -1) {
-              // Remove protocols
-              url = url.replace(/((http|https):\/\/)?(www.)?/, "").split(/[/?#]/)[0];
-              text = text + "|~" + url;
-              custom_filters.splice(i, 1); // Remove the old filter text
-              custom_filters.push(text); // add the new filter text to original array
-              var new_text = custom_filters.join('\n');
-              set_custom_filters_text(new_text);
-              return true;
-          } else {
-              if (!Filter.isWhitelistFilter(text))
-                  continue;
-              try {
-                  var filter = PatternFilter.fromText(text);
-              } catch (ex) {
-                  continue;
-              }
-              if (!filter.matches(url, ElementTypes.document, false))
-                  continue;
+            // Remove protocols
+            url = url.replace(/((http|https):\/\/)?(www.)?/, '').split(/[/?#]/)[0];
+            text = text + '|~' + url;
+            custom_filters.splice(i, 1); // Remove the old filter text
+            custom_filters.push(text); // add the new filter text to original array
+            var new_text = custom_filters.join('\n');
+            set_custom_filters_text(new_text);
+            if (typeof callback === 'function') {
+              callback(true);
+            }
 
-              custom_filters.splice(i, 1); // Remove this whitelist filter text
-              var new_text = custom_filters.join('\n');
-              set_custom_filters_text(new_text);
-              return true;
+            return true;
+          } else {
+            if (!Filter.isWhitelistFilter(text))
+                continue;
+            try {
+              var filter = PatternFilter.fromText(text);
+            } catch (ex) {
+              continue;
+            }
+
+            if (!filter.matches(url, ElementTypes.document, false))
+                continue;
+
+            custom_filters.splice(i, 1); // Remove this whitelist filter text
+            var new_text = custom_filters.join('\n');
+            set_custom_filters_text(new_text);
+            if (typeof callback === 'function') {
+              callback(true);
+            }
+
+            return true;
           }
-      }
-      return false;
-  }
+        }
+
+        if (typeof callback === 'function') {
+          callback(false);
+        }
+
+        return false;
+      });
+  };
 
   // Called when Chrome blocking needs to clear the in-memory cache.
-  handlerBehaviorChanged = function() {
+  var handlerBehaviorChanged = function() {
     try {
       chrome.webRequest.handlerBehaviorChanged();
     } catch (ex) {
@@ -484,115 +683,140 @@
   // CUSTOM FILTERS
 
   // Get the custom filters text as a \n-separated text string.
-  get_custom_filters_text = function() {
-    return storage_get('custom_filters') || '';
-  }
+  var get_custom_filters_text = function (callback) {
+    if (typeof callback !== 'function') {
+      return;
+    }
+    var localCallback = callback;
+    chrome.storage.local.get('custom_filters', function (response)
+    {
+      localCallback(response['custom_filters']);
+    });
+  };
 
   // Set the custom filters to the given \n-separated text string, and
   // rebuild the filterset.
   // Inputs: filters:string the new filters.
-  set_custom_filters_text = function(filters) {
-    storage_set('custom_filters', filters);
-    chrome.extension.sendRequest({command: "filters_updated"});
+  var set_custom_filters_text = function (filters) {
+    chrome.storage.local.set({ custom_filters: filters });
+    chrome.runtime.sendMessage({ command: 'filters_updated' });
     _myfilters.rebuild();
-  }
+  };
 
   // Get the user enterred exclude filters text as a \n-separated text string.
-  get_exclude_filters_text = function() {
-    return storage_get('exclude_filters') || '';
-  }
+  var get_exclude_filters_text = function (callback) {
+    if (typeof callback !== 'function') {
+      return;
+    }
+    var localCallback = callback;
+    chrome.storage.local.get('exclude_filters', function (response)
+    {
+      localCallback(response['exclude_filters']);
+    });
+  };
   // Set the exclude filters to the given \n-separated text string, and
   // rebuild the filterset.
   // Inputs: filters:string the new filters.
-  set_exclude_filters = function(filters) {
+  var set_exclude_filters = function (filters) {
     filters = filters.trim();
     filters = filters.replace(/\n\n/g, '\n');
-    storage_set('exclude_filters', filters);
+    chrome.storage.local.set({ exclude_filters: filters });
     FilterNormalizer.setExcludeFilters(filters);
     update_subscriptions_now();
-  }
+  };
   // Add / concatenate the exclude filter to the existing excluded filters, and
   // rebuild the filterset.
   // Inputs: filter:string the new filter.
-  add_exclude_filter = function(filter) {
-    var currentExcludedFilters = get_exclude_filters_text();
-    if (currentExcludedFilters) {
-        set_exclude_filters(currentExcludedFilters + "\n" + filter);
-    } else {
+  var add_exclude_filter = function (filter) {
+    get_exclude_filters_text(function (currentExcludedFilters) {
+      if (currentExcludedFilters) {
+        set_exclude_filters(currentExcludedFilters + '\n' + filter);
+      } else {
         set_exclude_filters(filter);
-    }
-  }
+      }
+    });
+  };
 
   // Removes a custom filter entry.
   // Inputs: host:domain of the custom filters to be reset.
-  remove_custom_filter = function(host) {
-    var text = get_custom_filters_text();
-    var custom_filters_arr = text ? text.split("\n"):[];
-    var new_custom_filters_arr = [];
-    var identifier = host;
+  var remove_custom_filter = function (host) {
+    get_custom_filters_text(function (text) {
+      var custom_filters_arr = text ? text.split('\n') : [];
+      var new_custom_filters_arr = [];
+      var identifier = host;
 
-    for(var i = 0; i < custom_filters_arr.length; i++) {
-      var entry = custom_filters_arr[i];
-      //Make sure that the identifier is at the start of the entry
-      if(entry.indexOf(identifier) === 0) { continue; }
-      new_custom_filters_arr.push(entry);
-    }
+      for (var i = 0; i < custom_filters_arr.length; i++) {
+        var entry = custom_filters_arr[i];
+        //Make sure that the identifier is at the start of the entry
+        if (entry.indexOf(identifier) === 0) { continue; }
 
-    text = new_custom_filters_arr.join("\n");
-    set_custom_filters_text(text.trim());
-  }
-
-  // count_cache singleton.
-  var count_cache = (function(count_map) {
-    var cache = count_map;
-    // Update custom filter count stored in localStorage
-    var _updateCustomFilterCount = function() {
-      storage_set("custom_filter_count", cache);
-    };
-
-    return {
-      // Update custom filter count cache and value stored in localStorage.
-      // Inputs: new_count_map:count map - count map to replace existing count cache
-      updateCustomFilterCountMap: function(new_count_map) {
-        cache = new_count_map || cache;
-        _updateCustomFilterCount();
-      },
-      // Remove custom filter count for host
-      // Inputs: host:string - url of the host
-      removeCustomFilterCount: function(host) {
-        if(host && cache[host]) {
-          delete cache[host];
-          _updateCustomFilterCount();
-        }
-      },
-      // Get current custom filter count for a particular domain
-      // Inputs: host:string - url of the host
-      getCustomFilterCount: function(host) {
-        return cache[host] || 0;
-      },
-      // Add 1 to custom filter count for the filters domain.
-      // Inputs: filter:string - line of text to be added to custom filters.
-      addCustomFilterCount: function(filter) {
-        var host = filter.split("##")[0];
-        cache[host] = this.getCustomFilterCount(host) + 1;
-        _updateCustomFilterCount();
+        new_custom_filters_arr.push(entry);
       }
-    }
-  })(storage_get("custom_filter_count") || {});
+
+      text = new_custom_filters_arr.join('\n');
+      set_custom_filters_text(text.trim());
+    });
+  };
+
+  var count_cache = {};
+  // count_cache singleton.
+  var count_cache_init = function () {
+    chrome.storage.local.get('custom_filter_count', function (response)
+    {
+      count_cache = (function (count_map) {
+        var cache = count_map;
+        // Update custom filter count stored in localStorage
+        var _updateCustomFilterCount = function () {
+          var dataToStore = {};
+          dataToStore['custom_filter_count'] = cache;
+          chrome.storage.local.set(dataToStore);
+        };
+
+        return {
+          // Update custom filter count cache and value stored in localStorage.
+          // Inputs: new_count_map:count map - count map to replace existing count cache
+          updateCustomFilterCountMap: function (new_count_map) {
+            cache = new_count_map || cache;
+            _updateCustomFilterCount();
+          },
+          // Remove custom filter count for host
+          // Inputs: host:string - url of the host
+          removeCustomFilterCount: function (host) {
+            if (host && cache[host]) {
+              delete cache[host];
+              _updateCustomFilterCount();
+            }
+          },
+          // Get current custom filter count for a particular domain
+          // Inputs: host:string - url of the host
+          getCustomFilterCount: function (host) {
+            return cache[host] || 0;
+          },
+          // Add 1 to custom filter count for the filters domain.
+          // Inputs: filter:string - line of text to be added to custom filters.
+          addCustomFilterCount: function (filter) {
+            var host = filter.split('##')[0];
+            cache[host] = this.getCustomFilterCount(host) + 1;
+            _updateCustomFilterCount();
+          },
+        };
+      })(response['custom_filter_count'] || {});
+    });
+  };
 
   // Entry point for customize.js, used to update custom filter count cache.
-  updateCustomFilterCountMap = function(new_count_map) {
+  var updateCustomFilterCountMap = function(new_count_map) {
     count_cache.updateCustomFilterCountMap(new_count_map);
   }
 
-  remove_custom_filter_for_host = function(host) {
+  var remove_custom_filter_for_host = function(host) {
     if (count_cache.getCustomFilterCount(host)) {
       remove_custom_filter(host);
       count_cache.removeCustomFilterCount(host);
     }
   }
 
-  confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
+  var confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
     var confirmation_text   = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
     if (!confirm(confirmation_text)) { return; }
@@ -600,30 +824,14 @@
     chrome.tabs.executeScript(activeTab.id, {code: 'location.reload();'});
   };
 
-  get_settings = function() {
-    return _settings.get_all();
-  }
-
-  set_setting = function(name, is_enabled) {
-    _settings.set(name, is_enabled);
-
-    if (name === "debug_logging")
-      logging(is_enabled);
-  }
-
-  disable_setting = function(name) {
-      _settings.set(name, false);
-  }
-
-  // MYFILTERS PASSTHROUGHS
 
   // Rebuild the filterset based on the current settings and subscriptions.
-  update_filters = function() {
+  var update_filters = function() {
     _myfilters.rebuild();
   }
 
   // Fetch the latest version of all subscribed lists now.
-  update_subscriptions_now = function() {
+  var update_subscriptions_now = function() {
     _myfilters.checkFilterUpdates(true);
   }
 
@@ -637,7 +845,7 @@
 
   // Returns map from id to subscription object.  See filters.js for
   // description of subscription object.
-  get_subscriptions_minus_text = function() {
+  var get_subscriptions_minus_text = function() {
     var result = {};
     for (var id in _myfilters._subscriptions) {
       result[id] = {};
@@ -652,7 +860,7 @@
   // Returns map from id to subscription object.  See filters.js for
   // description of subscription object.
   // returns all subscription data which will be a large object
-  get_subscriptions = function() {
+  var get_subscriptions = function() {
     var result = {};
     for (var id in _myfilters._subscriptions) {
       result[id] = {};
@@ -664,7 +872,7 @@
   }
 
   // Get subscribed filter lists
-  get_subscribed_filter_lists = function() {
+  var get_subscribed_filter_lists = function() {
       var subs = get_subscriptions_minus_text();
       var subscribed_filter_names = [];
       for (var id in subs) {
@@ -680,7 +888,7 @@
   //         requires: the id of a list if it is a supplementary list,
   //                   or null if nothing required
   // Returns: null, upon completion
-  subscribe = function(options) {
+  var subscribe = function(options) {
       _myfilters.changeSubscription(options.id, {
           subscribed: true,
           requiresList: options.requires,
@@ -692,7 +900,7 @@
   // Inputs: id: id from which to unsubscribe.
   //         del: (bool) if the filter should be removed or not
   // Returns: null, upon completion.
-  unsubscribe = function(options) {
+  var unsubscribe = function(options) {
       _myfilters.changeSubscription(options.id, {
           subscribed: false,
           deleteMe: (options.del ? true : undefined)
@@ -702,12 +910,12 @@
   // Get the current (loaded) malware domains
   // Returns: an object with all of the malware domains
   // will return undefined, if the user is not subscribed to the Malware 'filter list'.
-  getMalwareDomains = function() {
+  var getMalwareDomains = function() {
     return _myfilters.getMalwareDomains();
   }
 
   // Returns true if the url cannot be blocked
-  page_is_unblockable = function(url) {
+  var page_is_unblockable = function(url) {
     if (!url) {
       return true;
     } else {
@@ -724,19 +932,20 @@
   // Returns: undefined if newValue was specified, otherwise it returns true
   //          if paused, false otherwise.
   var _adblock_is_paused = false;
-  adblock_is_paused = function(newValue) {
+  var adblock_is_paused = function (newValue) {
     if (newValue === undefined) {
       return (_adblock_is_paused === true);
     }
+
     _adblock_is_paused = newValue;
-  }
+  };
 
   // Get if AdBlock is paused
   // called from content scripts
   // Returns: true if paused, false otherwise.
-  is_adblock_paused = function() {
+  var is_adblock_paused = function () {
     return adblock_is_paused();
-  }
+  };
 
   // INFO ABOUT CURRENT PAGE
 
@@ -754,42 +963,54 @@
   //     display_menu_stats: bool - whether block counts are displayed on the popup menu
   //   }
   // Returns: null (asynchronous)
-  getCurrentTabInfo = function(callback, secondTime) {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  var getCurrentTabInfo = function (callback, secondTime) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       if (!tabs) {
         return;
       }
+
       if (tabs.length === 0)
         return; // For example: only the background devtools or a popup are opened
 
       var tab = tabs[0];
       var result = {
         tab: tab,
-        total_blocked: blockCounts.getTotalAdsBlocked(),
-        display_stats: get_settings().display_stats,
-        display_menu_stats: get_settings().display_menu_stats
+        settings: getSettings()
       };
+
       if (!tab.url) {
         result.disabled_site = true;
         result.tab_blocked = 0;
       } else {
         tab.unicodeUrl = getUnicodeUrl(tab.url);
         result.disabled_site = page_is_unblockable(tab.unicodeUrl);
-        result.tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
       }
 
-      if (!result.disabled_site)
+      if (!result.disabled_site) {
         result.whitelisted = page_is_whitelisted(tab.unicodeUrl);
+      }
 
-      callback(result);
+      if (getSettings().youtube_channel_whitelist &&
+          parseUri(tab.unicodeUrl).hostname === "www.youtube.com") {
+        result.youTubeChannelName = frameData.get(tab.id, 0).youTubeChannelName;
+      }
+
+      result.total_blocked = blockCounts.getTotalAdsBlocked();
+      if (tab.url && tab.id) {
+        result.tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
+        callback(result);
+        return;
+      } else {
+        callback(result);
+      }
     });
-  }
+  };
 
   // Returns true if anything in whitelist matches the_domain.
   //   url: the url of the page
   //   type: one out of ElementTypes, default ElementTypes.document,
   //         to check what the page is whitelisted for: hiding rules or everything
-  page_is_whitelisted = function(url, type) {
+  var page_is_whitelisted = function(url, type) {
     if (!url) {
       return true;
     }
@@ -812,8 +1033,8 @@
       chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
   }
 
-  updateBadge = function(tabId) {
-    var display = get_settings().display_stats;
+  var updateBadge = function(tabId) {
+    var display = getSettings().display_stats;
     var badge_text = "";
     var main_frame = frameData.get(tabId, 0);
     // main_frame is undefined if the tab is a new one, so no use updating badge.
@@ -837,10 +1058,10 @@
 
   // Set the button image and context menus according to the URL
   // of the current tab.
-  updateButtonUIAndContextMenus = function() {
+  var updateButtonUIAndContextMenus = function() {
     function setContextMenus(info) {
       chrome.contextMenus.removeAll();
-      if (!get_settings().show_context_menu_items)
+      if (!getSettings().show_context_menu_items)
         return;
 
       if (adblock_is_paused() || info.whitelisted || info.disabled_site)
@@ -857,14 +1078,14 @@
 
       addMenu(translate("block_this_ad"), function(tab, clickdata) {
         emit_page_broadcast(
-          {fn:'top_open_blacklist_ui', options:{info: clickdata}},
+          {fn:'topOpenBlacklistUI', options:{info: clickdata}},
           {tab: tab}
         );
       });
 
       addMenu(translate("block_an_ad_on_this_page"), function(tab) {
         emit_page_broadcast(
-          {fn:'top_open_blacklist_ui', options:{nothing_clicked: true}},
+          {fn:'topOpenBlacklistUI', options:{nothing_clicked: true}},
           {tab: tab}
         );
       });
@@ -912,33 +1133,47 @@
   // Add a new custom filter entry.
   // Inputs: filter:string line of text to add to custom filters.
   // Returns: null if succesfull, otherwise an exception
-  add_custom_filter = function(filter) {
-    var custom_filters = get_custom_filters_text();
-    try {
-      if (FilterNormalizer.normalizeLine(filter)) {
-        if (Filter.isSelectorFilter(filter)) {
-          count_cache.addCustomFilterCount(filter);
-          updateButtonUIAndContextMenus();
+  var add_custom_filter = function (filter, callback) {
+    var newFilter = filter;
+    get_custom_filters_text(function (text) {
+      try {
+        if (FilterNormalizer.normalizeLine(newFilter)) {
+          if (Filter.isSelectorFilter(newFilter)) {
+            count_cache.addCustomFilterCount(newFilter);
+            updateButtonUIAndContextMenus();
+          }
+          if (!text) {
+            text = "";
+          } else {
+            text += '\n';
+          }
+          var custom_filters = text + newFilter;
+          set_custom_filters_text(custom_filters);
+          if (typeof callback === 'function') {
+            callback(null);
+          }
         }
-        custom_filters = custom_filters + '\n' + filter;
-        set_custom_filters_text(custom_filters);
-        return null;
-      }
-      return "This filter is unsupported";
-    } catch(ex) {
+
+        if (typeof callback === 'function') {
+          callback('This filter is unsupported');
+        }
+      } catch (ex) {
         // convert to a string so that it can be passed
         // back to content scripts
-      return ex.toString();
-    }
+        if (typeof callback === 'function') {
+          callback(ex.toString());
+        }
+      }
+    });
   };
 
   // Return the contents of a local file.
   // Inputs: file:string - the file relative address, eg "js/foo.js".
   // Returns: the content of the file.
-  readfile = function(file) {
+  var readfile = function (file) {
     // A bug in jquery prevents local files from being read, so use XHR.
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.extension.getURL(file), false);
+    xhr.open('GET', chrome.extension.getURL(file), false);
     xhr.send();
     return xhr.responseText;
   };
@@ -946,79 +1181,80 @@
   // Creates a custom filter entry that whitelists a given page
   // Inputs: url:string url of the page
   // Returns: null if successful, otherwise an exception
-  create_page_whitelist_filter = function(url) {
+  var create_page_whitelist_filter = function (url) {
     var url = url.replace(/#.*$/, '');  // Remove anchors
     var parts = url.match(/^([^\?]+)(\??)/); // Detect querystring
     var has_querystring = parts[2];
     var filter = '@@|' + parts[1] + (has_querystring ? '?' : '|') + '$document';
     return add_custom_filter(filter);
-  }
+  };
 
   // Creates a custom filter entry that whitelists a YouTube channel
   // Inputs: url:string url of the page
   // Returns: null if successful, otherwise an exception
-  create_whitelist_filter_for_youtube_channel = function(url) {
+  var create_whitelist_filter_for_youtube_channel = function (url) {
     if (/ab_channel=/.test(url)) {
       var yt_channel = url.match(/ab_channel=([^]*)/)[1];
     } else {
       var yt_channel = url.split('/').pop();
     }
-    if (yt_channel) {
-        var filter = '@@|https://www.youtube.com/*' + yt_channel + '|$document';
-        return add_custom_filter(filter);
-    }
-  }
 
+    if (yt_channel) {
+      var filter = '@@|https://www.youtube.com/*' + yt_channel + '|$document';
+      return add_custom_filter(filter);
+    }
+  };
 
   // Listen for the message from the ytchannel.js content script
-  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse)
+  chrome.runtime.onMessage.addListener(function (message, sender, sendResponse)
   {
-    if (message.command !== "updateYouTubeWhitelistFilters")
-    {
-      return;
+    if (message.command === 'updateYouTubeWhitelistFilters') {
+      var response = updateYouTubeWhitelistFilters(message.args);
+      sendResponse(response);
+    } else if (message.command === 'updateYouTubeChannelName') {
+      var fd = frameData.get(sender.tab.id, 0);
+      fd.youTubeChannelName = message.args;
+      sendResponse({});
     }
-    var response = updateYouTubeWhitelistFilters(message.args);
-    sendResponse(response);
   });
+
   // Creates a custom filter entry that whitelists a YouTube channel
   // Inputs: titles:string array of the YouTube Channels to Whitelist.
   // The titles / channel names in the input string should be parsed, and
   // URLEncoded prior to calling this function.
   // Returns: true if successful, or throws an exception.
-  var updateYouTubeWhitelistFilters = function(titles) {
+  var updateYouTubeWhitelistFilters = function (titles) {
     if (!titles ||
         !Array.isArray(titles) ||
         titles.length < 1) {
       return true;
     }
 
-    var customFiltersText = get_custom_filters_text();
-    var customFiltersArray = [];
-    var newCustomFiltersArray = [];
-    if (customFiltersText) {
-      customFiltersArray = customFiltersText.split("\n");
-    }
-    // First, remove any old YouTube white list filters
-    if (customFiltersArray) {
-      for (var inx = 0; inx < customFiltersArray.length; inx++) {
-        var filter = customFiltersArray[inx];
-        if (!filter.startsWith("@@|https://www.youtube.com/*")) {
+    var newTitles = titles;
+    get_custom_filters_text(function (text) {
+      var customFiltersArray = text ? text.split('\n') : [];
+      var newCustomFiltersArray = [];
+      // First, remove any old YouTube white list filters
+      if (customFiltersArray) {
+        for (var inx = 0; inx < customFiltersArray.length; inx++) {
+          var filter = customFiltersArray[inx];
+          if (!filter.startsWith('@@|https://www.youtube.com/*')) {
+            newCustomFiltersArray.push(filter);
+          }
+        }
+      }
+      // Second, add all of the YouTube channel titles
+      for (var inx = 0; inx < newTitles.length; inx++)
+      {
+        var title = newTitles[inx];
+        if (title) {
+          var filter = '@@|https://www.youtube.com/*' + title + '|$document';
           newCustomFiltersArray.push(filter);
         }
       }
-    }
-    // Second, add all of the YouTube channel titles
-    for (var inx = 0; inx < titles.length; inx++)
-    {
-      var title = titles[inx];
-      if (title) {
-        var filter = '@@|https://www.youtube.com/*' + title + '|$document';
-        newCustomFiltersArray.push(filter);
-      }
-    }
-    // Second, add all of the YouTube channel titles
-    set_custom_filters_text(newCustomFiltersArray.join('\n'));
-    return true;
+      // Second, add all of the YouTube channel titles
+      set_custom_filters_text(newCustomFiltersArray.join('\n'));
+    });
   };
 
   // Inputs: options object containing:
@@ -1028,7 +1264,7 @@
       return;
     }
     var options = request.opts;
-    var settings = get_settings();
+    var settings = getSettings();
     var runnable = !adblock_is_paused() && !page_is_unblockable(sender.url);
     var running_top = runnable && !page_is_whitelisted(sender.tab.url);
     var running = runnable && !page_is_whitelisted(sender.url);
@@ -1058,10 +1294,36 @@
     sendResponse(result);
   });
 
+  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (!(request.message == 'open.options.page.subscriptions.add')) {
+      return;
+    }
+
+    var opennedtabId = 0;
+    var pageCompleteListener = function (tabId, info) {
+      if (info.status == 'complete' && opennedtabId === tabId) {
+        chrome.tabs.onUpdated.removeListener(pageCompleteListener);
+        chrome.tabs.sendMessage(tabId, {
+          message: 'addSubscription',
+          title: request.title,
+          url: request.url,
+        });
+      }
+    };
+
+    chrome.tabs.onUpdated.addListener(pageCompleteListener);
+    var optionsUrl = chrome.extension.getURL('options/index.html?tab=1');
+    chrome.tabs.create({ url: optionsUrl }, function (tab) {
+      opennedtabId = tab.id;
+    });
+
+    sendResponse({});
+  });
+
   // Bounce messages back to content scripts.
-  emit_page_broadcast = (function() {
+  var emit_page_broadcast = (function() {
     var injectMap = {
-      'top_open_whitelist_ui': {
+      'topOpenWhitelistUI': {
         allFrames: false,
         include: [
           "compat.js",
@@ -1072,7 +1334,7 @@
           "uiscripts/top_open_whitelist_ui.js"
           ]
       },
-      'top_open_blacklist_ui': {
+      'topOpenBlacklistUI': {
         allFrames: false,
         include: [
           "compat.js",
@@ -1087,7 +1349,7 @@
           "uiscripts/top_open_blacklist_ui.js"
           ]
       },
-      'send_content_to_back': {
+      'sendContentToBack': {
         allFrames: true,
         include: [
           "uiscripts/send_content_to_back.js"
@@ -1128,56 +1390,60 @@
     return theFunction;
   })();  // end emit_page_broadcast
 
-  // Open subscribe popup when new filter list was subscribed from site
-  launch_subscribe_popup = function(loc) {
-    window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
-    "_blank",
-    'scrollbars=0,location=0,resizable=0,width=460,height=150');
-  }
+  var validateFilter = function (filter, returnException) {
+    var response = FilterNormalizer.validateLine(filter, returnException);
+    if (returnException && response && response.exception) {
+      return JSON.stringify(response);
+    }
+
+    return response;
+  };
 
   // Open the resource blocker when requested from popup.
-  launch_resourceblocker = function(query) {
-    openTab("pages/resourceblock.html" + query, true);
-  }
+  var launch_resourceblocker = function (query) {
+    openTab('pages/resourceblock.html' + query, true);
+  };
 
   // Get the frameData for the 'Report an Ad' & 'Resource' page
-  get_frameData = function(tabId) {
-      return frameData.get(tabId);
-  }
+  var get_frameData = function (tabId) {
+    return frameData.get(tabId);
+  };
 
   // Process requests from 'Resource' page
   // Determine, whether requests have been whitelisted/blocked
-  process_frameData = function(fd) {
-      for (var frameId in fd) {
-          var frame = fd[frameId];
-          var frameResources = frame.resources;
-          for (var resource in frameResources) {
-              var res = frameResources[resource];
-              // We are processing selectors in resource viewer page
-              if (res.elType === "selector") {
-                  continue;
-              }
-              res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain, true, true);
-          }
+  var process_frameData = function (fd) {
+    for (var frameId in fd) {
+      var frame = fd[frameId];
+      var frameResources = frame.resources;
+      for (var resource in frameResources) {
+        var res = frameResources[resource];
+        // We are processing selectors in resource viewer page
+        if (res.elType === 'selector') {
+          continue;
+        }
+
+        res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain, true, true);
       }
-      return fd;
-  }
+    }
+
+    return fd;
+  };
 
   // Add previously cached requests to matchCache
   // Used by 'Resource' page
-  add_to_matchCache = function(cache) {
-     _myfilters.blocking._matchCache = cache;
-     _myfilters.blocking._numCacheEntries = Object.keys(cache).length;
-  }
+  var add_to_matchCache = function (cache) {
+    _myfilters.blocking._matchCache = cache;
+    _myfilters.blocking._numCacheEntries = Object.keys(cache).length;
+  };
 
   // Reset matchCache
   // Used by 'Resource' page
   // Returns: object with cached requests
-  reset_matchCache = function() {
-      var matchCache = _myfilters.blocking._matchCache;
-      _myfilters.blocking.resetMatchCache();
-      return matchCache;
-  }
+  var reset_matchCache = function () {
+    var matchCache = _myfilters.blocking._matchCache;
+    _myfilters.blocking.resetMatchCache();
+    return matchCache;
+  };
 
   // BROWSER ACTION AND CONTEXT MENU UPDATES
   if (chrome.tabs) {
@@ -1189,80 +1455,6 @@
       updateButtonUIAndContextMenus();
     });
   }
-
-  var recordUserMetricsMessage = function(msg) {
-    recordMessageWithUserID(msg, 'user_metrics');
-  };
-
-  // Log an 'error' message on GAB log server.
-  var recordErrorMessage = function(msg, callback) {
-    recordMessageWithUserID(msg, 'error', callback);
-  };
-
-  // Log an 'status' related message on GAB log server.
-  var recordStatusMessage = function(msg, callback) {
-    recordMessageWithUserID(msg, 'stats', callback);
-  };
-
-  // Log a 'general' message on GAB log server.
-  var recordGeneralMessage = function(msg, callback) {
-    recordMessageWithUserID(msg, 'general', callback);
-  };
-
-  // Log a message on GAB log server.  The user's userid will be prepended to the message.
-  // If callback() is specified, call callback() after logging has completed
-  var recordMessageWithUserID = function(msg, queryType, callback) {
-    if (!msg || !queryType) {
-      return;
-    }
-    // Include user ID in message
-    var fullUrl = 'https://log.getadblock.com/record_log.php?type=' +
-                   queryType + '&message=' + encodeURIComponent(STATS.userId() +
-                   ' f:' + STATS.flavor + ' o:' + STATS.os + ' ' + msg);
-    sendMessageToLogServer(fullUrl, callback);
-  };
-
-  // Log a message on GAB log server.
-  // If callback() is specified, call callback() after logging has completed
-  var recordAnonymousMessage = function(msg, queryType, callback) {
-    if (!msg || !queryType) {
-      return;
-    }
-    // Include user ID in message
-    var fullUrl = 'https://log.getadblock.com/record_log.php?type=' +
-                  queryType +
-                  '&message=' +
-                  encodeURIComponent(msg);
-    sendMessageToLogServer(fullUrl, callback);
-  };
-
-  // Log a message on GAB log server.  The user's userid will be prepended to the message.
-  // If callback() is specified, call callback() after logging has completed
-  var sendMessageToLogServer = function(fullUrl, callback) {
-    if (!fullUrl) {
-      return;
-    }
-    $.ajax({
-      type: 'GET',
-      url: fullUrl,
-      success: function(responseData, textStatus, jqXHR) {
-        if (callback) {
-          callback();
-        }
-      },
-      error: function(e) {
-        log("message server returned error: ", e.status);
-      },
-    });
-  };
-
-  if (get_settings().debug_logging)
-    logging(true);
-
-  _myfilters = new MyFilters();
-  _myfilters.init();
-  // Record that we exist.
-  STATS.startPinging();
 
   // Respond to calls from the content script regarding the
   // blocking of websocket requests.
@@ -1286,82 +1478,8 @@
       }
   })
 
-  //passthrough functions
-  var addGABTabListeners = function(sender) {
-    gabfQuestion.addGABTabListeners(sender);
-  };
 
-  var removeGABTabListeners = function(saveState) {
-    gabQuestion.removeGABTabListeners(saveState);
-  }
-
-  var openInstalledTab = function() {
-    var installedURL = "https://getadblock.com/installed/?u=" + STATS.userId();
-    chrome.tabs.create({url: installedURL});
-  };
-  // If the Chrome API 'onInstalled' is available, and
-  // reason is 'install' and
-  // AdBlock wasn't installed using an 'admin' group policy then
-  // Open the install tab.
-  if (chrome.runtime.onInstalled) {
-    chrome.runtime.onInstalled.addListener(function(details) {
-      if (details.reason === "install") {
-        if (chrome.management && chrome.management.getSelf) {
-          chrome.management.getSelf(function(info) {
-            if (info && info.installType !== "admin") {
-              openInstalledTab();
-            }
-          });
-        } else {
-          openInstalledTab();
-        }
-      }
-    });
-  } else if (STATS.firstRun) {
-    // If the Chrome API 'onInstalled' is not available, and
-    // it's AdBlock's firstRun
-    // Open the install tab.
-    if (chrome.management && chrome.management.getSelf) {
-      chrome.management.getSelf(function(info) {
-        if (info && info.installType !== "admin") {
-          openInstalledTab();
-        }
-      });
-    } else {
-      openInstalledTab();
-    }
-  }
-
-  if (chrome.runtime.setUninstallURL) {
-    var uninstallURL = "https://getadblock.com/uninstall/?u=" + STATS.userId();
-    //if the start property of blockCount exists (which is the AdBlock installation timestamp)
-    //use it to calculate the approximate length of time that user has AdBlock installed
-    if (blockCounts && blockCounts.get().start) {
-      var twoMinutes = 2 * 60 * 1000;
-      var updateUninstallURL = function() {
-        var installedDuration = (Date.now() - blockCounts.get().start);
-        var url = uninstallURL + "&t=" + installedDuration;
-        var bc = blockCounts.get().total;
-        url = url + "&bc=" + bc;
-        if (_myfilters &&
-            _myfilters._subscriptions &&
-            _myfilters._subscriptions.adblock_custom &&
-            _myfilters._subscriptions.adblock_custom.last_update) {
-          url = url + "&abc-lt=" + _myfilters._subscriptions.adblock_custom.last_update;
-        } else {
-          url = url + "&abc-lt=-1"
-        }
-        chrome.runtime.setUninstallURL(url);
-      };
-      //start an interval timer that will update the Uninstall URL every 2 minutes
-      setInterval(updateUninstallURL, twoMinutes);
-      updateUninstallURL();
-    } else {
-      chrome.runtime.setUninstallURL(uninstallURL + "&t=-1");
-    }
-  }
-
-  createMalwareNotification = function() {
+  var createMalwareNotification = function() {
     if (chrome &&
         chrome.notifications &&
         storage_get('malware-notification')) {
@@ -1409,38 +1527,11 @@
     }//end of if
   }//end of createMalwareNotification function
 
-  // Chrome blocking code.  Near the end so synchronous request handler
-  // doesn't hang Chrome while AdBlock initializes.
-  chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-  chrome.tabs.onRemoved.addListener(frameData.removeTabId);
-  // Popup blocking
-  if (chrome.webNavigation)
-    chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
-
-  var handleEarlyOpenedTabs = function(tabs) {
-    if (!tabs) {
-      return;
-    }
-    log("Found", tabs.length, "tabs that were already opened");
-    for (var i=0; i<tabs.length; i++) {
-      var currentTab = tabs[i], tabId = currentTab.id;
-      if (!frameData.get(tabId)) { // unknown tab
-          currentTab.url = getUnicodeUrl(currentTab.url);
-          frameData.track({url: currentTab.url, tabId: tabId, type: "main_frame"});
-      }
-      updateBadge(tabId);
-      // TODO: once we're able to get the parentFrameId, call
-      // chrome.webNavigation.getAllFrames to 'load' the subframes
-    }
-  }
-  chrome.tabs.query({url: "http://*/*"}, handleEarlyOpenedTabs);
-  chrome.tabs.query({url: "https://*/*"}, handleEarlyOpenedTabs);
 
   // YouTube Channel Whitelist
   var runChannelWhitelist = function(tabUrl, tabId) {
     if (parseUri(tabUrl).hostname === "www.youtube.com" &&
-        get_settings().youtube_channel_whitelist &&
-        !parseUri.parseSearch(tabUrl).ab_channel) {
+        getSettings().youtube_channel_whitelist) {
         chrome.tabs.executeScript(tabId, {file: "compat.js", runAt: "document_start"});
         chrome.tabs.executeScript(tabId, {file: "functions.js", runAt: "document_start"});
         chrome.tabs.executeScript(tabId, {file: "ytchannel.js", runAt: "document_start"});
@@ -1480,84 +1571,156 @@
 
   // DEBUG INFO
   // Get debug info for bug reporting and ad reporting - returns an object
-  getDebugInfo = function() {
-
-      // An object, which contains info about AdBlock like
-      // subscribed filter lists, settings and other settings
-      var the_debug_info = {
-          filter_lists: [],
-          settings: [],
-          other_info: []
-      }
-
-      // Process subscribed filter lists
-      var get_subscriptions = get_subscriptions_minus_text();
-      for (var id in get_subscriptions) {
-          if (get_subscriptions[id].subscribed) {
-              the_debug_info.filter_lists.push(id);
-              the_debug_info.filter_lists.push("  last updated: " + new Date(get_subscriptions[id].last_update).toUTCString());
-          }
-      }
-
-      // Format info about filter lists properly
-      the_debug_info.filter_lists = the_debug_info.filter_lists.join('\n');
-
-      // Process custom filters & excluded filters
-      var adblock_custom_filters = storage_get("custom_filters");
-
-      if (adblock_custom_filters) {
-          the_debug_info.custom_filters = adblock_custom_filters;
-      }
-      if (get_exclude_filters_text()) {
-          the_debug_info.exclude_filters = get_exclude_filters_text();
-      }
-
-      // Process settings
-      var settings = get_settings();
-      for (setting in settings) {
-          the_debug_info.settings.push(setting + ": " + JSON.stringify(settings[setting]) + "\n");
-      }
-
-      // We need to hardcode malware-notification setting,
-      // because it isn't included in _settings object, but just in localStorage
-      the_debug_info.settings.push("malware-notification: " + storage_get('malware-notification') + "\n");
-      the_debug_info.settings = the_debug_info.settings.join('');
-
-      // Find out AdBlock version
-      var AdBlockVersion = chrome.runtime.getManifest().version;
-
-      // Is this installed build of AdBlock the official one?
-      var AdBlockBuild = function() {
-        if (chrome.runtime.id === "EdgeExtension_BetaFishAdBlock_c1wakc4j0nefm") {
-            return "Stable";
-        } else if (chrome.runtime.id === "EdgeExtension_BetaFishAdBlockBeta_c1wakc4j0nefm") {
-            return "Beta";
-        } else {
-            return "Unofficial";
-        }
-      }
-
-      // Push AdBlock version and build to |the_debug_info| object
-      the_debug_info.other_info.push("AdBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
-
-      // Get & process last known error
-      var adblock_error = storage_get("error");
-      if (adblock_error) {
-          the_debug_info.other_info.push("Last known error: " + adblock_error);
-      }
-
-      // Get & process total pings
-      var adblock_pings = storage_get("total_pings");
-      the_debug_info.other_info.push("Total pings: " + adblock_pings);
-
-      // Get & process userAgent
-      the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
-      the_debug_info.other_info.push("is adblock paused: " + adblock_is_paused());
-      the_debug_info.other_info = the_debug_info.other_info.join("\n");
-      return the_debug_info;
+var getDebugInfo = function (callback) {
+  // An object, which contains info about AdBlock like
+  // subscribed filter lists, settings and other settings
+  var the_debug_info = {
+      filter_lists: [],
+      settings: [],
+      other_info: [],
+      custom_filters: '',
+    };
+  // Get subscribed filter lists
+  var subs = get_subscriptions_minus_text();
+  the_debug_info.filter_lists.push('=== Filter Lists ===');
+  the_debug_info.filter_lists.push('');
+  for (var id in subs) {
+    if (subs[id].subscribed) {
+      the_debug_info.filter_lists.push(id);
+      the_debug_info.filter_lists.push('  last updated: ' + new Date(subs[id].last_update).toUTCString());
+      the_debug_info.filter_lists.push('');
+    }
+  }
+  // Format info about filter lists properly
+  the_debug_info.filter_lists = the_debug_info.filter_lists.join('\n');
+  // Get settings
+  the_debug_info.settings.push('=== Settings ===');
+  var settings = getSettings();
+  for (var setting in settings) {
+    the_debug_info.settings.push(setting + ': ' + getSettings()[setting]);
   }
 
-  // BGcall DISPATCH
+  the_debug_info.settings = the_debug_info.settings.join('\n');
+
+  the_debug_info.other_info.push('');
+  the_debug_info.other_info.push('AdBlock version number: ' + chrome.runtime.getManifest().version);
+  the_debug_info.other_info.push('browser =' + STATS.browser);
+  the_debug_info.other_info.push('browserVersion = ' + STATS.browserVersion);
+  the_debug_info.other_info.push('osVersion =' + STATS.osVersion);
+  the_debug_info.other_info.push('os =' + STATS.os);
+  the_debug_info.other_info.push('navigator user language =' + determineUserLanguage());
+  the_debug_info.other_info.push('extension user language =' + chrome.i18n.getUILanguage());
+  the_debug_info.other_info.push("is adblock paused: " + adblock_is_paused());
+  the_debug_info.other_info.push('');
+
+  if (localStorage &&
+      localStorage.length) {
+    the_debug_info.other_info.push('local storage data');
+    the_debug_info.other_info.push('length =' + localStorage.length);
+    var inx = 1;
+    for (var key in localStorage) {
+      the_debug_info.other_info.push('key ' + inx + ' = ' + key);
+      inx++;
+    }
+  } else
+  {
+    the_debug_info.other_info.push('no local storage data');
+  }
+
+  the_debug_info.other_info.push('');
+  // Get total pings
+  chrome.storage.local.get('total_pings', function (storageResponse)
+  {
+    the_debug_info.other_info.push('total_pings =' + (storageResponse.total_pings || 0));
+
+    // Now, add exclude filters (if there are any)
+    var excludeFiltersKey = 'exclude_filters';
+    chrome.storage.local.get(excludeFiltersKey, function (secondResponse)
+    {
+      if (secondResponse && secondResponse[excludeFiltersKey])
+      {
+        the_debug_info.other_info.push('==== Exclude Filters ====');
+        the_debug_info.other_info.push(secondResponse[excludeFiltersKey]);
+        the_debug_info.other_info.push('');
+      }
+      // Now, add the migration messages (if there are any)
+      var migrateLogMessageKey = 'migrateLogMessageKey';
+      chrome.storage.local.get(migrateLogMessageKey, function (thirdResponse)
+      {
+        if (thirdResponse && thirdResponse[migrateLogMessageKey])
+        {
+          the_debug_info.other_info.push('');
+          var messages = thirdResponse[migrateLogMessageKey].split('\n');
+          for (var i = 0; i < messages.length; i++)
+          {
+            var key = 'migration_message_' + i;
+            the_debug_info.other_info.push(key + ' : ' + messages[i]);
+          }
+
+          the_debug_info.other_info.push('');
+        }
+
+        var malwareKey = 'malware-notification';
+        chrome.storage.local.get(migrateLogMessageKey, function (fourthResponse)
+        {
+          if (fourthResponse && fourthResponse[malwareKey]) {
+            // We need to hardcode malware-notification setting,
+            // because it isn't included in _settings object, but just in localStorage
+            the_debug_info.other_info.push('malware-notification: ' + fourthResponse[malwareKey]);
+          }
+
+          var customFiltersKey = 'custom_filters';
+          chrome.storage.local.get(customFiltersKey, function (fifthResponse)
+          {
+            if (fifthResponse && fifthResponse[customFiltersKey]) {
+              the_debug_info.custom_filters = fifthResponse[customFiltersKey];
+            }
+
+            the_debug_info.other_info = the_debug_info.other_info.join('\n');
+            if (typeof callback === 'function') {
+              callback(the_debug_info);
+            }
+          });
+        });
+      });
+    });
+  });
+};
+
+// Inputs: options object containing:
+//           domain:string the domain of the calling frame.
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (!(request.message == 'debug_report_elemhide')) {
+    return;
+  }
+
+  if (!window.frameData) {
+    return;
+  }
+
+  if (!sender) {
+    return;
+  }
+
+  var selector = request.opts.selector;
+  var matches = request.opts.matches;
+  var frameDomain = parseUri(sender.url || sender.tab.url).hostname;
+  frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, 'selector', frameDomain);
+
+  var data = frameData.get(sender.tab.id, sender.frameId || 0);
+  if (data) {
+    if (loggingEnable) {
+      log(data.domain, ': hiding rule', selector, 'matched:\n', matches);
+    }
+
+    blockCounts.recordOneAdBlocked(sender.tab.id);
+    updateBadge(sender.tab.id);
+  }
+
+  sendResponse({});
+});
+
+ // BGcall DISPATCH
   chrome.extension.onRequest.addListener(
     function(request, sender, sendResponse) {
       if (request.command != "call")
@@ -1572,5 +1735,60 @@
       sendResponse(result);
     }
   );
+
+  // Check to see if any legacy data needs to be migrated...
+  // block_counts & STATS persisted data remains in local storage.
+  // only Settings, Filter Lists subscriptions, custom filters (and related info) are migrated
+  // to chrome.storage.local.
+  (function() {
+    'use strict';
+    var getStorageValue = function (key) {
+      return storage_get(key);
+    };
+    // Send the initial data dump.
+    var storageData = {};
+    if (localStorage.settings) {
+      storageData.settings = getStorageValue("settings");
+      delete localStorage.settings;
+    }
+    if (localStorage.filter_lists) {
+      // since we now have unlimited storage,
+      // migrate user that are subscribed to easylist_lite
+      // to easylist
+      var filterLists = getStorageValue("filter_lists");
+      if (filterLists &&
+          filterLists.easylist_lite &&
+          filterLists.easylist_lite.subscribed) {
+        filterLists.easylist_lite.subscribed = false;
+        delete filterLists.easylist_lite.text;
+        delete filterLists.easylist_lite.last_update;
+        delete filterLists.easylist_lite.expiresAfterHours;
+        delete filterLists.easylist_lite.last_update_failed_at;
+        delete filterLists.easylist_lite.last_modified;
+        filterLists.easylist.subscribed = true;
+      }
+      storageData.filter_lists = filterLists;
+    }
+    if (localStorage.last_subscriptions_check) {
+      storageData.last_subscriptions_check = getStorageValue("last_subscriptions_check");
+      delete localStorage.last_subscriptions_check;
+    }
+    if (localStorage["malware-notification"]) {
+      storageData["malware-notification"] = getStorageValue("malware-notification");
+      delete localStorage["malware-notification"];
+    }
+    if (localStorage.custom_filters) {
+      storageData.custom_filters = getStorageValue("custom_filters");
+    }
+    if (localStorage.custom_filter_count) {
+      storageData.custom_filter_count = getStorageValue("custom_filter_count");
+      delete localStorage.custom_filter_count;
+    }
+    if (localStorage.exclude_filters) {
+      storageData.exclude_filters = getStorageValue("exclude_filters");
+      delete localStorage.exclude_filters;
+    }
+    initializeBackgroundObjects(storageData);
+  })();
 
   log("\n===FINISHED LOADING===\n\n");

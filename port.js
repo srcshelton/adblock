@@ -14,27 +14,31 @@
 // still be available in Safari, and the chrome.* APIs will be
 // unchanged in Chrome.
 
-if (typeof SAFARI == "undefined") {
-  (function() {
+if (typeof SAFARI == 'undefined') {
+  (function () {
 
     // True in Safari, false in Chrome.
-    SAFARI = (function() {
-      if (typeof safari === "undefined" && typeof chrome === "undefined") {
+    SAFARI = (function () {
+      if (typeof safari === 'undefined' && typeof chrome === 'undefined') {
+
         // Safari bug: window.safari undefined in iframes with JS src in them.
         // Must get it from an ancestor.
         var w = window;
         while (w.safari === undefined && w !== window.top) {
           w = w.parent;
         }
+
         window.safari = w.safari;
       }
-      return (typeof safari !== "undefined");
+
+      return (typeof safari !== 'undefined');
     })();
 
     // Safari 5.0 (533.x.x) with no menu support
-    LEGACY_SAFARI = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] < 534;
+    LEGACY_SAFARI = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null, 0])[1] < 534;
+
     // Safari 5.1 (534.x.x) with no undo support
-    LEGACY_SAFARI_51 = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] <= 534;
-  
-  })(); 
+    LEGACY_SAFARI_51 = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null, 0])[1] <= 534;
+
+  })();
 }

@@ -8,126 +8,12 @@
   <head>
     <title i18n="adblockreportinganad"></title>
     <link rel="stylesheet" href="../options/options.css" />
-    <script src="../compat.js" type="text/javascript"></script>    
+    <script src="../compat.js" type="text/javascript"></script>
     <script src="../jquery/jquery.min.js" type="text/javascript"></script>
     <script src="../punycode.min.js" type="text/javascript"></script>
     <script src="../port.js" type="text/javascript"></script>
     <script src="../functions.js" type="text/javascript"></script>
-    <style type="text/css">
-      body {
-        background-color: white;
-      }
-      .section {
-        padding: 10px;
-        padding-left: 162px;
-        margin: 0px -8px 0px -8px;
-        display: none;
-      }
-      .white {
-        background-color: white;
-      }
-      h2 {
-        font-size: 1.2em;
-        margin-left: 15px;
-      }
-      label {
-        margin-right: 5px;
-      }
-      div.form {
-        margin-left: 15px;
-      }
-      #info {
-        position: relative;
-        margin: 110px auto 30px;
-        max-width: 990px;
-      }
-      .missingInfoMessage{
-        display: none;
-        color: #f00
-      }
-      .inputError{
-        border-color: #f00 !important;
-      }
-      #checkupdate {
-        font-weight: bold;
-      }
-      .result {
-        position: relative;
-        margin: 0px auto;
-        max-width: 1000px;
-        padding: 20px 20px 20px 30px;
-        background-color: white;
-      }
-      #privacy {
-        font-style: italic;
-        display: none;
-      }
-      .answer {
-        color: #4D7BD6;
-        font-weight: bold;
-        margin-left: 5px;
-      }
-      .afterFilterUpdate, .afterFilterUpdate * {
-        color: #CCC;
-        cursor: auto;
-      }
-      .afterDisableAA, .afterDisableAA * {
-        color: #CCC;
-        cursor: auto;
-      }
-      a {
-        color: #4D7BD6;
-        text-decoration: none;
-      }
-      .radio {
-        margin-left: 4px;
-      }
-      #checkinfirefox {
-        display: inline-block;
-      }
-      #whyFireFox {
-        text-decoration: none;
-        border-bottom: 1px dotted;
-        color: grey;
-        margin-left: 18px;
-        vertical-align: top;
-      }
-      #step_disable_extensions_DIV {
-        position: relative;
-        margin: 0px auto;
-        max-width: 1000px;
-        padding: 20px 20px 20px 0px;
-      }
-      #step_report_DIV, #step_update_aa_DIV, #step_language_DIV, #step_update_filters_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_DIV, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
-        position: relative;
-        margin: 0px auto;
-        max-width: 1000px;
-        padding: 20px 20px 20px 0px;
-      }
-      .loader {
-          width: 20px;
-          height: 20px;
-          padding-top: 4px;
-          position: absolute;
-        }
-      .redText{
-        color: #f00
-      }
-      @media screen and (max-width: 1080px) {
-        .social {
-          display: none;
-        }
-        #step_report_DIV, #step_update_aa_DIV, #step_update_filters_DIV, #step_disable_extensions_DIV, #step_language_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_div, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
-          padding: 20px 20px 20px 0px;
-        }
-        #info {
-          margin: 110px auto 30px 15px;
-        }
-       .result {
-          padding: 20px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="adreport.css" />
   </head>
   <body>
     <header id="header">
@@ -151,9 +37,9 @@
     <div class="step" style="background-color: #f8f8f8;">
       <div id="step_malware_checking_DIV" class="chrome_only">
         <h2 i18n="malwarecheck" style="display: inline-block;"></h2>
-        <img class="loader" src=../img/loader.gif />
+        <img class="loader" />
         <br/>
-        <span id="malwarewarning" style="display: none; margin: 15px 0px 15px 19px;" i18n="malwarewarning" ></span>
+        <span id="malwarewarning" style="display: none; margin: 15px 0px 15px 19px;" ></span>
       </div>
     </div>
 
@@ -232,12 +118,12 @@
         <div id="step_language" class="form">
           <select id="step_language_lang" style="margin-left: 6px;">
             <option disabled="disabled" selected="selected"></option>
-            <option value="easylist;http://forums.lanik.us/" i18n="lang_english"></option>
+            <option value="easylist;https://forums.lanik.us/viewforum.php?f=62" i18n="lang_english"></option>
             <option value="easylist;easylist_plus_arabic;https://forums.lanik.us/viewforum.php?f=98" i18n="filtereasylist_plus_arabic"></option>
             <option value="easylist;easylist_plus_bulgarian;mailto:alex at stanev.org" i18n="filtereasylist_plus_bulgarian"></option>
             <option value="chinese;http://abpchina.org/forum" i18n="filterchinese"></option>
             <option value="czech;http://adblock.sk/forum" i18n="lang_czech"></option>
-            <option value="easylist;easylist_plus_spanish;mailto:easylist.spanish at gmail.com" i18n="lang_spanish"></option>            
+            <option value="easylist;easylist_plus_spanish;mailto:easylist.spanish at gmail.com" i18n="lang_spanish"></option>
             <option value="danish;mailto:henrik at schack.dk" i18n="filterdanish"></option>
             <option value="easylist;dutch;http://forums.lanik.us/viewforum.php?f=100" i18n="filterdutch"></option>
             <option value="easylist;easylist_plus_estonian;mailto:adblock at gurud.ee" i18n="filtereasylist_plus_estonian"></option>

@@ -2,6 +2,15 @@
 
 UNRELEASED:
 
+2.1.6.0:
+- Updated to use new extension APIs available in Windows 10 Creators Update / Edge 15.  (#123)
+
+1.12.0.0:
+- Updated translations. 
+- Fixed a bug in the white list YT channel feature.  (#145)
+- Updated the URL of the 'What's this link' in the AdBlock menu next to the block counts.  (#146)
+- Added 'zh' locale as temporary workaround for Edge 15 users.  (#143)
+
 1.11.0.0:
 - Updated translations. 
 - Updated 'bandaids' processing to help block ads on certain web sites. (#135)

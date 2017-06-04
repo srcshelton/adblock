@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "1.11.0.0",
+  "version": "2.1.6.0",
   "background": {
     "page": "compat.html",
     "persistent": true
@@ -67,10 +67,10 @@
   },
   "incognito": "spanning",
   "manifest_version": 2,
-  "minimum_edge_version": "37.14361.0.0",
+  "minimum_edge_version": "40.15063.0.0",
   "options_page": "options/index.html",
   "permissions": [
-    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
+    "http://*/*", "https://*/*", "management", "bookmarks", "unlimitedStorage", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
   ],
   "web_accessible_resources": [
     "CHANGELOG.txt",

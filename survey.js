@@ -1,20 +1,24 @@
-﻿//if the ping reponse indicates a survey (tab or overlay)
+
+//if the ping reponse indicates a survey (tab or overlay)
 //gracefully processes the request
-SURVEY = (function() {
+
+SURVEY = (function () {
+
   // Only allow one survey per browser startup, to make sure users don't get
   // spammed due to bugs in AdBlock / the ping server / the browser.
   var surveyAllowed = true;
 
   //open a Tab for a full page survey
-  var processTab = function(surveyData) {
+  var processTab = function (surveyData) {
 
-    var waitForUserAction = function() {
+    var waitForUserAction = function () {
       chrome.tabs.onCreated.removeListener(waitForUserAction);
-      var openTabIfAllowed = function() {
+      var openTabIfAllowed = function () {
         shouldShowSurvey(surveyData, function () {
           openTab('https://getadblock.com/' + surveyData.open_this_url, true);
         });
-      }
+      };
+
       if (SAFARI) {
         // Safari has a bug: if you open a new tab, it will shortly thereafter
         // set the active tab's URL to "Top Sites". However, here, after the
@@ -30,20 +34,21 @@ SURVEY = (function() {
     };
 
     if (chrome.tabs.onCreated.hasListener(waitForUserAction)) {
-        chrome.tabs.onCreated.removeListener(waitForUserAction);
+      chrome.tabs.onCreated.removeListener(waitForUserAction);
     }
+
     chrome.tabs.onCreated.addListener(waitForUserAction);
   }; //end of processTab()
 
   //Display a notification overlay on the active tab
   // To avoid security issues, the tab that is selected must not be incognito mode (Chrome only),
   // and must not be using SSL / HTTPS
-  var processOverlay = function(surveyData) {
+  var processOverlay = function (surveyData) {
     // Call |callback(tab)|, where |tab| is the active tab, or undefined if
     // there is no active tab.
-    var getActiveTab = function(callback) {
+    var getActiveTab = function (callback) {
       if (!SAFARI) {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           callback(tabs[0]);
         });
       } else {
@@ -55,20 +60,21 @@ SURVEY = (function() {
     };
 
     // True if we are willing to show an overlay on this tab.
-    var validTab = function(tab) {
+    var validTab = function (tab) {
       if (!SAFARI) {
-        if (tab.incognito || tab.status !== "complete") {
+        if (tab.incognito || tab.status !== 'complete') {
           return false;
         }
       }
+
       return /^http:/.test(tab.url);
     };
 
     // Check to see if we should show the survey before showing the overlay.
-    var showOverlayIfAllowed = function(tab) {
-      shouldShowSurvey(surveyData, function() {
-        var data = { command: "showoverlay", overlayURL: surveyData.open_this_url, tabURL:tab.url};
-        var validateResponseFromTab = function(response) {
+    var showOverlayIfAllowed = function (tab) {
+      shouldShowSurvey(surveyData, function () {
+        var data = { command: 'showoverlay', overlayURL: surveyData.open_this_url, tabURL: tab.url };
+        var validateResponseFromTab = function (response) {
           if (chrome.runtime.lastError) {
             if (chrome.runtime.lastError.message) {
               recordErrorMessage('overlay message error ' + chrome.runtime.lastError.message);
@@ -79,6 +85,7 @@ SURVEY = (function() {
             recordErrorMessage('invalid response from notification overlay script' + response);
           }
         };
+
         if (SAFARI) {
           chrome.extension.sendRequest(data, validateResponseFromTab);
         } else {
@@ -87,14 +94,14 @@ SURVEY = (function() {
       });
     };
 
-    var retryInFiveMinutes = function() {
+    var retryInFiveMinutes = function () {
       var fiveMinutes = 5 * 60 * 1000;
-      setTimeout(function() {
+      setTimeout(function () {
         processOverlay(surveyData);
       }, fiveMinutes);
     };
 
-    getActiveTab(function(tab) {
+    getActiveTab(function (tab) {
       if (tab && validTab(tab)) {
         showOverlayIfAllowed(tab);
       } else {
@@ -110,23 +117,24 @@ SURVEY = (function() {
   // Inputs:
   //   surveyData: JSON survey information from ping server
   //   callback(): called with no arguments if the survey should be shown
-  var shouldShowSurvey = function(surveyData, callback) {
+  var shouldShowSurvey = function (surveyData, callback) {
     // Check if we should show survey only if it can actually be shown
     // based on surveyAllowed.
     if (surveyAllowed) {
-        var data = { cmd: "survey", u: STATS.userId(), sid: surveyData.survey_id };
-        $.post(STATS.statsUrl, data, function(responseData) {
-          try {
-            var data = JSON.parse(responseData);
-          } catch (e) {
-            console.log('Error parsing JSON: ', responseData, " Error: ", e);
-          }
-          if (data && data.should_survey === 'true') {
-            surveyAllowed = false;
-            callback();
-          }
-        });
-      }
+      var data = { cmd: 'survey', u: STATS.userId(), sid: surveyData.survey_id };
+      $.post(STATS.statsUrl, data, function (responseData) {
+        try {
+          var data = JSON.parse(responseData);
+        } catch (e) {
+          console.log('Error parsing JSON: ', responseData, ' Error: ', e);
+        }
+
+        if (data && data.should_survey === 'true') {
+          surveyAllowed = false;
+          callback();
+        }
+      });
+    }
   };
 
   // Check the response from a ping to see if it contains valid survey instructions.
@@ -134,8 +142,8 @@ SURVEY = (function() {
   // Otherwise, return null.
   // Inputs:
   //   responseData: string response from a ping
-  var surveyDataFrom = function(responseData) {
-      if (responseData.length === 0)
+  var surveyDataFrom = function (responseData) {
+      if (responseData.length === 0 || responseData.trim().length === 0)
         return null;
 
       log('validating ping response data', responseData);
@@ -145,21 +153,22 @@ SURVEY = (function() {
         if (!surveyData.open_this_url ||
             !surveyData.open_this_url.match ||
             !surveyData.open_this_url.match(/^\/survey\//)) {
-          log("bad survey data", responseData);
+          log('bad survey data', responseData);
           return null;
         }
       } catch (e) {
-        console.log("Something went wrong with parsing survey data.");
+        console.log('Something went wrong with parsing survey data.');
         console.log('error', e);
         console.log('response data', responseData);
         return null;
       }
+
       return surveyData;
-  };
+    };
 
   return {
-    maybeSurvey: function(responseData) {
-      if (get_settings().show_survey === false)
+    maybeSurvey: function (responseData) {
+      if (getSettings().show_survey === false)
         return;
 
       var surveyData = surveyDataFrom(responseData);
@@ -172,9 +181,10 @@ SURVEY = (function() {
         processTab(surveyData);
       }
     },//end of maybeSurvey
-    types: function() {
+
+    types: function () {
       // 'O' = Overlay Surveys and 'T' = Tab Surveys
-      return "OT";
-    }
+      return 'OT';
+    },
   };
 })();
