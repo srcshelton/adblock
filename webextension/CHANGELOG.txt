@@ -2,7 +2,7 @@
 
 UNRELEASED:
 
-3.2.0:
+3.2.1:
 - Changed the AdBlock popup menu to work in private mode. (#236)
 - Removed all html tags from locale messages. (#232)
 - Added the permission to support multi-process Firefox (e10s).  (#237)
