@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.10.0.0:
+- Updated translations.
+- Updated the contact information for the Hungarian and Hebrew filter lists. (# 125 & 130)
+
 1.9.0.0:
 - Updated translations.
 - Fixed text display issue on AdBlock menu. (#128)
