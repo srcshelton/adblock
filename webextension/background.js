@@ -262,6 +262,12 @@ var set_first_run_to_false = function () {
 //   url: string - url for the tab
 //   nearActive: bool - open the tab near currently active (instead of at the end). optional, defaults to false
 function openTab(url, nearActive, callback) {
+  // create an empty callback function, if we were called without on to 
+  // prevent JS errors.
+  if (typeof callback !== 'function') {
+      callback = function() {
+      };
+  }
   chrome.windows.getCurrent(function (current) {
       // Normal window - open tab in it
       if (!current.incognito) {
@@ -269,8 +275,8 @@ function openTab(url, nearActive, callback) {
           chrome.tabs.create({ url: url }, callback);
         } else {
           chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-              chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined) }, callback);
-            });
+            chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined) }, callback);
+          });
         }
       } else {
         // Get all windows
@@ -294,9 +300,8 @@ function openTab(url, nearActive, callback) {
                     chrome.tabs.create({ windowId: windowId, url: url,
                                         index: (tabs[0] ? tabs[0].index + 1 : undefined), active: true, }, callback);
                     chrome.windows.update(windowId, { focused: true });
-                });
+                });                  
               }
-
               chrome.windows.update(windowId, { focused: true });
             } else {
               // Normal window is not currently opened,
@@ -724,7 +729,10 @@ var try_to_unwhitelist = function (url, callback) {
             if (typeof callback === 'function') {
               callback(true);
             }
-
+            chrome.runtime.sendMessage({
+              message: 'try_to_unwhitelist_response',
+              returnCode: true
+            });
             return true;
           } else {
             if (!Filter.isWhitelistFilter(text))
@@ -744,7 +752,10 @@ var try_to_unwhitelist = function (url, callback) {
             if (typeof callback === 'function') {
               callback(true);
             }
-
+            chrome.runtime.sendMessage({
+              message: 'try_to_unwhitelist_response',
+              returnCode: true
+            });
             return true;
           }
         }
@@ -752,7 +763,10 @@ var try_to_unwhitelist = function (url, callback) {
         if (typeof callback === 'function') {
           callback(false);
         }
-
+            chrome.runtime.sendMessage({
+              message: 'try_to_unwhitelist_response',
+              returnCode: false
+            });
         return false;
       });
   };
@@ -825,13 +839,39 @@ var getCurrentTabInfo = function (callback, secondTime) {
     result.total_blocked = blockCounts.getTotalAdsBlocked();
     if (tab.url && tab.id) {
       result.tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
-      callback(result);
+      if (typeof callback === "function") {
+        callback(result);
+      }
       return;
     } else {
-      callback(result);
+      if (typeof callback === "function") {
+        callback(result);
+      }
     }
   });
 };
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (!(request.message === "getCurrentTabInfo")) {
+    return;
+  }
+  getCurrentTabInfo(function(info) {
+    info.settings = getSettings();
+    info.paused = adblock_is_paused();
+    var eligible_for_undo = !info.paused && (info.disabled_site || !info.whitelisted);
+    info.customFilterCount = 0;
+    if (eligible_for_undo) {
+      var host = parseUri(info.tab.unicodeUrl).host;
+      var url_to_check_for_undo = info.disabled_site ? undefined : host;
+      info.customFilterCount = count_cache.getCustomFilterCount(url_to_check_for_undo);
+    }
+    chrome.runtime.sendMessage({
+      message: 'getCurrentTabInfoResponse',
+      info: info
+    });
+  });
+  sendResponse({});
+});
 
 // Returns true if anything in whitelist matches the_domain.
 //   url: the url of the page
@@ -1195,16 +1235,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     function (request, sender, sendResponse) {
       if (request.command != 'call')
         return; // not for us
-      // +1 button in browser action popup loads a frame which
-      // runs content scripts.  Ignore their cries for ad blocking.
-      if ((sender.tab === undefined) || (sender.tab === null))
-        return;
       var fn = window[request.fn];
       if (typeof fn !== 'function') {
         log('fn', fn, 'not found on background page, request: ', request);
         return;
       }
-
       request.args.push(sender);
       var result = fn.apply(window, request.args, sender);
       sendResponse(result);
@@ -1414,7 +1449,6 @@ var emit_page_broadcast = (function () {
         'punycode.min.js',
         'jquery/jquery-2.1.1.min.js',
         'jquery/jquery-ui.min.js',
-        'html_parser.js',
         'uiscripts/load_css.js',
         'uiscripts/top_open_whitelist_ui.js',
         ],
@@ -1425,7 +1459,6 @@ var emit_page_broadcast = (function () {
         'punycode.min.js',
         'jquery/jquery-2.1.1.min.js',
         'jquery/jquery-ui.min.js',
-        'html_parser.js',
         'uiscripts/load_css.js',
         'uiscripts/blacklisting/overlay.js',
         'uiscripts/blacklisting/clickwatcher.js',

@@ -2,6 +2,13 @@
 
 UNRELEASED:
 
+3.2.0:
+- Changed the AdBlock popup menu to work in private mode. (#236)
+- Removed all html tags from locale messages. (#232)
+- Added the permission to support multi-process Firefox (e10s).  (#237)
+- Updated the bandaids processing for specific sites.  (#239)
+- Fixed the issue with included JavaScript libraries having different MD5 hashes.
+
 3.1.1:
 - Remove logic that was using onCreatedNavigationTarget API to avoid error.  (# 235)
 

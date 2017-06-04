@@ -108,7 +108,7 @@ BlacklistUi.prototype._buildPage1 = function () {
   var _this = this;
 
   var page = $('<div>').
-    text(translateAndRemoveHTML('sliderexplanation')).
+    text(translate('sliderexplanation')).
     append('<br/>').
     append("<input id='slider' type='range' min='0' value='0'/>").
     append("<div id='selected_data'></div>");
@@ -171,7 +171,7 @@ BlacklistUi.prototype._buildPage1 = function () {
 
 BlacklistUi.prototype._build_page2 = function () {
   var _this = this;
-  var page = $('<div>').text(translateAndRemoveHTML('blacklisteroptions1')).
+  var page = $('<div>').text(translate('blacklisteroptions1')).
       append(
         '<div>' +
           "<div id='adblock-details'></div><br/>" +
@@ -179,11 +179,11 @@ BlacklistUi.prototype._build_page2 = function () {
         '</div>').
       append(
         $('<div> <br/>').
-          text(translateAndRemoveHTML('blacklisternotsure'))).
+          text(translate('blacklisternotsure'))).
           append('<br/><br/>').
           append(
           $("<div style='clear:left; font-size:smaller; margin-top: -20px;'> <br/>").
-          text(translateAndRemoveHTML('blacklisterthefilter'))).append(
+          text(translate('blacklisterthefilter'))).append(
               "<div style='margin-left:15px;margin-bottom:15px'>" +
                 '<div>' +
                   "<div id='summary'></div><br/>" +
@@ -217,7 +217,7 @@ BlacklistUi.prototype._build_page2 = function () {
           } else {
             try {
               var responseObj = JSON.parse(response);
-              alert(translateAndRemoveHTML('customfilterserrormessage', [filter, responseObj.exception]));
+              alert(translate('customfilterserrormessage', [filter, responseObj.exception]));
               mayOpenDialogUI = true;
               $('.adblock-ui-stylesheet').remove();
               page.remove();
@@ -256,7 +256,7 @@ BlacklistUi.prototype._build_page2 = function () {
             } else {
               try {
                 var responseObj = JSON.parse(response);
-                alert(translateAndRemoveHTML('customfilterserrormessage', [customFilter, responseObj.exception]));
+                alert(translate('customfilterserrormessage', [customFilter, responseObj.exception]));
                 mayOpenDialogUI = true;
                 $('.adblock-ui-stylesheet').remove();
                 page.remove();
@@ -317,7 +317,7 @@ BlacklistUi.prototype._redrawPage1 = function () {
   }
 
   var $selectedData = $('#selected_data', this._ui_page1);
-  $selectedData.append('<b>').text(translateAndRemoveHTML('blacklisterblockedelement')).append('<br/>');
+  $selectedData.append('<b>').text(translate('blacklisterblockedelement')).append('<br/>');
 
   $selectedData.append($('<i></i>').text('<' + el[0].nodeName));
   var attrs = ['id', 'class', 'name', 'src', 'href', 'data'];
@@ -393,7 +393,7 @@ BlacklistUi.prototype._redrawPage2 = function () {
     append('<center>').
     text(function () {
         if (matchCount == 1)
-            return translateAndRemoveHTML('blacklistersinglematch');
+            return translate('blacklistersinglematch');
         else
             return translate('blacklistermatches', [matchCount]);
       });
@@ -415,7 +415,7 @@ BlacklistUi.prototype._redrawPage2 = function () {
     if (attr == 'src' || attr == 'href' || attr == 'data')
       checked = $('input', $detailsDiv).length == 1;
     var checkboxlabel = $('<label></label>').
-      text(translateAndRemoveHTML('blacklisterattrwillbe',
+      text(translate('blacklisterattrwillbe',
            [(attr == 'nodeName' ? translate('blacklistertype') : attr), val])).
       attr('for', 'ck' + attr);
 

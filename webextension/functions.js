@@ -10,14 +10,14 @@ if (window.location.origin + '/' === chrome.extension.getURL('')) {
 }
 
 // Global variable for Opera, so we can make specific things for Opera
-OPERA = navigator.userAgent.indexOf('OPR') > -1;
+var OPERA = navigator.userAgent.indexOf('OPR') > -1;
 
 // Run a function on the background page.
 // Inputs (positional):
 //   first, a string - the name of the function to call
 //   then, any arguments to pass to the function (optional)
 //   then, a callback:function(return_value:any) (optional)
-BGcall = function () {
+var BGcall = function () {
   var args = [];
   for (var i = 0; i < arguments.length; i++)
       args.push(arguments[i]);
@@ -34,7 +34,7 @@ BGcall = function () {
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-logging = function (enabled) {
+var logging = function (enabled) {
   if (enabled) {
     loggingEnable = true;
     window.log = function () {
@@ -60,64 +60,91 @@ var onReady = function (callback) {
         window.addEventListener('load', callback, false);
   };
 
-var translate = function (messageID, args) {
-    var originalTranslateText = chrome.i18n.getMessage(messageID, args);
-    return originalTranslateText;
-  };
-
-var translateAndRemoveHTML = function (messageID, args) {
-    var originalTranslateText = translate(messageID, args);
-
-    //if we find an HTML element in the translated text '<b>' for instance, remove it.
-    if (originalTranslateText.indexOf('<') >= 0) {
-      var htmlRemoverRegEx = /(<([^>]+)>)/ig;
-      return originalTranslateText.replace(htmlRemoverRegEx, '');
+var translate = function(messageID, args) {
+  if(Array.isArray(args)) {
+    for(var i = 0; i < args.length; i++) {
+      if(typeof args[i] !== 'string') {
+        args[i] = args[i].toString();
+      }
     }
+  } else if(args && typeof args !== 'string') {
+    args = args.toString();
+  }
+  if (!messageID || typeof messageID !== "string") {
+    console.trace("translate called with empty message id",messageID, args)
+  }
+  return chrome.i18n.getMessage(messageID, args);
+};
 
-    return originalTranslateText;
-  };
+var splitMessageWithReplacementText = function(rawMessageText, messageID) {
+    var anchorStartPos = rawMessageText.indexOf('[[');
+    var anchorEndPos = rawMessageText.indexOf(']]');
+
+    if (anchorStartPos === -1 || anchorEndPos === -1) {
+      log("replacement tag not found", messageID, rawMessageText, anchorStartPos, anchorEndPos);
+      return { error: "no brackets found" };
+    }
+    var returnObj = {};
+    returnObj.anchorPrefixText = rawMessageText.substring(0, anchorStartPos);
+    returnObj.anchorText = rawMessageText.substring(anchorStartPos + 2, anchorEndPos);
+    returnObj.anchorPostfixText = rawMessageText.substring(anchorEndPos + 2);
+    return returnObj;
+};
 
 var localizePage = function () {
 
     //translate a page into the users language
-    $('[i18n]:not(.i18n-replaced)').each(function () {
-        var originalTranslateText = translate($(this).attr('i18n'));
-
-        //look for embeded HTML Tag in translate text, identified by a '<' character,
-        //if found, remove the tag, and create a child node with same attributes
-        //and inner text.
-        if (originalTranslateText.indexOf('<') >= 0) {
-          HTMLtoDOM(originalTranslateText, this);
-        } else {
-          $(this).text(originalTranslateText);
-        }
-      });
+    $('[i18n]:not(.i18n-replaced, [i18n_replacement_el])').each(function () {
+        $(this).text(translate($(this).attr('i18n')));
+    });
 
     $('[i18n_value]:not(.i18n-replaced)').each(function () {
         $(this).val(translate($(this).attr('i18n_value')));
-      });
+    });
 
     $('[i18n_title]:not(.i18n-replaced)').each(function () {
         $(this).attr('title', translate($(this).attr('i18n_title')));
-      });
+    });
 
     $('[i18n_placeholder]:not(.i18n-replaced)').each(function () {
         $(this).attr('placeholder', translate($(this).attr('i18n_placeholder')));
-      });
+    });
 
-    $('[i18n_replacement_el]:not(.i18n-replaced)').each(function () {
+  $("[i18n_replacement_el]:not(.i18n-replaced)").each(function() {
+    // Replace a dummy <a/> inside of localized text with a real element.
+    // Give the real element the same text as the dummy link.
+    var messageID = $(this).attr("i18n");
+    if (!messageID || typeof messageID !== "string") {
+      $(this).addClass("i18n-replaced");
+      return;
+    }
+    if (!$(this).get(0).firstChild) {
+       log("returning, no first child found", $(this).attr("i18n"));
+       return;
+    }
+    if (!$(this).get(0).lastChild) {
+       log("returning, no last child found", $(this).attr("i18n"));
+       return;
+    }
+    var replaceElId = '#' + $(this).attr("i18n_replacement_el");
+    if ($(replaceElId).length === 0) {
+      log("returning, no child element found", $(this).attr("i18n"), replaceElId);
+      return;
+    }
+    var rawMessageText = chrome.i18n.getMessage(messageID) || "";
+    var messageSplit = splitMessageWithReplacementText(rawMessageText, messageID);
+    $(this).get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
+    $(this).get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
+    if ($(replaceElId).get(0).tagName === "INPUT") {
+      $('#' + $(this).attr("i18n_replacement_el")).prop('value', messageSplit.anchorText);
+    } else {
+      $('#' + $(this).attr("i18n_replacement_el")).text(messageSplit.anchorText);
+    }
 
-        // Replace a dummy <a/> inside of localized text with a real element.
-        // Give the real element the same text as the dummy link.
-        var dummy_link = $('a', this);
-        var text = dummy_link.text();
-        var real_el = $('#' + $(this).attr('i18n_replacement_el'));
-        real_el.text(text).val(text).replaceAll(dummy_link);
-
-        // If localizePage is run again, don't let the [i18n] code above
-        // clobber our work
-        $(this).addClass('i18n-replaced');
-      });
+    // If localizePage is run again, don't let the [i18n] code above
+    // clobber our work
+    $(this).addClass("i18n-replaced");
+  });
 
     // Make a right-to-left translation for Arabic and Hebrew languages
     var language = determineUserLanguage();

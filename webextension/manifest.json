@@ -1,7 +1,7 @@
 ﻿{
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "manifest_version": 2,
   "permissions": [
     "http://*/*", "https://*/*", "management", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "storage", "notifications"

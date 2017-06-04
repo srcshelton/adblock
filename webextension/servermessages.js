@@ -71,7 +71,7 @@ var sendMessageToLogServer = function (fullUrl, callback)
     url: fullUrl,
     success: function ()
     {
-      if (callback)
+      if (typeof callback === "function")
       {
         callback();
       }

@@ -6,7 +6,6 @@
     <script src="../port.js"></script>
     <script src="../jquery/jquery-2.1.1.min.js"></script>
     <script src="../functions.js"></script>
-    <script src="../html_parser.js"></script>
     <script src="popup.js"></script>
     <meta charset="UTF-8">
   </head>
@@ -22,10 +21,8 @@
         <div id="block_counts" class="box" >
             <div i18n="blocked_ads" class="header"></div>
             <div style="padding:2px 0px 0px 2px;">
-              <div i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"></div>
-              <span class="block_count_number" id="page_blocked_count"></span>
-              <div i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count"></div>
-              <span class="block_count_number" id="total_blocked_count"></span>
+              <div i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"> <a class="block_count_number" id="page_blocked_count"> </a> </div>
+              <div i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count"> <a class="block_count_number" id="total_blocked_count"> </a> </div>
             </div>
         </div>
         <!-- TODO check if italic works -->
