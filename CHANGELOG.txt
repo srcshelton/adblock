@@ -2,7 +2,8 @@
 
 UNRELEASED:
 
-1.10.0.0:
+1.10.0.1:
+- Updated the 'success' text on the 'Debug Report' page.  Also, the debug data now includes the AdBlock 'paused' state.  (#126)
 - Updated translations.
 - Updated the contact information for the Hungarian and Hebrew filter lists. (# 125 & 130)
 

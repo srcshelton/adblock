@@ -1550,6 +1550,7 @@
 
       // Get & process userAgent
       the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
+      the_debug_info.other_info.push("is adblock paused: " + adblock_is_paused());
       the_debug_info.other_info = the_debug_info.other_info.join("\n");
       return the_debug_info;
   }
