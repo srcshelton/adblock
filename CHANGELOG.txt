@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.9.0.0:
+- Updated translations.
+- Fixed text display issue on AdBlock menu. (#128)
+
 1.8.1.0:
 - Fixed an issue with the build process to include all necessary files.
 - Updated translations.
