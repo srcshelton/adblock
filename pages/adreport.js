@@ -228,7 +228,7 @@ $(document).ready(function () {
         var messageSplit = splitMessageWithReplacementText(rawMessageText);
         $('#checkupdate').get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
         $('#checkupdate').get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
-        $('#checkupdatelink').text(translate('here')).attr('href', 'https://adblockplus.org/en/subscriptions');
+        $('#checkupdatelink').text(messageSplit.anchorText).attr('href', 'https://adblockplus.org/en/subscriptions');
         return;
       } else {
         var required_lists = selected.attr('value').split(';');
@@ -501,47 +501,9 @@ function sendReport() {
 
   // Retrieve extension info
   var askUserToGatherExtensionInfo = function () {
-      if (chrome &&
-          chrome.permissions &&
-          chrome.permissions.request) {
-        chrome.permissions.request({
-            permissions: ['management'],
-          }, function (granted) {
-            // The callback argument will be true if the user granted the permissions.
-            if (granted) {
-              chrome.management.getAll(function (result) {
-                  var extInfo = [];
-                  for (var i = 0; i < result.length; i++) {
-                    extInfo.push('Number ' + (i + 1));
-                    extInfo.push('  name: ' + result[i].name);
-                    extInfo.push('  id: ' + result[i].id);
-                    extInfo.push('  version: ' + result[i].version);
-                    extInfo.push('  enabled: ' + result[i].enabled);
-                    extInfo.push('  type: ' + result[i].type);
-                    extInfo.push('');
-                  }
-
-                  report_data.extensions = extInfo.join('\n');
-                  chrome.permissions.remove({
-                      permissions: ['management'],
-                    }, function (removed) {});
-
-                  sendData();
-                  return;
-                });
-            } else {
-              //user didn't grant us permission
-              report_data.extensions = 'Permission not granted';
-              sendData();
-              return;
-            }
-          });
-      } else {
-        //user didn't grant us permission
-        report_data.extensions = 'Extension information not available';
-        sendData();
-      }
-    }; //end of askUserToGatherExtensionInfo
+    report_data.extensions = 'Extension information not available in Firefox';
+    sendData();
+  }; //end of askUserToGatherExtensionInfo
 
   var sendData = function () {
       var formdata = new FormData();
@@ -791,7 +753,7 @@ var checkForMalware = function () {
     if (infected) {
       $('#step_update_filters_DIV').hide();
       $('#malwarewarning').text(translate('malwarewarning'));
-      $('a', '#malwarewarning').attr('href', 'http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-');
+      $('a', '#malwarewarning').attr('href', 'https://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-');
     } else {
       $('#step_update_filters_DIV').show();
       $('#malwarewarning').text(translate('malwarenotfound'));

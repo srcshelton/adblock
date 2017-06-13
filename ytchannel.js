@@ -92,12 +92,13 @@ if (!/ab_channel/.test(url)) {
   // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
   //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
   function updateURL(channelName, shouldReload) {
-    channelName = parseChannelName(channelName);
-    if (parseUri(url).search.indexOf('?') === -1) {
-      var updatedUrl = url + '?&ab_channel=' + channelName;
+    var parsedChannelName = parseChannelName(channelName);
+    if (parseUri(url).search.indexOf("?") === -1) {
+        var updatedUrl = url+"?&ab_channel=" + parsedChannelName;
     } else {
-      var updatedUrl = url + '&ab_channel=' + channelName;
+        var updatedUrl = url+"&ab_channel=" + parsedChannelName;
     }
+    chrome.runtime.sendMessage({ command: 'updateYouTubeChannelName', args: channelName });
 
     // Add the name of the channel to the end of URL
     window.history.replaceState(null, null, updatedUrl);

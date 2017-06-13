@@ -809,7 +809,7 @@ MyFilters.prototype._make_subscription_options = function () {
       url: 'http://adblock.schack.dk/block.txt',
     },
     hungarian: { // Hungarian filters
-      url: 'http://pete.teamlupus.hu/hufilter.txt',
+      url: 'https://raw.githubusercontent.com/szpeter80/hufilter/master/hufilter.txt',
     },
     israeli: { // Israeli filters
       url: 'https://easylist-downloads.adblockplus.org/israellist+easylist.txt',

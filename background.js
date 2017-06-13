@@ -2,9 +2,6 @@
 
 var _settings = {};
 var _myfilters = {};
-// Ask to the legacy part to dump the needed data and send it back
-// to the background page...
-var port = browser.runtime.connect({ name: 'sync-legacy-addon-data' });
 
 var initializeBackgroundObjects = function () {
   _settings = new Settings();
@@ -86,98 +83,6 @@ var initializeBackgroundObjects = function () {
   });
 
 }; // end of initializeBackgroundObjects
-
-port.onMessage.addListener((msg) => {
-  var migrateLogMessageKey = 'migrateLogMessageKey';
-  var migrateLogMessageString = 'Date migrated: ' + new Date() + ' \n';
-  var migrateLog = function ()
-  {
-    console.log.apply(console, arguments);
-    var args = Array.prototype.slice.call(arguments);
-    migrateLogMessageString = migrateLogMessageString + args.join(' ') + '\n';
-    browser.storage.local.set({ migrateLogMessageKey: migrateLogMessageString });
-  };
-
-  if (msg) {
-    //
-    if (msg.storage && msg.storage.userid) {
-      browser.storage.local.set({ userid: msg.storage.userid });
-      localStorage.setItem('userid', JSON.stringify(msg.storage.userid));
-      migrateLog('migrated userid');
-    }
-
-    if (msg.storage && msg.storage.total_pings) {
-      browser.storage.local.set({ total_pings: msg.storage.total_pings });
-      migrateLog('migrated total_pings ' + msg.storage.total_pings);
-    }
-
-    if (msg.storage && msg.storage.blockage_stats) {
-      storage_set('blockage_stats', msg.storage.blockage_stats);
-      migrateLog('migrated Legacy Blockage Stats: ' + JSON.stringify(msg.storage.blockage_stats));
-    }
-
-    if (msg.storage && msg.storage.next_ping_time) {
-      browser.storage.local.set({ next_ping_time: msg.storage.next_ping_time });
-      migrateLog('migrated next_ping_time ' + msg.storage.next_ping_time);
-    }
-
-    if (msg.storage && msg.storage.settings) {
-      browser.storage.local.set({ settings: msg.storage.settings });
-      migrateLog('migrated settings ' + JSON.stringify(msg.storage.settings));
-    }
-
-    if (msg.storage && msg.storage.filter_lists) {
-      var result = {};
-      var subCount = 0;
-      var keyPrefix = 'filter_list_';
-      var keyPrefixLength = keyPrefix.length;
-      for (var id in msg.storage.filter_lists) {
-        result[keyPrefix + id] = {};
-        subCount++;
-        for (var attr in msg.storage.filter_lists[id]) {
-          result[keyPrefix + id][attr] = msg.storage.filter_lists[id][attr];
-        }
-      }
-
-      chrome.storage.local.set(result, function () {
-          if (chrome.runtime.lastError) {
-            migrateLog('filter list data migrate write failure', chrome.runtime.lastError);
-          } else {
-            migrateLog('Done migrating subscriptions, count: ', subCount);
-          }
-        });
-
-      browser.storage.local.set({ filter_lists: msg.storage.filter_lists });
-    }
-
-    if (msg.storage && msg.storage.last_subscriptions_check) {
-      browser.storage.local.set({ last_subscriptions_check: msg.storage.last_subscriptions_check });
-      migrateLog('migrated last_subscriptions_check ' + msg.storage.last_subscriptions_check);
-    }
-
-    if (msg.storage && msg.storage['malware-notification']) {
-      browser.storage.local.set({ 'malware-notification': msg.storage['malware-notification'] });
-      migrateLog('migrated malware-notification ' + msg.storage['malware-notification']);
-    }
-
-    if (msg.storage && msg.storage.custom_filters) {
-      browser.storage.local.set({ custom_filters: msg.storage.custom_filters });
-      migrateLog('migrated custom_filters ' + msg.storage.custom_filters);
-    }
-
-    if (msg.storage && msg.storage.custom_filter_count) {
-      browser.storage.local.set({ custom_filter_count: msg.storage.custom_filter_count });
-      migrateLog('migrated custom_filter_count ' + JSON.stringify(msg.storage.custom_filter_count));
-    }
-
-    if (msg.storage && msg.storage.exclude_filters) {
-      browser.storage.local.set({ exclude_filters: msg.storage.exclude_filters });
-      migrateLog('migrated exclude_filters ' + msg.storage.exclude_filters);
-    }
-    // as long as we get some message from the user-data-storage... init();
-    initializeBackgroundObjects();
-  }
-});
 
 // Records how many ads have been blocked by AdBlock.  This is used
 // by the AdBlock app in the Chrome Web Store to display statistics
@@ -836,6 +741,11 @@ var getCurrentTabInfo = function (callback, secondTime) {
       result.whitelisted = page_is_whitelisted(tab.unicodeUrl);
     }
 
+    if (getSettings().youtube_channel_whitelist &&
+        parseUri(tab.unicodeUrl).hostname === "www.youtube.com") {
+      result.youTubeChannelName = frameData.get(tab.id, 0).youTubeChannelName;
+    }
+
     result.total_blocked = blockCounts.getTotalAdsBlocked();
     if (tab.url && tab.id) {
       result.tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
@@ -1324,17 +1234,17 @@ var create_whitelist_filter_for_youtube_channel = function (url) {
   }
 };
 
-
 // Listen for the message from the ytchannel.js content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse)
 {
-  if (message.command !== 'updateYouTubeWhitelistFilters')
-  {
-    return;
+  if (message.command === 'updateYouTubeWhitelistFilters') {
+    var response = updateYouTubeWhitelistFilters(message.args);
+    sendResponse(response);
+  } else if (message.command === 'updateYouTubeChannelName') {
+    var fd = frameData.get(sender.tab.id, 0);
+    fd.youTubeChannelName = message.args;
+    sendResponse({});
   }
-
-  var response = updateYouTubeWhitelistFilters(message.args);
-  sendResponse(response);
 });
 
 // Creates a custom filter entry that whitelists a YouTube channel
@@ -1511,13 +1421,6 @@ var emit_page_broadcast = (function () {
   return theFunction;
 })();  // end emit_page_broadcast
 
-// Open subscribe popup when new filter list was subscribed from site
-var launch_subscribe_popup = function (loc) {
-  window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
-  '_blank',
-  'scrollbars=0,location=0,resizable=0,width=460,height=150');
-};
-
 // Get the current (loaded) malware domains
 // Returns: an object with all of the malware domains
 // will return undefined, if the user is not subscribed to the Malware 'filter list'.
@@ -1640,6 +1543,9 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
         details.type = 'main_frame';
         details.url = getUnicodeUrl(details.url);
         frameData.track(details);
+        if (tabData.youTubeChannelName) {
+          frameData.get(details.tabId, details.frameId).youTubeChannelName = tabData.youTubeChannelName;
+        }        
       }
     }
   });
@@ -1684,4 +1590,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
         }); //end of browser.storage.local.get
     }//end of if
   }//end of createMalwareNotification function
+  
+initializeBackgroundObjects();   
 log('done loading');

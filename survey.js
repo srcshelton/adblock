@@ -63,7 +63,7 @@ SURVEY = (function () {
           }
         };
 
-        chrome.tabs.sendRequest(tab.id, data, validateResponseFromTab);
+        chrome.tabs.sendMessage(tab.id, data, validateResponseFromTab);
       });
     };
 

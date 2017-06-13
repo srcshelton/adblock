@@ -1,10 +1,10 @@
-﻿{
+{
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "3.2.1",
+  "version": "3.3.1",
   "manifest_version": 2,
   "permissions": [
-    "http://*/*", "https://*/*", "management", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "storage", "notifications"
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "storage", "notifications"
   ],
   "background": {
     "scripts": [
@@ -100,5 +100,11 @@
     "jquery/css/images/ui-icons_d8e7f3_256x240.png",
     "jquery/css/jquery-ui.custom.css",
     "jquery/css/override-page.css"
-  ]        
+  ],
+  "applications": {
+    "gecko": {
+      "id": "jid1-NIfFY2CA8fy1tg@jetpack",
+      "strict_min_version": "52.0"
+    }
+  }  
 }

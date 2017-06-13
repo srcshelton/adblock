@@ -64,14 +64,12 @@ $(function () {
           hide(['div_show_resourcelist']);
         }
 
-        if (host === 'www.youtube.com' &&
-            /channel|user/.test(tab.unicodeUrl) &&
-            /ab_channel/.test(tab.unicodeUrl) &&
+        if (host === "www.youtube.com" &&
+            info.youTubeChannelName &&
             eligible_for_undo &&
-            info.settings.youtube_channel_whitelist) {
-          $('#div_whitelist_channel').text(translate('whitelist_youtube_channel',
-                                                       parseUri.parseSearch(tab.unicodeUrl).ab_channel));
-          show(['div_whitelist_channel']);
+            BG.getSettings().youtube_channel_whitelist) {
+            $("#div_whitelist_channel").text(translate("whitelist_youtube_channel", info.youTubeChannelName));
+            show(["div_whitelist_channel"]);
         }
 
         if (info.settings.youtube_channel_whitelist &&
@@ -98,7 +96,7 @@ $(function () {
     // Click handlers
     $('#bugreport').click(function () {
         BGcall('recordGeneralMessage', 'bugreport clicked');
-        BGcall('openTab', 'http://help.getadblock.com/support/tickets/new');
+        BGcall('openTab', 'https://help.getadblock.com/support/tickets/new');
         window.close();
       });
 

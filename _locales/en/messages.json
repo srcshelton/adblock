@@ -920,14 +920,8 @@
     "description":"Multiple choice option"
   },
   "nodefaultfilter1":{
-    "message":"We don't have a default filter list for that language.\nPlease try to find a suitable list that supports this language $link$ or block this ad for yourself on the 'Customize' tab.",
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab.",
-    "placeholders":{
-      "link":{
-        "content":"[[]]",
-        "example":"[here]"
-      }
-    }
+    "message":"We don't have a default filter list for that language.\nPlease [[try to find a suitable list that supports this language]] or block this ad for yourself via the AdBlock menu.",
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
   },
   "retryaftersubscribe":{
     "message":"Subscribe to this filter list, then try again: $list_title$",
@@ -1376,14 +1370,8 @@
     "description":"This message is injected in other strings as a link\/button"
   },
   "update_available":{
-    "message":"There's an update for AdBlock! Go $here$ to update. \n Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates \n and check option 'Install updates automatically'.",
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
-    "placeholders":{
-      "here":{
-        "content":"[[]]",
-        "example":"[here]"
-      }
-    }
+    "message":"There's an update for AdBlock! Go [[here]] to update.\nNote: If you want to receive updates automatically, just click on Safari (in the menu bar) > Preferences > Extensions\nand check option 'Automatically update extensions from the Safari Extensions Gallery'.",
+    "description":"On the Options > Support page, shown when there is an update available for AdBlock on Safari"
   },
   "ff_adblock_outdated":{
     "message":"You are using an old version of AdBlock. Please click the Firefox menu button and choose Add-ons. Then on the Add-ons page, click the gear icon (Tools for all add-ons), and choose 'Check for Updates'.",

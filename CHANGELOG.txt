@@ -2,6 +2,18 @@
 
 UNRELEASED:
 
+3.3.1:
+- Fixed an issue with the strict_min_version value in the manifest.json file.  (#252)
+
+3.3.0:
+- Added a missing pt_PT locale message file.  (#242)
+- Improved the passing of the YouTube channel name. (#251)
+- Remove configuration and code that utilized currently un-supported APIs.  (#249)
+- Converted any hard coded URLs that use HTTP to use HTTPS (where possible).  (#244)
+- Removed unused code. (#244)
+- Migrated the add-on to use web extension APIs exclusively.  (#243)
+- Updated translations. (#241)
+
 3.2.1:
 - Changed the AdBlock popup menu to work in private mode. (#236)
 - Removed all html tags from locale messages. (#232)
