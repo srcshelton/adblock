@@ -1,6 +1,7 @@
-// Set to true to get noisier console.log statements
-VERBOSE_DEBUG = false;
 'use strict';
+
+// Set to true to get noisier console.log statements
+var VERBOSE_DEBUG = false;
 
 if (window.location.origin + '/' === chrome.extension.getURL('')) {
 
@@ -50,7 +51,7 @@ var logging = function (enabled) {
 };
 
 logging(false); // disabled by default
-loggingEnable = false;
+var loggingEnable = false;
 
 // Behaves very similarly to $.ready() but does not require jQuery.
 var onReady = function (callback) {
@@ -214,7 +215,7 @@ parseUri.secondLevelDomainOnly = function (domain, keepDot) {
   };
 
 // Return |domain| encoded in Unicode
-getUnicodeDomain = function (domain) {
+var getUnicodeDomain = function (domain) {
     if (domain) {
       return punycode.toUnicode(domain);
     } else {
@@ -223,7 +224,7 @@ getUnicodeDomain = function (domain) {
   };
 
 // Return |url| encoded in Unicode
-getUnicodeUrl = function (url) {
+var getUnicodeUrl = function (url) {
 
     // URLs encoded in Punycode contain xn-- prefix
     if (url && url.indexOf('xn--') > 0) {
@@ -245,7 +246,7 @@ var setDefault = function (obj, value, defaultValue) {
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-storage_get = function (key) {
+var storage_get = function (key) {
   var store = localStorage;
   if (store === undefined) {
     return undefined;
@@ -265,7 +266,7 @@ storage_get = function (key) {
 // Inputs: key:string, value:object.
 // If value === undefined, removes key from storage.
 // Returns undefined.
-storage_set = function (key, value) {
+var storage_set = function (key, value) {
   var store = localStorage;
   if (value === undefined) {
     store.removeItem(key);

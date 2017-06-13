@@ -67,7 +67,7 @@ $(function () {
         if (host === "www.youtube.com" &&
             info.youTubeChannelName &&
             eligible_for_undo &&
-            BG.getSettings().youtube_channel_whitelist) {
+            info.settings.youtube_channel_whitelist) {
             $("#div_whitelist_channel").text(translate("whitelist_youtube_channel", info.youTubeChannelName));
             show(["div_whitelist_channel"]);
         }
