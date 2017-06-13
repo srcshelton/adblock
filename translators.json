@@ -182,6 +182,12 @@
         "username": "PatrikSelin",
         "proofreader": true,
         "joined": "2014-10"
+      },
+      {
+        "credit": "JoosuaKoskinen",
+        "username": "JoosuaKoskinen",
+        "proofreader": false,
+        "joined": "2017-04"
       }
     ]
   },

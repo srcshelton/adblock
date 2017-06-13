@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+3.3.4:
+- Fixed an issue with pt_PT locale file.
+
 3.3.3:
 - Fixed an issue with the YT channel white-listing feature.  (#257)
 - Fixed an issue with the 'use strict' directive in the functions.js file (#253)
