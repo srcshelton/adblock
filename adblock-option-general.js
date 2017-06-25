@@ -82,11 +82,11 @@ $(function ()
     {
       if (isEnabled)
       {
-        backgroundPage.DataCollection.start();
+        backgroundPage.DataCollectionV2.start();
       }
       else
       {
-        backgroundPage.DataCollection.end();
+        backgroundPage.DataCollectionV2.end();
       }
     }
     // if the user enables/disable YouTube Channel hiding

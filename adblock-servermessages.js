@@ -68,17 +68,20 @@ var sendMessageToLogServer = function(fullUrl, callback)
   $.ajax({
     type : 'GET',
     url : fullUrl,
-    success : function()
+    success: function (text, status, xhr)
     {
       if (callback)
       {
-        callback();
+        callback(text, status, xhr);
       }
     },
-
-    error : function(e)
+    error : function(xhr, textStatus, errorThrown)
     {
       log('message server returned error: ', e.status);
+      if (callback)
+      {
+        callback(errorThrown, textStatus, xhr);
+      }
     },
   });
 };
