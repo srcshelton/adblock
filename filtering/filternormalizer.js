@@ -270,7 +270,9 @@ var FilterNormalizer = {
 
 //Initialize the exclude filters at startup
 try {
-  FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
+  get_exclude_filters_text(function(excludeFilters) {
+    FilterNormalizer.setExcludeFilters(excludeFilters);
+  });
 } catch (e) {
 
   //ignore exception in Safari on options / resource block pages

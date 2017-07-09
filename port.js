@@ -41,3 +41,8 @@ if (typeof SAFARI == 'undefined') {
 
   })();
 }
+// allow us to run in non-mozilla browsers
+if (typeof browser === 'undefined')
+{
+  browser = chrome;
+}

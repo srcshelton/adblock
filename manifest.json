@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "3.3.4",
+  "version": "3.4.0",
   "manifest_version": 2,
   "permissions": [
     "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "storage", "notifications"
@@ -33,7 +33,7 @@
       "32": "img/icon32.png", 
       "38": "img/icon38.png", 
       "40": "img/icon40.png",
-      "64": "img/icon60.png"
+      "64": "img/icon64.png"
     },
     "default_popup": "button/popup.html",
     "default_title": "AdBlock"

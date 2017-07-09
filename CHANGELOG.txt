@@ -2,6 +2,11 @@
 
 UNRELEASED:
 
+3.4.0:
+- Added pop-up blocking. (#262)
+- Fixed an issue with the AdBlock pop-up menu not working after History is cleared. (#263)
+- Removed reading easylist from a file included with the extension due to poor ad blocking performance at start up. (#263)
+
 3.3.4:
 - Fixed an issue with pt_PT locale file.
 
@@ -26,11 +31,11 @@ UNRELEASED:
 - Updated translations. (#241)
 
 3.2.1:
-- Changed the AdBlock popup menu to work in private mode. (#236)
-- Removed all html tags from locale messages. (#232)
+- Changed the AdBlock pop-up menu to work in private mode. (#236)
+- Removed all HTML tags from locale messages. (#232)
 - Added the permission to support multi-process Firefox (e10s).  (#237)
 - Updated the bandaids processing for specific sites.  (#239)
-- Fixed the issue with included JavaScript libraries having different MD5 hashes.
+- Fixed the issue with included Java-Script libraries having different MD5 hashes.
 
 3.1.1:
 - Remove logic that was using onCreatedNavigationTarget API to avoid error.  (# 235)
@@ -41,7 +46,7 @@ UNRELEASED:
 
 3.0.1:
 - Removed the notificationoverlay.js file because it was no longer needed.
-- All third party libraries (jQuery, jQuery UI, and Punycode) conform to Mozilla third party library version specifications.
+- All third party libraries (jQuery, jQuery UI, and Puny-code) conform to Mozilla third party library version specifications.
 - Modified all ajax() calls to include the "jsonp: false" parameter.
 - Removed the AdBlock unique identifier from the data migration log message.
 - Changed all synchronous XML HTTP Requests to asynchronous.
@@ -76,12 +81,12 @@ UNRELEASED:
 - Added the ping count to the ping data. (#159)
 - Removed the 'View the Resource' page. (#158)
 - Changed the order of IF statements in the 'shouldsurvey' function. (#157)
-- Fix a style issue with the 'Subscribe' popup. (#156)
+- Fix a style issue with the 'Subscribe' pop-up. (#156)
 - Added more filters for showing ads on Google Search when that option is enabled. (#154)
 - Removed some Chrome specific code. (#152)
 
 2.3:
-- Implemented a standard JavaScript library for dynamic HTML 5 parsing. (#148)
+- Implemented a standard Java-Script library for dynamic HTML 5 parsing. (#148)
 - Added validation to the custom filters. (#150)
 - Included the GNU general public license file. (#149)
 
@@ -94,10 +99,10 @@ UNRELEASED:
 
 2.1:
 - Removed the Norwegian filter list since it is no longer active. (#133)
-- For each subscribe filter list, added the last update timestamp to debug data. (#129)
+- For each subscribe filter list, added the last update time stamp to debug data. (#129)
 - Added the malware notification setting to debug data. (#134)
-- Added a check for undefined tabs / active tab / active tab url. (#138)
-- Fixed a JavaScript exception when a Firefox window is closed. (#124)
+- Added a check for undefined tabs / active tab / active tab URL. (#138)
+- Fixed a Java-Script exception when a Firefox window is closed. (#124)
 - Enhanced the AdBlock Options / Support tab with a version check. (#117)
 - Added a user confirmation prompt when subscribing to a new filter lists using the ABP syntax. (#127)
 - Updated the HTTP 'GET' request for filter Lists (#116)
@@ -109,9 +114,9 @@ UNRELEASED:
 - Fixed an issue with the exclude filters (#97)
 - Added badge text, showing how many ads were blocked (#95)
 - Added the extension install date to the ping data (#93)
-- Fixed a JavaScript exception during browser shutdown (#91)
+- Fixed a Java-Script exception during browser shutdown (#91)
 - Added context menu support (#78)
-- Added an option to hide number the of ads blocked shown in the popup menu (#81)
+- Added an option to hide number the of ads blocked shown in the pop-up menu (#81)
 - Added YouTube Channel white-list feature (#84)
 - Updated the Israel/Hebrew filter list forum link on the 'Report an Ad' page (#86)
 - Improved the performance of the Add-on when using the Malware filter list.  Also added an option to notify
@@ -131,19 +136,19 @@ UNRELEASED:
 
 2.0:
 - Improved performance of extension
-- Added a user message when the whitelist and blacklist wizard can't run on older sites (#49)
-- Removed confusing message on the popup menu (#48)
+- Added a user message when the white-list and blacklist wizard can't run on older sites (#49)
+- Removed confusing message on the pop-up menu (#48)
 - Added logic to allow the getadblock.com web site to set show_survey option (#40)
-- Fixed the style issue on the whitelist and blacklist wizards (#36)
+- Fixed the style issue on the white-list and blacklist wizards (#36)
 - Modified the color of buttons on option pages to a darker black (#34)
-- Fixed an issue when subscribing to new filters list using the abp: syntax (#27)
+- Fixed an issue when subscribing to new filters list using the ABP: syntax (#27)
 - Added AdBlock warning removal filter list (#21)
 - Removed Chrome and Safari browser specific code (#20)
 
 1.1:
 - Added support for Firefox Mobile (Fennec)
 - Fixed version reporting (#10)
-- Added YouTube whitelisting feature (#5)
+- Added YouTube white-listing feature (#5)
 - Added Hide this button feature (#6)
 - Made several UI improvements to the options pages
 - Added total block ad count to ping data
@@ -157,4 +162,4 @@ UNRELEASED:
 - Added retry logic to ping process
 - Added survey id, and check logic to survey logic
 - Removed the Resource Block page
-- Remove unsafe usage of .html() and innerHTML() functions
+- Remove unsafe usage of .HTML() and innerHTML() functions

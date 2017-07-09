@@ -8,16 +8,17 @@
 var HOUR_IN_MS = 1000 * 60 * 60;
 var keyPrefix = 'filter_list_';
 var keyPrefixLength = keyPrefix.length;
+var whiteSpaceRE = /\s/;
 
 function MyFilters(callback) {
   var _this = this;
+  this._readyComplete;
+  this._promise = new Promise(function (resolve, reject) {
+      _this._readyComplete = resolve;
+    });
+
   this._getSubscriptions(function (subs) {
     _this._subscriptions = subs;
-    if (_this._subscriptions &&
-        _this._subscriptions.easylist &&
-        _this._subscriptions.easylist.subscribed) {
-      _this._loadEasyListFromLocalFile(true);
-    }
 
     _this._official_options = _this._make_subscription_options();
     if (typeof callback === 'function') {
@@ -28,10 +29,11 @@ function MyFilters(callback) {
 
 // Update _subscriptions and _official_options in case there are changes.
 // Should be invoked right after creating a MyFilters object.
-MyFilters.prototype.init = function () {
+MyFilters.prototype.init = function (callback) {
   this._updateDefaultSubscriptions();
   this._updateFieldsFromOriginalOptions();
 
+  var _this = this;
   // Build the filter list
   this._onSubscriptionChange(true);
 
@@ -39,8 +41,7 @@ MyFilters.prototype.init = function () {
   // be updated
   var _this = this;
   if (this._newUser) {
-    this._loadEasyListFromLocalFile();
-    this.checkFilterUpdates(false, 'easylist');
+    this.checkFilterUpdates();
   } else {
     idleHandler.scheduleItemOnce(
       function () {
@@ -60,6 +61,10 @@ MyFilters.prototype.init = function () {
 
     60 * 60 * 1000
   );
+  
+  if (typeof callback === 'function') {
+    callback();
+  }  
 };
 
 // Update the url and requiresList for entries in _subscriptions using values from _official_options.
@@ -162,6 +167,9 @@ MyFilters.prototype._updateDefaultSubscriptions = function () {
   }
 };
 
+MyFilters.prototype.ready = function () {
+  return this._promise;
+};
 // When a subscription property changes, this function stores it
 // Inputs: rebuild? boolean, true if the filterset should be rebuilt
 MyFilters.prototype._onSubscriptionChange = function (rebuild) {
@@ -225,6 +233,8 @@ MyFilters.prototype.rebuild = function () {
     );
 
     handlerBehaviorChanged(); // defined in background
+
+    _this._readyComplete();
 
     //if the user is subscribed to malware, then get it
     if (_this._subscriptions &&
@@ -532,13 +542,10 @@ MyFilters.prototype._updateSubscriptionText = function (id, text, xhr) {
 
 // Checks if subscriptions have to be updated
 // Inputs: force? (boolean), true if every filter has to be updated
-//         idToIgnore a string containing the id of any subscription which should not be updated,
-//         used only when the AdBlock is installed (new user)
-MyFilters.prototype.checkFilterUpdates = function (force, idToIgnore) {
+MyFilters.prototype.checkFilterUpdates = function (force) {
   var key = 'last_subscriptions_check';
   var now = Date.now();
   var forceLocal = force;
-  var idToIgnoreLocal = idToIgnore;
   var _this = this;
   chrome.storage.local.get(key, function (response)
   {
@@ -560,7 +567,7 @@ MyFilters.prototype.checkFilterUpdates = function (force, idToIgnore) {
     }
 
     for (var id in _this._subscriptions) {
-      if (_this._subscriptions[id].subscribed && id !== idToIgnoreLocal) {
+      if (_this._subscriptions[id].subscribed) {
         _this.changeSubscription(id, {}, forceLocal);
       }
     }
@@ -888,6 +895,7 @@ expiresAfterHoursHard (int): we must redownload subscription after this delay
 deleteMe (bool): if the subscription has to be deleted
 */
 
+// Save the current subscription information to storage
 MyFilters.prototype._saveSubscriptions = function () {
   var result = {};
   for (var id in this._subscriptions) {
@@ -929,48 +937,3 @@ MyFilters.prototype._getSubscriptions = function (callback) {
   });
 };
 
-MyFilters.prototype._loadEasyListFromLocalFile = function (rebuild) {
-  var _this = this;
-  if (this._subscriptions &&
-      this._subscriptions.easylist) {
-
-    // Add a fake rule that will be over written when the file is successfully read from the local file
-    // This prevents the check later in the processing to incorrectly retrieving easylist from the web site.
-    _this._subscriptions.easylist.text = FilterNormalizer.normalizeList('&ad_box_');
-  }
-
-  var ajaxRequest = {
-    jsonp: false,
-    url: chrome.extension.getURL('filters/easylist.txt'),
-    headers: {
-      Accept: 'text/plain'
-    },
-    dataType: 'text',
-    success: function (text, status, xhr) {
-      if (xhr.readyState === 4 && status === 'success' && text) {
-        _this._subscriptions.easylist.text = FilterNormalizer.normalizeList(text);
-        var currentTimeInMs = Date.now();
-
-        // Subtract 241 hours from current time to
-        // force a downloaded during the next filter list check
-        currentTimeInMs = currentTimeInMs - (241 * HOUR_IN_MS);
-
-        _this._subscriptions.easylist.last_update = currentTimeInMs;
-        _this._subscriptions.easylist.last_modified = currentTimeInMs;
-        _this._subscriptions.easylist.expiresAfterHours = 120;
-        if (rebuild) {
-          _this.rebuild();
-        }
-      }
-    },
-
-    error: function (xhr, textStatus, errorThrown) {
-      log('load easylist from file failed');
-
-      // If there's an error reading the local file, force a download of easylist
-      _this._subscriptions.easylist.last_update_failed_at = Date.now();
-      _this.changeSubscription('easylist', {}, true);
-    },
-  };
-  $.ajax(ajaxRequest);
-};

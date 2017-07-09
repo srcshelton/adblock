@@ -59,14 +59,16 @@ var initializeBackgroundObjects = function () {
   count_cache_init();
   _myfilters = new MyFilters(function () {
     _myfilters.init();
+  }); // end of new MyFilters
+  _myfilters.ready().then(function(result) {
     chrome.tabs.query({ url: 'http://*/*' }, handleEarlyOpenedTabs);
     chrome.tabs.query({ url: 'https://*/*' }, handleEarlyOpenedTabs);
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, { urls: ['http://*/*', 'https://*/*'] }, ['blocking']);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
-    // Popup blocking - currently disabled.
-    //if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
-    //  chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
-    //}
+    // Popup blocking
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
+      chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
+    }
   });
 
   var openInstalledTab = function () {
@@ -90,8 +92,39 @@ var initializeBackgroundObjects = function () {
 // Block Counts are stored in 'localstorage' because of performance requirements
 // in the recordOneAdBlocked() function.  Data loss can occur when using storage.local.get/set
 // in quick succession.
+// In Firefox v54, a user clearing all history, also clears localStorage for web extensions, so a periodic backup of the block counts is
+// stored in chrome.storage.
+// If an empty object is returned from localStorage, the backup is retrieved and save.
+// This may cause a minor loss of total block counts depending on the timing of saving of the backup, and the
+// clearing of history.
 var blockCounts = (function () {
   var BCkey = 'blockage_stats';
+  var fiveMinutes = 300000;
+
+  var reloadFromBackup = function(callback) {
+    chrome.storage.local.get('backup_blockcount', function(response) {
+      var backupBC = response['backup_blockcount'];
+      if (backupBC) {
+        storage_set(BCkey, backupBC);
+      }
+    });
+  };
+
+  window.setInterval(
+    function () {
+        var bc = blockCounts.get();
+        chrome.storage.local.get('backup_blockcount', function(response) {
+          var backupBC = response['backup_blockcount'];
+          if (!backupBC && bc) {
+            chrome.storage.local.set({ 'backup_blockcount' : bc } );
+            return;
+          }
+          if (bc && backupBC && bc.total > backupBC.total) {
+            chrome.storage.local.set({ 'backup_blockcount' : bc } );
+          }
+      });
+    }, fiveMinutes);
+
   return {
     init: function () {
       var data = storage_get(BCkey);
@@ -109,6 +142,10 @@ var blockCounts = (function () {
 
     recordOneAdBlocked: function (tabId) {
       var data = storage_get(BCkey);
+      if (!data) {
+        reloadFromBackup();
+        return;
+      }
       data.total += 1;
       storage_set(BCkey, data);
 
@@ -121,12 +158,24 @@ var blockCounts = (function () {
 
     recordOneMalwareBlocked: function () {
       var data = storage_get(BCkey);
+      if (!data) {
+        reloadFromBackup();
+        return;
+      }
       data.malware_total += 1;
       storage_set(BCkey, data);
     },
 
     get: function () {
-      return storage_get(BCkey);
+      var data = storage_get(BCkey);
+      // since we need to return 'something', re-init, then restore from the last backup
+      // the restore is done async, so it should be an immediate impact.
+      if (!data) {
+        blockCounts.init();
+        data = storage_get(BCkey);
+        reloadFromBackup();
+      }
+      return data;
     },
 
     getTotalAdsBlocked: function (tabId) {
@@ -139,6 +188,8 @@ var blockCounts = (function () {
     },
   };
 })();
+
+
 
 //called from bandaids, for use on our getadblock.com site
 var get_adblock_user_id = function (callbackFN) {
@@ -167,7 +218,7 @@ var set_first_run_to_false = function () {
 //   url: string - url for the tab
 //   nearActive: bool - open the tab near currently active (instead of at the end). optional, defaults to false
 function openTab(url, nearActive, callback) {
-  // create an empty callback function, if we were called without on to 
+  // create an empty callback function, if we were called without on to
   // prevent JS errors.
   if (typeof callback !== 'function') {
       callback = function() {
@@ -205,7 +256,7 @@ function openTab(url, nearActive, callback) {
                     chrome.tabs.create({ windowId: windowId, url: url,
                                         index: (tabs[0] ? tabs[0].index + 1 : undefined), active: true, }, callback);
                     chrome.windows.update(windowId, { focused: true });
-                });                  
+                });
               }
               chrome.windows.update(windowId, { focused: true });
             } else {
@@ -451,6 +502,31 @@ var handlerBehaviorChanged = function () {
     chrome.webRequest.handlerBehaviorChanged();
   } catch (ex) {
   }
+};
+
+// Popup blocking
+function onCreatedNavigationTargetHandler(details) {
+  if (adblock_is_paused())
+      return;
+  var opener = frameData.get(details.sourceTabId, details.sourceFrameId);
+  if (opener === undefined) {
+    return;
+  }
+  if (frameData.get(details.sourceTabId, 0).whitelisted) {
+    return;
+  }
+  // Change to opener's url in so that it would still be tested against the
+  // blocking filter's regex rule.
+  if (details.url === "about:blank")
+    details.url = opener.url;
+  var url = getUnicodeUrl(details.url);
+  var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+  if (match) {
+      chrome.tabs.remove(details.tabId);
+      blockCounts.recordOneAdBlocked(details.sourceTabId);
+      updateBadge(details.sourceTabId);
+  }
+  frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
 };
 
 // CUSTOM FILTERS
@@ -796,6 +872,9 @@ var page_is_whitelisted = function (url, type) {
   url = url.replace(/\#.*$/, ''); // Remove anchors
   if (!type)
     type = ElementTypes.document;
+  if (!_myfilters || !_myfilters.blocking || !_myfilters.blocking.whitelist) {
+    return false;
+  }
   var whitelist = _myfilters.blocking.whitelist;
   return whitelist.matches(url, type, parseUri(url).hostname, false);
 };
@@ -1545,7 +1624,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
         frameData.track(details);
         if (tabData.youTubeChannelName) {
           frameData.get(details.tabId, details.frameId).youTubeChannelName = tabData.youTubeChannelName;
-        }        
+        }
       }
     }
   });
@@ -1590,6 +1669,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
         }); //end of browser.storage.local.get
     }//end of if
   }//end of createMalwareNotification function
-  
-initializeBackgroundObjects();   
+
+initializeBackgroundObjects();
 log('done loading');
