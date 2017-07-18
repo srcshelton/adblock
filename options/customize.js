@@ -124,7 +124,7 @@ var customizeInit = function () {
         } else if (response && response.exception) {
           $('#btnAddBlacklist').attr('disabled', 'disabled');
           var filterErrorMessage = translate('customfilterserrormessage', [blacklist, response.exception]);
-          HTMLtoDOM(filterErrorMessage, document.getElementById('messageBlacklist'));
+          $("#messageBlacklist").text(filterErrorMessage);
           $('#messageBlacklist').show();
         } else {
           $('#btnAddBlacklist').attr('disabled', 'disabled');
@@ -267,7 +267,7 @@ var customizeInit = function () {
         $('#btnCleanUp').show();
       } else if (response && response.exception) {
         var filterErrorMessage = translate('customfilterserrormessage', [response.filter, response.exception]);
-        HTMLtoDOM(filterErrorMessage, document.getElementById('messagecustom'));
+        $('#messagecustom').text(filterErrorMessage);
         $('#messagecustom').show();
       }
     }

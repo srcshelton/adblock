@@ -72,7 +72,7 @@
       {
         "credit": "Viktor De Pasquale",
         "username": "neytireyqa",
-        "proofreader": true,
+        "proofreader": false,
         "joined": "2015-01"
       }
     ]
@@ -180,7 +180,7 @@
       {
         "credit": "PatrikSelin",
         "username": "PatrikSelin",
-        "proofreader": true,
+        "proofreader": false,
         "joined": "2014-10"
       },
       {
@@ -234,7 +234,7 @@
       {
         "credit": "BarakSt",
         "username": "BarakSt",
-        "proofreader": true,
+        "proofreader": false,
         "joined": "2012-09"
       }
     ]
@@ -600,7 +600,7 @@
       {
         "credit": "Tomáš Taro",
         "username": "tomasko126",
-        "proofreader": true,
+        "proofreader": false,
         "joined": "2011-11"
       },
       {
@@ -630,7 +630,7 @@
       {
         "credit": "Stefan Bajić",
         "username": "stefanbajic1",
-        "proofreader": true,
+        "proofreader": false,
         "joined": "2013-05"
       },
       {
@@ -792,7 +792,7 @@
       {
         "credit": "庄泓川",
         "username": "kidneybean",
-        "proofreader": false,
+        "proofreader": true,
         "joined": "2014-07"
       }
     ]

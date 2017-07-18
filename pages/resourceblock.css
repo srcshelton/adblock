@@ -66,3 +66,9 @@ th[data-column="thirdparty"] {
 .hiding {
     color: blue;
 }
+.adblock-preserve-whitespace {
+  white-space: pre-wrap;
+}
+.italic {
+    font-style: italic;
+}

@@ -76,17 +76,14 @@
               <sup>
                 [<a id="data_collection_help" i18n="whats_this" href="http://help.getadblock.com/support/solutions/articles/6000067136-about-adblock-s-opt-in-anonymous-filter-list-usage-and-data-collection" target="_blank"></a>]
               </sup>
-            </p>            
+            </p>
           </div>
       </div>
       <div id="filters" tabindex="0">
         <div id="message_holder" class="failed_fetch"></div>
         <h2 i18n="filterstabtitle"></h2>
-        <p class="footnote padding" i18n="filterlistlink" i18n_replacement_el="footnotelink"></p>
-        <a id="footnotelink" href="https://adblockplus.org/en/subscriptions"
-           target="_blank"></a>
-        <span i18n="updatenowmessage2" class="padding" i18n_replacement_el="btnUpdateNow"></span>
-        <input type="button" id="btnUpdateNow" />
+        <div class="footnote padding adblock-preserve-whitespace" i18n="filterlistlink" i18n_replacement_el="footnotelink"> <a id="footnotelink" href="https://adblockplus.org/en/subscriptions" target="_blank"> </a> </div>
+        <div i18n="updatenowmessage2" class="padding" i18n_replacement_el="btnUpdateNow"> <input type="button" id="btnUpdateNow" > </input> </div>
         <div class="padding">
           <div id="filter_subscriptions">
             <h3 i18n="adblockinglist"></h3>
@@ -205,7 +202,7 @@
                       </tr>
                       <tr>
                         <td></td>
-                        <td colspan="3"><div id="messageBlacklist" class="dbmessage"></div></td>
+                        <td colspan="3"><div id="messageBlacklist" class="dbmessage adblock-preserve-whitespace"></div></td>
                       </tr>
                       <tr>
                         <td></td>
@@ -213,7 +210,7 @@
                       </tr>
                       <tr>
                         <td></td>
-                        <td colspan=3><div class="overrules-filters footnote" i18n="warning_overrules_filters"></div></td>
+                        <td colspan="3"><div class="overrules-filters footnote adblock-preserve-whitespace" i18n="warning_overrules_filters"></div></td>
                     </table>
                   </div>
                 </div>
@@ -232,8 +229,7 @@
               </div>
 
               <div>
-                <div i18n="filtersavewarning" class="footnote" i18n_replacement_el="tutorlink" style="margin:5px 0px 5px 3px;"></div>
-                <a id="tutorlink" target="_blank" href="https://adblockplus.org/filters" ></a>
+                <div i18n="filtersavewarning" class="adblock-preserve-whitespace footnote adblock-preserve-whitespace" i18n_replacement_el="tutorlink" style="margin:5px 0px 5px 3px;"> <a id="tutorlink" target="_blank" href="https://adblockplus.org/filters" > </a> </div>
               </div>
               <div id="messagecustom" class="dbmessage"></div>
               <div>
@@ -272,32 +268,27 @@
 
           <h3 i18n="foundbug"></h3>
           <p>
-           <span i18n="bugreport" i18n_replacement_el="report"></span>
-           <a href="bug-report.html" id="report"></a>
-           <span class='english-only'>(<span i18n='englishonly'></span>)</span>
+            <span i18n="bugreport" i18n_replacement_el="report"> <a href="bug-report.html" id="report"> </a> </span>
+            <span class='english-only'>(<span i18n='englishonly'></span>)</span>
           </p>
           <p>
-            <span i18n="ad_report_please" i18n_replacement_el="kb_adreport"></span>
-            <a id="kb_adreport" href="http://getadblock.com/faq/adreport" target="_blank"></a>
-            <p i18n="debuginfo"></p>
+            <span i18n="ad_report_please" i18n_replacement_el="kb_adreport"> <a id="kb_adreport" href="http://getadblock.com/faq/adreport" id="report" target="_blank"> </a> </span>
+            <p i18n="debuginfo" i18n_replacement_el="debug"> <a id="debug"> </a> </p>
             <textarea id="debugInfo" rows="30" cols="60" style="display:none;"></textarea>
           </p>
 
           <h3 i18n="questionoridea"></h3>
           <p>
-           <span i18n="supportsite" i18n_replacement_el="supportlink"></span>
-           <a id="supportlink" href="http://help.getadblock.com/" target="_blank"></a>
+           <span i18n="supportsite" i18n_replacement_el="supportlink"> <a id="supportlink" href="http://help.getadblock.com/" target="_blank"> </a> </span>
            <span class='english-only'>(<span i18n='englishonly'></span>)</span>
           </p>
 
           <h3 i18n="whatmakesadblocktick"></h3>
-          <p i18n="sourcecode" i18n_replacement_el="codelink"></p>
-          <a id="codelink" href="http://code.getadblock.com/" target="_blank"></a>
-          <p i18n="contributors" i18n_replacement_el="contributorslink"></p>
-          <a id="contributorslink" href="http://getadblock.com/contributors/" target="_blank"></a>
+          <p i18n="sourcecode" i18n_replacement_el="codelink"> <a id="codelink" href="http://code.getadblock.com/" target="_blank"> </a> </p>
+          <p i18n="contributors" i18n_replacement_el="contributorslink"> <a id="contributorslink" href="http://getadblock.com/contributors/" target="_blank"> </a> </p>
 
           <h3 i18n="adblockupdates"></h3>
-          <p id="whatsnew" i18n="whatsnew"></p>
+          <p id="whatsnew" i18n="whatsnew" i18n_replacement_el="whatsnew_link"> <a id="whatsnew_link"> </a> </p>
           <textarea id="changes" style="display:none;"></textarea>
       </div>
     </div>
@@ -314,7 +305,6 @@
   <script src="../jquery/jquery-ui.custom.min.js"></script>
   <script src="../jquery/jquery.cookie.js"></script>
   <script src="../functions.js"></script>
-  <script src="../html_parser.js"></script>
   <script src="../filtering/domainset.js"></script>
   <script src="../filtering/filternormalizer.js"></script>
   <script src="../filtering/filtertypes.js"></script>

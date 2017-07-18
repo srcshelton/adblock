@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+2.2.0.0:
+- Removed all HTML tags from locale messages. (#148)
+- Updated translations.
+
 2.1.6.0:
 - Updated to use new extension APIs available in Windows 10 Creators Update / Edge 15.  (#123)
 

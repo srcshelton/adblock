@@ -23,7 +23,7 @@ $(function () {
     messageElement.find('a')
         .click(function () {
             chrome.tabs.create({
-                url: 'https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/adding-and-removing-extensions/',
+                url: 'https://docs.microsoft.com/en-us/microsoft-edge/extensions/guides/adding-and-removing-extensions',
               });
           });
 
@@ -247,11 +247,19 @@ $(function () {
             $('#step_language span')
                 .attr('chosen', selected.attr('i18n'));
             if (selected.text() == translate('other')) {
-              $('#checkupdate')
-                  .html(translate('nodefaultfilter1'));
-              $('#link')
-                  .html(translate('here'))
-                  .attr('href', 'https://adblockplus.org/en/subscriptions');
+              if (!$('#checkupdate').get(0).firstChild) {
+                log("returning, no first child found", $(this).attr("i18n"));
+                return;
+              }
+              if (!$('#checkupdate').get(0).lastChild) {
+                log("returning, no last child found", $(this).attr("i18n"));
+                return;
+              }
+              var rawMessageText = translate('nodefaultfilter1');
+              var messageSplit = splitMessageWithReplacementText(rawMessageText);
+              $('#checkupdate').get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
+              $('#checkupdate').get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
+              $('#checkupdatelink').text(translate('here')).attr('href', 'https://adblockplus.org/en/subscriptions');
               return;
             } else {
               var required_lists = selected.attr('value')
@@ -288,10 +296,21 @@ $(function () {
             if (/^mailto\:/.test(contact))
                 contact = contact.replace(' at ', '@');
             var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, '') + '</a>';
-            $('#checkupdate')
-                .html(translate('reportfilterlistproblem', [reportLink]));
-            $('#privacy')
-                .show();
+            if (!$('#checkupdate').get(0).firstChild) {
+               log("returning, no first child found", $(this).attr("i18n"));
+               return;
+            }
+            if (!$('#checkupdate').get(0).lastChild) {
+               log("returning, no last child found", $(this).attr("i18n"));
+               return;
+            }
+            var rawMessageText = translate('reportfilterlistproblem');
+            var messageSplit = splitMessageWithReplacementText(rawMessageText);
+            $('#checkupdate').get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
+            $('#checkupdate').get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
+            $('#checkupdatelink').prop('href', contact);
+            $('#checkupdatelink').text(contact.replace(/^mailto\:/, ''));
+            $('#privacy').show();
           });
 
     $('#step_firefox_no')
@@ -720,15 +739,13 @@ var checkmalware = function () {
   if (infected) {
     $('#step_update_filters_DIV')
         .hide();
-    $('#malwarewarning')
-        .html(translate('malwarewarning'));
+    $('#malwarewarning').text(translate('malwarewarning'));
     $('a', '#malwarewarning')
         .attr('href', 'http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-');
   } else {
     $('#step_update_filters_DIV')
         .show();
-    $('#malwarewarning')
-        .html(translate('malwarenotfound'));
+    $('#malwarewarning').text(translate('malwarenotfound'));
   }
 
   $('#malwarewarning')

@@ -157,3 +157,9 @@ label {
         padding: 20px;
     }
 }
+.adblock-preserve-whitespace {
+  white-space: pre-wrap;
+}
+.italic {
+    font-style: italic;
+}

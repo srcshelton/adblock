@@ -100,8 +100,8 @@ ClickWatcher.prototype._fire = function (eventName, arg) {
 
 ClickWatcher.prototype.show = function () {
   var _this = this;
-  var wait = $('<div></div>').
-    text(translateAndRemoveHTML('findingads')).
+  var wait = $('<div style="white-space: pre-wrap;" ></div>').
+    text(translate('findingads')).
     dialog({
       dialogClass: 'adblock-blacklist-dialog',
       position: [50, 50],
