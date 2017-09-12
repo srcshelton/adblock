@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.4.0:
+- Fixed alignment and layout issues in the toolbar menu (#19)
+- Internationalized the name (#20)
+
 1.3.0:
 - Added ™ symbol after any reference to YouTube.
 - Updated a few of the menu icons

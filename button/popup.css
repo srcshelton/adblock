@@ -39,6 +39,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .thick {
     font-weight: bold;
@@ -69,12 +70,13 @@ body {
   margin-right: 12px;
   margin-left: 10px;
   padding-right: 2px;
-  padding-left: 1px;    
+  padding-left: 1px;
   top: 50%;
   float: left;
   vertical-align: middle;
   display: block;
 }
+
 #div_options:before {
   content: "";
   background: transparent url(../img/options.png) no-repeat;
@@ -161,6 +163,9 @@ body {
 #div_enable_adblock_on_this_page {
   background-color: #6B6A6B;
   color: #FFFFFF ;
+}
+#div_slideout_text {
+  max-width: 243px;
 }
 .menu-status-italic {
   font-style: italic;

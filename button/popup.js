@@ -97,6 +97,12 @@ $(function() {
         }
 
         showMenuItems();
+        if ($("#whitelist_youtube_channel").height() >= 33) {
+          $("#whitelist_channel_name").css('margin-left', '45px');
+        }
+        if ($("#div_slideout").height() >= 48) {
+          $("#div_slideout_text").css('line-height', '17px').css('padding-top', '14px').css('padding-bottom', '14px');
+        }
 
         if (!info.settings.display_menu_stats ||
             paused ||
@@ -166,13 +172,13 @@ $(function() {
         BG.openTab("options/index.html");
         closeAndReloadPopup();
     });
-    
+
     $('#div_slideout').click(function ()
     {
       // TODO - update URL
       var linkHref = "https://getadblock.com/pay/?exp=7003&u=" + BG.STATS.userId();
       BG.openTab(linkHref);
       closeAndReloadPopup();
-    });    
+    });
 
 });

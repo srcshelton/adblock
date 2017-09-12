@@ -1144,8 +1144,8 @@
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
   "disabled_on_this_channel":{
-    "message":"You allowed ads on this channel",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+    "message":"You allowed ads on this channel.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
   },
   "enable_adblock":{
     "message":"Enable AdBlock on this page",
@@ -1153,7 +1153,7 @@
   },
   "enable_adblock_on_this_channel":{
     "message":"Block ads on this channel",
-    "description":"Link text to un-whitelist a YT channel, displayed immediately after 'AdBlock is disabled on this page'"
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock is paused.",
@@ -1217,7 +1217,7 @@
   },
   "donate_to_youtube_adblock":{
     "message":"Love this? Consider donating!",
-    "description":"Text of a donate link in the toolbar button menu"
+    "description":"Text of a donate link in the toolbar button menu. 'This' refers to the 'AdBlock on YouTube' extension."
   },
   "pwyw":{
     "message":"Pay what you want!",
@@ -1417,7 +1417,7 @@
   },
   "whitelist_youtube_channel_v2":{
     "message":"Allow ads on YouTube™ channel:",
-    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option.  The channel name will appear on the line below this menu item."
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Are you sure you want to remove the $count$ blocks that you have created on $host$?",

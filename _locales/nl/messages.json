@@ -11,6 +11,14 @@
     "message":"AdBlock. De #1 advertentieblokkerende extensie met meer dan 200 miljoen downloads. Blokkeert advertenties over heel het web.",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
+  "description_yt":{
+    "message":"De enigste ad-blocker voor YouTube ontwikkeld door AdBlock, de meest populaire Chrome extensie met 60 miljoen gebruikers wereldwijd",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock op YouTube™",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - klik voor details",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"AdBlock Opties",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock op YouTube Opties",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Klik met de rechtermuisknop op de AdBlock knop en selecteer 'Verbergen in Chrome-menu'. Om het te laten zien, klik in het Chrome-menu met de rechtermuisknop op de AdBlock knop en selecteer 'In werkbalk houden'.",
@@ -1099,6 +1111,14 @@
     "message":"Pauzeer AdBlock",
     "description":"Menu entry to pause AdBlock"
   },
+  "unpause_adblocking":{
+    "message":"Hervat het blokkeren van advertenties",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Pauzeer het blokkeren van advertenties",
+    "description":"Menu entry to pause the extension"
+  },
   "safaricontentblockingpausemessage":{
     "message":"Om AdBlock te pauzeren met de materiaalblokkering geactiveerd, selecteer Safari (in de menubalk) > Voorkeuren > Extensies > AdBlock en schakel 'Schakel AdBlock in' uit.",
     "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
@@ -1138,6 +1158,10 @@
   "donate_to_adblock":{
     "message":"Hou je van AdBlock? Overweeg een donatie!",
     "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"Hou je van AdBlock op YouTube? Overweeg een donatie!",
+    "description":"Text of a donate link in the toolbar button menu. 'This' refers to the 'AdBlock on YouTube' extension."
   },
   "pwyw":{
     "message":"Betaal wat je wil!",
@@ -1230,6 +1254,14 @@
   "show_on_adblock_menu":{
     "message":"Toon het aantal geblokkeerde advertenties in het AdBlock menu",
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Verwijder advertenties op YouTube",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Bescherm mijn privacy op YouTube",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
   },
   "show_devtools_panel":{
     "message":"Toon het 'AdBlock' menu bij de developer tools",

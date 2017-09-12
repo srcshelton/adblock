@@ -206,7 +206,7 @@
     "description":"abp: link subscriber result"
   },
   "subscribingfailed":{
-    "message":"Falhou!",
+    "message":"Erro!",
     "description":"abp: link subscriber result"
   },
   "optionsversion":{

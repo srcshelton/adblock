@@ -12,7 +12,7 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
-    "message":"AdBlock no YouTube",
+    "message":"AdBlock no YouTube™",
     "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
@@ -1189,7 +1189,7 @@
   },
   "donate_to_youtube_adblock":{
     "message":"Ama o AdBlock no YouTube? Considere doar!",
-    "description":"Text of a donate link in the toolbar button menu"
+    "description":"Text of a donate link in the toolbar button menu. 'This' refers to the 'AdBlock on YouTube' extension."
   },
   "pwyw":{
     "message":"Pague o que quiser!",
