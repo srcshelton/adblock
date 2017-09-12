@@ -1,0 +1,68 @@
+﻿body {
+  background-color: white;
+}
+.section  {
+  padding: 10px;
+  padding-left: 162px;
+  margin: 0px -8px 0px -8px;
+  position: relative;
+  margin: 0px auto;
+  max-width: 1000px;
+  display: none;
+}
+.white {
+  background-color: white;
+}
+h2 {
+  font-size: 1.2em;
+  margin-left: 15px;
+}
+label {
+  margin-right: 5px;
+}
+a {
+  color: #4D7BD6;
+  text-decoration: none;
+}
+.grey{
+   background-color: #f8f8f8;
+}
+.inputError{
+  border-color: #f00 !important;
+}
+.step {
+  position: relative;
+  margin: 0px auto;
+  max-width: 1000px;
+  padding: 10px 20px 10px 0px;
+}
+#info  {
+  position: relative;
+  margin: 110px auto 30px;
+  max-width: 990px;
+  padding: 10px 20px 10px 0px;
+}
+.missingInfoMessage{
+  display: none;
+  color: #f00
+}
+.redText{
+  color: #f00
+}
+#name,#email{
+  width: 350px;
+}
+#summary{
+  width: 650px
+}
+@media screen and (max-width: 1080px) {
+  .social {
+    display: none;
+  }
+  .step {
+    padding: 10px 20px 10px 0px;
+  }
+  #info {
+    margin: 110px auto 30px 15px;
+  }
+}

@@ -1,0 +1,273 @@
+body {
+  background-color: #f8f8f8;
+  margin: 0px;
+}
+#wrapper {
+  margin: 0px 0px;
+  width: 288px;
+  font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  font-size: 15px;
+  max-height: 600px;
+  color: #A5A4A6;
+}
+.separator {
+  width: 100%;
+  border-top: 1px solid #ECE8E8;
+  margin: 5px -5px 5px -3px;
+}
+#titletext {
+  width: 288px;
+}
+.logo {
+  cursor: pointer;
+  margin-left: 74px;
+  margin-right: 74px;
+  width: 140px;
+  height: 35px;
+  background: transparent url(../img/logo_140x35.png);
+  background-position: center;
+}
+.menu-entry {
+  cursor: pointer;
+  vertical-align: middle;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.thick {
+    font-weight: bold;
+}
+.menu-entry:hover {
+  -webkit-transition: all 0.3s ease-out;
+  color: #525152;
+  background: #FFFFFF;
+}
+#div_pause_adblock:before {
+  content: "";
+  background: transparent url(../img/pauseadblock.png) no-repeat;
+  background-position: 0 0;
+  height: 20px;
+  width: 23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  top: 50%;
+  float: left;
+  vertical-align: middle;
+}
+#div_options:before {
+  content: "";
+  background: transparent url(../img/options.png) no-repeat;
+  background-position: 0 0;
+  height:20px;
+  width:23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  float: left;
+  vertical-align: middle;
+}
+#div_whitelist_channel:before {
+  content: "";
+  background: transparent url(../img/whitelisting.png) no-repeat;
+  background-position: 0 -20px;
+  height:20px;
+  width:23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  margin-top: 20px;
+  float: left;
+  vertical-align: middle;
+}
+#div_enable_adblock_on_this_page:before {
+  content: "";
+  background: transparent url(../img/undomyblocksonthisdomain.png) no-repeat;
+  background-position: 0 0px;
+  height:20px;
+  width:23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  float: left;
+  vertical-align: middle;
+}
+#div_paused_adblock:before {
+  content: "";
+  background: transparent url(../img/unpause.png) no-repeat;
+  background-position: 0 0px;
+  height:20px;
+  width:23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  float: left;
+  vertical-align: middle;
+}
+#div_helpsupport:before {
+  content: "";
+  background: transparent url(../img/help.png) no-repeat;
+  background-position: 0 0px;
+  height:20px;
+  width:23px;
+  margin-right: 16px;
+  margin-left: 14px;
+  float: left;
+  vertical-align: middle;
+}
+#div_helpsupport:hover:before, #div_paused_adblock:hover:before, #div_enable_adblock_on_this_page:hover:before, #div_pause_adblock:hover:before, #div_options:hover:before, #div_whitelist_page:hover:before {
+  background-position: 0 -20px;
+}
+#div_whitelist_channel {
+  background-color: #6B6A6B;
+  color: #FFFFFF ;
+}
+#div_whitelist_channel:hover {
+  color: #CAC8CA;
+}
+#div_whitelist_channel:hover:before {
+  background-position: 0 0px;
+}
+#div_enable_adblock_on_this_page:hover {
+  color: #CAC8CA;
+}
+#div_enable_adblock_on_this_page {
+  background-color: #6B6A6B;
+  color: #FFFFFF ;
+}
+.menu-status-italic {
+  font-style: italic;
+  display: none;
+  width: 288px;
+}
+.menu-status {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: none;
+  width: 288px;
+}
+.license-status {
+  display: none;
+  line-height: 34px;
+}
+.info {
+  background: #f7f6f2;
+  margin: 5px;
+  padding: 0px 5px 0px 5px;
+  background: #f7f6f2;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.10);
+}
+#div_status_beta {
+  padding-left: 8px;
+}
+.box {
+  margin: 5px 3px 5px 0px;
+  background: #FFFFFF;
+  padding: 10px;
+}
+#link_close {
+  margin-top: -7px;
+  font-family: "Courier", sans-serif;
+}
+#block_counts {
+  display: none;
+}
+.header {
+  font-weight: bold;
+}
+.block_count_number {
+  font-weight: bold;
+  color: #D0011B;
+}
+#link_open {
+  display: inline-block;
+  font-size: 13px;
+  height: 18px;
+}
+a {
+  color: #4D7BD6;
+  text-decoration: none;
+}
+a:focus {
+  outline: none;
+}
+a:hover {
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  color: red;
+}
+input[type="checkbox"] {
+  height: 1.2em;
+  width: 1.2em;
+  vertical-align: middle;
+  margin: 0 0.4em 0.4em 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: -webkit-linear-gradient(#FCFCFC, #DADADA);
+  -webkit-appearance: none;
+  -webkit-transition: box-shadow 200ms;
+  box-shadow:inset 1px 1px 0 #fff, 0 1px 1px rgba(0,0,0,0.1);
+}
+input[type="checkbox"] {
+  -webkit-border-radius:2px;
+  border-radius:2px;
+}
+input[type="checkbox"]:not(:disabled):hover {
+  border-color:rgba(0,0,0,0.5);
+  box-shadow:inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
+}
+input[type="checkbox"]:active:not(:disabled) {
+  background-image: -webkit-linear-gradient(#C2C2C2, #EFEFEF);
+  box-shadow:inset 1px 1px 0 rgba(0,0,0,0.2), inset -1px -1px 0 rgba(255,255,255,0.6);
+  border-color:rgba(0,0,0,0.5);
+}
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+input[type="checkbox"]:checked {
+  border-color: rgba(0,0,0,0.5);
+  box-shadow: inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
+}
+input[type="checkbox"]:checked:before {
+  color: rgba(0, 0, 0, 0.7);
+  content: '\2713';
+  margin-left: 20%;
+}
+/* Retina & hi DPI displays only */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  #div_helpsupport:before {
+    background: transparent url(../img/help@2x.png) no-repeat;
+    background-size: 18px auto;
+    height: 18px;
+  }
+  #div_enable_adblock_on_this_page:before {
+    background: transparent url(../img/undomyblocksonthisdomain@2x.png) no-repeat;
+    background-size: 16px auto;
+  }
+  #div_options:before {
+    background: transparent url(../img/options@2x.png) no-repeat;
+    background-size: 20px auto;
+  }
+  #div_pause_adblock:before {
+    background: transparent url(../img/pauseadblock@2x.png) no-repeat;
+    background-size: 20px auto;
+  }
+  #div_paused_adblock:before {
+    background: transparent url(../img/unpause@2x.png) no-repeat;
+    background-size: 20px auto;
+  }
+  #div_whitelist_channel:before {
+    background: transparent url(../img/whitelisting@2x.png) no-repeat;
+    background-position: 0 -20px;
+    background-size: 20px auto;
+  }
+  #div_helpsupport:hover:before {
+    background-position: 0 -18px;
+  }
+  .logo {
+    background: transparent url(../img/logo_140x35@2x.png) no-repeat;
+    background-size: 140px auto;
+  }
+}

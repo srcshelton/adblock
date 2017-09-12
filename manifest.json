@@ -1,131 +1,80 @@
-{
-  "author": "Michael Gundlach", 
+﻿{
+  "name": "YouTube AdBlock",
+  "short_name": "AdBlock on YouTube",
+  "author": "BetaFish",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "permissions": [
+     "<all_urls>", "unlimitedStorage", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
+  ],
+  "optional_permissions": [ "identity", "identity.email", "management" ],
   "background": {
-    "persistent": true, 
     "scripts": [
-      "ext/common.js", 
-      "ext/background.js", 
-      "lib/compat.js", 
-      "lib/publicSuffixList.js", 
-      "lib/adblockplus.js", 
-      "messageResponder.js", 
-      "background.js", 
-      "adblock-jquery.js", 
-      "adblock-errorreporting.js", 
-      "adblock-functions.js", 
-      "adblock-survey.js", 
-      "adblock-stats.js", 
-      "adblock-uninstall.js", 
-      "adblock-idlehandler.js", 
-      "adblock-settings.js", 
-      "adblock-servermessages.js", 
-      "adblock-background.js", 
-      "adblock-adpsubscriptionadapter.js", 
-      "adblock-contextmenus.js", 
-      "adblock-subscriptioninit.js", 
-      "adblock-data-migrate.js", 
-      "adblock-excludefilter.js", 
-      "adblock-datacollection.v2.js", 
-      "devenvPoller__.js"
-    ]
-  }, 
+    "punycode.min.js",
+    "jquery/jquery-2.1.1.min.js",
+    "port.js",
+    "functions.js",
+    "settings.js",
+    "stats.js",
+    "survey.js",
+    "filtering/domainset.js",
+    "filtering/filteroptions.js",
+    "filtering/filtertypes.js",
+    "filtering/domaintypes.js",
+    "filtering/filterset.js",
+    "filtering/myfilters.js",
+    "filtering/filternormalizer.js",   
+    "idlehandler.js",
+    "servermessages.js",
+    "background.js"]
+  },
   "browser_action": {
     "default_icon": {
-      "16": "icons/ab-16.png", 
-      "19": "icons/ab-19.png", 
-      "20": "icons/ab-20.png", 
-      "32": "icons/ab-32.png", 
-      "38": "icons/ab-38.png", 
-      "40": "icons/ab-40.png"
-    }, 
-    "default_popup": "adblock-button-popup.html", 
-    "default_title": "__MSG_name__"
-  }, 
+      "16": "img/16x16.png",
+      "20": "img/20x20.png",
+      "32": "img/32x32.png",
+      "38": "img/40x40.png",
+      "40": "img/40x40.png",
+      "64": "img/64x64.png"
+    },
+    "default_popup": "button/popup.html",
+    "default_title": "YouTube AdBlock"
+  },
   "content_scripts": [
     {
-      "all_frames": true, 
-      "js": [
-        "ext/common.js", 
-        "ext/content.js", 
-        "elemHideEmulation.js", 
-        "include.preload.js", 
-        "adblock-functions.js", 
-        "adblock-bandaids.js"
-      ], 
-      "match_about_blank": true, 
       "matches": [
-        "http://*/*", 
-        "https://*/*"
-      ], 
-      "run_at": "document_start"
-    }, 
+        "*://*.getadblock.com/*"
+      ],
+      "js": [
+        "port.js",
+        "functions.js",      
+        "bandaids.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
     {
-      "all_frames": true, 
+      "matches": ["*://*.youtube.com/*"],
       "js": [
-        "include.postload.js", 
-        "adblock-uiscripts-rightclick_hook.js", 
-        "adblock-notificationoverlay.js"
-      ], 
-      "match_about_blank": true, 
-      "matches": [
-        "http://*/*", 
-        "https://*/*"
-      ], 
-      "run_at": "document_end"
+        "port.js",
+        "functions.js",
+        "adblock_start_common.js",
+        "adblock_start_chrome.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
-  ], 
-  "default_locale": "en_US", 
-  "description": "__MSG_description__", 
-  "devtools_page": "devtools.html", 
+  ],
+  "default_locale": "en",
+  "description": "__MSG_description_yt__",
   "icons": {
-    "128": "icons/ab-128.png", 
-    "16": "icons/ab-16.png", 
-    "32": "icons/ab-32.png", 
-    "48": "icons/ab-48.png", 
-    "64": "icons/ab-64.png"
-  }, 
-  "manifest_version": 2, 
-  "minimum_chrome_version": "49.0", 
-  "minimum_opera_version": "36.0", 
-  "name": "__MSG_name__", 
-  "optional_permissions": [
-    "management"
-  ], 
-  "options_ui": {
-    "open_in_tab": true, 
-    "page": "options.html"
-  }, 
-  "permissions": [
-    "tabs", 
-    "<all_urls>", 
-    "contextMenus", 
-    "webRequest", 
-    "webRequestBlocking", 
-    "webNavigation", 
-    "storage", 
-    "unlimitedStorage", 
-    "notifications", 
-    "idle", 
-    "alarms"
-  ], 
-  "short_name": "__MSG_name__", 
-  "storage": {
-    "managed_schema": "managed-storage-schema.json"
-  }, 
-  "version": "3.15.0", 
-  "web_accessible_resources": [
-    "adblock-jquery-ui.custom.css", 
-    "adblock-jquery-ui.override-page.css", 
-    "icons/icon24.png", 
-    "jquery-ui/css/images/ui-bg_flat_55_999999_40x100.png", 
-    "jquery-ui/css/images/ui-bg_flat_75_aaaaaa_40x100.png", 
-    "jquery-ui/css/images/ui-bg_glass_45_0078ae_1x400.png", 
-    "jquery-ui/css/images/ui-bg_glass_55_f8da4e_1x400.png", 
-    "jquery-ui/css/images/ui-bg_glass_75_79c9ec_1x400.png", 
-    "jquery-ui/css/images/ui-bg_gloss-wave_50_38cfff_500x100.png", 
-    "jquery-ui/css/images/ui-bg_gloss-wave_75_2191c0_500x100.png", 
-    "jquery-ui/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png", 
-    "jquery-ui/css/images/ui-icons_056b93_256x240.png", 
-    "jquery-ui/css/images/ui-icons_d8e7f3_256x240.png"
-  ]
+    "16": "img/16x16.png",
+    "48": "img/48x48.png",
+    "128": "img/128x128.png"
+  },
+  "minimum_chrome_version": "49.0",
+  "options_page": "options/index.html",
+  "externally_connectable": {
+    "matches": ["http://dev.getadblock.com/*", "https://getadblock.com/*"]
+  }
 }

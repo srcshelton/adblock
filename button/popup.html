@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="popup.css"/>
+    <link rel="stylesheet" href="../jquery/css/tooltips.css"/>
+    <script src="../punycode.min.js"></script>
+    <script src="../port.js"></script>
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../functions.js"></script>
+    <script src="popup.js"></script>
+    <meta charset="UTF-8">
+  </head>
+  <body style="overflow:hidden;">
+    <div id="wrapper">
+      <div id="menu-items" >
+        <div id="titletext">
+          <div class="logo" > </div>
+        </div>
+
+        <!-- ************ Status messages and block counter *********** -->
+
+        <!-- ************ Status messages *********** -->
+
+        <div id="block_counts" class="box" >
+            <div i18n="blocked_ads" class="header"></div>
+            <div style="padding:2px 0px 0px 2px;">
+              <span i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"> <a class="block_count_number" id="page_blocked_count"> </a> </span>
+              <span i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count" style="float:right"> <a class="block_count_number" id="total_blocked_count"> </a> </span>
+            </div>
+        </div>
+
+        <!-- TODO check if italic works -->
+        <div id="div_status_whitelisted" class="menu-status-italic thick">
+          <span i18n="disabled_on_this_page" class="center"></span>
+        </div>
+
+        <!-- ************ Standard menu entries *********** -->
+
+        <div id="div_whitelist_channel" class="menu-entry"  >
+          <div i18n="whitelist_youtube_channel" id="whitelist_youtube_channel" style="line-height: 17px; padding-top: 14px;" ></div>
+          <div id="whitelist_channel_name" style="line-height: 17px;  padding-bottom: 14px;" ></div>
+        </div>
+
+        <div id="div_whitelist_all_channels" class="menu-entry" i18n="whitelist_all_youtube_channels">
+        </div>
+
+        <div id="separator0" class="separator"></div>
+
+        <div i18n="enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry"  >
+        </div>
+
+        <div i18n="pause_adblocking" id="div_pause_adblock" class="menu-entry"   >
+        </div>
+
+        <div i18n="unpause_adblocking" id="div_paused_adblock" class="menu-entry"   >
+        </div>
+
+        <div id="separator1" class="separator"></div>
+
+        <!-- **************** Extras ************** -->
+
+        <div i18n="options" id="div_options" class="menu-entry" >
+        </div>
+
+        <div id="separator2" class="separator"></div>
+
+        <div id="div_slideout" class="center" style="cursor: pointer;">
+            <a id="link_open" i18n="donate_to_youtube_adblock"></a>
+        </div>
+
+      </div> <!-- menu-items-->
+
+    </div> <!-- wrapper -->
+
+  </body>
+</html>
