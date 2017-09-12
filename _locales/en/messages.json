@@ -12,7 +12,7 @@
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"Created by AdBlock, with 60M users, AdBlock on YouTube is the gold standard of blockers for YouTube.",
+    "message":"The only YouTube ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -1203,6 +1203,10 @@
     "message":"Love AdBlock? Consider donating!",
     "description":"Text of a donate link in the toolbar button menu"
   },
+  "donate_to_youtube_adblock":{
+    "message":"Love AdBlock on YouTube? Consider donating!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },  
   "pwyw":{
     "message":"Pay what you want!",
     "description":"Text of a payment request link"
@@ -1437,6 +1441,10 @@
     "message":"AdBlock updates",
     "description":"Subtitle on the Support tab of the options"
   },
+  "ytadblockupdates":{
+    "message":"AdBlock on YouTube updates",
+    "description":"Subtitle on the Support tab of the options"
+  },  
   "whatmakesadblocktick":{
     "message":"Want to see what makes AdBlock tick?",
     "description":"Subtitle on the Support tab of the options"

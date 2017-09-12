@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+1.1.0:
+- Fixed missing messages, and updated messages.
+
 1.0.1:
 - Initial Release
 
