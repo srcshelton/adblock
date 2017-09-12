@@ -76,7 +76,7 @@ $(document).ready(function () {
 
   var sendReport = function () {
       var reportData = {
-          title: "Premium - " + $title.val(),
+          title: $title.val(),
           repro: $repro.val(),
           expect: $expect.val(),
           actual: $actual.val(),
@@ -90,7 +90,7 @@ $(document).ready(function () {
         }
       $.ajax({
           jsonp: false,
-          url: 'https://getadblock.com/freshdesk/premiumBugReport.php',
+          url: 'https://getadblock.com/freshdesk/bugReport.php',
           data: {
               bug_report: JSON.stringify(reportData),
             },

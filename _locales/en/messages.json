@@ -9,11 +9,15 @@
   },
   "description_edge":{
     "message":"AdBlock. The #1 ad blocker with over 200 million downloads. Blocks ads all over the web.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
     "message":"The only YouTube ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock on YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - click for details",
@@ -45,7 +49,7 @@
   },
   "optionstitle_yt":{
     "message":"AdBlock on YouTube Options",
-    "description":"Title for the options page"
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Right-click the AdBlock button and select 'Hide in Chrome Menu'. To show it, click the Chrome menu, right-click the AdBlock button, and select 'Keep in Toolbar'.",
@@ -529,11 +533,11 @@
   },
   "filtersavewarning_ytadblock_1":{
     "message":"Be careful: if you make a mistake here, AdBlock on YouTube could stop working properly.",
-    "description":"Warning when blacklisting manually"
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "filtersavewarning_ytadblock_2":{
     "message":"Read the [[filter syntax tutorial]] to learn how to add whitelist filters.",
-    "description":"Warning when blacklisting manually"
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "migration_error_message":{
     "message":"We've found some errors in your custom filters. See below for the messages.",
@@ -1129,7 +1133,7 @@
   },
   "disabled_by_filter_lists_yt":{
     "message":"Sorry, AdBlock on YouTube is disabled on this page by one of your options.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
   },
   "dont_run_on_pages_on_domain":{
     "message":"Don't run on pages on this domain",
@@ -1139,9 +1143,17 @@
     "message":"AdBlock is disabled on this page.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"You allowed ads on this channel",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  },
   "enable_adblock":{
     "message":"Enable AdBlock on this page",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Block ads on this channel",
+    "description":"Link text to un-whitelist a YT channel, displayed immediately after 'AdBlock is disabled on this page'"
   },
   "status_paused":{
     "message":"AdBlock is paused.",
@@ -1204,9 +1216,9 @@
     "description":"Text of a donate link in the toolbar button menu"
   },
   "donate_to_youtube_adblock":{
-    "message":"Love AdBlock on YouTube? Consider donating!",
+    "message":"Love this? Consider donating!",
     "description":"Text of a donate link in the toolbar button menu"
-  },  
+  },
   "pwyw":{
     "message":"Pay what you want!",
     "description":"Text of a payment request link"
@@ -1305,7 +1317,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Show number of ads blocked on AdBlock menu",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_on_button":{
     "message":"Show number of ads blocked on button",
@@ -1313,19 +1325,19 @@
   },
   "show_on_menu":{
     "message":"Show number of ads blocked on menu",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "block_ads_on_youtube":{
     "message":"Remove ads on YouTube",
-    "description":"Label for checkbox letting user choose whether block ads on YT"
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
   },
   "block_privacy_on_youtube":{
     "message":"Protect my privacy on YouTube",
-    "description":"Label for checkbox letting user choose whether block privacy related requests on YT"
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
   },
   "block_annonyances_on_youtube":{
     "message":"Remove annoyances on YouTube",
-    "description":"Label for checkbox letting user choose whether block annonyances related requests on YT"
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"Show 'AdBlock' panel in the developer tools",
@@ -1389,6 +1401,10 @@
     "message":"All of your YouTube channel subscriptions have been whitelisted",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Allow ads on all subscribed YouTube channels",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"Whitelist $name$ channel",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1398,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Allow ads on YouTube channel:",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option.  The channel name will appear on the line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Are you sure you want to remove the $count$ blocks that you have created on $host$?",
@@ -1421,10 +1441,6 @@
     "message":"AdBlock Support",
     "description":"Title of the support tab"
   },
-  "adblocksupport_yt":{
-    "message":"Support",
-    "description":"Title of the support tab"
-  },
   "whatsnew":{
     "message":"What's new in the latest release? See the [[changelog]]!",
     "description":"Link to display the changelog on the Support tab of the options"
@@ -1443,8 +1459,8 @@
   },
   "ytadblockupdates":{
     "message":"AdBlock on YouTube updates",
-    "description":"Subtitle on the Support tab of the options"
-  },  
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
+  },
   "whatmakesadblocktick":{
     "message":"Want to see what makes AdBlock tick?",
     "description":"Subtitle on the Support tab of the options"

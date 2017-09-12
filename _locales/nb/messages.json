@@ -247,10 +247,6 @@
     "message":"Aktiver Safari innholdsblokkering",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
-  "debuginlogoption":{
-    "message":"Vis feilsøkningsopplysninger i Konsoll (som vil gjøre AdBlock tregere)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "updatedrightnow":{
     "message":"oppdatert akkurat nå",
     "description":"Label for subscription"
@@ -989,7 +985,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Vis antall annonser blokkert i AdBlock-menyen",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Liste over annonsefiltre",

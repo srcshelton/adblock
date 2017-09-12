@@ -247,10 +247,6 @@
     "message":"Omogućite Safari blokiranje sadržaja",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
-  "debuginlogoption":{
-    "message":"Prikaži izjave uklanjanja greške u zapisu konzole (usporava AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "updatedrightnow":{
     "message":"upravo ažurirano",
     "description":"Label for subscription"
@@ -1089,7 +1085,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Pokaži broj blokiranih reklama na AdBlock meniju",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Filter Liste za Blokiranje Reklama",

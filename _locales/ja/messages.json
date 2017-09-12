@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock。 2億以上のダウンロード数を誇る No.1 の広告ブロッカー。 Web上のあらゆる広告をブロックします。",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - 詳細はこちら",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Safariコンテンツのブロックを有効にする",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"デバック情報を更新履歴に表示(AdBlockの動作が重くなります)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"アップデートされました",
@@ -1257,7 +1253,7 @@
   },
   "show_on_adblock_menu":{
     "message":"AdBlockメニューにブロックされた広告の数を表示する",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"デベロッパーツールに 'AdBlock' パネルを表示する",

@@ -119,7 +119,6 @@ function destroyElement(el, elType) {
 
 // Add style rules hiding the given list of selectors.
 function blockListViaCSS(selectors) {
-
   if (!selectors.length)
       return;
 
@@ -136,12 +135,11 @@ function blockListViaCSS(selectors) {
       window.setTimeout(fillInCssChunk, 0);
       return;
     }
-    var rule = selectors.join(",") + ' { display:none !important;  visibility: none !important; orphans: 4321 !important; }';
+    var rule = selectors.join(",") + ' { display:none !important; }';
     cssChunk.sheet.insertRule(rule, 0);
   }
-
   fillInCssChunk();
-  debugPrintSelectorMmatches(selectors)
+  debugPrintSelectorMmatches(selectors);
 }
 
 function debugPrintSelectorMmatches(selectors) {
@@ -159,7 +157,7 @@ function debugPrintSelectorMmatches(selectors) {
             var el = elems[i];
             matches += '        ' + el.nodeName + '#' + el.id + '.' + el.className + '\n';
           }
-          console.log("selector match", selector)
+          log("selector match", selector)
           var opts = { selector: "##" + selector, matches: matches };
           chrome.runtime.sendMessage({ message: 'debug_report_elemhide', opts: opts });
         });

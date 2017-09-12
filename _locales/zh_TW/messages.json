@@ -231,10 +231,6 @@
     "message":"啟用 ClickToFlash 相容性模式",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
-  "debuginlogoption":{
-    "message":"在 Console Log 中顯示除錯資訊（將會降低 AdBlock 效能）",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "updatedrightnow":{
     "message":"剛剛更新",
     "description":"Label for subscription"
@@ -917,7 +913,7 @@
   },
   "show_on_adblock_menu":{
     "message":"在選單中顯示 AdBlock 阻擋了多少廣告",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"廣告過濾清單",

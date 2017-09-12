@@ -9,7 +9,15 @@
   },
   "description_edge":{
     "message":"AdBlock. Блокировщик рекламы №1 с более чем 200 миллионами загрузок. Блокирует рекламу по всему Интернету.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
+  },
+  "description_yt":{
+    "message":"Блокировщик рекламы только для YouTube на базе AdBlock, популярного расширения Chrome с 60 миллионами пользователей по всему миру",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock на YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - нажмите, чтобы увидеть подробности",
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"Параметры AdBlock",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"Параметры AdBlock на YouTube",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Щелкните правой кнопкой мыши кнопку AdBlock и выберите 'Не показывать в меню Google Chrome'. Чтобы показать, щелкните правой кнопкой мыши кнопку AdBlock и выберите 'Добавить на панель инструментов'.",
@@ -256,7 +268,7 @@
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
-    "message":"Показывать сообщения отладки в Журнале Консоли (замедляет AdBlock)",
+    "message":"Показывать сообщения отладки в Журнале Консоли (замедляет расширение)",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
@@ -519,6 +531,14 @@
     "message":"Осторожно: Если Вы сделаете здесь ошибку, много других фильтров, включая официальные фильтры, могут получить повреждения тоже! \n Прочитайте [[Учебник по синтаксису фильтров]], чтобы научиться дополнять черный и белый списки фильтров.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Осторожно: Если вы сделаете ошибку здесь, AdBlock на YouTube может перестать работать правильно.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Прочтите [[учебник синтаксиса фильтров]] чтобы научиться добавлять фильтры в белый список.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Мы обнаружили некоторые ошибки в пользовательских фильтрах. Смотрите сообщения ниже.",
     "description":"Warning when adding custom filters manually"
@@ -662,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Откройте меню Safari > Параметры > Расширения.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"Щелкните меню Дополнительно (...) и выберите расширения.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Для каждого расширения кроме AdBlock, нажмите на значок шестеренки а затем на кнопку-переключатель, чтобы изменить значение на Выкл.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Прекрасно! Теперь давайте выясним, какое расширение является причиной. Попробуйте включать каждое расширение одно за другим. Расширение, которое вернет рекламные объявления необходимо удалить, чтобы избавится от рекламы.",
@@ -1103,6 +1131,10 @@
     "message":"К сожалению, AdBlock отключен на этой странице одним из списков фильтров.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"К сожалению, AdBlock отключен на этой странице одной из ваших опций.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Не запускать на страницах этого домена",
     "description":"Menu entry to open the whitelist wizard"
@@ -1126,6 +1158,14 @@
   "pause_adblock":{
     "message":"Приостановить AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Возобновить блокировку рекламы",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Приостановить блокировку рекламы",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Чтобы приостановить AdBlock с включенной Блокировкой Содержимого, пожалуйста, выберите Safari (в строке меню) > Предпочтения > Расширения > AdBlock и снимите флажок 'Включить AdBlock'.",
@@ -1164,6 +1204,10 @@
     "description":"Toolbar button menu entry to hide the AdBlock button"
   },
   "donate_to_adblock":{
+    "message":"Нравится AdBlock? Подумайте о пожертвовании!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
     "message":"Нравится AdBlock? Подумайте о пожертвовании!",
     "description":"Text of a donate link in the toolbar button menu"
   },
@@ -1265,7 +1309,27 @@
   },
   "show_on_adblock_menu":{
     "message":"Показать количество заблокированной рекламы в меню AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"Показать количество заблокированной рекламы на кнопке",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"Показать количество заблокированной рекламы в меню",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Убрать рекламу на YouTube",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Защитить мою конфиденциальность на YouTube",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Убрать анонсы на YouTube",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"Показать панель «AdBlock» в инструментах разработчика",
@@ -1376,6 +1440,10 @@
   "adblockupdates":{
     "message":"Обновления AdBlock",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"Обновления AdBlock на YouTube",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Хотите увидеть кто продвигает AdBlock?",

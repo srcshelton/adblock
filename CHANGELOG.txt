@@ -2,6 +2,14 @@
 
 UNRELEASED:
 
+1.2.0:
+- Modified the pop up menu text and font size
+- Fixed links in the the pop up menu
+- Removed a debug log statement
+- Updated the 'Pause' icon
+- The filter list, YouTube Annoyances, is no longer enabled by default
+- Fixed an issue with clicking the option text on Option page not changing the state of the option
+
 1.1.0:
 - Fixed missing messages, and updated messages.
 

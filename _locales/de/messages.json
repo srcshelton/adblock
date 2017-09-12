@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. Der #1 Ad-Blocker mit über 200 Millionen Downloads. Werbung im gesamten Netz blockieren.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - für weitere Optionen bitte klicken",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Safari Content Blocking aktivieren",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Debug-Berichte in der Fehlerkonsole anzeigen (verlangsamt AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"jetzt aktualisiert",
@@ -1241,7 +1237,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Anzahl geblockter Werbung im AdBlock Menü anzeigen",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"'AdBlock'-Konsole in den Entwicklertools anzeigen",

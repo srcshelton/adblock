@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. مانع الإعلانات رقم واحد مع ما يزيد على ٢٠٠ مليون تحميل. يحجب الإعلانات في جميع أنحاء شبكة الإنترنت.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock-اضغط للتفاصيل",
@@ -242,10 +242,6 @@
   "safaricontentblocking":{
     "message":"تمكين منع المحتوى Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"إظهار بيانات التصحيح في \"سجل وحدة التحكم\" (الذي يبطئ AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"تحديث الآن",
@@ -1041,7 +1037,7 @@
   },
   "show_on_adblock_menu":{
     "message":"إظهار عدد إعلانات المحظورو على قائمة AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"قوائم عوامل تصفية حظر الإعلان",

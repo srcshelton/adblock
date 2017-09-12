@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. Najbolj popularna razširitev za blokiranje oglasov z več kot 200 milijonov prenosov. Blokira oglase po vsem spletu.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - kliknite za podrobnosti",
@@ -38,6 +38,10 @@
   "optionstitle":{
     "message":"AdBlock - možnosti",
     "description":"Title for the options page"
+  },
+  "chromebutton_how_to_hide2":{
+    "message":"Z desno miškino tipko kliknite AdBlockovo ikono in izberite \"Skrij v meniju Chroma\". Če jo želite ponovno prikazati, izberite Chromov meni, z desno miškino tipko kliknite na AdBlock in izberite »Pokaži v orodni vrstici«.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
   },
   "operabutton_how_to_hide2":{
     "message":"Če želite skriti gumb, pojdite na opera:\/\/extensions in potrdite potrditveno polje pri možnosti \"Skrij z orodne vrstice\". Ponovno ga prikažete tako, da opustite izbor pri isti možnosti.",
@@ -250,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Omogoči Safari Content Blocking",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Pokaži izjave za odpravljanje napak v dnevniku konzole (upočasni AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
     "message":"Dovoli AdBlocku, da zbira anonimne podatke o uporabi seznamov filtrov ter informacije o vsebini, ki jo ti seznami blokirajo",
@@ -522,6 +522,10 @@
   "delete_migration_error_messages":{
     "message":"Izbriši sporočila",
     "description":"Button to delete error messages when adding custom filters manually"
+  },
+  "contentblockingwarning":{
+    "message":"Opomba: Dodajanje na seznam dovoljenih (dovoljevanje izvajanja oglasov na) strani ali spletnem mestu ni podprto skupaj s Safarijevo možnostjo blokiranja vsebin.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
   },
   "savebutton":{
     "message":"Shrani",
@@ -1143,6 +1147,10 @@
     "message":"Skrij ta gumb",
     "description":"Toolbar button menu entry to hide the AdBlock button"
   },
+  "donate_to_adblock":{
+    "message":"Vam je AdBlock všeč? Razmislite o donaciji :)",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
   "pwyw":{
     "message":"Plačajte kolikor želite!",
     "description":"Text of a payment request link"
@@ -1241,7 +1249,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Prikaži št. blokiranih oglasov v AdBlockovem meniju",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Prikaži 'AdBlock' konzolo v orodjih za razvijalce",
@@ -1288,6 +1296,10 @@
   "selectlanguage":{
     "message":" -- Izberite jezik -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"Omogoči dodajanje nekaterih YouTube kanalov na listo dovoljenih (potrebno je ponovno zagnati brskalnik)",
+    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_all_youtube_channels":{
     "message":"Prikazuj oglase na vseh naročenih YouTube kanalih",

@@ -9,7 +9,15 @@
   },
   "description_edge":{
     "message":"AdBlock. Az elsőszámú hirdetés blokkoló, több mint 200 millió letöltéssel. Blokkolja a hirdetéseket szerte a hálón.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
+  },
+  "description_yt":{
+    "message":"Az egyetlen YouTube hirdetésblokkoló az AdBlock jóvoltából, a legnépszerűbb Chrome bővítmény 60 millió felhasználóval világszerte",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock a YouTube-on",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - kattintson a részletekért",
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"AdBlock opciók",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock a YouTube-on opciók",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Jobb klikkeljen az AdBlock ikonra és válasssza az 'Elrejtés Chrome menüben'-t. Megjelenítéséhez kattintson a Chrome menüre, jobb klikk az AdBlock gombra, majd válassza a 'Eszköztáron tartás\"-t.",
@@ -256,7 +268,11 @@
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
-    "message":"Hibakeresési kijelentések megjelenítése a Konzolnaplóban (ami lelassítja az AdBlock-ot)",
+    "message":"Hibakeresési utasítások megjelenítése a Konzolnaplóban (ami lelassítja a bővítményt)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "datacollectionoption":{
+    "message":"Szűrőlista-használati adatok és a szűrőlisták által blokkolt tartalmakra vonatkozó információk névtelen gyűjtésének engedélyezése az AdBlock számára",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -515,6 +531,14 @@
     "message":"Legyen óvatos: ha itt hibát vét, sok más szűrő, beleértve a hivatalosakat is, szintén meghibásodhatnak!\nOlvassa el a [[szűrő mondattan oktatóanyagot]], hogy megtudja hogyan kell összetett fekete lista és fehér lista szűrőket hozzáadni.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Legyen óvatos: Ha itt hibát vét, az AdBlock a YouTube-on megfelelő működése akár le is állhat.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Olvassa el a [[szűrő mondattani oktatóanyagot]], hogy megtudja hogyan kell fehérlista szűrőket hozzáadni.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Találtunk néhány hibát az egyéni szűrők között. Lásd alább az üzeneteket.",
     "description":"Warning when adding custom filters manually"
@@ -658,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Kattintson a Safari menüben > a Környezeti beállítások > Bővítmények menüpontjára.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"Kattintson a Továbbiak menügombra (...), majd válassza a Bővítmények menüpontot.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Az AdBlock kivételével minden bővítménynél kattintson a fogaskerékre, majd a Be gombra, hogy átváltson Ki-re.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Remek! Most pedig keresse meg melyik kiegészítő a kiváltója ennek. Menjen végig és engedélyezze a kiegészítőket egyesével. Az a kiegészítő, amelyik visszahozza a hirdetés(eke)t az, amelyiket el kell távolítani.",
@@ -1099,6 +1131,10 @@
     "message":"Sajnáljuk, az AdBlock le van tiltva ezen az oldalon az egyik szűrőlista által.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"Sajnáljuk, az AdBlock a YouTube-on le van tiltva ezen az oldalon az egyik opció által.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Ne fusson ezen tartománynak az oldalain",
     "description":"Menu entry to open the whitelist wizard"
@@ -1122,6 +1158,14 @@
   "pause_adblock":{
     "message":"Az AdBlock felfüggesztése",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Reklámblokkolás folytatása",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Reklámblokkolás szüneteltetése",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Az AdBlock engedélyezett tartalomblokkolás melletti szüneteltetéséhez kérjük válassza a Safati (a menüsávon) > Környezeti beállítások > Bővítmények > AdBlock menüpontot, és törölje a jelölést az 'AdBlock engedéylezése' elől.",
@@ -1161,6 +1205,10 @@
   },
   "donate_to_adblock":{
     "message":"Szereti az AdBlock-ot? Adományozzon!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"Teszik az AdBlock a YouTube-on? Adományozzon!",
     "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
@@ -1261,7 +1309,27 @@
   },
   "show_on_adblock_menu":{
     "message":"A blokkolt hirdetések számának megjelenítése az AdBlock menüjében",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"A blokkolt hirdetések számának megjelenítése a gombon",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"A blokkolt hirdetések számának megjelenítése a menün",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Hirdetések eltávolítása a YouTube-on",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Adataim megvédése a YouTube-on",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Zavaró tényezők törlése a YouTube-on",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"Az 'AdBlock' panel megjelenítése a fejlesztői eszközökben",
@@ -1372,6 +1440,10 @@
   "adblockupdates":{
     "message":"AdBlock frissítések",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"AdBlock a YouTube-on frissítések",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Szeretné látni mitől ketyeg az AdBlock?",

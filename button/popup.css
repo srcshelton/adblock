@@ -54,8 +54,8 @@ body {
   background-position: 0 0;
   height: 20px;
   width: 23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
   top: 50%;
   float: left;
   vertical-align: middle;
@@ -66,8 +66,19 @@ body {
   background-position: 0 0;
   height:20px;
   width:23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
+  float: left;
+  vertical-align: middle;
+}
+#div_whitelist_all_channels:before  {
+  content: "";
+  background: transparent url(../img/whitelisting.png) no-repeat;
+  background-position: 0 -20px;
+  height:20px;
+  width:23px;
+  margin-right: 12px;
+  margin-left: 10px;
   float: left;
   vertical-align: middle;
 }
@@ -77,8 +88,8 @@ body {
   background-position: 0 -20px;
   height:20px;
   width:23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
   margin-top: 20px;
   float: left;
   vertical-align: middle;
@@ -89,8 +100,8 @@ body {
   background-position: 0 0px;
   height:20px;
   width:23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
   float: left;
   vertical-align: middle;
 }
@@ -100,8 +111,8 @@ body {
   background-position: 0 0px;
   height:20px;
   width:23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
   float: left;
   vertical-align: middle;
 }
@@ -111,22 +122,22 @@ body {
   background-position: 0 0px;
   height:20px;
   width:23px;
-  margin-right: 16px;
-  margin-left: 14px;
+  margin-right: 12px;
+  margin-left: 10px;
   float: left;
   vertical-align: middle;
 }
 #div_helpsupport:hover:before, #div_paused_adblock:hover:before, #div_enable_adblock_on_this_page:hover:before, #div_pause_adblock:hover:before, #div_options:hover:before, #div_whitelist_page:hover:before {
   background-position: 0 -20px;
 }
-#div_whitelist_channel {
+#div_whitelist_channel, #div_whitelist_all_channels {
   background-color: #6B6A6B;
   color: #FFFFFF ;
 }
 #div_whitelist_channel:hover {
   color: #CAC8CA;
 }
-#div_whitelist_channel:hover:before {
+#div_whitelist_channel:hover:before, #div_whitelist_all_channels:hover:before {
   background-position: 0 0px;
 }
 #div_enable_adblock_on_this_page:hover {
@@ -183,7 +194,6 @@ body {
 }
 #link_open {
   display: inline-block;
-  font-size: 13px;
   height: 18px;
 }
 a {

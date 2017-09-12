@@ -9,7 +9,15 @@
   },
   "description_edge":{
     "message":"AdBlock. Το #1 εργαλείο αποκλεισμού διαφημίσεων με πάνω από 200 εκατομμύρια λήψεις. Μπλοκάρει αγγελίες σε όλο τον ιστό.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
+  },
+  "description_yt":{
+    "message":"Το μόνο εργαλείο αποκλ. διαφημ. YouTube από το AdBlock, την πιο δημoφιλή επέκταση του Chrome με 60 εκατομ. χρήστες σε όλο τον κόσμο",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock στο YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - κλικ για λεπτομέρειες",
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"Επιλογές του AdBlock",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"Επιλογές AdBlock στο YouTube",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Κάντε δεξιό κλικ στο κουμπί AdBlock και επιλέξτε \"Απόκρυψη στο μενού του Chrome\". Για να το δείτε, κάντε κλικ στο μενού του Chrome, κάντε δεξιό κλικ στο κουμπί AdBlock και επιλέξτε 'Διατήρηση στη γραμμή εργαλείων'.",
@@ -256,7 +268,11 @@
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
-    "message":"Εμφάνιση στοιχείων αποσφαλμάτωσης στο αρχείο κονσόλας (καθυστερεί το AdBlock)",
+    "message":"Εμφάνιση στοιχείων αποσφαλμάτωσης στο αρχείο κονσόλας (καθυστερεί την επέκταση)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "datacollectionoption":{
+    "message":"Να επιτρέπεται στο AdBlock να συλλέγει ανώνυμα δεδομένα χρήσης φίλτρου λίστας και πληροφορίες σχετικά με το αποκλεισμένο περιεχόμενο από λίστες φίλτρων",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -515,6 +531,14 @@
     "message":"ΠΡΟΣΟΧΗ: αν κάνετε ένα λάθος εδώ, πολλά άλλα φίλτρα, συμπεριλαμβανομένων των επίσημων, μπορεί να πάθουν ζημιά! \nΔιαβάστε τις[[ οδηγίες για σύνταξη φίλτρων]] για να μάθετε πώς να προσθέσετε προηγμένες μαύρες και λευκές λίστες φίλτρων.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Να είστε προσεκτικοί: αν κάνετε κάποιο λάθος εδώ, το AdBlock στο YouTube θα μπορούσε να σταματήσει να λειτουργεί σωστά.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Διαβάστε τον [[οδηγό σύνταξης φίλτρου]] για να μάθετε πώς να προσθέσετε φίλτρα λευκής λίστας.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Έχουμε βρεί κάποια λάθη στα προσαρμοσμένα φίλτρα σας. Δείτε παρακάτω για τα μηνύματα.",
     "description":"Warning when adding custom filters manually"
@@ -658,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Κάντε κλικ στο μενού Safari > Προτιμήσεις > Επεκτάσεις.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"Κάντε κλικ στο μενού περισσότερα (...) και επιλέξτε το Επεκτάσεις.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Για κάθε επέκταση εκτός του AdBlock, κάντε κλικ στο εικονίδιο γραναζιού και κάντε κλικ στο κουμπί εναλλαγής για να το αλλάξετε σε Ανενεργό.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Εξαιρετικά! Τώρα ας μάθουμε ποια επέκταση είναι η αιτία. Ενεργοποίηση κάθε επέκτασης μία προς μία. Η επέκταση που φέρνει πίσω την διαφήμιση είναι αυτή που πρέπει να καταργήσετε για να απαλλαγείτε από τις διαφημίσεις.",
@@ -1099,6 +1131,10 @@
     "message":"Συγνώμη, το AdBlock απενεργοποιήθηκε σε αυτήν την σελίδα λόγω μιας από τις λίστες φίλτρων σας.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"Συγνώμη, το AdBlock στο YouTube απενεργοποιήθηκε σε αυτήν την σελίδα λόγω μιας από τις επιλογές σας.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Εκτός λειτουργίας σε σελίδες αυτού του τομέα",
     "description":"Menu entry to open the whitelist wizard"
@@ -1122,6 +1158,14 @@
   "pause_adblock":{
     "message":"Παύση του AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Ακύρωση παύσης αποκλεισμού διαφημίσεων",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Παύση αποκλεισμού διαφημίσεων",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Για παύση του AdBlock με ενεργοποιημένο αποκλεισμό περιεχομένου Safari, παρακαλούμε επιλέξτε Safari (στο μενού) > Προτιμήσεις > Επεκτάσεις > AdBlock, και αποεπιλέξτε το 'Ενεργοποίηση AdBlock'.",
@@ -1161,6 +1205,10 @@
   },
   "donate_to_adblock":{
     "message":"Αγαπάτε το AdBlock; Εξετάστε τη δωρεά!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"Αγαπάτε το AdBlock στο YouTube; Εξετάστε τη δωρεά!",
     "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
@@ -1261,7 +1309,27 @@
   },
   "show_on_adblock_menu":{
     "message":"Εμφάνιση αριθμού μπλοκαρισμένων διαφημίσεων στο μενού του AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"Εμφάνιση αριθμού μπλοκαρισμένων διαφημίσεων στο κουμπί",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"Εμφάνιση αριθμού μπλοκαρισμένων διαφημίσεων στο μενού",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Αφαίρεση διαφημίσεων στο YouTube",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Προστασία προσωπικών δεδομένων στο YouTube",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Αφαίρεση ενοχλήσεων στο YouTube",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"Εμφάνιση πίνακα 'AdBlock' στα εργαλεία προγραμματιστή",
@@ -1372,6 +1440,10 @@
   "adblockupdates":{
     "message":"Ενημερώσεις AdBlock",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"Ενημερώσεις AdBlock στο YouTube",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Θέλετε να δείτε τι κάνει το AdBlock να ξεχωρίζει;",

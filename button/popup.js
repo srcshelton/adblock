@@ -114,7 +114,7 @@ $(function() {
 
     $("#titletext").click(function() {
         BG.recordGeneralMessage("titletext_clicked");
-        var edge_url = "https://chrome.google.com/webstore/detail/adblock-premium/fndlhnanhedoklpdaacidomdnplcjcpj";
+        var edge_url = "https://chrome.google.com/webstore/detail/adblock-on-youtube/emngkmlligggbbiioginlkphcmffbncb";
         BG.openTab(edge_url);
         closeAndReloadPopup();
     });

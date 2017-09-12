@@ -9,7 +9,15 @@
   },
   "description_edge":{
     "message":"AdBlock. 2억 회 이상 다운로드된 1위 광고 차단기. 인터넷의 모든 광고를 차단하세요.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
+  },
+  "description_yt":{
+    "message":"6천만 사용자가 선택한 Chrome 확장 프로그램 1위, AdBlock의 Youtube 광고 차단기",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock on YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - 상세 내용 보기",
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"AdBlock 설정",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock on Youtube 설정",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"AdBlock 버튼을 오른쪽 클릭한 후 'Chrome 메뉴에서 숨기기'를 누르세요. 다시 보이게 하려면 크롬 메뉴를 클릭한 후 AdBlock 버튼을 오른쪽 클릭한 뒤 '툴바에서 보기'를 선택하세요.",
@@ -256,11 +268,11 @@
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
-    "message":"콘솔 로그에 차단\/요소 숨김 상태 기록 (애드블록의 필터 처리 속도가 느려짐)",
+    "message":"콘솔 로그에서 디버그 정보 보이기 (확장 프로그램이 느려짐)",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
-    "message":"AdBlock이 필터 목록 사용 데이터와 필터 목록에 의해 차단된 콘텐츠의 정보를 익명으로 수집하도록 허용합니다",
+    "message":"AdBlock이 필터 목록 사용 데이터와 필터 목록에 의해 차단된 콘텐츠의 정보를 익명으로 수집하도록 허용",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -364,7 +376,7 @@
     "description":"Title of the filter list tab"
   },
   "filterlistlink":{
-    "message":"필요한 것들만 구독하세요. 필터 하나를 추가할 때마다 페이지를 불러오는 속도가 살짝살짝씩 느려집니다! 공헌자와 보다 많은 목록을 [[여기]]서 확인하실 수 있습니다.",
+    "message":"필요한 것들만 구독하세요. 필터를 추가할 때마다 페이지를 불러오는 속도가 조금씩 느려집니다! 보다 많은 필터 목록과 필터 공헌자를 [[여기]]서 확인하실 수 있습니다.",
     "description":"Explanation of the filter lists"
   },
   "updatenowmessage2":{
@@ -396,7 +408,7 @@
     "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
   },
   "filteracceptable_ads":{
-    "message":"허용될만한 광고",
+    "message":"허용할만한 광고",
     "description":"A filter list"
   },
   "filteradblock_custom":{
@@ -516,8 +528,16 @@
     "description":"Subtitle on the 'Customize' tab"
   },
   "filtersavewarning":{
-    "message":"주의: 여기서 실수한다면 공식 필터를 포함한 다른 필터들이 제대로 동작하지 않을 수 있습니다!\n고급 차단 및 허용 목록을 추가하는 방법을 알아보려면 [[필터 문법 튜토리얼]]을 참고하시기 바랍니다.",
+    "message":"주의: 여기서 실수한다면 공식 필터를 포함한 다른 필터들이 제대로 동작하지 않을 수 있습니다!\n고급 차단 및 허용 목록을 추가하는 방법을 알아보려면 [[필터 문법 안내서]]를 참고하시기 바랍니다.",
     "description":"Warning when blacklisting manually"
+  },
+  "filtersavewarning_ytadblock_1":{
+    "message":"주의하세요, 여기에서 실수하신다면 AdBlock on Youtube가 제대로 작동하지 않을 수 있습니다.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"허용 목록 필터를 추가하는 방법을 알아보려면 [[필터 문법 안내서]]을 참고하시기 바랍니다.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "migration_error_message":{
     "message":"사용자 필터에서 오류를 발견했습니다. 아래의 메시지를 확인하세요.",
@@ -584,7 +604,7 @@
     "description":"Section header on the ad report page"
   },
   "clickdisableaa":{
-    "message":"[[허용될만한 광고 끄기]] 버튼을 클릭하세요.",
+    "message":"[[허용할만한 광고 끄기]] 버튼을 클릭하세요.",
     "description":"Instruction on ad report page"
   },
   "aamessageadreport":{
@@ -662,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Safari 메뉴 > 환경설정 > 확장 프로그램을 클릭하세요.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"메뉴(… 아이콘)를 클릭한 후 확장을 선택하세요.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"AdBlock을 제외한 모든 확장 프로그램을 꺼보시기 바랍니다. 톱니바퀴 아이콘을 클릭한 후 켜짐 토글 버튼을 클릭하여 꺼짐으로 바꾸세요.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"좋아요! 이제 어떤 확장 프로그램이 문제인지 찾아봅시다. 확장 프로그램을 하나하나씩 켜서 확인해보세요. 광고를 다시 띄우게 하는 확장 프로그램을 삭제하셔야 합니다.",
@@ -1103,6 +1131,10 @@
     "message":"죄송합니다, 구독된 필터에 의해 허용된 페이지입니다.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"죄송합니다, 당신의 설정에 맞추었기 때문에 AdBlock on Youtube가 이 페이지에서는 작동하지 않습니다.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"이 도메인에서 사용 중지",
     "description":"Menu entry to open the whitelist wizard"
@@ -1126,6 +1158,14 @@
   "pause_adblock":{
     "message":"AdBlock 일시 중지",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"광고 차단 일시 중지 해제",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"광고 차단 일시 중지",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"콘텐츠 차단 기능이 켜진 채 AdBlock을 일시 중지하려면 Safari > 설정 > 확장 프로그램 > AdBlock으로 들어가 'AdBlock 켜기'를 체크 해제하세요.",
@@ -1165,6 +1205,10 @@
   },
   "donate_to_adblock":{
     "message":"AdBlock이 마음에 드시나요? 저희를 후원해주세요!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"AdBlock on YouTube가 마음에 드시나요? 저희를 후원해주세요!",
     "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
@@ -1265,7 +1309,27 @@
   },
   "show_on_adblock_menu":{
     "message":"AdBlock 메뉴에 차단된 광고 개수 보이기",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"버튼에 차단된 광고 개수 보이기",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"메뉴에 차단된 광고 개수 보이기",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Youtube에서 광고 제거",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Youtube에서 내 개인정보 지키기",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Youtube에서 성가신 요소들 제거",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"개발자 도구에 'AdBlock' 패널 표시",
@@ -1376,6 +1440,10 @@
   "adblockupdates":{
     "message":"AdBlock 업데이트",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"AdBlock on Youtube 업데이트",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"AdBlock이 어떻게 만들어지는지 궁금하세요?",
@@ -1522,11 +1590,11 @@
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
   "acceptable_ads_content_blocking_disbled_message":{
-    "message":"Safari 콘텐츠 차단 설정이 켜져 있어 허용될만한 광고 구독을 해지했습니다. 둘 중 단 하나의 설정만 켤 수 있습니다. ([[어째서인가요?]])",
+    "message":"Safari 콘텐츠 차단 설정이 켜져 있어 허용할만한 광고 구독을 해지했습니다. 둘 중 단 하나의 설정만 켤 수 있습니다. ([[어째서인가요?]])",
     "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
   },
   "content_blocking_acceptable_ads_disbled_message":{
-    "message":"허용될만한 광고를 허용하기 위해 Safari의 콘텐츠 차단 기능을 껐습니다. 둘 중 단 하나의 설정만 켤 수 있습니다. ([[어째서인가요?]])",
+    "message":"허용할만한 광고를 허용하기 위해 Safari의 콘텐츠 차단 기능을 껐습니다. 둘 중 단 하나의 설정만 켤 수 있습니다. ([[어째서인가요?]])",
     "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
   },
   "adreport_laststep":{

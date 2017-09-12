@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. #1 Mainosten estäjä yli 200 miljoonalla latauksella. Estää mainokset kaikkialla netissä.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - klikkaa saadaksesi tietoja",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Ota Safarin sisällönesto käyttöön",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Näytä virheilmoitukset Virhekonsolissa (hidastaa AdBlockin toimintaa)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"päivitetty juuri nyt",
@@ -1257,7 +1253,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Näytä estettyjen mainosten määrän AdBlock-valikossa",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Näytä 'AdBlock' paneeli kehittäjän työkaluissa",

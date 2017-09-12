@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock。 冠军广告屏蔽软件，下载量超过2亿次。屏蔽整个互联网上的广告。",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - 点击查看详情",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"启用Safari内容屏蔽",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"在控制台日志中显示调试信息（这将会降低AdBlock的效能）",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
     "message":"允许AdBlock收集匿名的过滤列表使用数据，以及被过滤列表屏蔽内容的有关信息",
@@ -1265,7 +1261,7 @@
   },
   "show_on_adblock_menu":{
     "message":"在AdBlock菜单中显示被屏蔽的广告数",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"在开发者工具中显示AdBlock面板",

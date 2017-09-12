@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. De #1 advertentieblokkerende extensie met meer dan 200 miljoen downloads. Blokkeert advertenties over heel het web.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - klik voor details",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Schakel Safari Materiaalblokkering in",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Toon debug resultaten in de Console Logs (dit vertraagt AdBlock).",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"zojuist bijgewerkt",
@@ -1233,7 +1229,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Toon het aantal geblokkeerde advertenties in het AdBlock menu",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Toon het 'AdBlock' menu bij de developer tools",

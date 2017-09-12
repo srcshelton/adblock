@@ -793,15 +793,15 @@ var updateButtonUIAndContextMenus = function () {
     browsersBadgeOptions.color = '#555';
     browsersBadgeOptions.badge_text = '';
     var host = parseUri(info.tab.unicodeUrl).host;
-    if (adblock_is_paused()) {
+    if (adblock_is_paused() && host === "www.youtube.com") {
       browsersBadgeOptions.iconPaths = {
-           16: "img/16x16disabled.png",
-           19: 'img/20x20disabled.png',
-           20: "img/20x20disabled.png",
-           32: "img/32x32disabled.png",
-           38: 'img/40x40disabled.png',
-           40: "img/40x40disabled.png",
-           64: "img/64x64disabled.png"
+           16: "img/16x16paused.png",
+           19: 'img/20x20paused.png',
+           20: "img/16x16paused.png",
+           32: "img/32x32paused.png",
+           38: 'img/40x40paused.png',
+           40: "img/40x40paused.png",
+           64: "img/64x64paused.png"
       };
       setBrowserActions(browsersBadgeOptions);
     } else if (info.disabled_site &&

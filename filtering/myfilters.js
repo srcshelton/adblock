@@ -532,7 +532,6 @@ MyFilters.prototype._load_default_subscriptions = function () {
   //Update will be done immediately after this function returns
   result['yt_privacy'] = { subscribed: true };
   result['yt_ad'] = { subscribed: true };
-  result['yt_annoyances'] = { subscribed: true };
   return result;
 };
 

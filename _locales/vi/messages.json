@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. Trình chặn quảng cáo số 1 hiện nay với trên 200 triệu lượt tải về. Giúp bạn chặn tất cả quảng cáo trên internet.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - bấm để biết thêm chi tiết",
@@ -254,10 +254,6 @@
   "safaricontentblocking":{
     "message":"Bật Chặn Nội Dung Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Hiển thị báo cáo gỡ lỗi trong Console Log (sẽ làm AdBlock chậm đi)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
     "message":"Cho phép AdBlock thu thập dữ liệu ẩn danh lưu lượng sử dụng của bộ lọc, và thông tin về nội dung bị chặn bởi các bộ lọc",
@@ -1265,7 +1261,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Hiển thị số quảng cáo bị chặn trên menu AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Hiển thị bảng điều khiển 'AdBlock' trong công cụ nhà phát triển",

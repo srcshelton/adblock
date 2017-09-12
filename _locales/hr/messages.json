@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. #1 bloker oglasa s više od 200 milijuna preuzimanja. Blokira oglase na cijelom webu.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - kliknite za detalje",
@@ -255,8 +255,8 @@
     "message":"Omogući blokiranje sadržaja za Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
-  "debuginlogoption":{
-    "message":"Prikaži izjave uklanjanja pogreške u zapisu konzole (usporava AdBlock)",
+  "datacollectionoption":{
+    "message":"Dopustite AdBlock proširenju prikupljanje anonimnog popisa korištenja filtera i informacije o sadržaju blokiranom filter popisom",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -1261,7 +1261,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Pokaži broj blokiranih reklama na AdBlock izborniku",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Prikaži \"AdBlock\" ploču u razvojnim alatima",

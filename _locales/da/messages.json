@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. Den førende reklameblokerer med over 200 millioner downloads. Blokerer reklamer over hele internettet.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock - klik for at se mere",
@@ -231,10 +231,6 @@
   },
   "showcontextmenus2":{
     "message":"Tilføj muligheder til højrekliksmenuen",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "debuginlogoption":{
-    "message":"Vis debuginformationer i Console Log (vil gøre AdBlock langsomere)",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -995,7 +991,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Vis antal reklamer blokeret i AdBlock-knappen",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Liste over reklamefiltre",

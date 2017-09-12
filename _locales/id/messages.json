@@ -243,10 +243,6 @@
     "message":"Aktifkan modus kompatibilitas ClickToFlash",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
-  "debuginlogoption":{
-    "message":"Perlihatkan pernyataan debug pada Console Log (akan memperlambat AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "updatedrightnow":{
     "message":"diperbaharui sekarang",
     "description":"Label for subscription"
@@ -1085,7 +1081,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Tampilkan jumlah iklan yang diblokir di menu AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Daftar filter pemblokiran iklan",

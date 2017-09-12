@@ -146,32 +146,6 @@ var run_bandaids = function () {
                 elemDiv.style.display = 'none';
                 document.body.appendChild(elemDiv);
               });
-
-            var aaElements = document.querySelectorAll('#disableacceptableads');
-            if (aaElements.length > 0)
-            {
-              for (var i = 0; i < aaElements.length; ++i)
-              {
-                aaElements[i].onclick = function (event)
-                {
-                  if (event.isTrusted === false) {
-                    return;
-                  }
-
-                  event.preventDefault();
-                  BGcall('unsubscribe', {
-                    id: 'acceptable_ads',
-                    del: false,
-                  }, function ()
-                  {
-                    BGcall('recordGeneralMessage', 'disableacceptableads_clicked', undefined, undefined, function ()
-                    {
-                      BGcall('openTab', 'options/index.html?tab=0&aadisabled=true');
-                    });
-                  });
-                };
-              }
-            }
           },
   }; // end bandaids
 

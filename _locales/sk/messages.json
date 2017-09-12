@@ -243,10 +243,6 @@
     "message":"Povoliť spätnú kompatibilitu s doplnkom ClickToFlash",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
-  "debuginlogoption":{
-    "message":"Zobrazovať chybové hlásenia v konzole (spomaluje AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "updatedrightnow":{
     "message":"aktualizované práve teraz",
     "description":"Label for subscription"
@@ -981,7 +977,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Zobraziť počet zablokovaných reklám v AdBlock menu",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Zoznamy filtrov pre blokovanie reklám",

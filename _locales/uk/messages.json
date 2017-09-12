@@ -9,7 +9,7 @@
   },
   "description_edge":{
     "message":"AdBlock. Блокувальник реклами № 1, завантажений більш ніж 200 мільйонів разів. Блокує рекламу по всьому інтернету.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
+    "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
     "message":"AdBlock — натисніть щоб побачити деталі",
@@ -250,10 +250,6 @@
   "safaricontentblocking":{
     "message":"Увімкнути блокування вмісту в Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "debuginlogoption":{
-    "message":"Показувати інформацію для налагодження в Журналі Консолі (уповільнює роботу AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"щойно оновлено",
@@ -1225,7 +1221,7 @@
   },
   "show_on_adblock_menu":{
     "message":"Показати кількість заблокованих оголошень в меню AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "show_devtools_panel":{
     "message":"Показувати вкладку \"AdBlock\" у інструментах розробника",
