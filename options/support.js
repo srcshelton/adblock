@@ -28,10 +28,6 @@ $(document).ready(function() {
         debug_info = content.join("\n");
     });
 
-    // Check for updates
-    $("#checkupdate").html(translate("checkforupdates"));
-    checkupdates("help");
-
     if (navigator.language.substring(0, 2) != "en") {
         $(".english-only").css("display", "inline");
     }

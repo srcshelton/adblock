@@ -446,15 +446,17 @@ var checkmalware = function() {
             updateFiltersClicked = true;
             $('#step_update_filters_DIV')
                 .hide();
-            $("#malwarewarning")
-                .html(translate("malwarewarning"));
-            $("a", "#malwarewarning")
-                .attr("href", "http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
+            var rawMessageText = translate("malwarewarning");
+            var messageSplit = splitMessageWithReplacementText(rawMessageText);
+            $('#malwarewarning').get(0).childNodes[0].nodeValue = messageSplit.anchorPrefixText;
+            $('#malwarewarning').get(0).childNodes[1].nodeValue = messageSplit.anchorPostfixText;
+            $("#malwarewarning").slideDown();
+            $("#malwarewarning a").text(messageSplit.anchorText);
         } else {
             $('#step_update_filters_DIV')
                 .show();
             $("#malwarewarning")
-                .html(translate("malwarenotfound"));
+                .text(translate("malwarenotfound"));
         }
         $('#malwarewarning')
             .show();
@@ -748,23 +750,30 @@ $("#step_language_lang")
         $("#step_language span")
             .attr("chosen", selected.attr("i18n"));
         if (selected.text() == translate("other")) {
-            $("#checkupdate")
-                .html(translate("nodefaultfilter1"));
-            $("#link")
-                .html(translate("here"))
-                .attr("href", "https://adblockplus.org/en/subscriptions");
+            if (!$('#checkupdate').get(0).firstChild) {
+              log("returning, no first child found", $(this).attr("i18n"));
+              return;
+            }
+            if (!$('#checkupdate').get(0).lastChild) {
+              log("returning, no last child found", $(this).attr("i18n"));
+              return;
+            }
+            var rawMessageText = translate('nodefaultfilter1');
+            var messageSplit = splitMessageWithReplacementText(rawMessageText);
+            $('#checkupdate').get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
+            $('#checkupdate').get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
+            $('#checkupdatelink').text(messageSplit.anchorText).attr('href', 'https://adblockplus.org/en/subscriptions');
             recordMessage("language");
             return;
-        } else {
-            var required_lists = selected.attr('value')
-                .split(';');
-            for (var i = 0; i < required_lists.length - 1; i++) {
-                if (unsubscribed_default_filters[required_lists[i]]) {
-                    $("#checkupdate")
-                        .text(translate("retryaftersubscribe", [translate("filter" + required_lists[i])]));
-                    recordMessage("language");
-                    return;
-                }
+        }
+        var required_lists = selected.attr('value')
+            .split(';');
+        for (var i = 0; i < required_lists.length - 1; i++) {
+            if (unsubscribed_default_filters[required_lists[i]]) {
+                $("#checkupdate")
+                    .text(translate("retryaftersubscribe", [translate("filter" + required_lists[i])]));
+                recordMessage("language");
+                return;
             }
         }
         contact = required_lists[required_lists.length - 1];
@@ -773,17 +782,11 @@ $("#step_language_lang")
             .fadeIn()
             .css("display", "block");
         $("#checkinfirefox1")
-            .html(translate("checkinfirefox_1"));
+            .text(translate("checkinfirefoxorchrome_1"));
         $("#checkinfirefox2")
-            .html(translate("checkinfirefox_2"));
+            .text(translate("checkinfirefoxorchrome_2"));
         $("#checkinfirefox")
-            .html(translate("checkinfirefoxtitle"));
-        if (SAFARI) {
-            $("#chrome1, #chrome2")
-                .html(translate("orchrome"));
-            $("#adblockforchrome")
-                .html(translate("oradblockforchrome"));
-        }
+            .text(translate("checkinfirefoxorchrometitle"));
     });
 
 // STEP 6: also in Firefox
@@ -795,13 +798,24 @@ $("#step_firefox_yes")
         $("#step_firefox")
             .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
         if (/^mailto\:/.test(contact))
-            contact = contact.replace(" at ", "@");
-        var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, '') + "</a>";
-        $("#checkupdate")
-            .html(translate("reportfilterlistproblem", [reportLink]));
-        $("#privacy")
-            .show();
+            contact = contact.replace(' at ', '@');
+        if (!$('#checkupdate').get(0).firstChild) {
+           log("returning, no first child found", $(this).attr("i18n"));
+           return;
+        }
+        if (!$('#checkupdate').get(0).lastChild) {
+           log("returning, no last child found", $(this).attr("i18n"));
+           return;
+        }
+        var rawMessageText = translate('reportfilterlistproblem');
+        var messageSplit = splitMessageWithReplacementText(rawMessageText);
+        $('#checkupdate').get(0).firstChild.nodeValue = messageSplit.anchorPrefixText;
+        $('#checkupdate').get(0).lastChild.nodeValue = messageSplit.anchorPostfixText;
+        $('#checkupdatelink').prop('href', contact);
+        $('#checkupdatelink').text(contact.replace(/^mailto\:/, ''));
+        $('#privacy').show();
     });
+
 $("#step_firefox_no")
     .click(function() {
         $("#step_firefox")
@@ -874,5 +888,3 @@ $("#step_report_submit")
         recordMessage("sendReport");
         sendReport();
     });
-
-checkupdates("adreport");

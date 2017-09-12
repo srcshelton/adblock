@@ -131,7 +131,7 @@ $(function() {
     if (blacklist)
       blacklist = "@@*$document,domain=" + blacklist;
     var filterErrorMessage = "";
-    $("#messageBlacklist").html(filterErrorMessage);
+    $("#messageBlacklist").text(filterErrorMessage);
     $("#messageBlacklist").hide();
     try {
       FilterNormalizer.normalizeLine(blacklist);
@@ -139,7 +139,7 @@ $(function() {
     } catch(ex) {
       $("#btnAddBlacklist").prop("disabled", true);
       filterErrorMessage = translate("customfilterserrormessage", [$("#txtBlacklist").val(), ex.message]);
-      $("#messageBlacklist").html(filterErrorMessage);
+      $("#messageBlacklist").text(filterErrorMessage);
       $("#messageBlacklist").show();
     }
   });

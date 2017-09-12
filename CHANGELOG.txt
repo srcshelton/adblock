@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+2.63.0:
+- Removed all HTML tags from locale messages. (#742)
+- Updated translations.
+
 2.62.0:
 - Updated Translations.
 - Re-added code to enable user survey's.  (#738)

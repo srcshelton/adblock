@@ -12,7 +12,6 @@
     <script src="../punycode.min.js" type="text/javascript"></script>
     <script src="../port.js" type="text/javascript"></script>
     <script src="../functions.js" type="text/javascript"></script>
-    <script src="../checkupdates.js" type="text/javascript"></script>
     <style type="text/css">
       body {
         background-color: white;
@@ -127,6 +126,12 @@
           padding: 20px;
         }
       }
+      .adblock-preserve-whitespace {
+        white-space: pre-wrap;
+      }
+      .italic {
+          font-style: italic;
+      }
     </style>
   </head>
   <body>
@@ -144,7 +149,7 @@
     <!--STEP 0-->
     <div id="info">
       <p i18n="adreportintro"></p>
-      <p i18n="adreportvoluntary"></p>
+      <p i18n="adreportvoluntary" i18n_replacement_el="adreportvoluntaryLink"> <a id="adreportvoluntaryLink" href="http://help.getadblock.com/support/solutions/articles/6000061202" target="_blank"> </a> </p>
     </div>
 
     <!--STEP 1: malware check-->
@@ -153,7 +158,7 @@
         <h2 i18n="malwarecheck" style="display: inline-block;"></h2>
         <img class="loader" src=../img/loader.gif />
         <br/>
-        <span id="malwarewarning" style="display: none; margin: 15px 0px 15px 19px;" i18n="malwarewarning" ></span>
+        <p id="malwarewarning" style="display: none; margin: 15px 0px 15px 19px;" i18n="malwarewarning" i18n_replacement_el="malwarewarningLink" > <a id="malwarewarningLink" href="http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-" target="_blank"> </a> </p>
       </div>
     </div>
 
@@ -162,10 +167,9 @@
       <div class="section" id="step_update_filters_DIV">
         <h2 i18n="updateyourlists"></h2>
         <ol>
-          <li i18n="clickupdatefilters" i18n_replacement_el="UpdateFilters"></li>
+          <li i18n="clickupdatefilters" i18n_replacement_el="UpdateFilters"> <input type="button" value="Update my filters!" id="UpdateFilters" > </input> </li>
           <li i18n="reloadadpage" class="afterFilterUpdate"></li>
         </ol>
-        <input type="button" value="Update my filters!" id="UpdateFilters" />
         <span i18n="adstillappear" class="afterFilterUpdate" style="margin-left: 19px;"></span><br/>
         <div id="step_update_filters" class="form afterFilterUpdate">
           <input type="radio" id="step_update_filters_yes" name="step_update_filters" disabled="disabled" />
@@ -181,10 +185,9 @@
       <div class="section" id="step_update_aa_DIV">
         <h2 i18n="disableaa"></h2>
         <ol>
-          <li i18n="clickdisableaa" i18n_replacement_el="DisableAA"></li>
+          <li i18n="clickdisableaa" i18n_replacement_el="DisableAA"> <input type="button" value="Unsubscribe to Acceptable Ads" id="DisableAA" > </input> </li>
           <li i18n="reloadadpage" class="afterDisableAA"></li>
         </ol>
-        <input type="button" value="Unsubscribe to Acceptable Ads" id="DisableAA" />
         <span i18n="adstillappear" class="afterDisableAA" style="margin-left: 19px;"></span><br/>
         <div id="step_update_aa" class="form afterDisableAA">
           <input type="radio" id="step_update_aa_yes" name="step_update_aa" disabled="disabled" />
@@ -200,22 +203,21 @@
       <div class="section" id="step_disable_extensions_DIV">
         <h2 i18n="disableallextensions"></h2>
         <div class="chrome_only">
-        <ol>
-          <li i18n="disableforchromestepone"></li>
-          <li i18n="disableforchromeandsafaristeptwo"></li>
-          <li i18n="reloadadpage"></li>
-        </ol>
-        <div style="margin: 15px 0px 15px 19px;">
-          <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"></div>
-          <input type="button" value="Disable other extensions!" id="OtherExtensions" />
-        </div>
+          <ol>
+            <li i18n="disableforchromestepone" i18n_replacement_el="disableExtensionsLink" > <a id="disableExtensionsLink" href='#'> </a> </li>
+            <li i18n="disableforchromeandsafaristeptwo"></li>
+            <li i18n="reloadadpage"></li>
+          </ol>
+          <div style="margin: 15px 0px 15px 19px;">
+            <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"> <input type="button" value="Disable other extensions!" id="OtherExtensions" > </input> </div>
+          </div>
         </div>
         <div class="safari_only">
-        <ol>
-          <li i18n="disableforsafaristepone"></li>
-          <li i18n="disableforchromeandsafaristeptwo"></li>
-          <li i18n="reloadadpage"></li>
-        </ol>
+          <ol>
+            <li i18n="disableforsafaristepone"></li>
+            <li i18n="disableforchromeandsafaristeptwo"></li>
+            <li i18n="reloadadpage"></li>
+          </ol>
         </div>
 
         <span i18n="adstillappear" class="afterDisableExtensions" style="margin-left: 19px;"></span><br/>
@@ -350,7 +352,7 @@
         <p i18n="adreport_server_response_error_msg"></p>
         <p id="step_response_error_msg"></p>
         <div id="step_response_error_manual_submission">
-          <p i18n="adreport_server_response_error__manual_msg_step1"></p>
+          <p i18n="adreport_server_response_error__manual_msg_step1" i18n_replacement_el="helpdeskLink"> <a id="helpdeskLink" href="https://adblocksupport.freshdesk.com/support/tickets/new" target="_blank"> </a> </p>
           <p i18n="adreport_server_response_error__manual_msg_step2"></p>
           <textarea id="manual_submission" rows="25" cols="80"></textarea>
         </div>
@@ -358,7 +360,7 @@
     </div>
 
     <div class="result">
-      <div id="checkupdate"></div>
+      <div id="checkupdate" class="adblock-preserve-whitespace" >  <a id="checkupdatelink" target="_blank"> </a>  </div>
       <div id="checkupdatelink_DIV">
         <a id="checkupdatelink" href="https://adblockplus.org/acceptable-ads" target="_blank"></a>
       </div>

@@ -229,7 +229,7 @@
         color: red;
         font-weight: bold;
         margin: 5px 0px 5px 3px;
-      }      
+      }
       .error_message {
         color: red;
       }
@@ -506,4 +506,10 @@
         padding: 3px 0px 3px 3px;
         margin: 5px 1px 3px 0px;
         border: 1px solid #dfdfdf;
+      }
+      .adblock-preserve-whitespace {
+        white-space: pre-wrap;
+      }
+      .italic {
+          font-style: italic;
       }

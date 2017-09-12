@@ -7,6 +7,10 @@
     "message":"Cea mai populară extensie pentru Chrome, cu peste 40 de milioane de utilizatori! Blochează orice reclamă pe web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
+  "description_edge":{
+    "message":"AdBlock. Nr.1 în blocarea reclamelor cu peste 200 de milioane de descărcări. Blochează toate reclamele în tot internetul.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - click pentru detalii",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
@@ -35,6 +39,10 @@
     "message":"Opțiuni AdBlock",
     "description":"Title for the options page"
   },
+  "chromebutton_how_to_hide2":{
+    "message":"Faceţi clic dreapta pe butonul AdBlock şi selectaţi \"Ascunde-l din meniul Chrome\". Pentru al afișa: faceţi clic pe meniul Chrome apoi faceţi clic dreapta pe butonul AdBlock, şi selectaţi \"Păstrează-l în bara de instrumente\".",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
+  },
   "operabutton_how_to_hide2":{
     "message":"Pentru a ascunde butonul, du-te la opera:\/\/extensions şi bifează opţiunea  'Hide from toolbar'. Poate fi afișat din nou prin debifarea acestei opţiuni.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
@@ -60,7 +68,7 @@
     "description":"Blacklister attribute choosing page message"
   },
   "blacklisternotsure":{
-    "message":"<b>Nesigur?<\/b> Doar apasă 'Blocheză-l'.",
+    "message":"Nesigur? Doar apasă 'Blocheză-l'.",
     "description":"Blacklister attribute choosing page message"
   },
   "blacklisterthefilter":{
@@ -148,7 +156,7 @@
     "description":"Back to previous wizard page button"
   },
   "findingads":{
-    "message":"Căutare reclame... <br\/><br\/><i>Va rugăm așteptați.<\/i>",
+    "message":"Căutare reclame... \n\nVa rugăm așteptați.",
     "description":"When you press ctrl-shift-K the blacklister searches for ads"
   },
   "blockanadtitle":{
@@ -243,12 +251,12 @@
     "message":"Activați modul de compatibilitate ClickToFlash",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
+  "safaricontentblocking":{
+    "message":"Permite blocarea conţinutului Safari",
+    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
   "debuginlogoption":{
     "message":"Arată declarații de depanare în Consolă (încetinește AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "datacollectionoption":{
-    "message":"Permite AdBlock să colecteze anonim lista de utilizare a filtrului şi datele",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -315,6 +323,18 @@
     "message":"Preluare... vă rugăm așteptați.",
     "description":"Status label"
   },
+  "ab_filters_subscription_lastDownload_invalidURL":{
+    "message":"Greșit, nu este o adresă validă",
+    "description":"message on the filter tab - Message when you subscribe to a non-list URL"
+  },
+  "ab_filters_subscription_lastDownload_connectionError":{
+    "message":"Eroare, descărcare nereuşită",
+    "description":"message on the filter tab - Generic filter list download error message"
+  },
+  "ab_filters_subscription_lastDownload_invalidData":{
+    "message":"Greșit, nu este o listă de filtre validă",
+    "description":"message on the filter tab - Invalid filter list file"
+  },
   "invalidListUrl":{
     "message":"Link invalid. Va fi șters.",
     "description":"Message when you subscribe to a non-list URL"
@@ -336,11 +356,11 @@
     "description":"Title of the filter list tab"
   },
   "filterlistlink":{
-    "message":"Nu adăuga mai multe filtre decât sunt necesare -- fiecare încetinește navigarea puțin! Credite și alte liste pot fi găsite <a>aici<\/a>.",
+    "message":"Nu adăuga mai multe filtre decât sunt necesare -- fiecare încetinește navigarea puțin! Credite și alte liste pot fi găsite [[aici]].",
     "description":"Explanation of the filter lists"
   },
   "updatenowmessage2":{
-    "message":"Voi descărca automat actualizări; poţi, de asemenea, să <a>actualizezi acum<\/a>",
+    "message":"Voi descărca automat actualizări; poţi, de asemenea, să [[actualizezi acum]]",
     "description":"Update filters text + button"
   },
   "orenteraurl":{
@@ -359,13 +379,33 @@
     "message":"Filtru rețele sociale (elimină butoanele sociale)",
     "description":"A filter list"
   },
+  "filteracceptable_ads":{
+    "message":"Reclame acceptabile",
+    "description":"A filter list"
+  },
+  "filteradblock_custom":{
+    "message":"AdBlock Filtre personalizate",
+    "description":"A filter list"
+  },
+  "filtereasylist":{
+    "message":"EasyList",
+    "description":"A filter list"
+  },
   "filterrussian":{
     "message":"Rusă și ucraineană",
     "description":"Language names for a filter list"
   },
+  "filter_russian":{
+    "message":"EasyList Rusă și ucraineană",
+    "description":"A filter list combined with EasyList"
+  },
   "filterczech":{
     "message":"Cehă și Slovacă",
     "description":"A filter list"
+  },
+  "filter_czech":{
+    "message":"EasyList Cehă și Slovacă",
+    "description":"A filter list combined with EasyList"
   },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (protecție a vieții private)",
@@ -375,6 +415,10 @@
     "message":"Indoneziană",
     "description":"A filter list"
   },
+  "filter_easylist_plus_indonesian":{
+    "message":"EasyList Indoneziană",
+    "description":"A filter list combined with EasyList"
+  },
   "filtermalware":{
     "message":"Protecție malware",
     "description":"A filter list"
@@ -382,6 +426,10 @@
   "filterlatvian":{
     "message":"Letonă",
     "description":"A filter list"
+  },
+  "filter_latvian":{
+    "message":"EasyList Letonă",
+    "description":"A filter list combined with EasyList"
   },
   "filterswedish":{
     "message":"Suedeză",
@@ -448,8 +496,16 @@
     "description":"Subtitle on the 'Customize' tab"
   },
   "filtersavewarning":{
-    "message":"Ai girjă: dacă greșești aici, toate filtrele, inclusiv cele oficiale, pot funcționa greșit! \n<br\/>Citește <a>sintaxa filtrelor<\/a> pentru a învăța cum să adaugi filtre avansate.",
+    "message":"Ai girjă: dacă greșești aici, toate filtrele, inclusiv cele oficiale, pot funcționa greșit! \n\nCitește [[sintaxa filtrelor]] pentru a învăța cum să adaugi filtre avansate.",
     "description":"Warning when blacklisting manually"
+  },
+  "migration_error_message":{
+    "message":"Am găsit unele erori în Filtrele dumneavoastră personalizate. Vezi mesajele de mai jos.",
+    "description":"Warning when adding custom filters manually"
+  },
+  "delete_migration_error_messages":{
+    "message":"Ștergere mesaje",
+    "description":"Button to delete error messages when adding custom filters manually"
   },
   "savebutton":{
     "message":"Salvează",
@@ -480,7 +536,7 @@
     "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
   },
   "malwarewarning":{
-    "message":"Computerul poate fi infectat cu malware.  Faceţi clic <a>aici<\/a> pentru mai multe informaţii.",
+    "message":"Computerul poate fi infectat cu malware. Faceţi clic [[aici]] pentru mai multe informaţii.",
     "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
   },
   "malwarenotfound":{
@@ -488,7 +544,7 @@
     "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "clickupdatefilters":{
-    "message":"Click aici: <a>Actualizează filtrele<\/a>",
+    "message":"Click aici: [[Actualizează filtrele]]",
     "description":"Instruction on ad report page"
   },
   "reloadadpage":{
@@ -508,7 +564,7 @@
     "description":"A negative response to a question"
   },
   "clickdisableotherextensions":{
-    "message":"<b>Sau<\/b>, doar faceţi click pe acest buton pentru ca noi să facem toate cele de mai sus: <a>Dezactivaţi toate celelalte extensii<\/a>",
+    "message":"Sau, doar faceţi click pe acest buton pentru ca noi să facem toate cele de mai sus: [[Dezactivaţi toate celelalte extensii]]",
     "description":"On the ad report page, an alternative way to disable other extensions"
   },
   "enableotherextensionscomplete":{
@@ -520,11 +576,11 @@
     "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
   },
   "disableforchromeandsafaristeptwo":{
-    "message":"Debizează caseta de selectare 'Activată' de lângă fiecare extensie, <b>cu excepția<\/b> AdBlock. <b>Lasă AdBlock activat<\/b>.",
+    "message":"Debizează caseta de selectare 'Activată' de lângă fiecare extensie, cu excepția AdBlock. Lasă AdBlock activat.",
     "description":"Step 2 for disabling Chrome and Safari extensions"
   },
   "disableforsafaristepone":{
-    "message":"Click pe meniul Safari &rarr; Preferințe &rarr; Extensii.",
+    "message":"Click pe meniul Safari > Preferințe > Extensii.",
     "description":"Step 1 for disabling Safari extensions"
   },
   "pagelanguagecheck":{
@@ -699,24 +755,6 @@
     "message":"Alte",
     "description":"Multiple choice option"
   },
-  "orchrome":{
-    "message":"sau Chrome",
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
-  },
-  "oradblockforchrome":{
-    "message":"sau AdBlock pentru Chrome",
-    "description":"Used for placeholder in checkinfirefox_2 string"
-  },
-  "nodefaultfilter1":{
-    "message":"Nu avem un filtru predefinit pentru limba ta. <br\/> Vă rugăm să căutați un filtru care suportă această limbă $link$ sau blocheză reclama în tabul 'Personalizare'.",
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab.",
-    "placeholders":{
-      "link":{
-        "content":"<a id='link'><\/a>",
-        "example":"<a>here<\/a>"
-      }
-    }
-  },
   "retryaftersubscribe":{
     "message":"Adaugă acest filtru, iar apoi încearcă din nou: $list_title$",
     "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
@@ -728,24 +766,12 @@
     }
   },
   "checkinfirefoxtitle":{
-    "message":"Verifica în Firefox $chrome$",
-    "description":"Tell a user to see if a reported ad also appears in Firefox\/Chrome",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='chrome1'><\/span>",
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
+    "message":"Verifica în Firefox",
+    "description":"Tell a user to see if a reported ad also appears in Firefox"
   },
   "checkinfirefox_1":{
-    "message":"Instalează Firefox $chrome$ dacă nu le ai.",
-    "description":"instruction for how to check Firefox\/Chrome for a reported ad",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='chrome2'><\/span>",
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
+    "message":"Instalează Firefox dacă nu le ai.",
+    "description":"instruction for how to check Firefox for a reported ad"
   },
   "checkinfirefox_3":{
     "message":"În acel browser, subscrie la aceleași liste de filtrare cum ai aici.",
@@ -792,18 +818,14 @@
     "description":"Telling the user to report an ad to a filter list maintainer",
     "placeholders":{
       "link":{
-        "content":"$1",
-        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
+        "content":"[[]]",
+        "example":"The link could point to a filter list's forum, or to the email address of a filter list maintainer. For example, forums.lanik.us or someguy@list.com."
       }
     }
   },
   "fixityourself":{
     "message":"Poți bloca această reclamă pentru tine în Opțiuni. Mulțumesc!",
     "description":"Telling users who won't report an ad to us how to handle it for themselves"
-  },
-  "adblock_outdated_chrome":{
-    "message":"Folosești o versiune veche AdBlock. Vă rugăm să accesați <a href='#'>managerul de extensii<\/a>, să activați 'Mod dezvoltator' și să faceți click pe 'Actualizați extensiile imediat'.",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome:\/\/chrome\/extensions\/'"
   },
   "block_an_ad_on_this_page":{
     "message":"Blocheză o reclamă de pe această pagină",
@@ -933,10 +955,6 @@
     "message":"Ascunde acest buton",
     "description":"Toolbar button menu entry to hide the AdBlock button"
   },
-  "spread_the_word":{
-    "message":"Ajuta la răspândire!",
-    "description":"Text of a share link"
-  },
   "pwyw":{
     "message":"Plătiţi ceea ce doriţi!",
     "description":"Text of a payment request link"
@@ -970,7 +988,7 @@
     "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
   },
   "show_ads_except_for":{
-    "message":"Arată reclame <i>peste tot<\/i> cu excepția acestor domenii...",
+    "message":"Arată reclame peste tot cu excepția acestor domenii...",
     "description":"Section title for blacklisting section of Customize tab"
   },
   "only_block_ads_on_these_sites":{
@@ -982,7 +1000,7 @@
     "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
   },
   "warning_overrules_filters":{
-    "message":"Atenție: pe toate celălalte site-uri vei vedea reclame!<br>Aceasta respinge celălalte filtre pentru acele site-uri.",
+    "message":"Atenție: pe toate celălalte site-uri vei vedea reclame!\nAceasta respinge celălalte filtre pentru acele site-uri.",
     "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
   },
   "storage_quota_exceeded":{
@@ -990,7 +1008,7 @@
     "description":"Message shown when the user uses more storage than allowed by the browser"
   },
   "safari50_updatenotice":{
-    "message":"Folosești o versiune veche Safari. Instalează ultima versiune pentru a putea folosi butonul din bara de instrumente AdBlock, pentru a permite reclame pe anumite site-uri și pentru a raporta reclame. <a>Actualizează acum<\/a>.",
+    "message":"Folosești o versiune veche Safari. Instalează ultima versiune pentru a putea folosi butonul din bara de instrumente AdBlock, pentru a permite reclame pe anumite site-uri și pentru a raporta reclame. [[Actualizează acum]].",
     "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
   "firefox_explanation":{
@@ -1006,7 +1024,7 @@
     "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999.",
     "placeholders":{
       "count":{
-        "content":"<a>123<\/a>",
+        "content":"[[123]]",
         "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
     }
@@ -1016,7 +1034,7 @@
     "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999.",
     "placeholders":{
       "count":{
-        "content":"<a>123,456<\/a>",
+        "content":"[[123,456]]",
         "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
     }
@@ -1042,7 +1060,7 @@
     "description":"List for custom filters the user subscribed to"
   },
   "customfilterserrormessage":{
-    "message":"Următorul filtru:<br\/> $filter$ <br\/> are o eroare: <br\/> $message$",
+    "message":"Următorul filtru:\n $filter$ \n are o eroare: \n $message$",
     "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
     "placeholders":{
       "filter":{
@@ -1091,42 +1109,16 @@
       }
     }
   },
-  "latest_version":{
-    "message":"AdBlock este actualizat!",
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
-  },
   "here":{
     "message":"aici",
     "description":"This message is injected in other strings as a link\/button"
-  },
-  "update_available":{
-    "message":"Există un update pentru AdBlock! Mergeţi la $here$ pentru actualizare.<br>Notă: Daca doriţi să primiţi automat update-uri, faceţi click pe opţiunea 'Install updates automatically' in Safari > Preferences > Extensions > Updates",
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
-    "placeholders":{
-      "here":{
-        "content":"<a id='here'><\/a>",
-        "example":"<a>here<\/a>"
-      }
-    }
   },
   "adblocksupport":{
     "message":"Suport AdBlock",
     "description":"Title of the support tab"
   },
-  "checkforupdates":{
-    "message":"Verificare actualizări (ar trebui să ia doar câteva secunde)...",
-    "description":"Displayed when AdBlock is checking the newest available version"
-  },
-  "somethingwentwrong":{
-    "message":"Ceva a mers prost în timp ce se verificau actualizările.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
-  },
-  "checkinternetconnection":{
-    "message":"Pentru a raporta o reclamă, trebuie să fiţi conectat la internet.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
-  },
   "whatsnew":{
-    "message":"Ce este nou în ultima versiune? Vezi <a style='cursor:pointer;'> changelog<\/a>!",
+    "message":"Ce este nou în ultima versiune? Vezi [[changelog]]!",
     "description":"Link to display the changelog on the Support tab of the options"
   },
   "englishonly":{
@@ -1150,23 +1142,19 @@
     "description":"Subtitle on the Support tab of the options"
   },
   "sourcecode":{
-    "message":"Codul sursă este <a>disponibil gratuit<\/a>!",
+    "message":"Codul sursă este [[disponibil gratuit]]!",
     "description":"Link to the source code of AdBlock on the Support tab of the options"
   },
-  "contributors":{
-    "message":"Avem o <a>pagină<\/a> pentru a vă ajută sa gasiţi şi oamenii care au ajutat la construirea AdBlock!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
   "debuginfo":{
-    "message":"Echipa noastră a solicitat unele informaţii de depanare? Faceţi clic <a href='#' id='debug'> aici<\/a> pentru asta!",
+    "message":"Echipa noastră a solicitat unele informaţii de depanare? Faceţi clic [[aici]] pentru asta!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
   "supportsite":{
-    "message":"Aduceţi-ne la cunoştinţă pe <a>siteul de suport<\/a>!",
+    "message":"Aduceţi-ne la cunoştinţă pe [[siteul de suport]]!",
     "description":"Link to the support site on the Support tab of the options"
   },
   "ad_report_please":{
-    "message":"Dacă vedeţi un anunţ, nu faceţi un raport de problemă, faceţi un <a>raport de reclamă<\/a>!",
+    "message":"Dacă vedeţi un anunţ, nu faceţi un raport de problemă, faceţi un [[raport de reclamă]]!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   },
   "headertype":{
