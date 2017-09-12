@@ -51,7 +51,7 @@ $(function() {
         // Cache tab object for later use
         tab = info.tab;
 
-        show(["div_options", "separator2", "div_helpsupport"]);
+        show(["div_options", "separator2", "div_slideout"]);
         var paused = BG.adblock_is_paused();
         var host = parseUri(tab.unicodeUrl).host;
 

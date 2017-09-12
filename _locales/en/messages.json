@@ -12,11 +12,11 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"The only YouTube ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
-    "message":"AdBlock on YouTube",
+    "message":"AdBlock on YouTube™",
     "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
@@ -48,7 +48,7 @@
     "description":"Title for the options page"
   },
   "optionstitle_yt":{
-    "message":"AdBlock on YouTube Options",
+    "message":"AdBlock on YouTube™ Options",
     "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
@@ -532,7 +532,7 @@
     "description":"Warning when blacklisting manually"
   },
   "filtersavewarning_ytadblock_1":{
-    "message":"Be careful: if you make a mistake here, AdBlock on YouTube could stop working properly.",
+    "message":"Be careful: if you make a mistake here, AdBlock on YouTube™ could stop working properly.",
     "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "filtersavewarning_ytadblock_2":{
@@ -1132,7 +1132,7 @@
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
   "disabled_by_filter_lists_yt":{
-    "message":"Sorry, AdBlock on YouTube is disabled on this page by one of your options.",
+    "message":"Sorry, AdBlock on YouTube™ is disabled on this page by one of your options.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
   },
   "dont_run_on_pages_on_domain":{
@@ -1328,15 +1328,15 @@
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "block_ads_on_youtube":{
-    "message":"Remove ads on YouTube",
+    "message":"Remove ads on YouTube™",
     "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
   },
   "block_privacy_on_youtube":{
-    "message":"Protect my privacy on YouTube",
+    "message":"Protect my privacy on YouTube™",
     "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
   },
   "block_annonyances_on_youtube":{
-    "message":"Remove annoyances on YouTube",
+    "message":"Remove annoyances on YouTube™",
     "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
@@ -1386,11 +1386,11 @@
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
   },
   "allow_whitelisting_youtube_channels":{
-    "message":"Allow whitelisting of specific YouTube channels (requires restarting your browser)",
+    "message":"Allow whitelisting of specific YouTube™ channels (requires restarting your browser)",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_all_youtube_channels":{
-    "message":"Whitelist all subscribed YouTube channels",
+    "message":"Whitelist all subscribed YouTube™ channels",
     "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "one_moment_all_youtube_channels":{
@@ -1398,11 +1398,11 @@
     "description":"Alert message displayed when whitelisting all subscribed YouTube channels"
   },
   "all_youtube_channels_complete":{
-    "message":"All of your YouTube channel subscriptions have been whitelisted",
+    "message":"All of your YouTube™ channel subscriptions have been whitelisted",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
   "allow_ads_all_youtube_channels":{
-    "message":"Allow ads on all subscribed YouTube channels",
+    "message":"Allow ads on all subscribed YouTube™ channels",
     "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "whitelist_youtube_channel":{
@@ -1416,7 +1416,7 @@
     }
   },
   "whitelist_youtube_channel_v2":{
-    "message":"Allow ads on YouTube channel:",
+    "message":"Allow ads on YouTube™ channel:",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option.  The channel name will appear on the line below this menu item."
   },
   "confirm_undo_custom_filters":{
@@ -1458,7 +1458,7 @@
     "description":"Subtitle on the Support tab of the options"
   },
   "ytadblockupdates":{
-    "message":"AdBlock on YouTube updates",
+    "message":"AdBlock on YouTube™ updates",
     "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{

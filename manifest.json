@@ -1,8 +1,8 @@
 ﻿{
-  "name": "AdBlock on YouTube",
-  "short_name": "AdBlock on YouTube",
+  "name": "AdBlock on YouTube™",
+  "short_name": "AdBlock on YouTube™",
   "author": "BetaFish",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "manifest_version": 2,
   "permissions": [
      "<all_urls>", "unlimitedStorage", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"

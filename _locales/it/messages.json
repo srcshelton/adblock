@@ -11,6 +11,14 @@
     "message":"AdBlock. L'ad blocker #1 con oltre 200 milioni di downloads. Blocca gli annunci in tutto il web.",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
+  "description_yt":{
+    "message":"L'unico Ad blocker per YouTube è creato da AdBlock, l'estensione di Chrome più popolare con 60 milioni di utenti in tutto il mondo",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock su YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - clicca per dettagli",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"Opzioni di AdBlock",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock su YouTube Opzioni",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Cliccare con il pulsante destro il bottone di AdBlock e selezionare 'Nascondi nel Menu di Chrome'. Per vederlo, cliccare il menu di Chrome, cliccare col tasto destro il bottone di AdBlock, e selezionare 'Visualizza nella barra degli strumenti'.",
@@ -254,6 +266,14 @@
   "safaricontentblocking":{
     "message":"Attivare il blocco dei contenuti Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
+  "debuginlogoption":{
+    "message":"Mostra messaggi di debug nella Console dei Log (rallentano l'estensione)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "datacollectionoption":{
+    "message":"Consenti ad AdBlock di raccogliere dati di utilizzo anonimi e informazioni sul contenuto bloccato dalle liste dei filtri",
+    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
     "message":"appena aggiornato",
@@ -511,6 +531,14 @@
     "message":"Attenzione: Se fai un errore molti altri filtri, compresi quelli ufficiali, potrebbero smettere di funzionare!\nLeggi il [[filter syntax tutorial]] per imparare le funzionalità avanzate e scrivere da solo i tuoi filtri.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Attenzione: se commetti un errore qui, AdBlock su YouTube potrebbe smettere di funzionare correttamente.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Leggi il [[tutorial sulla sintassi dei filtri]] per imparare come aggiungere filtri whitelist.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Abbiamo trovato alcuni errori nei tuoi filtri personalizzati. Vedi sotto per i messaggi.",
     "description":"Warning when adding custom filters manually"
@@ -654,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Clicca il menu Safari > Preferenze > Estensioni.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"Clicka su Più menu (...) e seleziona Estensioni.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Per ogni estensione ad eccezione di AdBlock, fare clic sull'icona dell'ingranaggio e fare clic sul pulsante On per modificarlo in Off.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Grande! Ora andiamo a scoprire quale estensione ne è la causa. Abilita ogni estensione una per una. L'estensione che fa ricomparire l'annuncio è quello che avete bisogno di disinstallare per sbarazzarvi degli annunci.",
@@ -1095,6 +1131,10 @@
     "message":"Spiacenti, AdBlock è disabilitato su questa pagina da qualcuna delle tue liste filtri.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"Spiacenti, AdBlock è disabilitato su questa pagina da qualcuna delle tue opzioni.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Non attivare sulle pagine di questo dominio",
     "description":"Menu entry to open the whitelist wizard"
@@ -1118,6 +1158,14 @@
   "pause_adblock":{
     "message":"Metti in pausa AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Riattivare il blocco degli annunci",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Sospendi il blocco degli annunci",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Per mettere in pausa AdBlock quando è abilitato il blocco dei contenuti, si prega di selezionare Safari (nella barra dei menu) > Preferenze > Estensioni e deselezionare 'Abilitare AdBlock'.",
@@ -1157,6 +1205,10 @@
   },
   "donate_to_adblock":{
     "message":"Ti piace AdBlock? Considera una donazione!",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"Ti piace AdBlock su YouTube? Considera una donazione!",
     "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
@@ -1258,6 +1310,26 @@
   "show_on_adblock_menu":{
     "message":"Visualizza il numero di annunci bloccati nel menu di AdBlock",
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"Visualizza il numero di annunci bloccati sul pulsante di AdBlock",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"Visualizza il numero di annunci bloccati nel menu di AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Rimuovi gli annunci su YouTube",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Proteggi la mia privacy su YouTube",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Rimuovi i fastidi su YouTube",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"Visualizza il pannello 'AdBlock' negli strumenti per sviluppatori",
@@ -1368,6 +1440,10 @@
   "adblockupdates":{
     "message":"Aggiornamenti di AdBlock",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"Aggiornamenti di AdBlock su YouTube",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Vuoi vedere cosa fa AdBlock?",

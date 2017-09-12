@@ -60,6 +60,21 @@ body {
   float: left;
   vertical-align: middle;
 }
+#div_slideout:before {
+  content: "";
+  background: transparent url(../img/loveadblock.png) no-repeat;
+  background-position: 0 0;
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+  margin-left: 10px;
+  padding-right: 2px;
+  padding-left: 1px;    
+  top: 50%;
+  float: left;
+  vertical-align: middle;
+  display: block;
+}
 #div_options:before {
   content: "";
   background: transparent url(../img/options.png) no-repeat;
@@ -127,7 +142,7 @@ body {
   float: left;
   vertical-align: middle;
 }
-#div_helpsupport:hover:before, #div_paused_adblock:hover:before, #div_enable_adblock_on_this_page:hover:before, #div_pause_adblock:hover:before, #div_options:hover:before, #div_whitelist_page:hover:before {
+#div_slideout:hover:before, #div_helpsupport:hover:before, #div_paused_adblock:hover:before, #div_enable_adblock_on_this_page:hover:before, #div_pause_adblock:hover:before, #div_options:hover:before, #div_whitelist_page:hover:before {
   background-position: 0 -20px;
 }
 #div_whitelist_channel, #div_whitelist_all_channels {
@@ -191,10 +206,6 @@ body {
 .block_count_number {
   font-weight: bold;
   color: #D0011B;
-}
-#link_open {
-  display: inline-block;
-  height: 18px;
 }
 a {
   color: #4D7BD6;
@@ -275,6 +286,15 @@ input[type="checkbox"]:checked:before {
   }
   #div_helpsupport:hover:before {
     background-position: 0 -18px;
+  }
+  #div_slideout:before {
+    background: transparent url(../img/loveadblock@2x.png) no-repeat;
+    background-size: 18px auto;
+    height: 15px;
+    width: 20px;
+  }
+  #div_slideout:hover:before {
+    background-position: 0 -15px;
   }
   .logo {
     background: transparent url(../img/logo_140x35@2x.png) no-repeat;

@@ -12,7 +12,7 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"6천만 사용자가 선택한 Chrome 확장 프로그램 1위, AdBlock의 Youtube 광고 차단기",
+    "message":"6천만 사용자가 선택한 Chrome 확장 프로그램 1위, AdBlock의 YouTube 광고 차단기",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
@@ -48,7 +48,7 @@
     "description":"Title for the options page"
   },
   "optionstitle_yt":{
-    "message":"AdBlock on Youtube 설정",
+    "message":"AdBlock on YouTube 설정",
     "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
@@ -532,7 +532,7 @@
     "description":"Warning when blacklisting manually"
   },
   "filtersavewarning_ytadblock_1":{
-    "message":"주의하세요, 여기에서 실수하신다면 AdBlock on Youtube가 제대로 작동하지 않을 수 있습니다.",
+    "message":"주의하세요, 여기에서 실수하신다면 AdBlock on YouTube가 제대로 작동하지 않을 수 있습니다.",
     "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "filtersavewarning_ytadblock_2":{
@@ -1132,7 +1132,7 @@
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
   "disabled_by_filter_lists_yt":{
-    "message":"죄송합니다, 당신의 설정에 맞추었기 때문에 AdBlock on Youtube가 이 페이지에서는 작동하지 않습니다.",
+    "message":"죄송합니다, 당신의 설정에 맞추었기 때문에 AdBlock on YouTube가 이 페이지에서는 작동하지 않습니다.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
   },
   "dont_run_on_pages_on_domain":{
@@ -1320,15 +1320,15 @@
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "block_ads_on_youtube":{
-    "message":"Youtube에서 광고 제거",
+    "message":"YouTube에서 광고 제거",
     "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
   },
   "block_privacy_on_youtube":{
-    "message":"Youtube에서 내 개인정보 지키기",
+    "message":"YouTube에서 내 개인정보 지키기",
     "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
   },
   "block_annonyances_on_youtube":{
-    "message":"Youtube에서 성가신 요소들 제거",
+    "message":"YouTube에서 성가신 요소들 제거",
     "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
@@ -1382,7 +1382,7 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_all_youtube_channels":{
-    "message":"모든 Youtube 구독 채널을 허용 목록에 등록",
+    "message":"모든 YouTube 구독 채널을 허용 목록에 등록",
     "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "one_moment_all_youtube_channels":{
@@ -1442,7 +1442,7 @@
     "description":"Subtitle on the Support tab of the options"
   },
   "ytadblockupdates":{
-    "message":"AdBlock on Youtube 업데이트",
+    "message":"AdBlock on YouTube 업데이트",
     "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{

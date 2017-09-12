@@ -11,6 +11,14 @@
     "message":"AdBlock。 冠军广告屏蔽软件，下载量超过2亿次。屏蔽整个互联网上的广告。",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
+  "description_yt":{
+    "message":"唯一的YouTube广告拦截插件；由拥有6000万用户，最受欢迎的Chrome 扩展AdBlock制作",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock on YouTube",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - 点击查看详情",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
@@ -38,6 +46,10 @@
   "optionstitle":{
     "message":"AdBlock选项",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock on YouTube 选项",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"右键单击 AdBlock 按钮并选择“在 Chrome 菜单中隐藏”。若要显示它，单击 Chrome 菜单，右键单击 AdBlock 按钮，并选择 “在工具栏中显示”。",
@@ -254,6 +266,10 @@
   "safaricontentblocking":{
     "message":"启用Safari内容屏蔽",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
+  "debuginlogoption":{
+    "message":"在控制台日志中显示调试信息（这将会降低AdBlock on YouTube的效能）",
+    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
     "message":"允许AdBlock收集匿名的过滤列表使用数据，以及被过滤列表屏蔽内容的有关信息",
@@ -515,6 +531,14 @@
     "message":"请小心: 如果您在这里设置出错，许多其它过滤规则，包括官方的过滤规则，可能会失效！\n参阅[[过滤规则语法教程]]来学习正确地添加高级黑名单、白名单规则。",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"请小心: 如果您在这里设置出错，AdBlock on YouTube可能停止工作。",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"请参阅[[过滤规则语法教程]]来学习正确地添加白名单规则。",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"我们在您自定义的过滤列表中发现了一些错误。请参阅下面的详细信息。",
     "description":"Warning when adding custom filters manually"
@@ -658,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"单击Safari菜单 > 选项 > 扩展程序。",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"单击更多菜单（...）并选择扩展。",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"除了AdBlock，依次点击其他所有扩展右侧的齿轮图标，再单击下方的开关使其关闭。",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"太好了! 现在让我们找出是哪个扩展带来了广告。逐个启用每个扩展。带出广告的那个扩展就是您必须删除的。",
@@ -1099,6 +1131,10 @@
     "message":"抱歉, 因为您的一个过滤列表，AdBlock在这个页面被禁用了",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"对不起， AdBlock on YouTube因为您的一项选项设置被关闭",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"不要在这个网域的页面上运行",
     "description":"Menu entry to open the whitelist wizard"
@@ -1122,6 +1158,14 @@
   "pause_adblock":{
     "message":"暂停AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"继续广告拦截",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"暂停广告拦截",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"要在启用内容屏蔽的情况下暂停AdBlock，请选择 Safari (菜单栏中) > 偏好设置 > 扩展 > AdBlock，并取消\"启用AdBlock\"。",
@@ -1161,6 +1205,10 @@
   },
   "donate_to_adblock":{
     "message":"喜欢AdBlock吗？请考虑捐赠！",
+    "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"喜欢AdBlock on YouTube吗？请考虑捐赠！",
     "description":"Text of a donate link in the toolbar button menu"
   },
   "pwyw":{
@@ -1262,6 +1310,26 @@
   "show_on_adblock_menu":{
     "message":"在AdBlock菜单中显示被屏蔽的广告数",
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "show_on_button":{
+    "message":"在图标上显示被屏蔽的广告数",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"在菜单中显示被屏蔽的广告数",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"屏蔽YouTube上的广告",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"在YouTube上保护我的隐私",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"屏蔽在YouTube上的干扰",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
     "message":"在开发者工具中显示AdBlock面板",
@@ -1372,6 +1440,10 @@
   "adblockupdates":{
     "message":"AdBlock更新",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"AdBlock on YouTube更新",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"想知道是什么造就了AdBlock魔法？",

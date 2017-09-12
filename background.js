@@ -395,9 +395,6 @@ function onBeforeRequestHandler(details) {
 
   // determine if we should block the request
   var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false);
-  if (!blocked && details.url.indexOf('mp4') > 1) {
-    console.log("not blocked", details)
-  }
 
   var canPurge = (elType & (ElementTypes.image | ElementTypes.subdocument | ElementTypes.object));
   if (canPurge && blocked) {
