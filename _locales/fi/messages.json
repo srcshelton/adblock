@@ -7,6 +7,14 @@
     "message":"Chromen suosituin lisäosa. Yli 40 miljoonaa käyttäjää! Estää kaikki mainokset.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
+  "description_yt":{
+    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock on YouTube™",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
+  },
   "description_edge":{
     "message":"AdBlock. #1 Mainosten estäjä yli 200 miljoonalla latauksella. Estää mainokset kaikkialla netissä.",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."

@@ -11,6 +11,14 @@
     "message":"AdBlock. Nr.1 în blocarea reclamelor cu peste 200 de milioane de descărcări. Blochează toate reclamele în tot internetul.",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
+  "description_yt":{
+    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
+  },
+  "name_adblock_on_youtube":{
+    "message":"AdBlock on YouTube™",
+    "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - click pentru detalii",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."

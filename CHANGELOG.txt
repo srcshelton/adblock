@@ -2,6 +2,9 @@
 
 UNRELEASED:
 
+1.4.1:
+- Added missing locale message entries. (#23)
+
 1.4.0:
 - Fixed alignment and layout issues in the toolbar menu (#19)
 - Internationalized the name (#20)
