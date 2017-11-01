@@ -53,14 +53,14 @@ function splitSelector(selector)
   if (selector.indexOf(",") == -1)
     return [selector];
 
-  let selectors = [];
-  let start = 0;
-  let level = 0;
-  let sep = "";
+  var selectors = [];
+  var start = 0;
+  var level = 0;
+  var sep = "";
 
-  for (let i = 0; i < selector.length; i++)
+  for (var i = 0; i < selector.length; i++)
   {
-    let chr = selector[i];
+    var chr = selector[i];
 
     if (chr == "\\")        // ignore escaped characters
       i++;
@@ -86,9 +86,9 @@ function splitSelector(selector)
   return selectors;
 }
 
-let MIN_INVOCATION_INTERVAL = 3000;
-const MAX_SYNCHRONOUS_PROCESSING_TIME = 50;
-const abpSelectorRegexp = /:-abp-([\w-]+)\(/i;
+var MIN_INVOCATION_INTERVAL = 3000;
+var MAX_SYNCHRONOUS_PROCESSING_TIME = 50;
+var abpSelectorRegexp = /:-abp-([\w-]+)\(/i;
 
 /** Return position of node from parent.
  * @param {Node} node the node to find the position of.
@@ -96,8 +96,8 @@ const abpSelectorRegexp = /:-abp-([\w-]+)\(/i;
  */
 function positionInParent(node)
 {
-  let {children} = node.parentNode;
-  for (let i = 0; i < children.length; i++)
+  var children = node.parentNode.children;
+  for (var i = 0; i < children.length; i++)
     if (children[i] == node)
       return i + 1;
   return 0;
@@ -109,15 +109,15 @@ function makeSelector(node, selector)
     return null;
   if (!node.parentElement)
   {
-    let newSelector = ":root";
+    var newSelector = ":root";
     if (selector)
       newSelector += " > " + selector;
     return newSelector;
   }
-  let idx = positionInParent(node);
+  var idx = positionInParent(node);
   if (idx > 0)
   {
-    let newSelector = `${node.tagName}:nth-child(${idx})`;
+    var newSelector = node.tagName + ':nth-child(' + idx '})';
     if (selector)
       newSelector += " > " + selector;
     return makeSelector(node.parentElement, newSelector);
@@ -128,12 +128,12 @@ function makeSelector(node, selector)
 
 function parseSelectorContent(content, startIndex)
 {
-  let parens = 1;
-  let quote = null;
-  let i = startIndex;
+  var parens = 1;
+  var quote = null;
+  var i = startIndex;
   for (; i < content.length; i++)
   {
-    let c = content[i];
+    var c = content[i];
     if (c == "\\")
     {
       // Ignore escaped characters
@@ -174,13 +174,14 @@ function parseSelectorContent(content, startIndex)
  */
 function stringifyStyle(rule)
 {
-  let styles = [];
-  for (let i = 0; i < rule.style.length; i++)
+  var styles = [];
+  for (var i = 0; i < rule.style.length; i++)
   {
-    let property = rule.style.item(i);
-    let value = rule.style.getPropertyValue(property);
-    let priority = rule.style.getPropertyPriority(property);
-    styles.push(`${property}: ${value}${priority ? " !" + priority : ""};`);
+    var property = rule.style.item(i);
+    var value = rule.style.getPropertyValue(property);
+    var priority = rule.style.getPropertyPriority(property);
+    //styles.push(`${property}: ${value}${priority ? " !" + priority : ""};`);
+    styles.push(property ': ' + value + (priority ? " !" + priority : "") + ';');
   }
   styles.sort();
   return {
@@ -196,7 +197,7 @@ function* evaluate(chain, index, prefix, subtree, styles)
     yield prefix;
     return;
   }
-  for (let [selector, element] of
+  for (var [selector, element] of
        chain[index].getSelectors(prefix, subtree, styles))
   {
     if (selector == null)
@@ -229,8 +230,8 @@ PlainSelector.prototype = {
   }
 };
 
-const incompletePrefixRegexp = /[\s>+~]$/;
-const relativeSelectorRegexp = /^[>+~]/;
+var incompletePrefixRegexp = /[\s>+~]$/;
+var relativeSelectorRegexp = /^[>+~]/;
 
 function HasSelector(selectors)
 {
@@ -247,7 +248,7 @@ HasSelector.prototype = {
 
   *getSelectors(prefix, subtree, styles)
   {
-    for (let element of this.getElements(prefix, subtree, styles))
+    for (var element of this.getElements(prefix, subtree, styles))
       yield [makeSelector(element, ""), element];
   },
 
@@ -259,13 +260,13 @@ HasSelector.prototype = {
    */
   *getElements(prefix, subtree, styles)
   {
-    let actualPrefix = (!prefix || incompletePrefixRegexp.test(prefix)) ?
+    var actualPrefix = (!prefix || incompletePrefixRegexp.test(prefix)) ?
         prefix + "*" : prefix;
-    let elements = subtree.querySelectorAll(actualPrefix);
-    for (let element of elements)
+    var elements = subtree.querySelectorAll(actualPrefix);
+    for (var element of elements)
     {
-      let iter = evaluate(this._innerSelectors, 0, "", element, styles);
-      for (let selector of iter)
+      var iter = evaluate(this._innerSelectors, 0, "", element, styles);
+      for (var selector of iter)
       {
         if (selector == null)
         {
@@ -299,17 +300,17 @@ ContainsSelector.prototype = {
 
   *getSelectors(prefix, subtree, stylesheet)
   {
-    for (let element of this.getElements(prefix, subtree, stylesheet))
+    for (var element of this.getElements(prefix, subtree, stylesheet))
       yield [makeSelector(element, ""), subtree];
   },
 
   *getElements(prefix, subtree, stylesheet)
   {
-    let actualPrefix = (!prefix || incompletePrefixRegexp.test(prefix)) ?
+    var actualPrefix = (!prefix || incompletePrefixRegexp.test(prefix)) ?
         prefix + "*" : prefix;
-    let elements = subtree.querySelectorAll(actualPrefix);
+    var elements = subtree.querySelectorAll(actualPrefix);
 
-    for (let element of elements)
+    for (var element of elements)
     {
       if (element.textContent.includes(this._text))
         yield element;
@@ -321,7 +322,7 @@ ContainsSelector.prototype = {
 
 function PropsSelector(propertyExpression)
 {
-  let regexpString;
+  var regexpString;
   if (propertyExpression.length >= 2 && propertyExpression[0] == "/" &&
       propertyExpression[propertyExpression.length - 1] == "/")
   {
@@ -349,30 +350,30 @@ PropsSelector.prototype = {
 
   *findPropsSelectors(styles, prefix, regexp)
   {
-    for (let style of styles) {
+    for (var style of styles) {
       if (regexp.test(style.style)) {
-        for (let subSelector of style.subSelectors)
+        for (var subSelector of style.subSelectors)
         {
           if (subSelector.startsWith("*") &&
               !incompletePrefixRegexp.test(prefix))
           {
             subSelector = subSelector.substr(1);
           }
-          let idx = subSelector.lastIndexOf("::");
+          var idx = subSelector.lastIndexOf("::");
           if (idx != -1) {
             subSelector = subSelector.substr(0, idx);
           }
           yield prefix + subSelector;
         }
       } else if (this._regexp2 && this._regexp2.test(style.style)) {
-        for (let subSelector of style.subSelectors)
+        for (var subSelector of style.subSelectors)
         {
           if (subSelector.startsWith("*") &&
               !incompletePrefixRegexp.test(prefix))
           {
             subSelector = subSelector.substr(1);
           }
-          let idx = subSelector.lastIndexOf("::");
+          var idx = subSelector.lastIndexOf("::");
           if (idx != -1) {
             subSelector = subSelector.substr(0, idx);
           }
@@ -384,7 +385,7 @@ PropsSelector.prototype = {
 
   *getSelectors(prefix, subtree, styles)
   {
-    for (let selector of this.findPropsSelectors(styles, prefix, this._regexp))
+    for (var selector of this.findPropsSelectors(styles, prefix, this._regexp))
       yield [selector, subtree];
   }
 };
@@ -427,16 +428,16 @@ ElemHideEmulation.prototype = {
     if (!selector || selector.length == 0)
       return [];
 
-    let match = abpSelectorRegexp.exec(selector);
+    var match = abpSelectorRegexp.exec(selector);
     if (!match)
       return [new PlainSelector(selector)];
 
-    let selectors = [];
+    var selectors = [];
     if (match.index > 0)
       selectors.push(new PlainSelector(selector.substr(0, match.index)));
 
-    let startIndex = match.index + match[0].length;
-    let content = parseSelectorContent(selector, startIndex);
+    var startIndex = match.index + match[0].length;
+    var content = parseSelectorContent(selector, startIndex);
     if (!content)
     {
       console.error(`Failed to parse Adblock Plus selector ${selector} due to unmatched parentheses.`);
@@ -447,7 +448,7 @@ ElemHideEmulation.prototype = {
     }
     else if (match[1] == "has")
     {
-      let hasSelectors = this.parseSelector(content.text);
+      var hasSelectors = this.parseSelector(content.text);
       if (hasSelectors == null)
         return null;
       selectors.push(new HasSelector(hasSelectors));
@@ -461,7 +462,7 @@ ElemHideEmulation.prototype = {
       return null;
     }
 
-    let suffix = this.parseSelector(selector.substr(content.end + 1));
+    var suffix = this.parseSelector(selector.substr(content.end + 1));
     if (suffix == null)
       return null;
 
@@ -487,15 +488,15 @@ ElemHideEmulation.prototype = {
    */
   _addSelectors(stylesheets, done)
   {
-    let selectors = [];
-    let selectorFilters = [];
+    var selectors = [];
+    var selectorFilters = [];
 
-    let elements = [];
-    let elementFilters = [];
+    var elements = [];
+    var elementFilters = [];
 
-    let cssStyles = [];
+    var cssStyles = [];
 
-    let stylesheetOnlyChange = !!stylesheets;
+    var stylesheetOnlyChange = !!stylesheets;
 
     if (!stylesheets) {
       stylesheets = this.document.styleSheets;
@@ -503,7 +504,7 @@ ElemHideEmulation.prototype = {
 
     for (var inx = 0; inx < stylesheets.length; inx++)
     {
-      let stylesheet = stylesheets[inx];
+      var stylesheet = stylesheets[inx];
       // Explicitly ignore third-party stylesheets to ensure consistent behavior
       // between Firefox and Chrome.
       if (!this.isSameOrigin(stylesheet))
@@ -525,9 +526,9 @@ ElemHideEmulation.prototype = {
       if (!rules)
         continue;
 
-      for (let jnx = 0; jnx < rules.length; jnx++)
+      for (var jnx = 0; jnx < rules.length; jnx++)
       {
-        let rule = rules[jnx];
+        var rule = rules[jnx];
         if (rule.type != rule.STYLE_RULE)
           continue;
 
@@ -535,13 +536,13 @@ ElemHideEmulation.prototype = {
       }
     }
 
-    let patterns = this.patterns.slice();
-    let pattern = null;
-    let generator = null;
+    var patterns = this.patterns.slice();
+    var pattern = null;
+    var generator = null;
 
-    let processPatterns = () =>
+    var processPatterns = () =>
     {
-      let cycleStart = performance.now();
+      var cycleStart = performance.now();
 
       if (!pattern)
       {
@@ -564,7 +565,7 @@ ElemHideEmulation.prototype = {
         }
         generator = evaluate(pattern.selectors, 0, "", this.document, cssStyles);
       }
-      for (let selector of generator)
+      for (var selector of generator)
       {
         if (selector != null)
         {
@@ -575,7 +576,7 @@ ElemHideEmulation.prototype = {
           }
           else
           {
-            for (let element of this.document.querySelectorAll(selector))
+            for (var element of this.document.querySelectorAll(selector))
             {
               elements.push(element);
               elementFilters.push(pattern.text);
@@ -621,13 +622,13 @@ ElemHideEmulation.prototype = {
    */
   queueFiltering(stylesheets)
   {
-    let completion = () =>
+    var completion = () =>
     {
       this._lastInvocation = performance.now();
       this._filteringInProgress = false;
       if (this._scheduledProcessing)
       {
-        let newStylesheets = this._scheduledProcessing.stylesheets;
+        var newStylesheets = this._scheduledProcessing.stylesheets;
         this._scheduledProcessing = null;
         this.queueFiltering(newStylesheets);
       }
@@ -650,7 +651,7 @@ ElemHideEmulation.prototype = {
       this._scheduledProcessing = {stylesheets};
       setTimeout(() =>
       {
-        let newStylesheets = this._scheduledProcessing.stylesheets;
+        var newStylesheets = this._scheduledProcessing.stylesheets;
         this._filteringInProgress = true;
         this._scheduledProcessing = null;
         this._addSelectors(newStylesheets, completion);
@@ -667,7 +668,7 @@ ElemHideEmulation.prototype = {
 
   onLoad(event)
   {
-    let stylesheet = event.target.sheet;
+    var stylesheet = event.target.sheet;
     if (stylesheet)
       this.queueFiltering([stylesheet]);
   },
@@ -681,7 +682,7 @@ ElemHideEmulation.prototype = {
   {
     this.patterns = [];
     if (patterns && patterns.advanceSelectors) {
-      for (let inx = 0; inx < patterns.advanceSelectors.length; inx++)
+      for (var inx = 0; inx < patterns.advanceSelectors.length; inx++)
       {
         var pattern = patterns.advanceSelectors[inx];
         var selectors = this.parseSelector(pattern.selector);

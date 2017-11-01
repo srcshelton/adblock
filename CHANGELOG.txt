@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+2.65.0:
+- Updated translations.
+- Fixed an issue with content hiding on older versions of Safari.  (#770)
+
 2.64.0:
 - Updated translations.
 - Added support for the new filter list rule syntax. (#744)

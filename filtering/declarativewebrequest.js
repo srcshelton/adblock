@@ -4,7 +4,7 @@ DeclarativeWebRequest = (function() {
       (typeof safari.extension.setContentBlocker !== 'function')) {
     return;
   }
-  const HTML_PREFIX = "^https?://.*";
+  var HTML_PREFIX = "^https?://.*";
   var PAGELEVEL_TYPES = (ElementTypes.elemhide | ElementTypes.document);
   var UNSUPPORTED_TYPES = (ElementTypes.subdocument | ElementTypes.object | ElementTypes.object_subrequest);
   var whitelistAnyOtherFilters = [];
@@ -260,7 +260,7 @@ DeclarativeWebRequest = (function() {
       var rules = [];
       //step 1a, add all of the generic hiding filters (CSS selectors)
       //step 1a, add all of the generic hiding filters (CSS selectors)
-      const GROUPSIZE = 1000;
+      var GROUPSIZE = 1000;
       for (var i = 0; i < selectorFiltersAll.length; i += GROUPSIZE) {
         var start = i;
         var end = Math.min((i + GROUPSIZE), selectorFiltersAll.length);
@@ -334,7 +334,7 @@ DeclarativeWebRequest = (function() {
       // Add malware domains into blocking rules
       var rules = [];
       if (malwareDomains && malwareDomains.length > 0) {
-        const GROUPSIZE = 1000;
+        var GROUPSIZE = 1000;
         for (var i = 0; i < malwareDomains.length; i += GROUPSIZE) {
           var start = i;
           var end = Math.min((i + GROUPSIZE), malwareDomains.length);

@@ -92,11 +92,15 @@ var elementPurger = {
   _page_location: document.location
 };
 
-adblockBegin({
+adblock_begin({
   startPurger: function() {
     chrome.extension.onRequest.addListener(elementPurger.onPurgeRequest);
   },
   stopPurger: function() {
     chrome.extension.onRequest.removeListener(elementPurger.onPurgeRequest);
+  },
+  handleHiding: function(data) {
+    if (data.hiding)
+      block_list_via_css(data.selectors);
   }
 });

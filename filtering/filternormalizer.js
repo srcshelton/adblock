@@ -67,17 +67,17 @@ var FilterNormalizer = {
       filter = FilterNormalizer._old_style_hiding_to_new(filter);
       log('Converted ' + oldFilter + ' to ' + filter);
     }
-    let match = Filter.elemhideRegExp.exec(filter);
+    var match = Filter.elemhideRegExp.exec(filter);
     if (match) {
-      let propsMatch;
+      var propsMatch;
       if (!match[2] &&
           (propsMatch = Filter.oldAdvanceSyntaxRegExp.exec(match[3]))) {
         var oldFilter = filter;
         // This is legacy CSS properties syntax, convert to current syntax
-        let prefix = match[3].substr(0, propsMatch.index);
-        let expression = propsMatch[2];
-        let suffix = match[3].substr(propsMatch.index + propsMatch[0].length);
-        filter = `${match[1]}#?#` + `${prefix}:-abp-properties(${expression})${suffix}`;
+        var prefix = match[3].substr(0, propsMatch.index);
+        var expression = propsMatch[2];
+        var suffix = match[3].substr(propsMatch.index + propsMatch[0].length);
+        filter = match[1] + '#?#' + prefix + ':-abp-properties(' + expression + ')' + suffix;
         log('Converted ' + oldFilter + ' to ' + filter);
       }
     }
@@ -280,7 +280,7 @@ var FilterNormalizer = {
 };
 
 //Initialize the exclude filters at startup
-try { 
+try {
     FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
 } catch(e) {
     //ignore exception in Safari on options / resource block pages
