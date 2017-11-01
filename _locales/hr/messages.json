@@ -12,11 +12,11 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "message":"Jedini YouTube™ bloker oglasa stvoren od AdBlock-a, najpopularnijeg Chrome proširenja sa 60 milijuna korisnika u cijelom svijetu.",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
-    "message":"AdBlock on YouTube™",
+    "message":"AdBlock za YouTube™",
     "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
@@ -46,6 +46,10 @@
   "optionstitle":{
     "message":"AdBlock postavke",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock za YouTube™ Postavke",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Desni klik na AdBlock gumb i odaberite \"Sakrij u Chrome izborniku\". Kako biste ga prikazali, kliknite Chrome izbornik, desni klik na AdBlock gumb i odaberite \"Prikaži u alatnoj traci\".",
@@ -262,6 +266,10 @@
   "safaricontentblocking":{
     "message":"Omogući blokiranje sadržaja za Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
+  "debuginlogoption":{
+    "message":"Prikaži izjave uklanjanja grešaka u zapisu konzole (usporava proširenje)",
+    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
     "message":"Dopustite AdBlock proširenju prikupljanje anonimnog popisa korištenja filtera i informacije o sadržaju blokiranom filter popisom",
@@ -523,6 +531,14 @@
     "message":"Budite oprezni: ako ovdje napravite pogrešku mnogo drugih filtera, uključujući službene, se može pokvariti!\nPročitajte [[sintaksni vodič za filtere]] kako bi naučili dodavati napredne filtere zabranjujućih i dopuštajućih lista.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Budite oprezni: ako pogriješite, AdBlock za YouTube™ bi mogao prestati raditi ispravno.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Pročitajte [[filter syntax tutorial]] da biste saznali kako dodati popis pouzdanih filtera.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Našli smo neke greške u prilagođenim filterima. Pogledajte poruke ispod.",
     "description":"Warning when adding custom filters manually"
@@ -666,6 +682,14 @@
   "disableforsafaristepone":{
     "message":"Kliknite Safari menu > Postavke > Proširenja.",
     "description":"Step 1 for disabling Safari extensions"
+  },
+  "disableforedgestepone":{
+    "message":"Kliknite na izbornik Više (...) i odaberite proširenja.",
+    "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Za svako proširenje osim AdBlock-a, kliknite ikonu zupčanika i kliknite na preklopni gumb i promijenite u isključeno.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Odlično! Pronađimo sada koje proširenje je uzrok. Prođite kroz listu i omogućite svako proširenje posebno. Proširenje koje donosi oglase nazad je ono koje bi trebali maknuti da se riješite reklama.",
@@ -1107,6 +1131,10 @@
     "message":"Isprika, AdBlock je onemogućen na ovoj stranici zbog neke od vaših lista filtera.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"Žao mi je, AdBlock na YouTube™ je onemogućena na ovoj stranici zbog jedne od vaših postavki.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Onemogući pokretanje na stranicima ove domene",
     "description":"Menu entry to open the whitelist wizard"
@@ -1115,9 +1143,17 @@
     "message":"AdBlock je onemogućen na ovoj stranici.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"Dozvolili ste oglase na ovom kanalu.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"Omogući AdBlock na ovoj stranici",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Blokirajte oglase na ovom kanalu",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock je pauziran.",
@@ -1130,6 +1166,14 @@
   "pause_adblock":{
     "message":"Pauziraj AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Pokrenite blokiranje oglasa",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Pauzirajete blokiranje oglasa",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Kako bi pauzirali AdBlock sa omogućenim blokiranjem sadržaja, molimo odaberite Safari (u traci izbornika) > Postavke > Proširenja > AdBlock i odbilježite 'Omogući AdBlock'.",
@@ -1170,6 +1214,10 @@
   "donate_to_adblock":{
     "message":"Volite AdBlock? Razmislite o doniranju!",
     "description":"Text of a donate link in the toolbar button menu"
+  },
+  "donate_to_youtube_adblock":{
+    "message":"Volite ovo? Razmislite o doniranju!",
+    "description":"Text of a donate link in the toolbar button menu. 'This' refers to the 'AdBlock on YouTube' extension."
   },
   "pwyw":{
     "message":"Plati koliko želiš!",
@@ -1271,6 +1319,26 @@
     "message":"Pokaži broj blokiranih reklama na AdBlock izborniku",
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
+  "show_on_button":{
+    "message":"Pokaži broj blokiranih oglasa na gumbu",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"Pokaži broj blokiranih oglasa na izborniku",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Uklonite oglase na YouTube™",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Zaštitite privatnost na YouTube™",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
+  "block_annonyances_on_youtube":{
+    "message":"Uklonite smetnje na YouTube™",
+    "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
+  },
   "show_devtools_panel":{
     "message":"Prikaži \"AdBlock\" ploču u razvojnim alatima",
     "description":"Label for checkbox letting user choose whether the AdBlock tab should show in the developer tools window"
@@ -1333,6 +1401,10 @@
     "message":"Na svim vašim pretplaćenim YouTube kanalima su dopušteni oglasi",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Dopustite oglase na svim pretplaćenim YouTube™ kanalima",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"Dopusti $name$ kanal",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1342,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Dopusti oglase na YouTube™ kanalu:",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Jeste li sigurni da želite maknuti $count$ blokiranja koje ste napravili na $host$?",
@@ -1380,6 +1456,10 @@
   "adblockupdates":{
     "message":"AdBlock ažuriranja",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"AdBlock za YouTube™ ažuriranja",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Želite li vidjeti kako radi AdBlock?",

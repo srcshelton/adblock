@@ -259,10 +259,6 @@
     "message":"Add items to the right click menu",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
-  "disableyoutubestreamingads":{
-    "message":"Enable ClickToFlash compatibility mode",
-    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
-  },
   "safaricontentblocking":{
     "message":"Enable Safari Content Blocking",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
@@ -370,6 +366,10 @@
   "you_know_thats_a_bad_idea_right":{
     "message":"The more filter lists you use, the slower AdBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway.",
     "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
+  },
+  "unsubscribe_from_all_confirmation":{
+    "message":"AdBlock can't block ads if you disable all the filter lists. We recommend pausing AdBlock instead. Unsubscribe from this list anyway?",
+    "description":"Confirmation message shown to user if they try to unsubscribe from all filter lists. The user will have two options: OK and Cancel."
   },
   "filterstabtitle":{
     "message":"Subscribe to filter lists",
@@ -919,10 +919,6 @@
     "message":"Arabic",
     "description":"A filter list"
   },
-  "filter_easylist_plus_arabic":{
-    "message":"Arabic + EasyList",
-    "description":"A filter list combined with EasyList"
-  },
   "filter_easylist_plus_arabic_plus_french":{
     "message":"Arabic + French + EasyList",
     "description":"A filter list combined with EasyList"
@@ -1214,6 +1210,10 @@
   "donate_to_adblock":{
     "message":"Love AdBlock? Consider donating!",
     "description":"Text of a donate link in the toolbar button menu"
+  },
+  "help_and_feedback":{
+    "message":"Help and Feedback",
+    "description":"Text of the 'help' link in the toolbar button menu"
   },
   "donate_to_youtube_adblock":{
     "message":"Love this? Consider donating!",
@@ -1604,6 +1604,14 @@
   "acceptableadsdisable_how_to_reenable":{
     "message":"You can turn this back on and support the websites you love by selecting \"Allow some non-intrusive advertising\" below.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "easylist_disable_done":{
+    "message":"AdBlock uses EasyList to block ads on most websites.",
+    "description":"Message shown to users after disabling EasyList via Filter List page."
+  },
+  "easylist_disable_how_to_reenable":{
+    "message":"We recommend keeping it on. If you unsubscribed by accident, please select \"EasyList\" now to block more ads.",
+    "description":"Message shown to users after disabling EasyList via Filter List page."
   },
   "acceptable_ads_content_blocking_disbled_message":{
     "message":"We unsubscribed you from Acceptable Ads because you turned on Safari Content Blocking. You can only select one at a time. ([[Why?]])",

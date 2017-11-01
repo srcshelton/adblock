@@ -1143,9 +1143,17 @@
     "message":"AdBlock отключен на этой странице.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"Вы разрешили рекламу на этом канале.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"Включить AdBlock на этой странице",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Блокировать рекламу на этом канале",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock приостановлен.",
@@ -1393,6 +1401,10 @@
     "message":"Все Ваши подписки на каналы YouTube были внесены в белый список",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Разрешить рекламу на всех подписанных каналах YouTube™",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"Канал $name$ белого списка",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1402,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Разрешить рекламу на канале YouTube™:",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Вы уверены, что хотите удалить $count$ блокировок, которые Вы создали на $host$?",

@@ -12,11 +12,11 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "message":"Trình chặn quảng cáo duy nhất cho YouTube™ bởi AdBlock, tiện ích phổ biến nhất trên Chrome với 60 triệu người dùng trên toàn cầu",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
-    "message":"AdBlock on YouTube™",
+    "message":"AdBlock cho YouTube™",
     "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
@@ -46,6 +46,10 @@
   "optionstitle":{
     "message":"Tùy chọn AdBlock",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"Tùy chỉnh AdBlock cho YouTube™",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Nhấp chuột phải vào nút AdBlock và chọn 'Ẩn trong menu Chrome'. Để hiển thị lại, nhấp vào menu Chrome, nhấp chuột phải vào nút AdBlock và chọn 'Hiển thị trên thanh công cụ'.",
@@ -664,7 +668,7 @@
     "description":"Step 2 for disabling Chrome and Safari extensions"
   },
   "disableforsafaristepone":{
-    "message":"Nhấp vào menu Safari chọn > Preferences > Extensions.",
+    "message":"Nhấp vào menu Safari > Preferences > Extensions.",
     "description":"Step 1 for disabling Safari extensions"
   },
   "reenableadsonebyone":{
@@ -1115,9 +1119,17 @@
     "message":"AdBlock đã bị tắt trên trang này.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"Bạn đã cho phép hiển thị quảng cáo trên kênh này.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"Bật AdBlock trên trang này",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Chặn quảng cáo trên kênh này",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock đã bị tạm dừng.",
@@ -1130,6 +1142,14 @@
   "pause_adblock":{
     "message":"Tạm dừng AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "unpause_adblocking":{
+    "message":"Tiếp tục chặn quảng cáo",
+    "description":"Menu entry to unpause the extension"
+  },
+  "pause_adblocking":{
+    "message":"Dừng chặn quảng cáo",
+    "description":"Menu entry to pause the extension"
   },
   "safaricontentblockingpausemessage":{
     "message":"Để tạm dừng AdBlock với Chặn Nội Dung Safari được bật, vui lòng chọn Safari (trong thanh trình đơn) > Tùy chọn > Tiện ích mở rộng > AdBlock, và bỏ chọn 'Bật AdBlock'.",
@@ -1271,6 +1291,22 @@
     "message":"Hiển thị số quảng cáo bị chặn trên menu AdBlock",
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
+  "show_on_button":{
+    "message":"Hiển thị số quảng cáo bị chặn trên nút",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_menu":{
+    "message":"Hiển thị số quảng cáo bị chặn trên menu",
+    "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
+  },
+  "block_ads_on_youtube":{
+    "message":"Loại bỏ quảng cáo trên YouTube™",
+    "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
+  },
+  "block_privacy_on_youtube":{
+    "message":"Bảo vệ sự riêng tư của tôi trên YouTube™",
+    "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
+  },
   "show_devtools_panel":{
     "message":"Hiển thị bảng điều khiển 'AdBlock' trong công cụ nhà phát triển",
     "description":"Label for checkbox letting user choose whether the AdBlock tab should show in the developer tools window"
@@ -1333,6 +1369,10 @@
     "message":"Tất cả những kênh YouTube bạn đăng ký đã được đưa vào danh sách trắng",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Cho phép quảng cáo trên tất cả các kênh YouTube™ đã đăng ký",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"Đưa kênh $name$ vào danh sách trắng",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1342,6 +1382,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Cho phép quảng cáo trên kênh YouTube™:",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Bạn có chắc chắn muốn gõ bỏ $count$ khối quảng cáo mà bạn đã chặn trên $host$?",
@@ -1380,6 +1424,10 @@
   "adblockupdates":{
     "message":"Cập nhật AdBlock",
     "description":"Subtitle on the Support tab of the options"
+  },
+  "ytadblockupdates":{
+    "message":"Cập nhật về AdBlock on YouTube™",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{
     "message":"Bạn muốn tìm hiểu cách AdBlock hoạt động?",

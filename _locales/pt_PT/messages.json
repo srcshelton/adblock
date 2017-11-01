@@ -11,12 +11,8 @@
     "message":"AdBlock. O bloqueador de anúncios n°1 com mais 200 milhões de transferências. Bloqueia anúncios em toda a web.",
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
-  "description_yt":{
-    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
-    "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
-  },
   "name_adblock_on_youtube":{
-    "message":"AdBlock on YouTube™",
+    "message":"AdBlock no YouTube",
     "description":"Name of version of the AdBlock extension that only blocks ads on YouTube. Other strings that refer to the 'AdBlock on YouTube' extension should use this name."
   },
   "adblock_click_for_details":{
@@ -46,6 +42,10 @@
   "optionstitle":{
     "message":"Opções AdBlock",
     "description":"Title for the options page"
+  },
+  "optionstitle_yt":{
+    "message":"AdBlock no YouTube - Opções",
+    "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
     "message":"Clique direito sobre o botão AdBlock e selecione 'Ocultar no menu do Chrome'. Para visualizar, clique no menu do Chrome, clique direito sobre o botão do AdBlock e selecione 'Mostrar na barra de ferramentas'.",
@@ -511,6 +511,10 @@
     "message":"Editar filtros desactivados:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "filtersavewarning":{
+    "message":"Tenha cuidado: se cometer um erro aqui, muitos dos outros filtros, incluindo os oficiais, vão deixar de funcionar!\nLeia o [[tutorial da sintaxe de filtros]] para aprender a adicionar listas negras e listas brancas avançadas manualmente.",
+    "description":"Warning when blacklisting manually"
+  },
   "migration_error_message":{
     "message":"Encontramos alguns erros nos seus filtros personalizados. Veja abaixo as mensagens.",
     "description":"Warning when adding custom filters manually"
@@ -558,6 +562,10 @@
   "malwarecheck":{
     "message":"Verificação de malware que poderá estar a injectar anúncios:",
     "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"O seu computador pode estar infectado por um malware.  Clique [[here]] para obter mais informações.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
   },
   "malwarenotfound":{
     "message":"Nenhum malware encontrado.",
@@ -618,6 +626,10 @@
   "disableforchromestepone":{
     "message":"Abra a [[página das extensões]].",
     "description":"Step 1 for disabling Chrome extensions"
+  },
+  "clickdisableotherextensions":{
+    "message":"OU, simplesmente clique neste botão para que façamos tudo o que precede: [[Desactivar todas as outras extensões]]",
+    "description":"On the ad report page, an alternative way to disable other extensions"
   },
   "disableotherextensionscomplete":{
     "message":"Desactivámos todas as outras extensões. Vamos agora recarregar a página com o anúncio. Um segundo, por favor.",
@@ -917,6 +929,14 @@
     "message":"Instale o Firefox caso não o tenha instalado.",
     "description":"instruction for how to check Firefox for a reported ad"
   },
+  "checkinfirefoxorchrome_1":{
+    "message":"Instale o Firefox ou o Chrome caso não os tenha instalados.",
+    "description":"instruction for how to check Firefox or Chrome for a reported ad"
+  },
+  "checkinfirefox_2":{
+    "message":"Instale o Adblock Plus no Firefox caso não o tenha instalado.",
+    "description":"Instruction for how to check Firefox for a reported ad. Don't translate the name 'Adblock Plus'."
+  },
   "checkinfirefox_3":{
     "message":"Nesse browser, subscreva às mesmas listas de filtros que tem aqui.",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
@@ -1187,6 +1207,10 @@
     "message":"Acabou de exceder a quantidade de armazenamento que o AdBlock pode usar. Por favor, desinscreva-se de algumas listas!",
     "description":"Message shown when the user uses more storage than allowed by the browser"
   },
+  "safari50_updatenotice":{
+    "message":"Está a usar uma versão antiga do Safari. Obtenha a última versão para usar o botão AdBlock na toolbar para pausar o AdBlock, colocar websites na lista de permissão e reportar anúncios. [[Actualizar já]].",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
   "firefox_explanation":{
     "message":"O propósito desta questão é determinar quem deve receber o seu relatório. Se responder a esta pergunta incorrectamente, o relatório será enviado às pessoas erradas, por isso pode ser ignorado.",
     "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
@@ -1321,6 +1345,10 @@
     "message":"Actualizações AdBlock",
     "description":"Subtitle on the Support tab of the options"
   },
+  "ytadblockupdates":{
+    "message":"Atualizações AdBlock no YouTube",
+    "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
+  },
   "whatmakesadblocktick":{
     "message":"Quer saber o que faz o AdBlock trabalhar?",
     "description":"Subtitle on the Support tab of the options"
@@ -1332,6 +1360,10 @@
   "sourcecode":{
     "message":"O código-fonte está [[disponível gratuitamente]]!",
     "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
+  "contributors":{
+    "message":"Também temos uma página para ajudá-lo a descobrir [[as pessoas por detrás do AdBlock]]!",
+    "description":"Link to the contributors page on the Support tab of the options"
   },
   "debuginfo":{
     "message":"A nossa equipa solicitou algumas informações de depuração? Clique [[here]] para isso!",

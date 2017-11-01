@@ -12,7 +12,7 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"The only YouTube™ ad blocker built by AdBlock, the most popular Chrome extension with 60 million users worldwide",
+    "message":"O único bloqueador de anúncios do YouTube™ criado pelo AdBlock, a extensão Chrome mais popular com 60 milhões de usuários no mundo",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
@@ -531,6 +531,14 @@
     "message":"Seja cuidadoso: se você fizer um erro aqui muitos outros filtros, incluindo os filtros oficiais, podem quebrar também!\nLeia o [[tutorial de sintaxe de filtro]] para aprender como adicionar filtros avançados de listas negras e listas brancas.",
     "description":"Warning when blacklisting manually"
   },
+  "filtersavewarning_ytadblock_1":{
+    "message":"Cuidado: se você cometer um erro aqui, AdBlock no YouTube™ pode parar de funcionar corretamente.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
+  "filtersavewarning_ytadblock_2":{
+    "message":"Leio o [[filter syntax tutorial]] para aprender como adicionar filtros de lista branca.",
+    "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
+  },
   "migration_error_message":{
     "message":"Encontramos alguns erros em seus filtros personalizados. Veja abaixo as mensagens.",
     "description":"Warning when adding custom filters manually"
@@ -678,6 +686,10 @@
   "disableforedgestepone":{
     "message":"Clique no menu Mais (...) e selecione Extensões.",
     "description":"Step 1 for disabling Edge extensions"
+  },
+  "disableforedgesteptwo":{
+    "message":"Para cada extensão exceto o AdBlock, clique no ícone de engrenagem e clique no botão de alternar para desabilitar.",
+    "description":"Step 2 for disabling Edge extensions"
   },
   "reenableadsonebyone":{
     "message":"Ótimo. Agora vamos descobrir qual extensão é a causa. Vá ativando cada extensão uma por vez. A extensão que trazer de volta o(s) anúncio(s) é aquela que você precisa desinstalar para livrar-se dos anúncios.",
@@ -1119,6 +1131,10 @@
     "message":"Desculpe, o AdBlock está desativado nesta página por uma das suas listas de filtros.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
+  "disabled_by_filter_lists_yt":{
+    "message":"Desculpe, AdBlock on YouTube™ está desabilitado nesta página por uma de suas opções.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
+  },
   "dont_run_on_pages_on_domain":{
     "message":"Não usar em páginas neste domínio",
     "description":"Menu entry to open the whitelist wizard"
@@ -1127,9 +1143,17 @@
     "message":"AdBlock está desativado nesta página.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"Você permitiu anúncios neste canal.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"Ativar o AdBlock nesta página",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Bloquear anúncios neste canal",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock está pausado.",
@@ -1377,6 +1401,10 @@
     "message":"Todas as suas assinaturas de canais do YouTube foram colocadas na lista branca",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Permitir anúncios em todos os canais inscritos no YouTube™",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"Canal de lista branca $name$",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1386,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Permitir anúncios no canal do YouTube™:",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Tem certeza que deseja remover os $count$ bloqueios que criou em $host$?",

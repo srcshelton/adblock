@@ -2,6 +2,10 @@
 
 UNRELEASED:
 
+1.4.2:
+- Updated Translations.
+- Fixed a file corruption issue with one of the locale message files.
+
 1.4.1:
 - Added missing locale message entries. (#23)
 

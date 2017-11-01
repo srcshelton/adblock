@@ -12,7 +12,7 @@
     "description":"Description for the AdBlock for Edge extension. Should not exceed 132 characters."
   },
   "description_yt":{
-    "message":"唯一的YouTube广告拦截插件；由拥有6000万用户，最受欢迎的Chrome 扩展AdBlock制作",
+    "message":"唯一的YouTube™广告拦截插件；由拥有6000万用户，最受欢迎的Chrome 扩展AdBlock制作",
     "description":"Description for the AdBlock on YouTube extension. Should not exceed 132 characters."
   },
   "name_adblock_on_youtube":{
@@ -48,7 +48,7 @@
     "description":"Title for the options page"
   },
   "optionstitle_yt":{
-    "message":"AdBlock on YouTube 选项",
+    "message":"AdBlock on YouTube™ 选项",
     "description":"Title for the options page for the 'AdBlock on YouTube' extension."
   },
   "chromebutton_how_to_hide2":{
@@ -268,7 +268,7 @@
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
-    "message":"在控制台日志中显示调试信息（这将会降低AdBlock on YouTube的效能）",
+    "message":"在控制台日志中显示调试信息（这将会降低AdBlock on YouTube™的效能）",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "datacollectionoption":{
@@ -532,7 +532,7 @@
     "description":"Warning when blacklisting manually"
   },
   "filtersavewarning_ytadblock_1":{
-    "message":"请小心: 如果您在这里设置出错，AdBlock on YouTube可能停止工作。",
+    "message":"请小心: 如果您在这里设置出错，AdBlock on YouTube™可能停止工作。",
     "description":"Warning when manually editing filters in the 'AdBlock on YouTube' extension."
   },
   "filtersavewarning_ytadblock_2":{
@@ -1132,7 +1132,7 @@
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
   "disabled_by_filter_lists_yt":{
-    "message":"对不起， AdBlock on YouTube因为您的一项选项设置被关闭",
+    "message":"对不起， AdBlock on YouTube™因为您的一项选项设置被关闭",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list. Specific to the 'AdBlock on YouTube' extension."
   },
   "dont_run_on_pages_on_domain":{
@@ -1143,9 +1143,17 @@
     "message":"AdBlock在这个页面上被禁用。",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"您允许此频道播放广告",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"在此页上启用AdBlock",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"屏蔽此频道的广告",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"AdBlock 已暂停。",
@@ -1208,7 +1216,7 @@
     "description":"Text of a donate link in the toolbar button menu"
   },
   "donate_to_youtube_adblock":{
-    "message":"喜欢AdBlock on YouTube吗？请考虑捐赠！",
+    "message":"喜欢AdBlock on YouTube™吗？请考虑捐赠！",
     "description":"Text of a donate link in the toolbar button menu. 'This' refers to the 'AdBlock on YouTube' extension."
   },
   "pwyw":{
@@ -1320,15 +1328,15 @@
     "description":"Label for checkbox letting user choose whether the AdBlock menu should show the number of ads blocked"
   },
   "block_ads_on_youtube":{
-    "message":"屏蔽YouTube上的广告",
+    "message":"屏蔽YouTube™上的广告",
     "description":"Label for checkbox letting user choose whether to block ads on youtube.com"
   },
   "block_privacy_on_youtube":{
-    "message":"在YouTube上保护我的隐私",
+    "message":"在YouTube™上保护我的隐私",
     "description":"Label for checkbox letting user choose whether to block privacy-related requests on youtube.com"
   },
   "block_annonyances_on_youtube":{
-    "message":"屏蔽在YouTube上的干扰",
+    "message":"屏蔽在YouTube™上的干扰",
     "description":"Label for checkbox letting user choose whether to block annonyances on youtube.com (such as comments, suggested videos, annotations, and recommended channels)"
   },
   "show_devtools_panel":{
@@ -1378,11 +1386,11 @@
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
   },
   "allow_whitelisting_youtube_channels":{
-    "message":"允许将特定的YouTube频道加入白名单 (需要重启浏览器)",
+    "message":"允许将特定的YouTube™频道加入白名单 (需要重启浏览器)",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_all_youtube_channels":{
-    "message":"将所有订阅的YouTube频道加入白名单",
+    "message":"将所有订阅的YouTube™频道加入白名单",
     "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "one_moment_all_youtube_channels":{
@@ -1390,8 +1398,12 @@
     "description":"Alert message displayed when whitelisting all subscribed YouTube channels"
   },
   "all_youtube_channels_complete":{
-    "message":"所有您的YouTube订阅频道已经加入白名单",
+    "message":"所有您的YouTube™订阅频道已经加入白名单",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
+  },
+  "allow_ads_all_youtube_channels":{
+    "message":"允许所有订阅的YouTube™频道播放广告",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
   },
   "whitelist_youtube_channel":{
     "message":"将$name$频道添加到白名单",
@@ -1402,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"允许以下YouTube™频道播放广告：",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"您确定要移除您在$host$上创建的$count$个屏蔽规则？",
@@ -1442,7 +1458,7 @@
     "description":"Subtitle on the Support tab of the options"
   },
   "ytadblockupdates":{
-    "message":"AdBlock on YouTube更新",
+    "message":"AdBlock on YouTube™ 更新",
     "description":"Subtitle on the Support tab of the options. Specific to the 'AdBlock on YouTube' extension."
   },
   "whatmakesadblocktick":{

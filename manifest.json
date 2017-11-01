@@ -2,7 +2,7 @@
   "name": "__MSG_name_adblock_on_youtube__",
   "short_name": "__MSG_name_adblock_on_youtube__",
   "author": "BetaFish",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "manifest_version": 2,
   "permissions": [
      "<all_urls>", "unlimitedStorage", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"

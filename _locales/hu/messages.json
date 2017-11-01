@@ -1143,9 +1143,17 @@
     "message":"Az AdBlock le van tiltva ezen az oldalon.",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "disabled_on_this_channel":{
+    "message":"Engedélyezted a hirdetéseket ezen a csatornán.",
+    "description":"Message shown in the toolbar button menu on YouTube channel pages and videos that the user has whitelisted."
+  },
   "enable_adblock":{
     "message":"AdBlock engedélyezése ezen az oldalon",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "enable_adblock_on_this_channel":{
+    "message":"Hirdetések blokkolása ezen a csatornán.",
+    "description":"Menu entry to un-whitelist a YouTube channel, displayed under 'You allowed ads on this channel.'"
   },
   "status_paused":{
     "message":"Az AdBlock fel van föggesztve.",
@@ -1393,6 +1401,10 @@
     "message":"Minden YouTube-csatorna feliratkozás fehérlistára került",
     "description":"Alert message displayed after the whitelisting of all subscribed YouTube channels has been completed"
   },
+  "allow_ads_all_youtube_channels":{
+    "message":"Hirdetések engedélyezése az összes feliratkozott YouTube™ csatornán.",
+    "description":"Toolbar button menu entry, displayed only on youtube.com\/feed\/subscriptions and if the YouTube channel whitelisting option is enabled"
+  },
   "whitelist_youtube_channel":{
     "message":"A(z) $name$ csatorna fehér listára tétele",
     "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
@@ -1402,6 +1414,10 @@
         "example":"Name of channel"
       }
     }
+  },
+  "whitelist_youtube_channel_v2":{
+    "message":"Hirdetések engedélyezése ezen a YouTube™ csatornán:",
+    "description":"Menu entry to whitelist the channel of the current YouTube video or page. The channel name will appear on a line below this menu item."
   },
   "confirm_undo_custom_filters":{
     "message":"Biztos benne, hogy szeretné törölni a(z) $count$ blokkolást, amelyet a(z) $host$ tartományhoz hozott létre?",
