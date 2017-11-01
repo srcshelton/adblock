@@ -143,9 +143,10 @@ SURVEY = (function() {
   // Inputs:
   //   responseData: string response from a ping
   var surveyDataFrom = function(responseData) {
-      if (responseData.length === 0)
+      if (!responseData || responseData.trim().length === 0)
         return null;
 
+      responseData = responseData.trim()
       log('validating ping response data', responseData);
 
       try {

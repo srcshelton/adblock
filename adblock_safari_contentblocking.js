@@ -1,5 +1,5 @@
 // Content script when Safari content blocking API is used
-adblock_begin({
+adblockBegin({
 	startPurger: function() {
 		// Do nothing...
 	},

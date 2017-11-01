@@ -58,7 +58,13 @@ wrzesnia.pl##img[src*="/ads_files/"]
 @@/adblock.js$domain=cbs.com
 @@/adblockr.javascript$domain=cbs.com
 
-! Whitelist the outlook office 365 site to prevent 
+! Whitelist hiding filters on the outlook office 365 site to prevent
 ! Safari users from send emails that are identified as
 ! Spam (issue #444)
-@@||outlook.office365.com/$document
+@@||outlook.office365.com/$elemhide
+
+! Whitelist the premium pages on our domain
+@@|https://getadblock.com/premium/*|$document
+
+! block FB script which loads FB ads
+||connect.facebook.net^*/fbevents.js$third-party

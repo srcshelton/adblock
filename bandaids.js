@@ -1,76 +1,214 @@
 // Youtube-related code in this file based on code (c) Adblock Plus. GPLv3.
 // and https://hg.adblockplus.org/adblockpluschrome/file/aed8fd38e824/safari/include.youtube.js
-var run_bandaids = function() {
+
+// PornHub - related code in this file based on code from uBlockOrigin GPLv3.
+// and available at https://github.com/uBlockOrigin/uAssets/blob/master/filters/filters.txt
+// and https://github.com/uBlockOrigin/uAssets/blob/master/filters/resources.txt
+
+var hostname = window.location.hostname;
+
+var abort = (function() {
+    'use strict';
+
+    var doc = document;
+    if (doc instanceof HTMLDocument === false) {
+        if (doc instanceof XMLDocument === false ||
+            doc.createElement('div') instanceof HTMLDivElement === false) {
+            return true;
+        }
+    }
+    if ((doc.contentType || '').lastIndexOf('image/', 0) === 0 ) {
+        return true;
+    }
+    return false;
+})();
+
+
+if ( !abort ) {
+    if (hostname === '') {
+        hostname = (function() {
+            var win = window, hn = '', max = 10;
+            try {
+                for (;;) {
+                    hn = win.location.hostname;
+                    if ( hn !== '' ) { return hn; }
+                    if ( win.parent === win ) { break; }
+                    win = win.parent;
+                    if ( !win ) { break; }
+                    if ( (max -= 1) === 0 ) { break; }
+                }
+            } catch(ex) {
+            }
+            return hn;
+        })();
+    }
+    // Don't inject if document is from local network.
+    abort = /^192\.168\.\d+\.\d+$/.test(hostname);
+}
+
+
+var getAdblockDomain = function() {
+  adblock_installed = true;
+};
+
+var getAdblockDomainWithUserID = function(userid) {
+  adblock_userid = userid;
+};
+
+(function() {
+    'use strict';
+
+    if ( abort ) {
+      return;
+    }
+
+    // Only for dynamically created frames and http/https documents.
+    if ( /^(https?:|about:)/.test(window.location.protocol) !== true ) {
+      return;
+    }
+
+    var doc = document;
+    var parent = doc.head || doc.documentElement;
+    if ( parent === null ) {
+      return;
+    }
+
+    var scriptText = [];
+
+    // Have the script tag remove itself once executed (leave a clean
+    // DOM behind).
+    var cleanup = function() {
+        var c = document.currentScript, p = c && c.parentNode;
+        if ( p ) {
+            p.removeChild(c);
+        }
+    };
+
+    if ('getadblock.com' === document.location.hostname ||
+        'dev.getadblock.com' === document.location.hostname) {
+      BGcall('get_adblock_user_id', function (adblock_user_id ) {
+        var elem = document.createElement('script');
+        var scriptToInject = '(' + getAdblockDomainWithUserID.toString() + ')(\'' + adblock_user_id + '\');' +
+        '(' + getAdblockDomain.toString() + ')();' +
+        '(' + cleanup.toString() + ')();';
+        elem.appendChild(document.createTextNode(scriptToInject));
+        try {
+            (document.head || document.documentElement).appendChild(elem);
+        } catch(ex) {
+        }
+      });
+      return;
+    }
+})();
+
+var run_bandaids = function()
+{
   // Tests to determine whether a particular bandaid should be applied
   var apply_bandaid_for = "";
-  if (/mail\.live\.com/.test(document.location.hostname))
+  if (/pornhub\.com/.test(document.location.hostname))
+  {
+    apply_bandaid_for = "pornhub";
+  }
+  else if (/mail\.live\.com/.test(document.location.hostname))
+  {
     apply_bandaid_for = "hotmail";
-  else if (/getadblock\.com$/.test(document.location.hostname) &&
-           window.top === window.self) {
-    if (/\/question\/$/.test(document.location.pathname)) {
+  }
+  else if (("getadblock.com" === document.location.hostname ||
+            "dev.getadblock.com" === document.location.hostname) &&
+           (window.top === window.self))
+  {
+    if (/\/question\/$/.test(document.location.pathname))
+    {
       apply_bandaid_for = "getadblockquestion";
-    } else {
+    }
+    else
+    {
       apply_bandaid_for = "getadblock";
     }
-  } else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
+  }
+  else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
+  {
     apply_bandaid_for = "czech_sites";
-  else {
-    var hosts = [ /mastertoons\.com$/ ];
-    hosts = hosts.filter(function(host) { return host.test(document.location.hostname); });
+  }
+  else
+  {
+    var hosts = [/mastertoons\.com$/];
+    hosts = hosts.filter(function(host)
+    {
+      return host.test(document.location.hostname);
+    });
     if (hosts.length > 0)
+    {
       apply_bandaid_for = "noblock";
+    }
   }
   var bandaids = {
-    noblock: function() {
+    noblock : function()
+    {
       var styles = document.querySelectorAll("style");
       var re = /#(\w+)\s*~\s*\*\s*{[^}]*display\s*:\s*none/;
-      for (var i = 0; i < styles.length; i++) {
+      for (var i = 0; i < styles.length; i++)
+      {
         var id = styles[i].innerText.match(re);
-        if(id) {
+        if (id)
+        {
           styles[i].innerText = '#' + id[1] + ' { display: none }';
         }
       }
     },
-    hotmail: function() {
-      //removing the space remaining in Hotmail/WLMail
+    hotmail : function()
+    {
+      // removing the space remaining in Hotmail/WLMail
       var css_chunk = document.createElement("style");
       css_chunk.type = "text/css";
       (document.head || document.documentElement).insertBefore(css_chunk, null);
       css_chunk.sheet.insertRule(".WithRightRail { right:0px !important; }", 0);
-      css_chunk.sheet.insertRule("#RightRailContainer  { display:none !important; visibility: none !important; orphans: 4321 !important; }" , 0);
+      css_chunk.sheet.insertRule("#RightRailContainer  { display:none !important; visibility: none !important; orphans: 4321 !important; }", 0);
     },
-    getadblockquestion: function() {
+    getadblockquestion : function()
+    {
       BGcall('addGABTabListeners');
       var personalBtn = document.getElementById("personal-use");
       var enterpriseBtn = document.getElementById("enterprise-use");
-      var buttonListener = function(event) {
+      var buttonListener = function(event)
+      {
         BGcall('removeGABTabListeners', true);
-        if (enterpriseBtn) {
+        if (enterpriseBtn)
+        {
           enterpriseBtn.removeEventListener("click", buttonListener);
         }
-        if (personalBtn) {
+        if (personalBtn)
+        {
           personalBtn.removeEventListener("click", buttonListener);
         }
       };
-      if (personalBtn) {
+      if (personalBtn)
+      {
         personalBtn.addEventListener("click", buttonListener);
       }
-      if (enterpriseBtn) {
+      if (enterpriseBtn)
+      {
         enterpriseBtn.addEventListener("click", buttonListener);
       }
     },
-    getadblock: function() {
-      BGcall('get_adblock_user_id', function(adblock_user_id) {
-        var elemDiv = document.createElement("div");
-        elemDiv.id = "adblock_user_id";
-        elemDiv.innerText = adblock_user_id;
-        elemDiv.style.display = "none";
-        document.body.appendChild(elemDiv);
+    getadblock : function()
+    {
+      BGcall('get_adblock_user_id', function (adblock_user_id ) {
+        if (adblock_user_id)
+        {
+          var elemDiv = document.createElement("div");
+          elemDiv.id = "adblock_user_id";
+          elemDiv.innerText = adblock_user_id;
+          elemDiv.style.display = "none";
+          document.body.appendChild(elemDiv);
+        }
       });
-      if (document.getElementById("enable_show_survey")) {
-        document.getElementById("enable_show_survey").onclick = function(event) {
-            BGcall("set_setting", "show_survey", !document.getElementById("enable_show_survey").checked, true);
-         };
+      if (document.getElementById("enable_show_survey"))
+      {
+        document.getElementById("enable_show_survey").onclick = function(event)
+        {
+          BGcall("set_setting", "show_survey", !document.getElementById("enable_show_survey").checked, true);
+        };
       }
       if (document.getElementById("disableacceptableads")) {
         document.getElementById("disableacceptableads").onclick = function(event) {
@@ -87,23 +225,60 @@ var run_bandaids = function() {
         }
       }
     },
-    czech_sites: function() {
+    czech_sites : function()
+    {
       var player = document.getElementsByClassName("flowplayer");
       // Remove data-ad attribute from videoplayer
-      if (player) {
-        for (var i=0; i<player.length; i++)
+      if (player)
+      {
+        for (var i = 0; i < player.length; i++)
+        {
           player[i].removeAttribute("data-ad");
+        }
       }
-    }
+    },
+    pornhub: function() {
+      (function() {
+      	var w = window;
+      	var count = Math.ceil(8+Math.random()*4);
+      	var tomorrow = new Date(Date.now() + 86400);
+      	var expire = tomorrow.toString();
+      	document.cookie = 'FastPopSessionRequestNumber=' + count + '; expires=' + expire;
+      	var db;
+      	if ( (db = w.localStorage) ) {
+      		db.setItem('InfNumFastPops', count);
+      		db.setItem('InfNumFastPopsExpire', expire);
+      	}
+      	if ( (db = w.sessionStorage) ) {
+      		db.setItem('InfNumFastPops', count);
+      		db.setItem('InfNumFastPopsExpire', expire);
+      	}
+      })();
+      (function() {
+      	var removeAdFrames = function(aa) {
+      		var el;
+      		for ( var i = 0; i < aa.length; i++ ) {
+      			el = document.getElementById(aa[i]);
+      			if ( el !== null ) {
+      				el.parentNode.removeChild(el);
+      			}
+      		}
+      	};
+      	Object.defineProperty(window, 'block_logic', {
+      		get: function() { return removeAdFrames; },
+      		set: function() {}
+      	});
+      })();
+    },
   }; // end bandaids
 
-  if (apply_bandaid_for) {
+  if (apply_bandaid_for)
+  {
     log("Running bandaid for " + apply_bandaid_for);
     bandaids[apply_bandaid_for]();
   }
 
 };
-
 
 var before_ready_bandaids = function() {
 
@@ -120,7 +295,6 @@ var before_ready_bandaids = function() {
     } else {
        return;
     }
-
     //a regex used to test the ytplayer config / flashvars for youtube ads, references to ads, etc.
     var badArgumentsRegex = /^((.*_)?(ad|ads|afv|adsense)(_.*)?|(ad3|st)_module|prerolls|interstitial|infringe|iv_cta_url)$/;
 

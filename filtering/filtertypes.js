@@ -1,7 +1,8 @@
 // A single filter rule.
-var Filter = function() {
+var Filter = function () {
   this.id = ++Filter._lastId;
 };
+
 Filter._lastId = 0;
 
 // Maps filter text to Filter instances.  This is important, as it allows
@@ -11,44 +12,62 @@ Filter._cache = {};
 
 // Return a Filter instance for the given filter text.
 // Throw an exception if the filter is invalid.
-Filter.fromText = function(text) {
+Filter.fromText = function (text) {
   var cache = Filter._cache;
   if (!(text in cache)) {
 
     if (Filter.isSelectorFilter(text))
       cache[text] = new SelectorFilter(text);
+    else if (Filter.isAdvancedSelectorFilter(text))
+      cache[text] = new ElemHideEmulationFilter(text);
     else
       cache[text] = PatternFilter.fromText(text);
   }
+
   return cache[text];
-}
+};
 
 // Test if pattern#@#pattern or pattern##pattern
-Filter.isSelectorFilter = function(text) {
+Filter.isSelectorFilter = function (text) {
+
   // This returns true for both hiding rules as hiding whitelist rules
   // This means that you'll first have to check if something is an excluded rule
   // before checking this, if the difference matters.
   return /\#\@?\#./.test(text);
-}
+};
 
-Filter.isSelectorExcludeFilter = function(text) {
+Filter.isSelectorExcludeFilter = function (text) {
   return /\#\@\#./.test(text);
-}
+};
 
-Filter.isWhitelistFilter = function(text) {
+// Test if pattern#?#pattern
+Filter.isAdvancedSelectorFilter = function (text) {
+  return /\#\?\#./.test(text);
+};
+
+Filter.isWhitelistFilter = function (text) {
   return /^\@\@/.test(text);
-}
+};
 
-Filter.isComment = function(text) {
+Filter.isComment = function (text) {
   return text.length === 0 ||
          text[0] === '!' ||
          (/^\[adblock/i.test(text)) ||
          (/^\(adblock/i.test(text));
-}
+};
+
+/**
+ * Regular expression that element hiding filters should match
+ */
+Filter.elemhideRegExp = /^([^/*|@"!]*?)#([@?])?#(.+)$/;
+/**
+ * Regular expression that old advance hiding filters should match
+ */
+Filter.oldAdvanceSyntaxRegExp = /\[-abp-properties=(["'])([^"']+)\1\]/;
 
 // Convert a comma-separated list of domain includes and excludes into a
 // DomainSet.
-Filter._toDomainSet = function(domainText, divider) {
+Filter._toDomainSet = function (domainText, divider) {
   var domains = domainText.split(divider);
 
   var data = {};
@@ -57,8 +76,9 @@ Filter._toDomainSet = function(domainText, divider) {
   if (domains == '')
     return new DomainSet(data);
 
-  for (var i = 0; i < domains.length; i++) {
-    var domain = domains[i];
+  var domainsLength = domains.length;
+  while (domainsLength--) {
+    var domain = domains[domainsLength];
     if (domain[0] == '~') {
       data[domain.substring(1)] = false;
     } else {
@@ -68,10 +88,10 @@ Filter._toDomainSet = function(domainText, divider) {
   }
 
   return new DomainSet(data);
-}
+};
 
 // Filters that block by CSS selector.
-var SelectorFilter = function(text) {
+var SelectorFilter = function (text) {
   Filter.call(this); // call base constructor
 
   var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
@@ -85,16 +105,17 @@ var SelectorFilter = function(text) {
 // If !|excludeFilters|, returns filter.
 // Otherwise, returns a new SelectorFilter that is the combination of
 // |filter| and each selector exclusion filter in the given list.
-SelectorFilter.merge = function(filter, excludeFilters) {
+SelectorFilter.merge = function (filter, excludeFilters) {
   if (!excludeFilters)
     return filter;
 
   var domains = filter._domains.clone();
-  for (var i = 0; i < excludeFilters.length; i++) {
-    domains.subtract(excludeFilters[i]._domains);
+  var excludeFiltersLength = excludeFilters.length;
+  while (excludeFiltersLength--) {
+    domains.subtract(excludeFilters[excludeFiltersLength]._domains);
   }
 
-  var result = new SelectorFilter("_##_");
+  var result = new SelectorFilter('_##_');
   result.selector = filter.selector;
   if (filter._text)
     result._text = filter._text;
@@ -104,16 +125,34 @@ SelectorFilter.merge = function(filter, excludeFilters) {
 };
 
 SelectorFilter.prototype = {
+
   // Inherit from Filter.
   __proto__: Filter.prototype,
-}
+};
+
+// Filters that block by CSS selector.
+var ElemHideEmulationFilter = function (text) {
+  Filter.call(this); // call base constructor
+
+  var parts = text.match(/(^.*?)\#\?\#(.+$)/);
+  this._domains = Filter._toDomainSet(parts[1], ',');
+  this.selector = parts[2];
+  this.text = text;
+};
+
+ElemHideEmulationFilter.prototype = {
+
+  // Inherit from Filter - SelectorFilter.
+  __proto__: SelectorFilter.prototype,
+};
 
 // Filters that block by URL regex or substring.
-var PatternFilter = function() {
+var PatternFilter = function () {
   Filter.call(this); // call base constructor
 };
+
 // Data is [rule text, allowed element types, options].
-PatternFilter.fromData = function(data) {
+PatternFilter.fromData = function (data) {
   var result = new PatternFilter();
   result._rule = new RegExp(data[0]);
   result._allowedElementTypes = data[1];
@@ -122,10 +161,11 @@ PatternFilter.fromData = function(data) {
   data[DomainSet.ALL] = true;
   result._domains = new DomainSet(data);
   return result;
-}
+};
+
 // Text is the original filter text of a blocking or whitelist filter.
 // Throws an exception if the rule is invalid.
-PatternFilter.fromText = function(text) {
+PatternFilter.fromText = function (text) {
   var data = PatternFilter._parseRule(text);
 
   var result = new PatternFilter();
@@ -138,20 +178,21 @@ PatternFilter.fromText = function(text) {
       result._text = text;
   }
   return result;
-}
+};
 
 // Return a { rule, domainText, allowedElementTypes } object
 // for the given filter text.  Throws an exception if the rule is invalid.
-PatternFilter._parseRule = function(text) {
+PatternFilter._parseRule = function (text) {
 
   var result = {
     domainText: '',
+
     // TODO: when working on this code again, consider making options a
     // dictionary with boolean values instead of a bitset. This would
     // - make more sense, because these options are only checked individually
     // - collapse the two bitwise checks in Filter.matches into a single
     // boolean compare
-    options: FilterOptions.NONE
+    options: FilterOptions.NONE,
   };
 
   var optionsRegex = /\$~?[\w\-]+(?:=[^,\s]+)?(?:,~?[\w\-]+(?:=[^,\s]+)?)*$/;
@@ -199,24 +240,23 @@ PatternFilter._parseRule = function(text) {
           allowedElementTypes = ElementTypes.NONE;
         allowedElementTypes |= ElementTypes[option];
       }
-    }
-    else if (option === 'third_party') {
+    } else if (option === 'third_party') {
       result.options |=
           (inverted ? FilterOptions.FIRSTPARTY : FilterOptions.THIRDPARTY);
-    }
-    else if (option === 'match_case') {
+    } else if (option === 'match_case') {
+
       //doesn't have an inverted function
       result.options |= FilterOptions.MATCHCASE;
-    }
-    else if (option === 'collapse') {
+    } else if (option === 'collapse') {
+
       // We currently do not support this option. However I've never seen any
       // reports where this was causing issues. So for now, simply skip this
       // option, without returning that the filter was invalid.
-    }
-    else {
+    } else {
       throw new Error("Unknown option '" + option + "' in filter '" + text + "'");
     }
   }
+
   // If no element types are mentioned, the default set is implied.
   // Otherwise, the element types are used, which can be ElementTypes.NONE
   if (allowedElementTypes === undefined)
@@ -232,7 +272,7 @@ PatternFilter._parseRule = function(text) {
   // Convert regexy stuff.
 
   // First, check if the rule itself is in regex form.  If so, we're done.
-  var matchcase = (result.options & FilterOptions.MATCHCASE) ? "" : "i";
+  var matchcase = (result.options & FilterOptions.MATCHCASE) ? '' : 'i';
   if (/^\/.+\/$/.test(rule)) {
     result.rule = rule.substr(1, rule.length - 2); // remove slashes
     result.rule = new RegExp(result.rule, matchcase);
@@ -254,26 +294,33 @@ PatternFilter._parseRule = function(text) {
   // - Do not escape a-z A-Z 0-9 and _ because they can't be escaped
   // - Do not escape | ^ and * because they are handled below.
   rule = rule.replace(/([^a-zA-Z0-9_\|\^\*])/g, '\\$1');
+
   //^ is a separator char in ABP
   rule = rule.replace(/\^/g, '[^\\-\\.\\%a-zA-Z0-9_]');
+
   //If a rule contains *, replace that by .*
   rule = rule.replace(/\*/g, '.*');
+
   // Starting with || means it should start at a domain or subdomain name, so
   // match ://<the rule> or ://some.domains.here.and.then.<the rule>
   rule = rule.replace(/^\|\|/, '^[^\\/]+\\:\\/\\/([^\\/]+\\.)?');
+
   // Starting with | means it should be at the beginning of the URL.
   rule = rule.replace(/^\|/, '^');
+
   // Rules ending in | means the URL should end there
   rule = rule.replace(/\|$/, '$');
+
   // Any other '|' within a string should really be a pipe.
   rule = rule.replace(/\|/g, '\\|');
+
   // If it starts or ends with *, strip that -- it's a no-op.
   rule = rule.replace(/^\.\*/, '');
   rule = rule.replace(/\.\*$/, '');
 
   result.rule = new RegExp(rule, matchcase);
   return result;
-}
+};
 
 // Blocking and whitelist rules both become PatternFilters.
 PatternFilter.prototype = {
@@ -286,7 +333,7 @@ PatternFilter.prototype = {
   //   elementType:ElementTypes the type of DOM element.
   //   isThirdParty: true if the request for url was from a page of a
   //       different origin
-  matches: function(url, elementType, isThirdParty) {
+  matches: function (url, elementType, isThirdParty) {
     if (!(elementType & this._allowedElementTypes))
       return false;
 

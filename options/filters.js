@@ -101,19 +101,23 @@ CheckboxForFilterList.prototype = {
       change(function() {
         var parent = $(this).parent();
         var checked = $(this).is(":checked");
-        $(".remove_filter_list", parent).
-          css("display", checked ? "none" : "inline");
         var id = parent.attr("name");
         if (checked) {
           $(".subscription_info", parent).text(translate("fetchinglabel"));
           SubscriptionUtil.subscribe(id);
           delete FilterListUtil.cached_subscriptions[id].unsubscribed;
         } else {
+          if (!SubscriptionUtil.validateUnderSubscription()) {
+            $(this).prop("checked", true);
+            return;
+          }
           SubscriptionUtil.unsubscribe(id, false);
           $(".subscription_info", parent).
             text(translate("unsubscribedlabel"));
           delete FilterListUtil.cached_subscriptions[id].subscribed;
         }
+        $(".remove_filter_list", parent).
+          css("display", checked ? "none" : "inline");
         //if the checkbox that was clicked is the malware checkbox, then
         //add a checkbox to for the user to indicate if they wish to be notified of blocked malware
         if (id && id === "malware" && checked) {
@@ -260,7 +264,7 @@ FilterListUtil.getFilterListType = function(filter_list) {
     filter_list_type = "adblock_filter_list";
   } else if (filter_list.id === "easyprivacy" || filter_list.id === "antisocial"
              || filter_list.id === "malware" || filter_list.id === "annoyances"
-             || filter_list.id === "warning_removal") {
+             || filter_list.id === "warning_removal" || filter_list.id === "bitcoin_mining_protection") {
     filter_list_type = "other_filter_list";
   } else if (filter_list.user_submitted) {
     filter_list_type = "custom_filter_list";
@@ -446,6 +450,24 @@ SubscriptionUtil.validateOverSubscription = function() {
   }
   return confirm(translate("you_know_thats_a_bad_idea_right"));
 };
+
+// Returns true if the user knows what they are doing, unsubscribing from all
+// filter lists.
+SubscriptionUtil.validateUnderSubscription = function() {
+  if ($(".subscription :checked").length >= 1)
+    return true;
+  if (optionalSettings &&
+      optionalSettings.show_advanced_options) {
+    // In case of an advanced user, only warn once every 30 minutes, even
+    // if the options page wasn't open all the time. 30 minutes = 1/48 day
+    if ($.cookie('noUnderSubscriptionWarning'))
+      return true;
+    else
+      $.cookie('noUnderSubscriptionWarning', 'true', {expires: (1/48)});
+  }
+  return confirm(translate("unsubscribe_from_all_confirmation"));
+};
+
 // Subscribe to the filter list with the given |id|.
 // Input:
 //   id:string - Id of the filter list to be subscribed to.
@@ -464,11 +486,13 @@ SubscriptionUtil.subscribe = function(id, title) {
     $("#acceptable_ads").prop("checked", true);
     // If the user has Safari content blocking enabled, then
     // disable content blocking (on general tab) due to incompatiblity issues between AA and content blocking
-  if (optionalSettings &&
+    if (optionalSettings &&
         optionalSettings.safari_content_blocking) {
         $("#enable_safari_content_blocking").trigger("click");
     }
   }
+  if (id === "easylist")
+    $("#easylist_info").slideUp();
 };
 // Unsubscribe to the filter list with the given |id|.
 // Input:
@@ -489,6 +513,8 @@ SubscriptionUtil.unsubscribe = function(id, del) {
       }
     });
   }
+  if (id === "easylist")
+    $("#easylist_info").slideDown();
 };
 // Update the given filter list in the cached list.
 // Input:

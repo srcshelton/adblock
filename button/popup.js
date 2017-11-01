@@ -127,7 +127,7 @@ $(function() {
 
     // Click handlers
     $("#bugreport").click(function() {
-        BG.openTab("http://help.getadblock.com/support/tickets/new");
+        BG.openTab("https://help.getadblock.com/support/tickets/new");
         closeAndReloadPopup();
     });
 
@@ -234,19 +234,10 @@ $(function() {
         closeAndReloadPopup();
     });
 
-    $("#div_help_hide").click(function() {
-        if (OPERA) {
-            $("#help_hide_explanation").text(translate("operabutton_how_to_hide2")).slideToggle();
-        } else if (SAFARI) {
-            $("#help_hide_explanation").text(translate("safaributton_how_to_hide2")).
-            slideToggle(function() {
-                var popupheight = $("body").outerHeight();
-                safari.extension.popovers[0].height = popupheight;
-            });
-        } else {
-            $("#help_hide_explanation").slideToggle();
-        }
-    });
+    $('#help_link').click(function () {
+        BG.recordGeneralMessage('feedback clicked');
+        BG.openTab("http://help.getadblock.com/");
+      });
 
     $("#link_open").click(function() {
         var linkHref = "https://getadblock.com/pay/?exp=7003&u=" + BG.STATS.userId;

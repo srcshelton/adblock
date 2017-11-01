@@ -113,6 +113,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         var url = getUnicodeUrl(messageEvent.message.url);
         var elType = messageEvent.message.elType;
         var frameDomain = getUnicodeDomain(messageEvent.message.frameDomain);
+        var matchGeneric = url && (_myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url));
         var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
         if (isMatched) {
             log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
@@ -249,8 +250,8 @@ checkContentBlocking();
 
 safari.application.addEventListener("beforeNavigate", function(event) {
 
-    //remove bandaids.js from YouTube.com when a user pauses AdBlock or if the enabled click to flash compatibility mode
-    if (/youtube.com/.test(event.url) && (is_adblock_paused() || (get_settings().clicktoflash_compatibility_mode === true))) {
+    //remove bandaids.js from YouTube.com when a user pauses AdBlock
+    if (/youtube.com/.test(event.url) && (is_adblock_paused())) {
       safari.extension.removeContentScript(safari.extension.baseURI + "bandaids.js");
     }
     // YouTube Channel Whitelist
@@ -313,3 +314,25 @@ safari.application.addEventListener("contextmenu", function(event) {
     if (count_cache.getCustomFilterCount(host) && !LEGACY_SAFARI_51)
         event.contextMenu.appendContextMenuItem("undo-last-block", translate("undo_last_block"));
 }, false);
+
+// update processing
+// If this is an install / new user, save the current version of AdBlock.
+// if this is an update, as determined by comparing the current version of Adblock
+//    to the saved version of Adblock, then open /update
+
+var lastKnownVersion = storage_get("lastKnownVersion");
+if (safari.extension && safari.extension.displayVersion) {
+
+  var getUpdatedURL = function() {
+    return 'https://getadblock.com/update/' + encodeURIComponent(safari.extension.displayVersion) + '/?u=' + STATS.userId;
+  };
+
+  var currentVersion = safari.extension.displayVersion;
+  if (lastKnownVersion !== currentVersion && !STATS.firstRun) {
+    // To Do - any other conditions, locale, language?
+    if (currentVersion === "2.64.0") {
+      openTab(getUpdatedURL(), true);
+    }
+  }
+  storage_set("lastKnownVersion", currentVersion);
+}

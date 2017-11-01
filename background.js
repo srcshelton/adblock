@@ -361,8 +361,9 @@
 
       // May the URL be loaded by the requesting frame?
       var frameDomain = frameData.get(tabId, requestingFrameId).domain;
+      var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
       if (get_settings().data_collection) {
-          var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, true, true);
+          var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, true, true, matchGeneric);
           if (blockedData !== false) {
               DataCollection.addItem(blockedData.text);
               var blocked = blockedData.blocked;
@@ -370,7 +371,7 @@
               var blocked = blockedData;
           }
       } else {
-          var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
+          var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric);
       }
 
       frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
@@ -1063,8 +1064,13 @@
         _myfilters &&
         _myfilters.hiding &&
         settings &&
+        sender.tab &&
+        sender.tab.url &&
         !settings.safari_content_blocking) {
-      result.selectors = _myfilters.hiding.filtersFor(options.domain);
+      // If |matchGeneric| is , don't test request against hiding generic rules
+      var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+      result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+      result.advanceSelectors = _myfilters.advanceHiding.advanceFiltersFor(options.domain, matchGeneric);
     }
     return result;
   };
@@ -1451,7 +1457,7 @@
             //But, Chrome does, so add button click handlers to process the button click events
                 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
                     if (buttonIndex === 0) {
-                        openTab("http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
+                        openTab("https://help.getadblock.com/support/solutions/articles/6000055822");
                     }
                     if (buttonIndex === 1) {
                         storage_set('malware-notification', false);

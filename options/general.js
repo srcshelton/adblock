@@ -53,7 +53,7 @@ $(function() {
           $('#acceptable_ads_content_blocking_info').get(0).childNodes[0].nodeValue = messageSplit.anchorPrefixText;
           $('#acceptable_ads_content_blocking_info').get(0).childNodes[2].nodeValue = messageSplit.anchorPostfixText;
           $("#acceptable_ads_content_blocking_info").slideDown();
-          $("#acceptable_ads_content_blocking_info a").text(messageSplit.anchorText).attr("href", "http://help.getadblock.com/solution/articles/6000099239").attr("target", "_blank");
+          $("#acceptable_ads_content_blocking_info a").text(messageSplit.anchorText).attr("href", "https://help.getadblock.com/solution/articles/6000099239").attr("target", "_blank");
           $("#enable_safari_content_blocking").trigger("click");
         }
       } else {
@@ -112,7 +112,7 @@ $(function() {
           $('#acceptable_ads_content_blocking_info').get(0).childNodes[0].nodeValue = messageSplit.anchorPrefixText;
           $('#acceptable_ads_content_blocking_info').get(0).childNodes[2].nodeValue = messageSplit.anchorPostfixText;
           $("#acceptable_ads_content_blocking_info").slideDown();         
-          $("#acceptable_ads_content_blocking_info a").text(messageSplit.anchorText).attr("href", "http://help.getadblock.com/solution/articles/6000099239").attr("target", "_blank");
+          $("#acceptable_ads_content_blocking_info a").text(messageSplit.anchorText).attr("href", "https://help.getadblock.com/solution/articles/6000099239").attr("target", "_blank");
           $("#acceptable_ads").trigger("click");
         }
       } else {

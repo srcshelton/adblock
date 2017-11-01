@@ -190,9 +190,9 @@ BlacklistUi.prototype._build_page2 = function() {
       if (rule.length > 0) {
         var filter = getUnicodeDomain(document.location.hostname) + "##" + rule;
         BGcall('add_custom_filter', filter, function() {
-          block_list_via_css([rule]);
-          that._ui_page2.dialog('close');
-          that._fire('block');
+          mayOpenDialogUI = true;
+          page.remove();
+          document.location.reload();
         });
       } else {alert(translate("blacklisternofilter"));}
     }
@@ -208,8 +208,9 @@ BlacklistUi.prototype._build_page2 = function() {
             custom_filter = "##" + custom_filter;
           BGcall('add_custom_filter', custom_filter, function(ex) {
             if (!ex) {
-              block_list_via_css([custom_filter.substr(custom_filter.indexOf('##') + 2)]);
-              that._fire('block');
+              mayOpenDialogUI = true;
+              page.remove();
+              document.location.reload();
             } else
               alert(translate("blacklistereditinvalid1", ex));
           });

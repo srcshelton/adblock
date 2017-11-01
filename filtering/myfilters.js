@@ -191,6 +191,8 @@ MyFilters.prototype.rebuild = function() {
 
     this.hiding = FilterSet.fromFilters(filters.hiding);
 
+    this.advanceHiding = FilterSet.fromFilters(filters.advanceHiding);
+
     this.blocking = new BlockingFilterSet(
       FilterSet.fromFilters(filters.pattern),
       FilterSet.fromFilters(filters.whitelist)
@@ -305,6 +307,7 @@ MyFilters.prototype._splitByType = function(texts) {
     delete unique[''];
 
     var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
+                    advanceHidingUnmerged: [], advanceHiding: {},
                     pattern: {}, whitelist: {} };
     for (var text in unique) {
       var filter = Filter.fromText(text);
@@ -312,6 +315,8 @@ MyFilters.prototype._splitByType = function(texts) {
         setDefault(filters.exclude, filter.selector, []).push(filter);
       } else if (Filter.isSelectorFilter(text)) {
         filters.hidingUnmerged.push(filter);
+      } else if (Filter.isAdvancedSelectorFilter(text)) {
+        filters.advanceHidingUnmerged.push(filter);
       } else if (Filter.isWhitelistFilter(text)) {
         filters.whitelist[filter.id] = filter;
       } else {
@@ -323,6 +328,12 @@ MyFilters.prototype._splitByType = function(texts) {
       var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
       filters.hiding[hider.id] = hider;
     }
+    for (var i = 0; i < filters.advanceHidingUnmerged.length; i++) {
+      filter = filters.advanceHidingUnmerged[i];
+      var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
+      filters.advanceHiding[hider.id] = hider;
+    }
+
     return filters;
 }
 
@@ -768,6 +779,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
   result["easylist"] = { subscribed: true };
   result["malware"] = { subscribed: true };
   result["acceptable_ads"] = { subscribed: true };
+  result["bitcoin_mining_protection"] = { subscribed: true };
   var list_for_lang = listIdForThisLocale();
   if (list_for_lang)
     result[list_for_lang] = { subscribed: true };
@@ -853,7 +865,7 @@ MyFilters.prototype._make_subscription_options = function() {
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/danish.json",
     },
     "hungarian": { // Hungarian filters
-      url: "http://pete.teamlupus.hu/hufilter.txt",
+      url: "https://raw.githubusercontent.com/szpeter80/hufilter/master/hufilter.txt",
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/hungarian.json",
     },
     "israeli": { // Israeli filters
@@ -931,6 +943,9 @@ MyFilters.prototype._make_subscription_options = function() {
       url: "https://easylist-downloads.adblockplus.org/easylistspanish.txt",
       requiresList: "easylist",
       safariJSON_URL: "https://cdn.adblockcdn.com/filters/spanish.json",
+    },
+    "bitcoin_mining_protection": {
+      url: "https://cdn.adblockcdn.com/filters/nominers.txt"
     }
   };
 }

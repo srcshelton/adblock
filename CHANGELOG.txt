@@ -2,6 +2,20 @@
 
 UNRELEASED:
 
+2.64.0:
+- Updated translations.
+- Added support for the new filter list rule syntax. (#744)
+- Removed 'ClickToFlash' compatibility mode, since it is no longer needed. (#747)
+- Updated the 'band aid' code block ads on a few sites.  (#746)
+- Added a warning message to users when the un-subscribe from EasyList or all filter lists. (#748)
+- Fixed an issue with YouTube channel white-listing.  (#751)
+- Added logic to show users a our update page when AdBlock is updated.  (#745)
+- Updated the URLs and contact information for Hungarian and Latvian lists.  (#752)
+- Updated links to external web sites to use HTTPS (SSL) where available. (#753)
+- Added a new filter list that blocks Crypto-currency mining scripts. (#273)
+- Fixed an issue with the ping response. (#755)
+- Updated the AdBlock menu text to make it easier to find help and support for AdBlock. (#756)
+
 2.63.0:
 - Removed all HTML tags from locale messages. (#742)
 - Updated translations.
@@ -39,7 +53,7 @@ UNRELEASED:
 
 2.56:
 
-- For Safari users, when AdBlock is paused, the content script "adblock_safari_beforeload" is now removed from all tabs.  (#709)
+- For Safari users, when AdBlock is paused, the content script "AdBlock_safari_beforeload" is now removed from all tabs.  (#709)
 
 2.55:
 - Updated Translations.
@@ -327,14 +341,14 @@ UNRELEASED:
 - Fixed a bug in the Safari extension when a windows was closed (#428)
 
 2.16:
-- AdBlock now uses the YouTube API to retreive the channel name when users have the Whitelist a YouTube Channel feature enabled. (#392)
+- AdBlock now uses the YouTube API to retrieve the channel name when users have the Whitelist a YouTube Channel feature enabled. (#392)
 - The 'Filter syntax tutorial' link on the AdBlock options / Customize tab now checks if the generated URL is valid. (#394)
 - Added a check for chrome.runtime.onMessage API, since it isn't available in Chrome 25 and older versions. (#395)
 - Added an option to the General options tab to not display the ads block counter on the AdBlock popup menu.
   The option to display the # of ads block was moved from the AdBlock popup menu to the General tab as well. (#401)
 - Added logic to set focus on new tabs open by AdBlock (for example, the options pages), when the Chrome is running in incognito mode. (#405)
 - On the 'Report an Ad' page, all of the questions are now bolded. (#416)
-- Reformated the text and fixed typos in the change log. (#418)
+- Reformatted the text and fixed typos in the change log. (#418)
 - Modified several JavaScript throws statements to now use an Error object. (#420)
 
 2.15:
@@ -774,7 +788,7 @@ UNRELEASED:
 
 2.3.18: Fix broken signup for subscriptions
 
-2.3.17: Internal code shufflins
+2.3.17: Internal code shuffling
 
 2.3.16: Fix opt-in to Google search ads when using Google Instant
 

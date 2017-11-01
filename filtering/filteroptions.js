@@ -16,6 +16,9 @@ var ElementTypes = {
   'document': 1024,
   elemhide: 2048,
   popup: 4096,
+  generichide: 8192,
+  genericblock: 16384,
+  websocket: 32768,  
   // If you add something here, update .DEFAULTTYPES and .CHROMEONLY below.
 };
 // The types that are implied by a filter that doesn't explicitly specify types
@@ -43,3 +46,5 @@ var FilterOptions = {
   MATCHCASE: 2,
   FIRSTPARTY: 4
 };
+
+var MaxCacheEntries = 1000;
