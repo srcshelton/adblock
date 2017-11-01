@@ -109,10 +109,4 @@ adblockBegin({
   stopPurger: function () {
     chrome.extension.onRequest.removeListener(elementPurger.onPurgeRequest);
   },
-
-  handleHiding: function (data) {
-    if (data && data.hiding) {
-      blockListViaCSS(data.selectors);
-    }
-  },
 });

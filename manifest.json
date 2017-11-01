@@ -1,7 +1,7 @@
 {
   "name": "AdBlock",
   "author": "BetaFish",
-  "version": "2.2.0.0",
+  "version": "2.3.0.0",
   "background": {
     "page": "compat.html",
     "persistent": true
@@ -40,6 +40,7 @@
         "compat.js",
         "functions.js",
         "filtering/filteroptions.js",
+        "elemHideEmulation.js",
         "adblock_start_common.js",
         "adblock_start_chrome.js"
       ],

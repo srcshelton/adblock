@@ -141,15 +141,14 @@ MyFilters.prototype._updateDefaultSubscriptions = function () {
       } else {
         isUserSubmitted = false;
       }
-
       subToCheck.user_submitted = isUserSubmitted;
 
       // Function that will add a new entry with updated id,
       // and will remove old entry with outdated id.
       var _this = this;
-      var renameSubscription = function (newID, newID) {
-        _this._subscriptions[newID] = _this._subscriptions[newID];
-        delete _this._subscriptions[newID];
+      var renameSubscription = function(old_id, new_id) {
+        _this._subscriptions[new_id] = _this._subscriptions[old_id];
+        delete _this._subscriptions[old_id];
       };
 
       // Create new id and check if new id is the same as id.
@@ -239,6 +238,8 @@ MyFilters.prototype.rebuild = function () {
 
     _this.hiding = FilterSet.fromFilters(filters.hiding);
 
+    _this.advanceHiding = FilterSet.fromFilters(filters.advanceHiding);
+
     _this.blocking = new BlockingFilterSet(
       FilterSet.fromFilters(filters.pattern),
       FilterSet.fromFilters(filters.whitelist)
@@ -275,7 +276,7 @@ MyFilters.prototype._splitByType = function (texts) {
 
     delete unique[''];
 
-    var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
+    var filters = { hidingUnmerged: [], hiding: {}, advanceHidingUnmerged: [], advanceHiding: {}, exclude: {},
                     pattern: {}, whitelist: {}, };
     for (var text in unique) {
       var filter = Filter.fromText(text);
@@ -283,6 +284,8 @@ MyFilters.prototype._splitByType = function (texts) {
         setDefault(filters.exclude, filter.selector, []).push(filter);
       } else if (Filter.isSelectorFilter(text)) {
         filters.hidingUnmerged.push(filter);
+      } else if (Filter.isAdvancedSelectorFilter(text)) {
+        filters.advanceHidingUnmerged.push(filter);
       } else if (Filter.isWhitelistFilter(text)) {
         filters.whitelist[filter.id] = filter;
       } else {
@@ -296,6 +299,11 @@ MyFilters.prototype._splitByType = function (texts) {
       filters.hiding[hider.id] = hider;
     }
 
+    for (var i = 0; i < filters.advanceHidingUnmerged.length; i++) {
+      filter = filters.advanceHidingUnmerged[i];
+      var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
+      filters.advanceHiding[hider.id] = hider;
+    }
     return filters;
   };
 
@@ -423,7 +431,12 @@ MyFilters.prototype.changeSubscription = function (id, subData, forceFetch) {
   // Subscribe to a required list if nessecary
   if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList) {
     var requiredList = this._subscriptions[id].requiresList;
-
+    // If the required list is easylist, but the user is subscribed to easylist_lite
+    // change the required list to easylist lite
+    if (requiredList === 'easylist' &&
+        this._subscriptions.easylist_lite.subscribed) {
+      requiredList = 'easylist_lite';
+    }
     this.changeSubscription(requiredList, { subscribed: true });
   }
 
@@ -456,7 +469,6 @@ MyFilters.prototype.fetch_and_update = function (id, isNewList) {
     cache: false,
     headers: {
       Accept: 'text/plain',
-      'X-Client-ID': 'AdBlock/' + STATS.version,
       'If-Modified-Since': this._subscriptions[id].last_modified || undefined,
     },
     success: function (text, status, xhr) {
@@ -755,7 +767,7 @@ MyFilters.prototype._load_default_subscriptions = function () {
 
   //Update will be done immediately after this function returns
   result['adblock_custom'] = { subscribed: true };
-  result['easylist'] = { subscribed: true };
+  result['easylist_lite'] = { subscribed: true };
   result['acceptable_ads'] = { subscribed: true };
   var listForLang = listIdForThisLocale();
   if (listForLang)
@@ -777,7 +789,7 @@ MyFilters.prototype._make_subscription_options = function () {
       url: 'https://easylist-downloads.adblockplus.org/easylist.txt',
     },
     easylist_lite: { // EasyList lite
-      url: 'https://cdn.adblockcdn.com/filters/easylist-min.txt',
+      url: 'https://cdn.adblockcdn.com/filters/easylist_lite.txt',
     },
     easylist_plus_bulgarian: { // Additional Bulgarian filters
       url: 'https://easylist-downloads.adblockplus.org/bulgarian_list+easylist.txt',

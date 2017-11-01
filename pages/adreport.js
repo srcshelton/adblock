@@ -19,14 +19,6 @@ $(function () {
     //Shows the instructions for how to enable all extensions according to the browser of the user
     $('.safari_only')
             .hide();
-    var messageElement = $("li[i18n='disableforchromestepone']");
-    messageElement.find('a')
-        .click(function () {
-            chrome.tabs.create({
-                url: 'https://docs.microsoft.com/en-us/microsoft-edge/extensions/guides/adding-and-removing-extensions',
-              });
-          });
-
 
     // Sort the languages list
     var languageOptions = $('#step_language_lang option');
@@ -46,7 +38,7 @@ $(function () {
     languageOptions[0].selected = true;
 
     // add the link to the anchor in "adreport2"
-    $('a', '#info').attr('href', 'http://help.getadblock.com/support/solutions/articles/6000061202').attr('target', '_blank');
+    $('a', '#info').attr('href', 'https://help.getadblock.com/support/solutions/articles/6000061202').attr('target', '_blank');
 
     // Add all of the 'click' handlers, after localizePage has run.
 
@@ -741,7 +733,7 @@ var checkmalware = function () {
         .hide();
     $('#malwarewarning').text(translate('malwarewarning'));
     $('a', '#malwarewarning')
-        .attr('href', 'http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-');
+        .attr('href', 'https://help.getadblock.com/support/solutions/articles/6000055822');
   } else {
     $('#step_update_filters_DIV')
         .show();

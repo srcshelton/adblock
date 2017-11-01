@@ -27,6 +27,9 @@ function Settings()
 
       resolve();
     });
+  }).then(function()
+  {
+    log("\n===SETTINGS FINISHED LOADING===\n\n");
   });
 }
 

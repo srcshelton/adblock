@@ -17,6 +17,8 @@ Filter.fromText = function (text) {
   if (!(text in cache)) {
     if (Filter.isSelectorFilter(text))
       cache[text] = new SelectorFilter(text);
+    else if (Filter.isAdvancedSelectorFilter(text))
+      cache[text] = new ElemHideEmulationFilter(text);
     else
       cache[text] = PatternFilter.fromText(text);
   }
@@ -35,6 +37,11 @@ Filter.isSelectorFilter = function (text) {
 
 Filter.isSelectorExcludeFilter = function (text) {
   return /\#\@\#./.test(text);
+};
+
+// Test if pattern#?#pattern
+Filter.isAdvancedSelectorFilter = function (text) {
+  return /\#\?\#./.test(text);
 };
 
 Filter.isWhitelistFilter = function (text) {
@@ -114,6 +121,21 @@ SelectorFilter.prototype = {
   __proto__: Filter.prototype,
 };
 
+// Filters that block by CSS selector.
+var ElemHideEmulationFilter = function (text) {
+  Filter.call(this); // call base constructor
+
+  var parts = text.match(/(^.*?)\#\?\#(.+$)/);
+  this._domains = Filter._toDomainSet(parts[1], ',');
+  this.selector = parts[2];
+  this.text = text;
+};
+
+ElemHideEmulationFilter.prototype = {
+
+  // Inherit from Filter - SelectorFilter.
+  __proto__: SelectorFilter.prototype,
+};
 // Filters that block by URL regex or substring.
 var PatternFilter = function () {
   Filter.call(this); // call base constructor
@@ -247,8 +269,8 @@ PatternFilter._parseRule = function (text) {
   }
 
   var key = rule.match(/[\w&=]{5,}/);
-  if (key)
-    result.key = new RegExp(key, matchcase);
+  if (key && key.length === 1)
+    result.key = key[0];
 
   // ***** -> *
   //replace, excessive wildcard sequences with a single one
@@ -284,8 +306,8 @@ PatternFilter._parseRule = function (text) {
   // If it starts or ends with *, strip that -- it's a no-op.
   rule = rule.replace(/^\.\*/, '');
   rule = rule.replace(/\.\*$/, '');
-
   result.rule = new RegExp(rule, matchcase);
+
   return result;
 };
 
@@ -313,9 +335,10 @@ PatternFilter.prototype = {
     if ((this._options & FilterOptions.FIRSTPARTY) && isThirdParty)
       return false;
 
-    if (this._key && !this._key.test(url))
+    if (this._key && url.indexOf(this._key) === -1)
       return false;
 
     return this._rule.test(url);
+
   },
 };

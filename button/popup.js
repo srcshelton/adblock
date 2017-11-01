@@ -96,7 +96,7 @@ $(function () {
     // Click handlers
     $('#bugreport').click(function () {
         BG.recordGeneralMessage('bugreport clicked');
-        BG.openTab('http://help.getadblock.com/support/tickets/new');
+        BG.openTab('https://help.getadblock.com/support/tickets/new');
         closeAndReloadPopup();
       });
 
@@ -202,9 +202,10 @@ $(function () {
         closeAndReloadPopup();
       });
 
-    $('#div_help_hide').click(function () {
-        BG.recordGeneralMessage('help clicked');
-        $('#help_hide_explanation').slideToggle();
+    $('#help_link').click(function () {
+        BG.recordGeneralMessage('feedback clicked');
+        BG.openTab('http://help.getadblock.com/');
+        closeAndReloadPopup();
       });
 
     $('#link_open').click(function () {

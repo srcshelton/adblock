@@ -2,6 +2,19 @@
 
 UNRELEASED:
 
+2.3.0.0:
+- Fixed an issue with downloading certain Filters Lists. (#158)
+- Updated translations
+- Changed all hard coded links in AdBlock from HTTP to HTTPS (SSL) (when possible).  (#163)
+- Added a warning message to the Filter Lists tab on the Options page when the user un-subscribes to EasyList and / or all filter lists. (#159)
+- Removed old 1.X to 2.X upgrade logic.  (#160)
+- Fixed an issue on the Customize tab of the AdBlock Options page with validation of user entered filter list rules.  (#167)
+- Added support for new filter list syntax. (#156)
+- Updated the AdBlock pop up menu to now have a link for Help and Feedback. (#162)
+- Modified the method of insert the unique identifier into getadblock.com pages. (#150)
+- Updated the success message on the "report an Ad" page. (#149)
+- Reduced the usage of Regexps to reduce the memory usage.  (#155)
+
 2.2.0.0:
 - Removed all HTML tags from locale messages. (#148)
 - Updated translations.
@@ -10,13 +23,13 @@ UNRELEASED:
 - Updated to use new extension APIs available in Windows 10 Creators Update / Edge 15.  (#123)
 
 1.12.0.0:
-- Updated translations. 
+- Updated translations.
 - Fixed a bug in the white list YT channel feature.  (#145)
 - Updated the URL of the 'What's this link' in the AdBlock menu next to the block counts.  (#146)
 - Added 'zh' locale as temporary workaround for Edge 15 users.  (#143)
 
 1.11.0.0:
-- Updated translations. 
+- Updated translations.
 - Updated 'bandaids' processing to help block ads on certain web sites. (#135)
 
 1.10.3.0:
@@ -52,7 +65,7 @@ UNRELEASED:
 - Fixed a bug with the 'getting' of the STATS unique identifier. (#108)
 
 1.6.0.0:
-- Added a log message when the popup menu is opened.  (#107)
+- Added a log message when the pop up menu is opened.  (#107)
 - Removed old Safari specific browser logic.  (#102)
 - Implemented the improved ping / stats processing.  (#103)
 
@@ -83,7 +96,7 @@ UNRELEASED:
 1.1.0.0:
 - Fixed a bug in the logic which generates the hidden selector tags. (#58)
 - Fixed a bug in the popover menu logic caused an error when local files were opened (the tab URL was not HTTP or HTTPS).  (#57)
-- Updated the embeded extension id so that the debug data correctly identifies 'Official' versions of AdBlock on Edge.  (#56)
+- Updated the embedded extension id so that the debug data correctly identifies 'Official' versions of AdBlock on Edge.  (#56)
 - Fixed a bug in the blacklist wizard when opened from the context menu.  (#48)
 - Fixed a bug in the unit test cases.  (#46)
 
@@ -96,7 +109,7 @@ UNRELEASED:
 - Update the AdBlock Menu and Options pages to be more accessible for non-mouse users.  (#41)
 
 0.9.12.0:
-- Enabled the AdBlock popup menu
+- Enabled the AdBlock pop up menu
 
 0.9.11.0:
 - Added EasyList-Lite as a default filter list, instead of EasyList.
@@ -106,7 +119,7 @@ UNRELEASED:
 - Changed the EasyList URL to use a minified version of EasyList.
 
 0.9.8.0:
-- Added logging of Javascript exceptions during a data save operation.
+- Added logging of JavaScript exceptions during a data save operation.
 
 0.9.7.0:
 - Added a check for an error when querying for tabs.
@@ -119,8 +132,8 @@ UNRELEASED:
 
 0.9.5.0:
  - Updated the AdBlock icons size.
- - Updated the AdBlock icon tooltip text - removing 'click for details'
+ - Updated the AdBlock icon tool-tip text - removing 'click for details'
 
 0.9.4.0:
- - Removed old comments from Changelog
+ - Removed old comments from Change log
  - Release based on AdBlock 2.56

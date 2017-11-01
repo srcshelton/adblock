@@ -3,78 +3,11 @@
 var _settings = {};
 var _myfilters = {};
 
-var initializeBackgroundObjects = function (storageData) {
-
-  if (Object.keys(storageData).length) {
-
-    var migrateLogMessageKey = 'migrateLogMessageKey';
-    var migrateLogMessageString = 'Date migrated: ' + new Date() + ' \n';
-    var migrateLog = function ()
-    {
-      console.log.apply(console, arguments);
-      var args = Array.prototype.slice.call(arguments);
-      migrateLogMessageString = migrateLogMessageString + args.join(' ') + '\n';
-      chrome.storage.local.set({ migrateLogMessageKey: migrateLogMessageString });
-    };
-
-    if (storageData.settings) {
-      chrome.storage.local.set({ settings: storageData.settings });
-      migrateLog('migrated settings ' + JSON.stringify(storageData.settings));
-    }
-
-    if (storageData.filter_lists) {
-      chrome.storage.local.set( { filter_lists: storageData.filter_lists }, function () {
-          if (chrome.runtime.lastError) {
-            migrateLog('filter list data migrate write failure', chrome.runtime.lastError);
-          } else {
-            delete localStorage.filter_lists;
-            migrateLog('Done migrating subscriptions, count: ', Object.keys(storageData.filter_lists).length);
-          }
-        });
-    }
-
-    if (storageData.last_subscriptions_check) {
-      chrome.storage.local.set({ last_subscriptions_check: storageData.last_subscriptions_check });
-      migrateLog('migrated last_subscriptions_check ' + storageData.last_subscriptions_check);
-    }
-
-    if (storageData.custom_filters) {
-      chrome.storage.local.set({ custom_filters: storageData.custom_filters }, function () {
-          if (chrome.runtime.lastError) {
-            migrateLog('custom_filters data migrate write failure', chrome.runtime.lastError);
-          } else {
-            delete localStorage.custom_filters;
-            migrateLog('migrated custom_filters ' + storageData.custom_filters);
-          }
-      });
-    }
-
-    if (storageData.custom_filter_count) {
-      chrome.storage.local.set({ custom_filter_count: storageData.custom_filter_count });
-      migrateLog('migrated custom_filter_count ' + JSON.stringify(storageData.custom_filter_count));
-    }
-
-    if (storageData.exclude_filters) {
-      chrome.storage.local.set({ exclude_filters: storageData.exclude_filters }, function () {
-          if (chrome.runtime.lastError) {
-            migrateLog('exclude_filters data migrate write failure', chrome.runtime.lastError);
-          } else {
-            delete localStorage.exclude_filters;
-            migrateLog('migrated exclude_filters ' + storageData.exclude_filters);
-          }
-      });
-    }
-
-    if (storageData['malware-notification']) {
-      chrome.storage.local.set({ 'malware-notification': storageData['malware-notification'] });
-      migrateLog('migrated malware-notification ' + storageData['malware-notification']);
-    }
-  }
+var initializeBackgroundObjects = function () {
 
   _settings = new Settings();
   _settings.onload().then(function ()
   {
-
     if (getSettings().debug_logging) {
       logging(true);
     }
@@ -227,6 +160,18 @@ if (chrome.runtime.onInstalled) {
 // in the recordOneAdBlocked() function.  Data loss can occur when using storage.local.get/set
 // in quick succession.
 var blockCounts = (function () {
+
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (!(request.message == "recordOneAdBlocked")) {
+      return;
+    }
+    if (sender && sender.tab && sender.tab.id) {
+      blockCounts.recordOneAdBlocked(sender.tab.id);
+      updateBadge(sender.tab.id);
+    }
+    sendResponse({});
+  });
+
   var BCkey = 'blockage_stats';
   return {
     init: function () {
@@ -585,7 +530,8 @@ var blockCounts = (function () {
           //and track these updates in the frameData object.
           var tabData = frameData.get(details.tabId, details.frameId);
           if (tabData &&
-              tabData.url !== details.url) {
+              tabData.url !== details.url &&
+              !page_is_unblockable(details.url)) {
               details.type = 'main_frame';
               details.url = getUnicodeUrl(details.url);
               frameData.track(details);
@@ -776,6 +722,9 @@ var blockCounts = (function () {
           // Update custom filter count cache and value stored in localStorage.
           // Inputs: new_count_map:count map - count map to replace existing count cache
           updateCustomFilterCountMap: function (new_count_map) {
+            if (new_count_map) {
+              new_count_map = JSON.parse(JSON.stringify(new_count_map));
+            }            
             cache = new_count_map || cache;
             _updateCustomFilterCount();
           },
@@ -1290,6 +1239,7 @@ var blockCounts = (function () {
       // If |matchGeneric| is , don't test request against hiding generic rules
       var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
       result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+      result.advanceSelectors = _myfilters.advanceHiding.advanceFiltersFor(options.domain);
     }
     sendResponse(result);
   });
@@ -1513,7 +1463,7 @@ var blockCounts = (function () {
             }
             chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
                 if (buttonIndex === 0) {
-                    openTab("http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
+                    openTab("https://help.getadblock.com/support/solutions/articles/6000055822");
                 }
                 if (buttonIndex === 1) {
                     storage_set('malware-notification', false);
@@ -1736,59 +1686,4 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   );
 
-  // Check to see if any legacy data needs to be migrated...
-  // block_counts & STATS persisted data remains in local storage.
-  // only Settings, Filter Lists subscriptions, custom filters (and related info) are migrated
-  // to chrome.storage.local.
-  (function() {
-    'use strict';
-    var getStorageValue = function (key) {
-      return storage_get(key);
-    };
-    // Send the initial data dump.
-    var storageData = {};
-    if (localStorage.settings) {
-      storageData.settings = getStorageValue("settings");
-      delete localStorage.settings;
-    }
-    if (localStorage.filter_lists) {
-      // since we now have unlimited storage,
-      // migrate user that are subscribed to easylist_lite
-      // to easylist
-      var filterLists = getStorageValue("filter_lists");
-      if (filterLists &&
-          filterLists.easylist_lite &&
-          filterLists.easylist_lite.subscribed) {
-        filterLists.easylist_lite.subscribed = false;
-        delete filterLists.easylist_lite.text;
-        delete filterLists.easylist_lite.last_update;
-        delete filterLists.easylist_lite.expiresAfterHours;
-        delete filterLists.easylist_lite.last_update_failed_at;
-        delete filterLists.easylist_lite.last_modified;
-        filterLists.easylist.subscribed = true;
-      }
-      storageData.filter_lists = filterLists;
-    }
-    if (localStorage.last_subscriptions_check) {
-      storageData.last_subscriptions_check = getStorageValue("last_subscriptions_check");
-      delete localStorage.last_subscriptions_check;
-    }
-    if (localStorage["malware-notification"]) {
-      storageData["malware-notification"] = getStorageValue("malware-notification");
-      delete localStorage["malware-notification"];
-    }
-    if (localStorage.custom_filters) {
-      storageData.custom_filters = getStorageValue("custom_filters");
-    }
-    if (localStorage.custom_filter_count) {
-      storageData.custom_filter_count = getStorageValue("custom_filter_count");
-      delete localStorage.custom_filter_count;
-    }
-    if (localStorage.exclude_filters) {
-      storageData.exclude_filters = getStorageValue("exclude_filters");
-      delete localStorage.exclude_filters;
-    }
-    initializeBackgroundObjects(storageData);
-  })();
-
-  log("\n===FINISHED LOADING===\n\n");
+  initializeBackgroundObjects();

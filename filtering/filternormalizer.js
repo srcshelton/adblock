@@ -62,7 +62,7 @@ var FilterNormalizer = {
         return false;
 
     // Convert old-style hiding rules to new-style.
-    if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/\#\@?\#./.test(filter)) {
+    if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/\#\@?\#./.test(filter) && !Filter.isAdvancedSelectorFilter(filter)) {
 
       // Throws exception if unparseable.
       var oldFilter = filter;
@@ -104,6 +104,8 @@ var FilterNormalizer = {
       }
 
       var parsedFilter = new SelectorFilter(filter);
+    } else if (Filter.isAdvancedSelectorFilter(filter)) {
+      var parsedFilter = new ElemHideEmulationFilter(filter);
 
     } else { // If it is a blocking rule...
       var parsedFilter = PatternFilter.fromText(filter); // throws if invalid

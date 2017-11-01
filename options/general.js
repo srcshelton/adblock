@@ -32,13 +32,19 @@ var generalInit = function () {
     $("input.feature[type='checkbox']").change(function () {
         var isEnabled = $(this).is(':checked');
         var name = this.id.substring(7); // TODO: hack
+        var aaContainingDiv = $("div[name='acceptable_ads']");
+        var aaCheckbox = $(aaContainingDiv).find('input');
         if (this.id === 'acceptable_ads') {
           if (isEnabled) {
             $('#acceptable_ads_info').slideUp();
+            aaCheckbox.prop('checked', true);
+            $('.subscription_info', aaContainingDiv).text(translate('fetchinglabel'));
             BG.subscribe({ id: 'acceptable_ads' });
           } else {
             $('#acceptable_ads_info').slideDown();
             $('#acceptable_ads_content_blocking_message').text('').slideUp();
+            aaCheckbox.prop('checked', false);
+            $('.subscription_info', aaContainingDiv).text(translate('unsubscribedlabel'));
             BG.unsubscribe({ id: 'acceptable_ads', del: false });
           }
 

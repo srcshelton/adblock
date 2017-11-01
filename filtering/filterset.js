@@ -90,6 +90,38 @@ FilterSet.prototype = {
       result.push(data[k].selector);
     return result;
   },
+  // Get a list of all Filter objects that should be tested on the given
+  // domain, and return it with the given map function applied. This function
+  // is for advanced hiding rules only
+  advanceFiltersFor: function (domain, matchGeneric) {
+
+    domain = getUnicodeDomain(domain);
+    var limited = this._viewFor(domain, matchGeneric);
+    var data = {};
+
+    // data = set(limited.items)
+    for (var subdomain in limited.items) {
+      var entry = limited.items[subdomain];
+      for (var i = 0; i < entry.length; i++) {
+        var filter = entry[i];
+        data[filter.id] = filter;
+      }
+    }
+
+    // data -= limited.exclude
+    for (var subdomain in limited.exclude) {
+      for (var filterId in limited.exclude[subdomain]) {
+        delete data[filterId];
+      }
+    }
+
+    var result = [];
+    for (var k in data) {
+      result.push(data[k]);
+    }
+    return result;
+  },
+
 
   // Return the filter that matches this url+elementType on this frameDomain:
   // the filter in a relevant entry in this.items who is not also in a

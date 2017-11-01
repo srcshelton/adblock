@@ -101,17 +101,25 @@ CheckboxForFilterList.prototype = {
             change(function () {
                 var parent = $(this).parent();
                 var checked = $(this).is(':checked');
-                $('.remove_filter_list', parent).
-                    css('display', checked ? 'none' : 'inline');
                 var id = parent.attr('name');
                 optionalSettings = BG.getSettings();
                 if (checked) {
+                  if (!SubscriptionUtil.validateOverSubscription()){
+                    $(this).prop('checked', false);
+                    return;
+                  }
+
                   $('.subscription_info', parent).text(translate('fetchinglabel'));
                   SubscriptionUtil.subscribe(id);
                   if (FilterListUtil.cached_subscriptions[id].unsubscribed) {
                     delete FilterListUtil.cached_subscriptions[id].unsubscribed;
                   }
                 } else {
+                  if (!SubscriptionUtil.validateUnderSubscription()){
+                    $(this).prop('checked', true);
+                    return;
+                  }
+
                   SubscriptionUtil.unsubscribe(id, false);
                   $('.subscription_info', parent).
                       text(translate('unsubscribedlabel'));
@@ -119,6 +127,8 @@ CheckboxForFilterList.prototype = {
                     delete FilterListUtil.cached_subscriptions[id].subscribed;
                   }
                 }
+                $('.remove_filter_list', parent).css('display', checked ? 'none' : 'inline');
+
                 //if the checkbox clicked is the malware
                 //add a checkbox to for the user to indicate if they wish to be notified of blocked malware
                 if (id && id === 'malware' && checked) {
@@ -472,14 +482,30 @@ SubscriptionUtil.validateOverSubscription = function () {
 
     return confirm(translate('you_know_thats_a_bad_idea_right'));
   };
+
+// Returns true if the user knows what they are doing, unsubscribing from all
+// filter lists.
+SubscriptionUtil.validateUnderSubscription = function () {
+
+    if ($('input:checkbox:checked.filter_list_control').length >= 1)
+        return true;
+    if (optionalSettings.show_advanced_options) {
+      // In case of an advanced user, only warn once every 30 minutes, even
+      // if the options page wasn't open all the time. 30 minutes = 1/48 day
+      if ($.cookie('noUnderSubscriptionWarning')) {
+        return true;
+      } else {
+        $.cookie('noUnderSubscriptionWarning', 'true', { expires: (1 / 48) });
+      }
+    }
+
+    return confirm(translate('unsubscribe_from_all_confirmation'));
+  };
+
 // Subscribe to the filter list with the given |id|.
 // Input:
 //   id:string - Id of the filter list to be subscribed to.
 SubscriptionUtil.subscribe = function (id, title) {
-    if (!SubscriptionUtil.validateOverSubscription()) {
-      return;
-    }
-
     var parameters = { id: id, title: title };
     if (FilterListUtil.cached_subscriptions[id] && FilterListUtil.cached_subscriptions[id].requiresList) {
       parameters.requires = FilterListUtil.cached_subscriptions[id].requiresList;
@@ -487,11 +513,17 @@ SubscriptionUtil.subscribe = function (id, title) {
 
     SubscriptionUtil._updateCacheValue(id);
     BG.subscribe(parameters);
+
     if (id === 'acceptable_ads') {
       $('#acceptable_ads_info').slideUp();
       $('#acceptable_ads').prop('checked', true);
     }
+
+    if ((id === 'easylist') || (id === 'easylist_lite')) {
+      $('#easylist_info').slideUp();
+    }
   };
+
 // Unsubscribe to the filter list with the given |id|.
 // Input:
 //   id:string - Id of the filter list to be subscribed to.
@@ -499,11 +531,18 @@ SubscriptionUtil.subscribe = function (id, title) {
 SubscriptionUtil.unsubscribe = function (id, del) {
     SubscriptionUtil._updateCacheValue(id);
     BG.unsubscribe({ id: id, del: del });
+
     if (id === 'acceptable_ads') {
       $('#acceptable_ads_info').slideDown();
       $('#acceptable_ads').prop('checked', false);
     }
+
+    if (((id === 'easylist') || (id === 'easylist_lite')) 
+      && ($('div:has(:checkbox:checked)[name="easylist"], div:has(:checkbox:checked)[name="easylist_lite"]').length === 0)) {
+        $('#easylist_info').slideDown();
+    }
   };
+
 // Update the given filter list in the cached list.
 // Input:
 //   id:string - Id of the filter list to be updated.
@@ -528,11 +567,10 @@ function CustomFilterListUploadUtil() {
 //   url:string - Url for the custom filter list.
 //   subscribe_to:string - The id of the custom filter list.
 CustomFilterListUploadUtil._performUpload = function (url, subscribe_to, title) {
-    SubscriptionUtil.subscribe(subscribe_to, title);
     var entry = {
         id: subscribe_to,
         url: url,
-        subscribed: true,
+        subscribed: false,
         unsubscribe: true,
         user_submitted: true,
         label: title || '',

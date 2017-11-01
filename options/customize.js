@@ -143,7 +143,7 @@ var customizeInit = function () {
         var response = BG.FilterNormalizer.validateLine((blockUrl + blockDomain));
         if (response)
             ok = true;
-        var secondResponse = BG.isSelectorFilter(blockUrl);
+        var secondResponse = BG.Filter.isSelectorFilter(blockUrl);
         if (secondResponse)
             ok = false;
 
@@ -169,7 +169,7 @@ var customizeInit = function () {
         if (response)
             ok = true;
 
-        var secondResponse = BG.isSelectorFilter(unblockUrl);
+        var secondResponse = BG.Filter.isSelectorFilter(unblockUrl);
         if (!unblockUrl || secondResponse)
             ok = false;
 
